@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeetCode 100 Problems - Interactive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+        
+        .controls {
+            padding: 20px;
+            background: #f9f9f9;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .filter-group label {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        input[type="text"], select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            min-width: 200px;
+        }
+        
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .folder-selector {
+            background: #e8eaf6;
+            border: 2px solid #667eea;
+            padding: 10px 15px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 250px;
+        }
+        
+        .folder-selector label {
+            font-size: 0.85em;
+            font-weight: 700;
+            color: #667eea;
+            white-space: nowrap;
+        }
+        
+        #folderPath {
+            flex: 1;
+            background: white;
+            border: 1px solid #667eea;
+        }
+        
+        .clear-btn {
+            padding: 8px 16px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .clear-btn:hover {
+            background: #ff5252;
+        }
+        
+        .stats {
+            padding: 15px 20px;
+            background: #e3f2fd;
+            color: #1976d2;
+            font-weight: 600;
+            border-bottom: 1px solid #bbdefb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .folder-status {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .folder-status.active {
+            color: #4caf50;
+            font-weight: 700;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+            padding: 20px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+            z-index: 10;
+        }
+        
+        th:hover {
+            background: #5568d3;
+        }
+        
+        th.sortable::after {
+            content: ' ⇅';
+            opacity: 0.5;
+        }
+        
+        th.sort-asc::after {
+            content: ' ▲';
+            opacity: 1;
+        }
+        
+        th.sort-desc::after {
+            content: ' ▼';
+            opacity: 1;
+        }
+        
+        td {
+            padding: 12px 8px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .num-col {
+            font-weight: 600;
+            color: #667eea;
+            text-align: center;
+            min-width: 50px;
+        }
+        
+        .title-col {
+            font-weight: 500;
+            min-width: 250px;
+            position: relative;
+        }
+        
+        .title-link {
+            color: #667eea;
+            text-decoration: none;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .title-link:hover {
+            border-bottom-color: #667eea;
+            color: #5568d3;
+        }
+
+        .title-link.preview-enabled {
+            cursor: pointer;
+        }
+
+        .title-link:active {
+            transform: scale(0.98);
+        }
+        
+        .difficulty-col {
+            text-align: center;
+            min-width: 80px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .badge-easy {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .badge-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .badge-hard {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .concept-col {
+            font-size: 13px;
+            color: #666;
+            max-width: 300px;
+        }
+        
+        .loop-col {
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: #764ba2;
+        }
+        
+        .complexity-col {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #2196F3;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 1.2em;
+        }
+        
+        /* Tooltip/Preview Styles */
+        .preview-tooltip {
+            position: fixed;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            padding: 20px;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            pointer-events: auto;
+        }
+        
+        .preview-tooltip.visible {
+            display: block;
+        }
+        
+        .preview-tooltip.loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+        }
+        
+        .preview-header {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+            margin-left: 15px;
+        }
+
+        .close-btn:hover {
+            background: #ff5252;
+            transform: scale(1.1);
+        }
+
+        .preview-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .preview-overlay.visible {
+            display: block;
+        }
+        
+        .preview-section {
+            margin-bottom: 20px;
+        }
+        
+        .preview-section h3 {
+            font-size: 1.1em;
+            color: #333;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .preview-section p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .preview-code {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+        
+        .preview-code pre {
+            margin: 0;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error-message {
+            color: #d32f2f;
+            padding: 10px;
+            background: #ffebee;
+            border-radius: 4px;
+        }
+        
+        .warning-message {
+            color: #f57c00;
+            padding: 10px;
+            background: #fff3e0;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            input[type="text"], select {
+                min-width: 100%;
+            }
+            
+            .folder-selector {
+                min-width: 100%;
+            }
+            
+            .preview-tooltip {
+                max-width: 90vw;
+                max-height: 70vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 LeetCode 100 Problems</h1>
+            <p class="subtitle">Sortable, Filterable & Interactive - Click problem titles to view details</p>
+        </header>
+
+        <div id="warningBanner" style="background: #fff3cd; border-bottom: 3px solid #ffc107; padding: 15px 20px; display: none;">
+            <strong>⚠️ IMPORTANT:</strong> This page must be served via HTTP server for file loading to work.<br>
+            <strong>To start:</strong> <code style="background: #fff; padding: 2px 8px; border-radius: 3px;">cd /Users/sparkt/2026C/AIHR/Questions && python3 -m http.server 8000</code><br>
+            <strong>Then open:</strong> <a href="http://localhost:8000/100Q.html" style="color: #1976d2;">http://localhost:8000/100Q.html</a>
+        </div>
+        
+        <div class="controls">
+            <div class="folder-selector">
+                <label>📁 Markdown Folder:</label>
+                <input type="text" id="folderPath" placeholder="e.g., LeetCode or ../Questions/LeetCode" value="LeetCode">
+            </div>
+            
+            <div class="filter-group">
+                <label>Search</label>
+                <input type="text" id="searchInput" placeholder="Search title, concept, categories...">
+            </div>
+            
+            <div class="filter-group">
+                <label>Difficulty</label>
+                <select id="difficultyFilter">
+                    <option value="">All</option>
+                    <option value="EASY">Easy</option>
+                    <option value="MEDIUM">Medium</option>
+                    <option value="HARD">Hard</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label>Algorithm</label>
+                <input type="text" id="algorithmFilter" placeholder="e.g., DFS, BFS, DP">
+            </div>
+            
+            <div class="filter-group">
+                <label>Data Structure</label>
+                <input type="text" id="dataStructureFilter" placeholder="e.g., Stack, Tree, HashMap">
+            </div>
+            
+            <button class="clear-btn" onclick="clearFilters()">Clear Filters</button>
+        </div>
+        
+        <div class="stats">
+            <span id="stats">Showing 100 of 100 problems</span>
+            <span id="folderStatus" class="folder-status">📂 Hover over titles to load previews</span>
+        </div>
+        
+        <div class="table-wrapper">
+            <table id="problemTable">
+                <thead>
+                    <tr>
+                        <th class="sortable" onclick="sortTable(0)">#</th>
+                        <th class="sortable" onclick="sortTable(1)">Title</th>
+                        <th class="sortable" onclick="sortTable(2)">Difficulty</th>
+                        <th class="sortable" onclick="sortTable(3)">Categories</th>
+                        <th class="sortable" onclick="sortTable(4)">Algorithms</th>
+                        <th class="sortable" onclick="sortTable(5)">Data Structures</th>
+                        <th class="sortable" onclick="sortTable(6)">Time</th>
+                        <th class="sortable" onclick="sortTable(7)">Space</th>
+                        <th class="sortable" onclick="sortTable(8)">Code #</th>
+                        <th class="sortable" onclick="sortTable(9)">While</th>
+                        <th class="sortable" onclick="sortTable(10)">For</th>
+                        <th class="sortable" onclick="sortTable(11)">Core Concept</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+            <div id="noResults" class="no-results" style="display: none;">
+                No problems match your filters 🔍
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Overlay -->
+    <div id="previewOverlay" class="preview-overlay" onclick="closePreview()"></div>
+
+    <!-- Preview Tooltip -->
+    <div id="previewTooltip" class="preview-tooltip"></div>
+
+    <script>
+        const problems = [{"num": "001", "title": "Minimum Remove to Make Valid Parentheses", "difficulty": "MEDIUM", "categories": "String, Stack", "algorithms": "Iteration", "dataStructures": "Stack, Trie, Set, Array", "time": "O(n)", "space": "O(n)", "whileLoops": "0", "forLoops": "1", "concept": "Remove minimum parentheses using stack to track indices.", "codeLength": 20}, {"num": "002", "title": "Valid Word Abbreviation", "difficulty": "EASY", "categories": "Two Pointers, String", "algorithms": "Two Pointers", "dataStructures": "Array", "time": "O(n)", "space": "O(1)", "whileLoops": "2", "forLoops": "0", "concept": "Two pointers to validate abbreviation.", "codeLength": 24}, {"num": "003", "title": "Binary Tree Vertical Order Traversal", "difficulty": "MEDIUM", "categories": "Hash Table, Tree, Depth-First Search, Breadth-First Search, Sorting, Binary Tree", "algorithms": "DFS, BFS", "dataStructures": "HashMap, Deque, Tree, Graph, Array", "time": "O(n)", "space": "O(n)", "whileLoops": "1", "forLoops": "0", "concept": "BFS with column tracking using hash table.", "codeLength": 19}, {"num": "004", "title": "Valid Palindrome II", "difficulty": "EASY", "categories": "Two Pointers, String, Greedy", "algorithms": "Two Pointers, Greedy", "dataStructures": "Graph, Array", "time": "O(n)", "space": "O(1)", "whileLoops": "2", "forLoops": "0", "concept": "Two pointers with one skip allowed.", "codeLength": 20}, {"num": "005", "title": "Lowest Common Ancestor of a Binary Tree III", "difficulty": "MEDIUM", "categories": "Hash Table, Two Pointers, Tree, Binary Tree", "algorithms": "Two Pointers", "dataStructures": "HashMap, Tree, LinkedList, Array", "time": "O(h)", "space": "O(1)", "whileLoops": "1", "forLoops": "0", "concept": "Use parent pointers like finding intersection in linked lists.", "codeLength": 13}, {"num": "006", "title": "Kth Largest Element in an Array", "difficulty": "MEDIUM", "categories": "Array, Divide and Conquer, Sorting, Heap (Priority Queue), Quickselect", "algorithms": "Iteration", "dataStructures": "Queue, Heap, Array", "time": "O(n log k)", "space": "O(k)", "whileLoops": "0", "forLoops": "1", "concept": "Use min heap of size k for optimal solution.", "codeLength": 13}, {"num": "007", "title": "Binary Tree Right Side View", "difficulty": "MEDIUM", "categories": "Tree, Depth-First Search, Breadth-First Search, Binary Tree", "algorithms": "DFS, BFS", "dataStructures": "Deque, Tree, Graph, Array", "time": "O(n)", "space": "O(w)", "whileLoops": "1", "forLoops": "1", "concept": "BFS level order, take last node at each level.", "codeLength": 22}, {"num": "008", "title": "Basic Calculator II", "difficulty": "MEDIUM", "categories": "Math, String, Stack", "algorithms": "Iteration", "dataStructures": "Stack, Array", "time": "O(n)", "space": "O(n)", "whileLoops": "0", "forLoops": "1", "concept": "Stack-based calculator with operator precedence.", "codeLength": 26}, {"num": "009", "title": "Lowest Common Ancestor of a Binary Tree", "difficulty": "MEDIUM", "categories": "Tree, Depth-First Search, Binary Tree", "algorithms": "DFS", "dataStructures": "Stack, Tree, Graph, Array", "time": "O(n)", "space": "O(h)", "whileLoops": "0", "forLoops": "0", "concept": "Recursive DFS to find LCA.", "codeLength": 14}, {"num": "010", "title": "Find Peak Element", "difficulty": "MEDIUM", "categories": "Array, Binary Search", "algorithms": "Binary Search", "dataStructures": "Array", "time": "O(log n)", "space": "O(1)", "whileLoops": "1", "forLoops": "0", "concept": "Binary search to find peak in O(log n).", "codeLength": 15}, {"num": "011", "title": "Nested List Weight Sum", "difficulty": "MEDIUM", "categories": "Depth-First Search, Breadth-First Search", "algorithms": "DFS, BFS", "dataStructures": "Tree, Array", "time": "O(n)", "space": "O(d)", "whileLoops": "0", "forLoops": "1", "concept": "DFS recursive approach with depth tracking.", "codeLength": 14}, {"num": "012", "title": "Random Pick with Weight", "difficulty": "MEDIUM", "categories": "Array, Math, Binary Search, Prefix Sum, Randomized", "algorithms": "Binary Search", "dataStructures": "Graph, Array", "time": "O(n)", "space": "O(n)", "whileLoops": "1", "forLoops": "1", "concept": "Initialize with weights array, computing prefix sums for weighted random selecti...", "codeLength": 34}, {"num": "013", "title": "Sum Root to Leaf Numbers", "difficulty": "MEDIUM", "categories": "Tree, Depth-First Search, Binary Tree", "algorithms": "DFS, BFS", "dataStructures": "Stack, Tree, Graph, Array", "time": "O(n)", "space": "O(h)", "whileLoops": "0", "forLoops": "0", "concept": "Depth-First Search traversal.", "codeLength": 18}, {"num": "014", "title": "Diameter of Binary Tree", "difficulty": "EASY", "categories": "Tree, Depth-First Search, Binary Tree", "algorithms": "DFS, BFS", "dataStructures": "Stack, Tree, Graph, Array", "time": "O(n)", "space": "O(h)", "whileLoops": "0", "forLoops": "0", "concept": "Depth-First Search traversal.", "codeLength": 18}, {"num": "015", "title": "Top K Frequent Elements", "difficulty": "MEDIUM", "categories": "Array, Hash Table, Divide and Conquer, Sorting, Heap (Priority Queue), Bucket Sort, Counting, Quickselect", "algorithms": "Iteration", "dataStructures": "HashMap, Queue, Heap, Array", "time": "O(n)", "space": "O(n)", "whileLoops": "0", "forLoops": "3", "concept": "Find k most frequent elements using bucket sort.", "codeLength": 22}, {"num": "016", "title": "Merge Intervals", "difficulty": "MEDIUM", "categories": "Array, Sorting", "algorithms": "Iteration", "dataStructures": "Array", "time": "O(n log n)", "space": "O(n)", "whileLoops": "0", "forLoops": "1", "concept": "Merge overlapping intervals.", "codeLength": 19}, {"num": "017", "title": "Two Sum", "difficulty": "EASY", "categories": "Array, Hash Table", "algorithms": "Iteration", "dataStructures": "HashMap, Array", "time": "O(n)", "space": "O(n)", "whileLoops": "0", "forLoops": "1", "concept": "Find two numbers that add up to target using hash map.", "codeLength": 12}, {"num": "018", "title": "Best Time to Buy and Sell Stock", "difficulty": "EASY", "categories": "Array, Dynamic Programming", "algorithms": "DP", "dataStructures": "Array", "time": "O(n)", "space": "O(1)", "whileLoops": "0", "forLoops": "1", "concept": "Find maximum profit with single buy/sell.", "codeLength": 15}, {"num": "019", "title": "Merge k Sorted Lists", "difficulty": "HARD", "categories": "Linked List, Divide and Conquer, Heap (Priority Queue), Merge Sort", "algorithms": "Iteration", "dataStructures": "Stack, Queue, Heap, LinkedList, Array", "time": "O(N log k)", "space": "O(k)", "whileLoops": "1", "forLoops": "1", "concept": "Merge k sorted linked lists using min heap.", "codeLength": 33}, {"num": "020", "title": "Valid Parentheses", "difficulty": "EASY", "categories": "String, Stack", "algorithms": "Iteration", "dataStructures": "Stack, Array", "time": "O(n)", "space": "O(n)", "whileLoops": "0", "forLoops": "1", "concept": "Check if parentheses are valid using stack.", "codeLength": 15}, {"num": "021", "title": "Pow(x, n)", "difficulty": "MEDIUM", "categories": "Math, Recursion", "algorithms": "Iteration", "dataStructures": "Graph, Array", "time": "O(log n)", "space": "O(log n)", "whileLoops": "0", "forLoops": "0", "concept": "Fast power using binary exponentiation (divide and conquer).", "codeLength": 16}, {"num": "022", "title": "Buildings With an Ocean View", "difficulty": "MEDIUM", "categories": "Array, Stack, Monotonic Stack", "algorithms": "Greedy", "dataStructures": "Stack, Graph, Array", "time": "O(n)", "space": "O(1)", "whileLoops": "0", "forLoops": "1", "concept": "Find buildings with ocean view using right-to-left traversal.", "codeLength": 15}, {"num": "023", "title": "Custom Sort String", "difficulty": "MEDIUM", "categories": "Hash Table, String, Sorting", "algorithms": "Iteration", "dataStructures": "HashMap, Array", "time": "O(n + m)", "space": "O(1)", "whileLoops": "0", "forLoops": "2", "concept": "Count characters and build result based on custom order.", "codeLength": 17}, {"num": "024", "title": "K Closest Points to Origin", "difficulty": "MEDIUM", "categories": "Array, Math, Divide and Conquer, Geometry, Sorting, Heap (Priority Queue), Quickselect", "algorithms": "Iteration", "dataStructures": "Queue, Heap, Tree, Array", "time": "O(n log k)", "space": "O(k)", "whileLoops": "0", "forLoops": "1", "concept": "Use max-heap to maintain k closest points efficiently.", "codeLength": 19}, {"num": "025", "title": "Clone Graph", "difficulty": "MEDIUM", "categories": "Hash Table, Depth-First Search, Breadth-First Search, Graph", "algorithms": "DFS, BFS", "dataStructures": "HashMap, Graph, Array", "time": "O(N + E)", "space": "O(N)", "whileLoops": "0", "forLoops": "1", "concept": "DFS with hash map to track cloned nodes.", "codeLength": 19}, {"num": "026", "title": "Subarray Sum Equals K", "difficulty": "MEDIUM", "categories": "Array, Hash Table, Prefix Sum", "algorithms": "Iteration", "dataStructures": "HashMap, Tree, Array", "time": "O(n)", "space": "O(n)", "whileLoops": "0", "forLoops": "1", "concept": "Hash table solution for O(1) lookups.", "codeLength": 14}, {"num": "027", "title": "Range Sum of BST", "difficulty": "EASY", "categories": "Tree, Depth-First Search, Binary Search Tree, Binary Tree", "algorithms": "DFS, BFS, Binary Search", "dataStructures": "Stack, Deque, Tree, Trie", "time": "O(n)", "space": "O(h)", "whileLoops": "0", "forLoops": "0", "concept": "DFS with BST property pruning for optimal performance.", "codeLength": 24}, {"num": "028", "title": "Dot Product of Two Sparse Vectors", "difficulty": "MEDIUM", "categories": "Array, Hash Table, Two Pointers, Design", "algorithms": "Binary Search, Two Pointers", "dataStructures": "HashMap, Graph, Trie, Array", "time": "O(n)", "space": "O(L)", "whileLoops": "0", "forLoops": "2", "concept": "Store only non-zero elements in hash map for space efficiency.", "codeLength": 26}, {"num": "029", "title": "Valid Palindrome", "difficulty": "EASY", "categories": "Two Pointers, String", "algorithms": "Two Pointers", "dataStructures": "Array", "time": "O(n)", "space": "O(1)", "whileLoops": "3", "forLoops": "0", "concept": "Two pointers with in-place character validation.", "codeLength": 19}, {"num": "030", "title": "Next Permutation", "difficulty": "MEDIUM", "categories": "Array, Two Pointers", "algorithms": "Binary Search, Two Pointers, Greedy", "dataStructures": "HashMap, Heap, Graph, Array", "time": "O(n)", "space": "O(1)", "whileLoops": "3", "forLoops": "0", "concept": "Find next permutation in-place using optimal single-pass algorithm.", "codeLength": 26}, {"num": "031", "title": "Shortest Path in Binary Matrix", "difficulty": "MEDIUM", "categories": "Array, Breadth-First Search, Matrix", "algorithms": "BFS", "dataStructures": "Deque, Tree, Graph, Array", "time": "O(n^2)", "space": "O(n^2)", "whileLoops": "1", "forLoops": "1", "concept": "BFS to find shortest path in binary matrix with 8-directional movement.", "codeLength": 28}, {"num": "032", "title": "Copy List with Random Pointer", "difficulty": "MEDIUM", "categories": "Hash Table, Linked List", "algorithms": "Iteration", "dataStructures": "HashMap, Graph, LinkedList, Array", "time": "O(n)", "space": "O(n)", "whileLoops": "2", "forLoops": "0", "concept": "Two-pass approach with hash map.", "codeLength": 22}, {"num": "033", "title": "Merge Sorted Array", "difficulty": "EASY", "categories": "Array, Two Pointers, Sorting", "algorithms": "Two Pointers", "dataStructures": "Stack, Array", "time": "O(m + n)", "space": "O(1)", "whileLoops": "1", "forLoops": "0", "concept": "Merge two sorted arrays using three-pointer approach from end.", "codeLength": 19}, {"num": "034", "title": "Sliding Window Median", "difficulty": "HARD", "categories": "Array, Hash Table, Sliding Window, Heap (Priority Queue)", "algorithms": "Two Pointers", "dataStructures": "HashMap, Stack, Queue, Heap, Array", "time": "O(n log k)", "space": "O(k)", "whileLoops": "2", "forLoops": "2", "concept": "Two heaps with lazy deletion for sliding window median.", "codeLength": 60}, {"num": "035", "title": "Simplify Path", "difficulty": "MEDIUM", "categories": "String, Stack", "algorithms": "Iteration", "dataStructures": "Stack, Array", "time": "O(n)", "space": "O(n)", "whileLoops": "0", "forLoops": "1", "concept": "Use stack to handle directory navigation.", "codeLength": 19}, {"num": "036", "title": "Making A Large Island", "difficulty": "HARD", "categories": "Array, Depth-First Search, Breadth-First Search, Union Find, Matrix", "algorithms": "DFS, BFS, Union-Find", "dataStructures": "Graph, Set, Array", "time": "O(n^2)", "space": "O(n^2)", "whileLoops": "0", "forLoops": "7", "concept": "Label islands with DFS, then check each 0 for potential connections.", "codeLength": 47}, {"num": "037", "title": "Minimum Window Substring", "difficulty": "HARD", "categories": "Hash Table, String, Sliding Window", "algorithms": "Two Pointers", "dataStructures": "HashMap, Array", "time": "O(m+n)", "space": "O(k)", "whileLoops": "2", "forLoops": "0", "concept": "Find minimum window substring using sliding window.", "codeLength": 35}, {"num": "038", "title": "Accounts Merge", "difficulty": "MEDIUM", "categories": "Array, Hash Table, String, Depth-First Search, Breadth-First Search, Union Find, Sorting", "algorithms": "DFS, BFS, Union-Find", "dataStructures": "HashMap, Graph, Set, Array", "time": "O(N * K * \u03b1(N)", "space": "O(N * K)", "whileLoops": "0", "forLoops": "4", "concept": "Union-Find approach to merge accounts by email connectivity.", "codeLength": 39}, {"num": "039", "title": "LRU Cache", "difficulty": "MEDIUM", "categories": "Hash Table, Linked List, Design, Doubly-Linked List", "algorithms": "Iteration", "dataStructures": "HashMap, LinkedList, Array", "time": "O(1)", "space": "O(capacity)", "whileLoops": "0", "forLoops": "0", "concept": "Design a data structure that follows the constraints of a Least Recently Used (L...", "codeLength": 35}, {"num": "040", "title": "Max Consecutive Ones III", "difficulty": "MEDIUM", "categories": "Array, Binary Search, Sliding Window, Prefix Sum", "algorithms": "Binary Search, Two Pointers", "dataStructures": "Array", "time": "O(n)", "space": "O(1)", "whileLoops": "1", "forLoops": "1", "concept": "Sliding window to find max consecutive 1s with at most k flips.", "codeLength": 20}, {"num": "041", "title": "Kth Missing Positive Number", "difficulty": "EASY", "categories": "Array, Binary Search", "algorithms": "DFS, Binary Search", "dataStructures": "Stack, Trie, Array", "time": "O(log n)", "space": "O(1)", "whileLoops": "1", "forLoops": "0", "concept": "Binary search to find kth missing positive number.", "codeLength": 17}, {"num": "042", "title": "Find First and Last Position of Element in Sorted Array", "difficulty": "MEDIUM", "categories": "Array, Binary Search", "algorithms": "Binary Search", "dataStructures": "Tree, Trie, Array", "time": "O(log n)", "space": "O(1)", "whileLoops": "1", "forLoops": "0", "concept": "Find first and last position using two binary searches.", "codeLength": 30}, {"num": "043", "title": "Longest Common Prefix", "difficulty": "EASY", "categories": "String, Trie", "algorithms": "Iteration", "dataStructures": "Tree, Trie, Array", "time": "O(S)", "space": "O(1)", "whileLoops": "0", "forLoops": "2", "concept": "Vertical scanning approach - compare characters column by column.", "codeLength": 17}, {"num": "044", "title": "Squares of a Sorted Array", "difficulty": "EASY", "categories": "Array, Two Pointers, Sorting", "algorithms": "Two Pointers", "dataStructures": "Stack, Array", "time": "O(n)", "space": "O(n)", "whileLoops": "1", "forLoops": "0", "concept": "Two-pointer approach to merge squared values from both ends.", "codeLength": 20}, {"num": "045", "title": "Remove Nth Node From End of List", "difficulty": "MEDIUM", "categories": "Linked List, Two Pointers", "algorithms": "Two Pointers", "dataStructures": "Stack, Queue, LinkedList, Trie", "time": "O(L)", "space": "O(1)", "whileLoops": "1", "forLoops": "1", "concept": "One-pass solution using two pointers with gap of n.", "codeLength": 26}, {"num": "046", "title": "Diagonal Traverse", "difficulty": "MEDIUM", "categories": "Array, Matrix, Simulation", "algorithms": "Iteration", "dataStructures": "Graph, Array", "time": "O(m*n)", "space": "O(1)", "whileLoops": "0", "forLoops": "1", "concept": "Traverse matrix diagonally with direction alternation.", "codeLength": 42}, {"num": "047", "title": "Missing Ranges", "difficulty": "EASY", "categories": "Array", "algorithms": "Iteration", "dataStructures": "Trie, Array", "time": "O(n)", "space": "O(1)", "whileLoops": "0", "forLoops": "1", "concept": "Find missing ranges by checking gaps between consecutive numbers.", "codeLength": 19}, {"num": "048", "title": "Moving Average from Data Stream", "difficulty": "EASY", "categories": "Array, Design, Queue, Data Stream", "algorithms": "Two Pointers", "dataStructures": "Deque, Array", "time": "O(1)", "space": "O(size)", "whileLoops": "0", "forLoops": "0", "concept": "Moving average using queue and running sum.", "codeLength": 21}, {"num": "049", "title": "Exclusive Time of Functions", "difficulty": "MEDIUM", "categories": "Array, Stack", "algorithms": "Iteration", "dataStructures": "Stack, Graph, Array", "time": "O(m)", "space": "O(n)", "whileLoops": "0", "forLoops": "1", "concept": "Calculate exclusive execution time using stack to track call hierarchy.", "codeLength": 27}, {"num": "050", "title": "Add Strings", "difficulty": "EASY", "categories": "Math, String, Simulation", "algorithms": "Iteration", "dataStructures": "Graph, Array", "time": "O(max(m,n)", "space": "O(max(m,n)", "whileLoops": "1", "forLoops": "0", "concept": "Elementary school addition with carry.", "codeLength": 17}, {"num": "051", "title": "Binary Search Tree Iterator", "difficulty": "MEDIUM", "categories": "Stack, Tree, Design, Binary Search Tree, Binary Tree, Iterator", "algorithms": "Binary Search", "dataStructures": "Stack, Tree, Trie, Array", "time": "O(1)", "space": "O(h)", "whileLoops": "1", "forLoops": "0", "concept": "BST Iterator using controlled in-order traversal with stack.", "codeLength": 31}, {"num": "052", "title": "Minimum Add to Make Parentheses Valid", "difficulty": "MEDIUM", "categories": "String, Stack, Greedy", "algorithms": "Greedy", "dataStructures": "Stack, Trie", "time": "O(n)", "space": "O(1)", "whileLoops": "0", "forLoops": "1", "concept": "Count unmatched parentheses using counters.", "codeLength": 16}, {"num": "053", "title": "Robot Room Cleaner", "difficulty": "HARD", "categories": "Backtracking, Interactive", "algorithms": "DFS, Backtracking", "dataStructures": "Trie, Set, Array", "time": "O(N - M)", "space": "O(N - M)", "whileLoops": "0", "forLoops": "1", "concept": "DFS with backtracking, tracking visited cells.", "codeLength": 28}, {"num": "054", "title": "Add Two Numbers", "difficulty": "MEDIUM", "categories": "Linked List, Math, Recursion", "algorithms": "Iteration", "dataStructures": "Graph, LinkedList", "time": "O(max(m, n)", "space": "O(max(m, n)", "whileLoops": "1", "forLoops": "0", "concept": "Add two numbers represented as linked lists with carry handling.", "codeLength": 29}, {"num": "055", "title": "Subsets", "difficulty": "MEDIUM", "categories": "Array, Backtracking, Bit Manipulation", "algorithms": "Backtracking", "dataStructures": "Stack, Array", "time": "O(2^n * n)", "space": "O(2^n * n)", "whileLoops": "0", "forLoops": "1", "concept": "Generate all subsets using backtracking.", "codeLength": 17}, {"num": "056", "title": "Remove Invalid Parentheses", "difficulty": "HARD", "categories": "String, Backtracking, Breadth-First Search", "algorithms": "DFS, BFS, Backtracking", "dataStructures": "Stack, Deque, Set, Array", "time": "O(2^n)", "space": "O(2^n)", "whileLoops": "1", "forLoops": "2", "concept": "BFS to find all valid strings with minimum removals.", "codeLength": 39}, {"num": "057", "title": "Palindromic Substrings", "difficulty": "MEDIUM", "categories": "Two Pointers, String, Dynamic Programming", "algorithms": "DP, Two Pointers", "dataStructures": "Graph, Array", "time": "O(n\u00b2)", "space": "O(1)", "whileLoops": "1", "forLoops": "1", "concept": "Expand around center for all possible centers.", "codeLength": 19}, {"num": "058", "title": "Valid Number", "difficulty": "HARD", "categories": "String", "algorithms": "Iteration", "dataStructures": "Stack", "time": "O(n)", "space": "O(1)", "whileLoops": "0", "forLoops": "1", "concept": "Validate number using deterministic finite automaton (DFA).", "codeLength": 30}, {"num": "059", "title": "Continuous Subarray Sum", "difficulty": "MEDIUM", "categories": "Array, Hash Table, Math, Prefix Sum", "algorithms": "Iteration", "dataStructures": "HashMap, Tree, Array", "time": "O(n)", "space": "O(n)", "whileLoops": "0", "forLoops": "1", "concept": "Hash table solution for O(1) lookups.", "codeLength": 14}, {"num": "060", "title": "Closest Binary Search Tree Value", "difficulty": "EASY", "categories": "Binary Search, Tree, Depth-First Search, Binary Search Tree, Binary Tree", "algorithms": "DFS, Binary Search", "dataStructures": "HashMap, Tree, Graph, Trie, Array", "time": "O(h)", "space": "O(1)", "whileLoops": "1", "forLoops": "0", "concept": "Binary search in BST to find closest value.", "codeLength": 16}, {"num": "061", "title": "Vertical Order Traversal of a Binary Tree", "difficulty": "HARD", "categories": "Hash Table, Tree, Depth-First Search, Breadth-First Search, Sorting, Binary Tree", "algorithms": "DFS, BFS", "dataStructures": "HashMap, Tree, Graph, Array", "time": "O(n log n)", "space": "O(n)", "whileLoops": "0", "forLoops": "1", "concept": "DFS to collect (col, row, val), then sort and group.", "codeLength": 23}, {"num": "062", "title": "Group Shifted Strings", "difficulty": "MEDIUM", "categories": "Array, Hash Table, String", "algorithms": "Iteration", "dataStructures": "HashMap, Graph, Array", "time": "O(n * k)", "space": "O(n * k)", "whileLoops": "0", "forLoops": "2", "concept": "Group strings by their shift pattern using hash table.", "codeLength": 24}, {"num": "063", "title": "Course Schedule", "difficulty": "MEDIUM", "categories": "Depth-First Search, Breadth-First Search, Graph, Topological Sort", "algorithms": "DFS, BFS, Topological Sort", "dataStructures": "Graph, Array", "time": "O(V + E)", "space": "O(V + E)", "whileLoops": "0", "forLoops": "3", "concept": "Cycle detection using DFS with three states.", "codeLength": 31}, {"num": "064", "title": "Insert into a Sorted Circular Linked List", "difficulty": "MEDIUM", "categories": "Linked List", "algorithms": "Iteration", "dataStructures": "Queue, Heap, LinkedList, Array", "time": "O(n)", "space": "O(1)", "whileLoops": "1", "forLoops": "0", "concept": "Insert value into sorted circular linked list.", "codeLength": 36}, {"num": "065", "title": "3Sum", "difficulty": "MEDIUM", "categories": "Array, Two Pointers, Sorting", "algorithms": "Two Pointers", "dataStructures": "Array", "time": "O(n\u00b2)", "space": "O(1)", "whileLoops": "3", "forLoops": "1", "concept": "Sort + two pointers for O(n\u00b2) solution.", "codeLength": 29}, {"num": "066", "title": "All Nodes Distance K in Binary Tree", "difficulty": "MEDIUM", "categories": "Hash Table, Tree, Depth-First Search, Breadth-First Search, Binary Tree", "algorithms": "DFS, BFS", "dataStructures": "HashMap, Deque, Tree, Graph, Array", "time": "O(n)", "space": "O(n)", "whileLoops": "1", "forLoops": "1", "concept": "Build parent pointers, then BFS from target.", "codeLength": 30}, {"num": "067", "title": "String to Integer (atoi)", "difficulty": "MEDIUM", "categories": "String", "algorithms": "Iteration", "dataStructures": "Array", "time": "O(n)", "space": "O(1)", "whileLoops": "2", "forLoops": "0", "concept": "Convert string to 32-bit signed integer following atoi rules.", "codeLength": 36}, {"num": "068", "title": "Contains Duplicate II", "difficulty": "EASY", "categories": "Array, Hash Table, Sliding Window", "algorithms": "Two Pointers", "dataStructures": "HashMap, Trie, Set, Array", "time": "O(n)", "space": "O(min(n, k)", "whileLoops": "0", "forLoops": "1", "concept": "Use hash map to track most recent index of each value.", "codeLength": 15}, {"num": "069", "title": "Zero Array Transformation III", "difficulty": "MEDIUM", "categories": "Array, Greedy, Sorting, Heap (Priority Queue), Prefix Sum", "algorithms": "Greedy", "dataStructures": "Queue, Heap, Array", "time": "O(n log n + q log q)", "space": "O(n + q)", "whileLoops": "3", "forLoops": "1", "concept": "Use greedy approach with heap to maximize query removals.", "codeLength": 38}, {"num": "070", "title": "Swim in Rising Water", "difficulty": "HARD", "categories": "Array, Binary Search, Depth-First Search, Breadth-First Search, Union Find, Heap (Priority Queue), Matrix", "algorithms": "DFS, BFS, Binary Search, Union-Find, Shortest Path", "dataStructures": "Deque, Heap, Graph, Set, Array", "time": "O(n^2 log n)", "space": "O(n^2)", "whileLoops": "1", "forLoops": "1", "concept": "Use Dijkstra's algorithm to find path with minimum maximum elevation.", "codeLength": 30}, {"num": "072", "title": "Maximum Swap", "difficulty": "MEDIUM", "categories": "Math, Greedy", "algorithms": "Greedy", "dataStructures": "Array", "time": "O(n)", "space": "O(1)", "whileLoops": "0", "forLoops": "2", "concept": "Find rightmost occurrence of each digit, greedy swap.", "codeLength": 18}, {"num": "073", "title": "Container With Most Water", "difficulty": "MEDIUM", "categories": "Array, Two Pointers, Greedy", "algorithms": "Two Pointers, Greedy", "dataStructures": "Stack, Array", "time": "O(n)", "space": "O(1)", "whileLoops": "1", "forLoops": "0", "concept": "Two-pointer approach to find maximum water container area.", "codeLength": 21}, {"num": "074", "title": "Cutting Ribbons", "difficulty": "MEDIUM", "categories": "Array, Binary Search", "algorithms": "Binary Search", "dataStructures": "Stack, Array", "time": "O(n log max_len)", "space": "O(1)", "whileLoops": "1", "forLoops": "1", "concept": "Binary search on answer to find maximum ribbon length.", "codeLength": 27}, {"num": "075", "title": "Word Break", "difficulty": "MEDIUM", "categories": "Array, Hash Table, String, Dynamic Programming, Trie, Memoization", "algorithms": "DP, Backtracking", "dataStructures": "HashMap, Trie, Set, Array", "time": "O(n\u00b2 \u00d7 m)", "space": "O(n)", "whileLoops": "0", "forLoops": "2", "concept": "Dynamic programming solution to check if string can be segmented.", "codeLength": 18}, {"num": "076", "title": "Binary Tree Maximum Path Sum", "difficulty": "HARD", "categories": "Dynamic Programming, Tree, Depth-First Search, Binary Tree", "algorithms": "DFS, DP", "dataStructures": "Stack, Tree, Array", "time": "O(n)", "space": "O(h)", "whileLoops": "0", "forLoops": "0", "concept": "DFS with path sum tracking through each node.", "codeLength": 20}, {"num": "077", "title": "Car Pooling", "difficulty": "MEDIUM", "categories": "Array, Sorting, Heap (Priority Queue), Simulation, Prefix Sum", "algorithms": "Iteration", "dataStructures": "Queue, Heap, Array", "time": "O(n + m)", "space": "O(m)", "whileLoops": "0", "forLoops": "2", "concept": "Difference array approach to track passenger changes.", "codeLength": 18}, {"num": "078", "title": "Strobogrammatic Number", "difficulty": "EASY", "categories": "Hash Table, Two Pointers, String", "algorithms": "Two Pointers", "dataStructures": "HashMap, Graph, Array", "time": "O(n)", "space": "O(1)", "whileLoops": "1", "forLoops": "0", "concept": "Two pointers checking valid rotation pairs.", "codeLength": 14}, {"num": "079", "title": "Capacity To Ship Packages Within D Days", "difficulty": "MEDIUM", "categories": "Array, Binary Search", "algorithms": "Binary Search, Greedy", "dataStructures": "Stack, Array", "time": "O(n log(sum)", "space": "O(1)", "whileLoops": "1", "forLoops": "1", "concept": "Binary search on ship capacity to find minimum viable capacity.", "codeLength": 32}, {"num": "080", "title": "Longest Substring Without Repeating Characters", "difficulty": "MEDIUM", "categories": "Hash Table, String, Sliding Window", "algorithms": "Two Pointers", "dataStructures": "HashMap, Set, Array", "time": "O(n)", "space": "O(min(m,n)", "whileLoops": "1", "forLoops": "1", "concept": "Sliding window with hash set.", "codeLength": 16}, {"num": "081", "title": "Word Ladder", "difficulty": "HARD", "categories": "Hash Table, String, Breadth-First Search", "algorithms": "BFS", "dataStructures": "HashMap, Deque, Set, Array", "time": "O(M\u00b2 \u00d7 N)", "space": "O(M\u00b2 \u00d7 N)", "whileLoops": "1", "forLoops": "2", "concept": "BFS to find shortest transformation path.", "codeLength": 24}, {"num": "082", "title": "Find Median from Data Stream", "difficulty": "HARD", "categories": "Two Pointers, Design, Sorting, Heap (Priority Queue), Data Stream", "algorithms": "Two Pointers", "dataStructures": "Queue, Heap, Array", "time": "O(log n)", "space": "O(n)", "whileLoops": "0", "forLoops": "0", "concept": "Two heaps: max heap for lower half, min heap for upper half.", "codeLength": 27}, {"num": "083", "title": "Valid Palindrome III", "difficulty": "HARD", "categories": "String, Dynamic Programming", "algorithms": "DP", "dataStructures": "HashMap, Trie", "time": "O(n\u00b2)", "space": "O(n\u00b2)", "whileLoops": "0", "forLoops": "3", "concept": "Check if string can become palindrome by removing at most k characters.", "codeLength": 27}, {"num": "084", "title": "Kth Smallest Element in a Sorted Matrix", "difficulty": "MEDIUM", "categories": "Array, Binary Search, Sorting, Heap (Priority Queue), Matrix", "algorithms": "Binary Search", "dataStructures": "Queue, Heap, Tree, Array", "time": "O(n log(max-min)", "space": "O(1)", "whileLoops": "2", "forLoops": "0", "concept": "Find kth smallest element using binary search on value range.", "codeLength": 28}, {"num": "085", "title": "Add Two Integers", "difficulty": "EASY", "categories": "Math", "algorithms": "Iteration", "dataStructures": "Array", "time": "O(1)", "space": "O(1)", "whileLoops": "0", "forLoops": "0", "concept": "Simple addition operation.", "codeLength": 6}, {"num": "086", "title": "Shortest Path in a Hidden Grid", "difficulty": "MEDIUM", "categories": "Array, Depth-First Search, Breadth-First Search, Matrix, Interactive", "algorithms": "DFS, BFS, Backtracking", "dataStructures": "HashMap, Deque, Graph, Array", "time": "O(m*n)", "space": "O(m*n)", "whileLoops": "1", "forLoops": "2", "concept": "Find shortest path in hidden grid using DFS + BFS.", "codeLength": 69}, {"num": "087", "title": "Maximum Subarray", "difficulty": "MEDIUM", "categories": "Array, Divide and Conquer, Dynamic Programming", "algorithms": "DP, Greedy, Backtracking", "dataStructures": "Stack, Tree, Array", "time": "O(n)", "space": "O(1)", "whileLoops": "0", "forLoops": "1", "concept": "Find maximum subarray sum using Kadane's Algorithm.", "codeLength": 14}, {"num": "088", "title": "Interval List Intersections", "difficulty": "MEDIUM", "categories": "Array, Two Pointers, Line Sweep", "algorithms": "Two Pointers", "dataStructures": "Array", "time": "O(m + n)", "space": "O(1)", "whileLoops": "1", "forLoops": "0", "concept": "Find all interval intersections using two pointers.", "codeLength": 24}, {"num": "089", "title": "Range Sum Query - Immutable", "difficulty": "EASY", "categories": "Array, Design, Prefix Sum", "algorithms": "Iteration", "dataStructures": "Stack, Tree, Array", "time": "O(n)", "space": "O(n)", "whileLoops": "0", "forLoops": "1", "concept": "Range Sum Query using Prefix Sum.", "codeLength": 21}, {"num": "090", "title": "Frequency of the Most Frequent Element", "difficulty": "MEDIUM", "categories": "Array, Binary Search, Greedy, Sliding Window, Sorting, Prefix Sum", "algorithms": "Binary Search, Two Pointers, Greedy", "dataStructures": "Array", "time": "O(n log n)", "space": "O(1)", "whileLoops": "1", "forLoops": "1", "concept": "Find max frequency using sorting and sliding window.", "codeLength": 22}, {"num": "091", "title": "Random Pick Index", "difficulty": "MEDIUM", "categories": "Hash Table, Math, Reservoir Sampling, Randomized", "algorithms": "Iteration", "dataStructures": "HashMap, Array", "time": "O(1)", "space": "O(n)", "whileLoops": "0", "forLoops": "1", "concept": "Store array for reservoir sampling.", "codeLength": 22}, {"num": "092", "title": "Kth Smallest Element in a BST", "difficulty": "MEDIUM", "categories": "Tree, Depth-First Search, Binary Search Tree, Binary Tree", "algorithms": "DFS, Binary Search", "dataStructures": "Stack, Queue, Heap, Tree, Array", "time": "O(H + k)", "space": "O(H)", "whileLoops": "2", "forLoops": "0", "concept": "Find kth smallest using iterative inorder traversal.", "codeLength": 22}, {"num": "093", "title": "Decode String", "difficulty": "MEDIUM", "categories": "String, Stack, Recursion", "algorithms": "Iteration", "dataStructures": "Stack", "time": "O(maxK * n)", "space": "O(n)", "whileLoops": "0", "forLoops": "1", "concept": "Decode string using stack for nested patterns.", "codeLength": 28}, {"num": "094", "title": "Koko Eating Bananas", "difficulty": "MEDIUM", "categories": "Array, Binary Search", "algorithms": "Binary Search", "dataStructures": "Array", "time": "O(n log m)", "space": "O(1)", "whileLoops": "1", "forLoops": "1", "concept": "Find minimum eating speed using binary search.", "codeLength": 28}, {"num": "095", "title": "Goat Latin", "difficulty": "EASY", "categories": "String", "algorithms": "Iteration", "dataStructures": "Stack, Set, Array", "time": "O(n)", "space": "O(n)", "whileLoops": "0", "forLoops": "1", "concept": "Convert sentence to Goat Latin by applying transformation rules.", "codeLength": 20}, {"num": "096", "title": "Longest Palindromic Substring", "difficulty": "MEDIUM", "categories": "Two Pointers, String, Dynamic Programming", "algorithms": "DP, Two Pointers", "dataStructures": "Graph, Array", "time": "O(n\u00b2)", "space": "O(1)", "whileLoops": "1", "forLoops": "1", "concept": "Expand around center for all possible centers.", "codeLength": 24}, {"num": "097", "title": "Text Justification", "difficulty": "HARD", "categories": "Array, String, Simulation", "algorithms": "Greedy, Backtracking", "dataStructures": "Stack, Graph, Array", "time": "O(n)", "space": "O(n)", "whileLoops": "2", "forLoops": "1", "concept": "Text justification using greedy packing and space distribution.", "codeLength": 36}, {"num": "098", "title": "Remove All Adjacent Duplicates in String II", "difficulty": "MEDIUM", "categories": "String, Stack", "algorithms": "Two Pointers", "dataStructures": "Stack, Graph, Trie", "time": "O(n)", "space": "O(n)", "whileLoops": "0", "forLoops": "1", "concept": "Stack-based solution to remove k adjacent duplicates.", "codeLength": 19}, {"num": "099", "title": "Best Time to Buy and Sell Stock III", "difficulty": "HARD", "categories": "Array, Dynamic Programming", "algorithms": "DP", "dataStructures": "Array", "time": "O(n)", "space": "O(1)", "whileLoops": "0", "forLoops": "1", "concept": "Dynamic Programming with O(1) space using state tracking.", "codeLength": 19}, {"num": "100", "title": "Median of Two Sorted Arrays", "difficulty": "HARD", "categories": "Array, Binary Search, Divide and Conquer", "algorithms": "Binary Search", "dataStructures": "Array", "time": "O(log(min(m,n)", "space": "O(1)", "whileLoops": "1", "forLoops": "0", "concept": "Binary search on partition point to find median in O(log(min(m,n))).", "codeLength": 35}];
+        
+        let sortColumn = -1;
+        let sortAscending = true;
+        let markdownFolder = 'LeetCode';
+        const markdownCache = {};
+        
+        // Update markdown folder path
+        function updateFolderPath() {
+            markdownFolder = document.getElementById('folderPath').value.trim();
+            // Clear cache when folder changes
+            Object.keys(markdownCache).forEach(key => delete markdownCache[key]);
+            
+            const status = document.getElementById('folderStatus');
+            status.textContent = `📂 Folder: ${markdownFolder}`;
+            status.className = 'folder-status active';
+
+            // Update instruction text
+            const subtitle = document.querySelector('.subtitle');
+            if (subtitle && markdownFolder) {
+                subtitle.textContent = `Sortable, Filterable & Interactive - Click problem titles to view details`;
+            }
+        }
+
+        // Listen for folder path changes
+        document.getElementById('folderPath').addEventListener('change', updateFolderPath);
+        document.getElementById('folderPath').addEventListener('input', updateFolderPath);
+        
+        // Fetch markdown file dynamically
+        async function fetchProblemDetails(num) {
+            const paddedNum = String(num).padStart(3, '0');
+            
+            // Check cache first
+            if (markdownCache[paddedNum]) {
+                return markdownCache[paddedNum];
+            }
+            
+            try {
+                const problem = problems.find(p => p.num === paddedNum);
+                if (!problem) return null;
+                
+                // Convert title to filename format (lowercase, underscores)
+                const filename = problem.title
+                    .toLowerCase()
+                    .replace(/[^a-z0-9\s]/g, '')
+                    .replace(/\s+/g, '_');
+                
+                const url = `${markdownFolder}/${paddedNum}_${filename}.md`;
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error('File not found');
+                }
+                
+                const markdown = await response.text();
+                const parsed = parseProblemMarkdown(markdown);
+                
+                // Cache the result
+                markdownCache[paddedNum] = parsed;
+                return parsed;
+            } catch (error) {
+                console.error(`Failed to fetch problem ${paddedNum}:`, error);
+                return { error: error.message };
+            }
+        }
+        
+        // Parse markdown to extract problem description and code
+        function parseProblemMarkdown(markdown) {
+            const lines = markdown.split('\n');
+            let description = '';
+            let code = '';
+            let inCodeBlock = false;
+            let inDescription = false;
+            let descriptionLines = 0;
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                
+                // Extract problem description
+                if (line.includes('## Problem Description')) {
+                    inDescription = true;
+                    continue;
+                }
+                
+                if (inDescription && line.startsWith('##') && !line.includes('Problem Description')) {
+                    inDescription = false;
+                }
+                
+                if (inDescription && line.trim() && !line.startsWith('**Constraints')) {
+                    description += line + '\n';
+                    descriptionLines++;
+                    if (descriptionLines > 10) {
+                        description += '...';
+                        inDescription = false;
+                    }
+                }
+                
+                // Extract code (first python code block)
+                if (line.startsWith('```python') && !code) {
+                    inCodeBlock = true;
+                    continue;
+                }
+                
+                if (inCodeBlock && line.startsWith('```')) {
+                    break;
+                }
+                
+                if (inCodeBlock) {
+                    code += line + '\n';
+                }
+            }
+            
+            return {
+                description: description.trim() || 'No description available',
+                code: code.trim() || 'No code available'
+            };
+        }
+        
+        // Show preview on click
+        async function showPreview(event, num, title) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const overlay = document.getElementById('previewOverlay');
+            const tooltip = document.getElementById('previewTooltip');
+
+            // Show loading state
+            overlay.className = 'preview-overlay visible';
+            tooltip.className = 'preview-tooltip loading visible';
+            tooltip.innerHTML = '<div class="spinner"></div>';
+
+            // Center tooltip on screen
+            const x = (window.innerWidth - 700) / 2;
+            const y = 50;
+
+            tooltip.style.left = Math.max(10, x) + 'px';
+            tooltip.style.top = y + 'px';
+
+            // Fetch problem details
+            const details = await fetchProblemDetails(num);
+
+            if (!details) {
+                tooltip.innerHTML = `
+                    <div class="preview-header">
+                        <span>Error</span>
+                        <button class="close-btn" onclick="closePreview()">✕</button>
+                    </div>
+                    <div class="error-message">
+                        ❌ Could not load problem details
+                    </div>
+                `;
+                return;
+            }
+
+            if (details.error) {
+                const problem = problems.find(p => p.num === num);
+                const filename = problem.title
+                    .toLowerCase()
+                    .replace(/[^a-z0-9\s]/g, '')
+                    .replace(/\s+/g, '_');
+                const expectedPath = `${markdownFolder}/${num}_${filename}.md`;
+
+                tooltip.innerHTML = `
+                    <div class="preview-header">
+                        <span>Could not load file</span>
+                        <button class="close-btn" onclick="closePreview()">✕</button>
+                    </div>
+                    <div class="warning-message">
+                        ⚠️ Could not load markdown file<br><br>
+                        <strong>Expected file:</strong><br>
+                        <code style="background: #fff; padding: 2px 6px; border-radius: 3px;">${expectedPath}</code><br><br>
+                        <strong>Current folder:</strong> ${markdownFolder}<br>
+                        <strong>Error:</strong> ${details.error}<br><br>
+                        <small>💡 Tips:</small><br>
+                        <small>• If HTML is in /Questions/, use: <code style="background: #fff; padding: 2px 4px;">LeetCode</code></small><br>
+                        <small>• Use relative path without leading ./</small><br>
+                        <small>• Check that the file exists in the folder</small>
+                    </div>
+                `;
+                return;
+            }
+
+            // Render preview with close button
+            tooltip.className = 'preview-tooltip visible';
+            tooltip.innerHTML = `
+                <div class="preview-header">
+                    <span>#${num} - ${escapeHtml(title)}</span>
+                    <button class="close-btn" onclick="closePreview()">✕</button>
+                </div>
+
+                <div class="preview-section">
+                    <h3>📝 Problem Description</h3>
+                    <p>${escapeHtml(details.description)}</p>
+                </div>
+
+                <div class="preview-section">
+                    <h3>💻 Solution Code</h3>
+                    <div class="preview-code">
+                        <pre>${escapeHtml(details.code)}</pre>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Close preview
+        function closePreview() {
+            const overlay = document.getElementById('previewOverlay');
+            const tooltip = document.getElementById('previewTooltip');
+
+            overlay.className = 'preview-overlay';
+            tooltip.className = 'preview-tooltip';
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePreview();
+            }
+        });
+        
+        // Escape HTML for code display
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function renderTable(filteredData) {
+            const tbody = document.getElementById('tableBody');
+            const noResults = document.getElementById('noResults');
+            
+            if (filteredData.length === 0) {
+                tbody.innerHTML = '';
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+                tbody.innerHTML = filteredData.map(p => `
+                    <tr>
+                        <td class="num-col">${p.num}</td>
+                        <td class="title-col">
+                            <span class="title-link preview-enabled" 
+                                  onclick="showPreview(event, '${p.num}', \`${p.title.replace(/`/g, '\\`')}\`);">
+                                ${escapeHtml(p.title)}
+                            </span>
+                        </td>
+                        <td class="difficulty-col">
+                            <span class="badge badge-${p.difficulty.toLowerCase()}">${p.difficulty}</span>
+                        </td>
+                        <td>${escapeHtml(p.categories)}</td>
+                        <td>${escapeHtml(p.algorithms)}</td>
+                        <td>${escapeHtml(p.dataStructures)}</td>
+                        <td class="complexity-col">${escapeHtml(p.time)}</td>
+                        <td class="complexity-col">${escapeHtml(p.space)}</td>
+                        <td class="loop-col">${p.codeLength || 0}</td>
+                        <td class="loop-col">${p.whileLoops}</td>
+                        <td class="loop-col">${p.forLoops}</td>
+                        <td class="concept-col">${escapeHtml(p.concept)}</td>
+                    </tr>
+                `).join('');
+            }
+            
+            document.getElementById('stats').textContent = 
+                `Showing ${filteredData.length} of ${problems.length} problems`;
+        }
+        
+        function filterTable() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const difficulty = document.getElementById('difficultyFilter').value;
+            const algorithm = document.getElementById('algorithmFilter').value.toLowerCase();
+            const dataStructure = document.getElementById('dataStructureFilter').value.toLowerCase();
+            
+            const filtered = problems.filter(p => {
+                const matchesSearch = !searchTerm || 
+                    p.title.toLowerCase().includes(searchTerm) ||
+                    p.categories.toLowerCase().includes(searchTerm) ||
+                    p.concept.toLowerCase().includes(searchTerm);
+                
+                const matchesDifficulty = !difficulty || p.difficulty === difficulty;
+                
+                const matchesAlgorithm = !algorithm || 
+                    p.algorithms.toLowerCase().includes(algorithm);
+                
+                const matchesDataStructure = !dataStructure || 
+                    p.dataStructures.toLowerCase().includes(dataStructure);
+                
+                return matchesSearch && matchesDifficulty && matchesAlgorithm && matchesDataStructure;
+            });
+            
+            renderTable(filtered);
+        }
+        
+        function sortTable(columnIndex) {
+            const headers = document.querySelectorAll('th');
+            
+            if (sortColumn === columnIndex) {
+                sortAscending = !sortAscending;
+            } else {
+                sortColumn = columnIndex;
+                sortAscending = true;
+            }
+            
+            headers.forEach((h, i) => {
+                h.classList.remove('sort-asc', 'sort-desc');
+                if (i === columnIndex) {
+                    h.classList.add(sortAscending ? 'sort-asc' : 'sort-desc');
+                }
+            });
+            
+            const columnKeys = ['num', 'title', 'difficulty', 'categories', 'algorithms',
+                               'dataStructures', 'time', 'space', 'codeLength', 'whileLoops', 'forLoops', 'concept'];
+            const key = columnKeys[columnIndex];
+
+            problems.sort((a, b) => {
+                let aVal = a[key];
+                let bVal = b[key];
+
+                if (key === 'num' || key === 'codeLength' || key === 'whileLoops' || key === 'forLoops') {
+                    aVal = parseInt(aVal) || 0;
+                    bVal = parseInt(bVal) || 0;
+                }
+                
+                if (key === 'difficulty') {
+                    const order = { 'EASY': 1, 'MEDIUM': 2, 'HARD': 3 };
+                    aVal = order[aVal] || 0;
+                    bVal = order[bVal] || 0;
+                }
+                
+                if (aVal < bVal) return sortAscending ? -1 : 1;
+                if (aVal > bVal) return sortAscending ? 1 : -1;
+                return 0;
+            });
+            
+            filterTable();
+        }
+        
+        function clearFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('difficultyFilter').value = '';
+            document.getElementById('algorithmFilter').value = '';
+            document.getElementById('dataStructureFilter').value = '';
+            filterTable();
+        }
+        
+        // Add event listeners
+        document.getElementById('searchInput').addEventListener('input', filterTable);
+        document.getElementById('difficultyFilter').addEventListener('change', filterTable);
+        document.getElementById('algorithmFilter').addEventListener('input', filterTable);
+        document.getElementById('dataStructureFilter').addEventListener('input', filterTable);
+        
+        // Close preview when scrolling
+        window.addEventListener('scroll', closePreview);
+        
+        // Initialize folder status
+        updateFolderPath();
+        
+        // Check if running from file:// protocol
+        function checkProtocol() {
+            if (window.location.protocol === 'file:') {
+                document.getElementById('warningBanner').style.display = 'block';
+                document.getElementById('folderStatus').innerHTML =
+                    '<span style="color: #f57c00;">⚠️ Running from file:// - Start HTTP server!</span>';
+            }
+        }
+
+        // Initial render
+        checkProtocol();
+        renderTable(problems);
+    </script>
+</body>
+</html>
