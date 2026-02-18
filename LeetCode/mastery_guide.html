@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeetCode Mastery Guides - 16 Categories</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            padding: 60px 20px 40px;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            font-size: 1.4em;
+            opacity: 0.95;
+            margin-bottom: 10px;
+        }
+
+        .header .description {
+            font-size: 1.1em;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .stats-banner {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.95;
+            margin-top: 5px;
+        }
+
+        .search-box {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1.1em;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: #667eea;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .category-header {
+            margin-bottom: 15px;
+        }
+
+        .category-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .category-subtitle {
+            font-size: 0.95em;
+            color: #666;
+            font-style: italic;
+        }
+
+        .category-stats {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            background: #f5f5f5;
+            border-radius: 20px;
+            font-size: 0.85em;
+            color: #555;
+        }
+
+        .stat-badge.problems {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .stat-badge.lines {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .stat-badge.easy {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .stat-badge.medium {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .stat-badge.hard {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .category-features {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .feature-list {
+            list-style: none;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .feature-list li {
+            padding: 5px 0;
+        }
+
+        .feature-list li::before {
+            content: '✓ ';
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .category-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .highlight-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ffd700;
+            color: #333;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 LeetCode Mastery Guides</h1>
+            <div class="subtitle">16 Comprehensive Categories • Deep Pattern Analysis • Learning Paths</div>
+            <div class="description">
+                Not just problem lists - comprehensive mastery guides with sub-patterns, code templates,
+                common pitfalls, testing strategies, and step-by-step learning paths from beginner to expert.
+            </div>
+        </div>
+
+        <div class="stats-banner">
+            <h2 style="margin-bottom: 20px; color: #333;">📊 Collection Overview</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">16</div>
+                    <div class="stat-label">Categories</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100</div>
+                    <div class="stat-label">Problems</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2,200+</div>
+                    <div class="stat-label">Lines of Guidance</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Code Templates</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Search categories by name or technique (e.g., 'binary search', 'DFS', 'sliding window')...">
+        </div>
+
+        <div class="categories-grid" id="categoriesGrid">
+            <!-- Binary Search -->
+            <div class="category-card" data-keywords="binary-search sorted array answer-space monotonic">
+                <span class="highlight-badge">⭐ MOST COMPREHENSIVE</span>
+                <div class="category-header">
+                    <div class="category-title">Binary Search</div>
+                    <div class="category-subtitle">From Array Search to Answer Space Optimization</div>
+                </div>
+                <div class="category-stats">
+                    <span class="stat-badge problems">8 Problems</span>
+                    <span class="stat-badge lines">582 Lines</span>
+                    <span class="stat-badge medium">Medium</span>
+                </div>
+                <div class="category-features">
+                    <ul class="feature-list">
+                        <li>4 Distinct Sub-Patterns (Classic, Boundaries, Implicit, Answer Space)</li>
+                        <li>7-Level Learning Path (2-3 weeks to mastery)</li>
+                        <li>Property-Based Testing Code</li>
+                        <li>Common Error Patterns with Test Cases</li>
+                        <li>Mental Model Explanations</li>
+                    </ul>
+                </div>
+                <div class="category-actions">
+                    <a href="Binary-Search/binary_search_summary.md" class="btn btn-primary" download>📖 Download Guide</a>
+                    <a href="Binary-Search/" class="btn btn-secondary">View Problems</a>
+                </div>
+            </div>
+
+            <!-- Two Pointers -->
+            <div class="category-card" data-keywords="two-pointers opposite-direction same-direction fast-slow">
+                <div class="category-header">
+                    <div class="category-title">Two Pointers</div>
+                    <div class="category-subtitle">Opposite Direction vs Same Direction Techniques</div>
+                </div>
+                <div class="category-stats">
+                    <span class="stat-badge problems">9 Problems</span>
+                    <span class="stat-badge lines">161 Lines</span>
+                    <span class="stat-badge easy">Easy to Medium</span>
+                </div>
+                <div class="category-features">
+                    <ul class="feature-list">
+                        <li>3 Patterns: Opposite, Same Direction, Sliding Window</li>
+                        <li>Complete Code Templates</li>
+                        <li>Off-by-One Error Prevention</li>
+                        <li>O(n) vs O(n²) Optimization</li>
+                    </ul>
+                </div>
+                <div class="category-actions">
+                    <a href="Two-Pointers/two_pointers_summary.md" class="btn btn-primary" download>📖 Download Guide</a>
+                    <a href="Two-Pointers/" class="btn btn-secondary">View Problems</a>
+                </div>
+            </div>
+
+            <!-- Sliding Window -->
+            <div class="category-card" data-keywords="sliding-window fixed-size variable-size subarray">
+                <div class="category-header">
+                    <div class="category-title">Sliding Window</div>
+                    <div class="category-subtitle">Fixed Size vs Variable Size Windows</div>
+                </div>
+                <div class="category-stats">
+                    <span class="stat-badge problems">6 Problems</span>
+                    <span class="stat-badge lines">123 Lines</span>
+                    <span class="stat-badge medium">Medium</span>
+                </div>
+                <div class="category-features">
+                    <ul class="feature-list">
+                        <li>Fixed vs Variable Window Patterns</li>
+                        <li>Window State Maintenance</li>
+                        <li>Shrinking Logic & Invariants</li>
+                        <li>Hash Map Integration</li>
+                    </ul>
+                </div>
+                <div class="category-actions">
+                    <a href="Sliding-Window/sliding_window_summary.md" class="btn btn-primary" download>📖 Download Guide</a>
+                    <a href="Sliding-Window/" class="btn btn-secondary">View Problems</a>
+                </div>
+            </div>
+
+            <!-- Array Hashing -->
+            <div class="category-card" data-keywords="array hash-map prefix-sum hash-table">
+                <div class="category-header">
+                    <div class="category-title">Array & Hashing</div>
+                    <div class="category-subtitle">Hash Tables for O(1) Lookup & Prefix Sums</div>
+                </div>
+                <div class="category-stats">
+                    <span class="stat-badge problems">12 Problems</span>
+                    <span class="stat-badge lines">102 Lines</span>
+                    <span class="stat-badge easy">Easy to Medium</span>
+                </div>
+                <div class="category-features">
+                    <ul class="feature-list">
+                        <li>Hash Map for Complement Finding</li>
+                        <li>Prefix Sum for Range Queries</li>
+                        <li>Counting with Collections.Counter</li>
+                        <li>Space-Time Tradeoffs</li>
+                    </ul>
+                </div>
+                <div class="category-actions">
+                    <a href="Array-Hashing/array_hashing_summary.md" class="btn btn-primary" download>📖 Download Guide</a>
+                    <a href="Array-Hashing/" class="btn btn-secondary">View Problems</a>
+                </div>
+            </div>
+
+            <!-- Tree -->
+            <div class="category-card" data-keywords="tree dfs bfs traversal binary-tree">
+                <div class="category-header">
+                    <div class="category-title">Tree</div>
+                    <div class="category-subtitle">DFS for Paths vs BFS for Levels</div>
+                </div>
+                <div class="category-stats">
+                    <span class="stat-badge problems">10 Problems</span>
+                    <span class="stat-badge lines">99 Lines</span>
+                    <span class="stat-badge medium">Medium to Hard</span>
+                </div>
+                <div class="category-features">
+                    <ul class="feature-list">
+                        <li>DFS Recursive Patterns</li>
+                        <li>BFS Level Order Traversal</li>
+                        <li>Parent Pointer Techniques</li>
+                        <li>Path & Subtree Properties</li>
+                    </ul>
+                </div>
+                <div class="category-actions">
+                    <a href="Tree/tree_summary.md" class="btn btn-primary" download>📖 Download Guide</a>
+                    <a href="Tree/" class="btn btn-secondary">View Problems</a>
+                </div>
+            </div>
+
+            <!-- Graph DFS BFS -->
+            <div class="category-card" data-keywords="graph dfs bfs connectivity cycle topological-sort">
+                <div class="category-header">
+                    <div class="category-title">Graph DFS/BFS</div>
+                    <div class="category-subtitle">DFS for Paths & Cycles, BFS for Shortest Distance</div>
+                </div>
+                <div class="category-stats">
+                    <span class="stat-badge problems">9 Problems</span>
+                    <span class="stat-badge lines">98 Lines</span>
+                    <span class="stat-badge medium">Medium</span>
+                </div>
+                <div class="category-features">
+                    <ul class="feature-list">
+                        <li>DFS with Visited Set</li>
+                        <li>BFS for Shortest Paths</li>
+                        <li>Union-Find for Components</li>
+                        <li>Topological Sort</li>
+                    </ul>
+                </div>
+                <div class="category-actions">
+                    <a href="Graph-DFS-BFS/graph_dfs_bfs_summary.md" class="btn btn-primary" download>📖 Download Guide</a>
+                    <a href="Graph-DFS-BFS/" class="btn btn-secondary">View Problems</a>
+                </div>
+            </div>
+
+            <!-- Heap Priority Queue -->
+            <div class="category-card" data-keywords="heap priority-queue top-k median min-heap max-heap">
+                <div class="category-header">
+                    <div class="category-title">Heap & Priority Queue</div>
+                    <div class="category-subtitle">Top-K Problems & Running Median</div>
+                </div>
+                <div class="category-stats">
+                    <span class="stat-badge problems">7 Problems</span>
+                    <span class="stat-badge lines">97 Lines</span>
+                    <span class="stat-badge medium">Medium</span>
+                </div>
+                <div class="category-features">
+                    <ul class="feature-list">
+                        <li>Top K Elements Pattern</li>
+                        <li>Merge K Sorted Lists</li>
+                        <li>Running Median with Two Heaps</li>
+                        <li>Min Heap vs Max Heap</li>
+                    </ul>
+                </div>
+                <div class="category-actions">
+                    <a href="Heap-Priority-Queue/heap_priority_queue_summary.md" class="btn btn-primary" download>📖 Download Guide</a>
+                    <a href="Heap-Priority-Queue/" class="btn btn-secondary">View Problems</a>
+                </div>
+            </div>
+
+            <!-- Dynamic Programming -->
+            <div class="category-card" data-keywords="dynamic-programming dp memoization tabulation">
+                <div class="category-header">
+                    <div class="category-title">Dynamic Programming</div>
+                    <div class="category-subtitle">From Recursion to Memoization to Tabulation</div>
+                </div>
+                <div class="category-stats">
+                    <span class="stat-badge problems">4 Problems</span>
+                    <span class="stat-badge lines">90 Lines</span>
+                    <span class="stat-badge hard">Medium to Hard</span>
+                </div>
+                <div class="category-features">
+                    <ul class="feature-list">
+                        <li>1D & 2D DP Patterns</li>
+                        <li>State Transition Design</li>
+                        <li>Space Optimization</li>
+                        <li>Top-Down vs Bottom-Up</li>
+                    </ul>
+                </div>
+                <div class="category-actions">
+                    <a href="Dynamic-Programming/dynamic_programming_summary.md" class="btn btn-primary" download>📖 Download Guide</a>
+                    <a href="Dynamic-Programming/" class="btn btn-secondary">View Problems</a>
+                </div>
+            </div>
+
+            <!-- Linked List -->
+            <div class="category-card" data-keywords="linked-list pointer dummy-node fast-slow cycle">
+                <div class="category-header">
+                    <div class="category-title">Linked List</div>
+                    <div class="category-subtitle">Pointer Manipulation & Fast-Slow Techniques</div>
+                </div>
+                <div class="category-stats">
+                    <span class="stat-badge problems">4 Problems</span>
+                    <span class="stat-badge lines">89 Lines</span>
+                    <span class="stat-badge easy">Easy to Medium</span>
+                </div>
+                <div class="category-features">
+                    <ul class="feature-list">
+                        <li>Dummy Node Pattern</li>
+                        <li>Fast-Slow Cycle Detection</li>
+                        <li>Reversal Techniques</li>
+                        <li>Merge Operations</li>
+                    </ul>
+                </div>
+                <div class="category-actions">
+                    <a href="Linked-List/linked_list_summary.md" class="btn btn-primary" download>📖 Download Guide</a>
+                    <a href="Linked-List/" class="btn btn-secondary">View Problems</a>
+                </div>
+            </div>
+
+            <!-- BST -->
+            <div class="category-card" data-keywords="bst binary-search-tree inorder sorted">
+                <div class="category-header">
+                    <div class="category-title">BST - Binary Search Tree</div>
+                    <div class="category-subtitle">Leverage In-Order Traversal = Sorted Sequence</div>
+                </div>
+                <div class="category-stats">
+                    <span class="stat-badge problems">4 Problems</span>
+                    <span class="stat-badge lines">87 Lines</span>
+                    <span class="stat-badge easy">Easy to Medium</span>
+                </div>
+                <div class="category-features">
+                    <ul class="feature-list">
+                        <li>BST Property: left < root < right</li>
+                        <li>In-Order Traversal (Iterative & Recursive)</li>
+                        <li>BST Validation</li>
+                        <li>Range Queries</li>
+                    </ul>
+                </div>
+                <div class="category-actions">
+                    <a href="BST-Binary-Search-Tree/bst_binary_search_tree_summary.md" class="btn btn-primary" download>📖 Download Guide</a>
+                    <a href="BST-Binary-Search-Tree/" class="btn btn-secondary">View Problems</a>
+                </div>
+            </div>
+
+            <!-- Stack -->
+            <div class="category-card" data-keywords="stack lifo nested parsing monotonic">
+                <div class="category-header">
+                    <div class="category-title">Stack</div>
+                    <div class="category-subtitle">LIFO for Nested Structures & Backtracking</div>
+                </div>
+                <div class="category-stats">
+                    <span class="stat-badge problems">5 Problems</span>
+                    <span class="stat-badge lines">85 Lines</span>
+                    <span class="stat-badge medium">Medium</span>
+                </div>
+                <div class="category-features">
+                    <ul class="feature-list">
+                        <li>Matching Pairs (Parentheses)</li>
+                        <li>Expression Evaluation</li>
+                        <li>Monotonic Stack</li>
+                        <li>DFS Simulation</li>
+                    </ul>
+                </div>
+                <div class="category-actions">
+                    <a href="Stack/stack_summary.md" class="btn btn-primary" download>📖 Download Guide</a>
+                    <a href="Stack/" class="btn btn-secondary">View Problems</a>
+                </div>
+            </div>
+
+            <!-- Additional categories... -->
+            <div class="category-card" data-keywords="palindrome expand-center two-pointer symmetry">
+                <div class="category-header">
+                    <div class="category-title">Palindrome</div>
+                    <div class="category-subtitle">Expand from Center vs Two Pointers</div>
+                </div>
+                <div class="category-stats">
+                    <span class="stat-badge problems">5 Problems</span>
+                    <span class="stat-badge lines">92 Lines</span>
+                </div>
+                <div class="category-actions">
+                    <a href="Palindrome/palindrome_summary.md" class="btn btn-primary" download>📖 Download Guide</a>
+                    <a href="Palindrome/" class="btn btn-secondary">View Problems</a>
+                </div>
+            </div>
+
+            <div class="category-card" data-keywords="parentheses stack matching validation">
+                <div class="category-header">
+                    <div class="category-title">Parentheses</div>
+                    <div class="category-subtitle">Stack for Matching & Counting</div>
+                </div>
+                <div class="category-stats">
+                    <span class="stat-badge problems">4 Problems</span>
+                    <span class="stat-badge lines">86 Lines</span>
+                </div>
+                <div class="category-actions">
+                    <a href="Parentheses/parentheses_summary.md" class="btn btn-primary" download>📖 Download Guide</a>
+                    <a href="Parentheses/" class="btn btn-secondary">View Problems</a>
+                </div>
+            </div>
+
+            <div class="category-card" data-keywords="string parsing pattern-matching kmp">
+                <div class="category-header">
+                    <div class="category-title">String</div>
+                    <div class="category-subtitle">StringBuilder, Two Pointers, Pattern Matching</div>
+                </div>
+                <div class="category-stats">
+                    <span class="stat-badge problems">7 Problems</span>
+                    <span class="stat-badge lines">92 Lines</span>
+                </div>
+                <div class="category-actions">
+                    <a href="String/string_summary.md" class="btn btn-primary" download>📖 Download Guide</a>
+                    <a href="String/" class="btn btn-secondary">View Problems</a>
+                </div>
+            </div>
+
+            <div class="category-card" data-keywords="math computation number-theory gcd prime">
+                <div class="category-header">
+                    <div class="category-title">Math & Compute</div>
+                    <div class="category-subtitle">Mathematical Properties & Number Theory</div>
+                </div>
+                <div class="category-stats">
+                    <span class="stat-badge problems">4 Problems</span>
+                    <span class="stat-badge lines">87 Lines</span>
+                </div>
+                <div class="category-actions">
+                    <a href="Math-Compute/math_compute_summary.md" class="btn btn-primary" download>📖 Download Guide</a>
+                    <a href="Math-Compute/" class="btn btn-secondary">View Problems</a>
+                </div>
+            </div>
+
+            <div class="category-card" data-keywords="design data-structure lru-cache api">
+                <div class="category-header">
+                    <div class="category-title">Design</div>
+                    <div class="category-subtitle">Data Structure Design & API Implementation</div>
+                </div>
+                <div class="category-stats">
+                    <span class="stat-badge problems">2 Problems</span>
+                    <span class="stat-badge lines">93 Lines</span>
+                </div>
+                <div class="category-actions">
+                    <a href="Design/design_summary.md" class="btn btn-primary" download>📖 Download Guide</a>
+                    <a href="Design/" class="btn btn-secondary">View Problems</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h3>📚 How to Use These Guides</h3>
+            <p style="margin: 20px 0; max-width: 800px; margin-left: auto; margin-right: auto;">
+                Each guide contains detailed sub-patterns, code templates, common pitfalls, testing strategies,
+                and learning paths. Download the markdown files to read with any markdown viewer, or browse
+                the problem directories directly on GitHub.
+            </p>
+            <p style="margin-top: 30px;">
+                <a href="index.html">← Back to Main Problem List</a> |
+                <a href="https://github.com/sparktsao/Questions100" target="_blank">View on GitHub</a>
+            </p>
+            <p style="margin-top: 20px; opacity: 0.8; font-size: 0.9em;">
+                🤖 Generated with <a href="https://claude.com/claude-code">Claude Code</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const categoryCards = document.querySelectorAll('.category-card');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+
+            categoryCards.forEach(card => {
+                const title = card.querySelector('.category-title').textContent.toLowerCase();
+                const subtitle = card.querySelector('.category-subtitle').textContent.toLowerCase();
+                const keywords = card.getAttribute('data-keywords').toLowerCase();
+                const features = card.querySelector('.feature-list').textContent.toLowerCase();
+
+                const matches = title.includes(searchTerm) ||
+                               subtitle.includes(searchTerm) ||
+                               keywords.includes(searchTerm) ||
+                               features.includes(searchTerm);
+
+                card.style.display = matches ? 'block' : 'none';
+            });
+        });
+
+        // Add click animation
+        categoryCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'A' && e.target.tagName !== 'BUTTON') {
+                    const primaryBtn = card.querySelector('.btn-primary');
+                    if (primaryBtn) {
+                        primaryBtn.click();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
