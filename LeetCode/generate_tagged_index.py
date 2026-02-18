@@ -9,6 +9,9 @@ import json
 import re
 
 BASE_DIR = '/Users/sparkt/2026C/Questions100/LeetCode'
+# GitHub repository URL for blob links
+GITHUB_REPO = 'https://github.com/sparktsao/Questions100/blob/main/LeetCode'
+
 
 # Problem-specific tags highlighting their unique approach
 PROBLEM_TAGS = {
@@ -339,7 +342,7 @@ def generate_html_content(categories_data):
                 <tr>
                     <td class="num-col">{prob['num']}</td>
                     <td class="title-col">
-                        <a href="{category}/{prob['filename']}" class="problem-link" target="_blank">
+                        <a href="{GITHUB_REPO}/{category}/{prob['filename']}" class="problem-link" target="_blank">
                             {prob['title']}
                         </a>
                     </td>
