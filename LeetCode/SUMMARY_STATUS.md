@@ -14,13 +14,23 @@
    - Key Insight: Answer space binary search template (#074, #079, #094 identical)
    - Status: COMPLETE
 
+3. **Two-Pointers** (9 problems) ✓
+   - File: `Two-Pointers/two_pointers_summary.md`
+   - Covers: Same direction (merging) vs Opposite direction (optimization)
+   - Key Insight: Direction determines algorithm structure (backward fill optimization, nested for O(n²))
+   - Status: COMPLETE
+
+4. **Sliding-Window** (6 problems) ✓
+   - File: `Sliding-Window/sliding_window_summary.md`
+   - Covers: Fixed size vs Variable size (expand-shrink pattern)
+   - Key Insight: Update answer while expanding (max) or while shrinking (min); while loop for multi-element removal
+   - Status: COMPLETE
+
 ## 🔄 In Progress
 
-Creating comprehensive summaries for remaining 14 categories...
+Creating comprehensive summaries for remaining 12 categories...
 
 ### Priority Categories (Recommended Next)
-- **Two-Pointers** (9 problems) - Same vs opposite direction
-- **Sliding-Window** (6 problems) - Fixed vs variable size
 - **Tree** (10 problems) - DFS vs BFS traversal patterns
 - **Graph-DFS-BFS** (9 problems) - Cycle detection vs shortest path
 
