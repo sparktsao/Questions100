@@ -38,9 +38,15 @@
    - Key Insight: 3-state DFS for cycles, BFS for unweighted shortest path, Union-Find for connectivity
    - Status: COMPLETE
 
+7. **Heap-Priority-Queue** (7 problems) ✓
+   - File: `Heap-Priority-Queue/heap_summary.md`
+   - Covers: Min heap for top K, Dual heap for median, Heap merging
+   - Key Insight: Min heap tracks k largest (not max!), dual heap splits data for median
+   - Status: COMPLETE
+
 ## 🔄 In Progress
 
-Creating comprehensive summaries for remaining 10 categories...
+Creating comprehensive summaries for remaining 9 categories...
 
 ### Priority Categories (Recommended Next)
 - **Tree** (10 problems) - DFS vs BFS traversal patterns
