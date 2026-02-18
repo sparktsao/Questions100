@@ -26,9 +26,21 @@
    - Key Insight: Update answer while expanding (max) or while shrinking (min); while loop for multi-element removal
    - Status: COMPLETE
 
+5. **Tree** (10 problems) ✓
+   - File: `Tree/tree_summary.md`
+   - Covers: BFS (level info) vs DFS (path info), parent pointers, LCA patterns
+   - Key Insight: BFS for levels/distance, DFS for paths/bottom-up; dual calculations for max path sum
+   - Status: COMPLETE
+
+6. **Graph-DFS-BFS** (9 problems) ✓
+   - File: `Graph-DFS-BFS/graph_summary.md`
+   - Covers: BFS shortest paths, DFS cycle detection, Union-Find, Dijkstra
+   - Key Insight: 3-state DFS for cycles, BFS for unweighted shortest path, Union-Find for connectivity
+   - Status: COMPLETE
+
 ## 🔄 In Progress
 
-Creating comprehensive summaries for remaining 12 categories...
+Creating comprehensive summaries for remaining 10 categories...
 
 ### Priority Categories (Recommended Next)
 - **Tree** (10 problems) - DFS vs BFS traversal patterns
