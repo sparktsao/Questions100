@@ -56,9 +56,15 @@
    - Key Insight: Five stack patterns - navigation (backtrack), computation (precedence), state (pause/resume), nested (brackets), count (cascading)
    - Status: COMPLETE
 
+10. **Linked-List** (4 problems) ✓
+   - File: `Linked-List/linked_list_summary.md`
+   - Covers: Dummy node, Two-pointer gap, Hash map mapping, Circular traversal
+   - Key Insight: Dummy nodes eliminate head edge cases, two-pointer gap for nth-from-end, hash map for deep copy, boundary detection for circular
+   - Status: COMPLETE
+
 ## 🔄 In Progress
 
-Creating comprehensive summaries for remaining 7 categories...
+Creating comprehensive summaries for remaining 6 categories...
 
 ### Priority Categories (Recommended Next)
 - **Tree** (10 problems) - DFS vs BFS traversal patterns
