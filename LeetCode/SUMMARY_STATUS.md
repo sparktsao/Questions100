@@ -44,9 +44,15 @@
    - Key Insight: Min heap tracks k largest (not max!), dual heap splits data for median
    - Status: COMPLETE
 
+8. **Palindrome** (5 problems) ✓
+   - File: `Palindrome/palindrome_summary.md`
+   - Covers: Two-pointers validation, Expand around center, DP with LPS
+   - Key Insight: Validation O(n) via two-pointers, counting/finding O(n²) via expansion, k-deletions via LPS DP
+   - Status: COMPLETE
+
 ## 🔄 In Progress
 
-Creating comprehensive summaries for remaining 9 categories...
+Creating comprehensive summaries for remaining 8 categories...
 
 ### Priority Categories (Recommended Next)
 - **Tree** (10 problems) - DFS vs BFS traversal patterns
