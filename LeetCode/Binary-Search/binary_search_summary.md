@@ -1,655 +1,582 @@
-# Binary Search Problems - Comprehensive Analysis
+# Binary Search Mastery
+
+## From Array Search to Answer Space Optimization
+
+---
 
 ## 🎯 Category Overview
 
 **Total Problems:** 8
-**Difficulty Range:** Easy → Medium → Hard
-**Core Concept:** Binary search on arrays vs search on answer space
 
-**🔑 Key Insight:** This category reveals the FUNDAMENTAL difference between:
-- **Searching FOR a target** (classical binary search)
-- **Searching FOR an answer** (binary search on solution space)
-
----
-
-## 📊 Problem Progression Map
-
-```
-Level 1: Find Peak Element (#010) - Binary Search on Array Property
-    ↓
-Level 2: Kth Missing Positive (#041) - Bridge: Array → Answer Space
-    ↓
-Level 3: Find First/Last Position (#042) - Dual Binary Search
-    ↓
-Level 4: Cutting Ribbons (#074) - Pure Answer Space Search
-    ↓
-Level 5: Ship Capacity (#079) - Answer Space with Validation
-    ↓
-Level 6: Kth Smallest in Matrix (#084) - Value Range Search
-    ↓
-Level 7: Koko Eating Bananas (#094) - Speed as Answer Space
-    ↓
-Level 8: Median of Two Arrays (#100) - Partition Point Search (HARDEST)
-```
+**Core Insight:**
+The fundamental insight of binary search is MONOTONICITY - if we can check a condition
+and know which half of the search space to eliminate, we can solve in O(log n) time. This applies to:
+1. Sorted arrays (traditional)
+2. Unsorted arrays with monotonic properties
+3. Answer spaces where "if X works, all values > X work"
 
 ---
 
-## 🔍 The Two Paradigms
+## 📚 Sub-Pattern Deep Dive
 
-### Paradigm A: Search FOR Target (Classical)
-**Question:** "Is this element in the array?"
-**Search Space:** Array indices
-**Example:** #042
+This category has **4 distinct sub-patterns**. Master each progressively:
 
-### Paradigm B: Search FOR Answer (Advanced)
-**Question:** "What's the minimum/maximum value that satisfies a condition?"
-**Search Space:** Possible answer values
-**Examples:** #074, #079, #094
+### Pattern 1: Classic Binary Search
 
----
+**Description:** Search for target in explicitly sorted array
 
-## 📖 Problem-by-Problem Analysis
+**When to Use:** Array is sorted, looking for specific value or boundaries
 
-### 1️⃣ **Problem #010: Find Peak Element** (MEDIUM)
+**Examples in This Set:** #042 Find First and Last Position
 
-**🎯 Task:** Find any peak element where nums[i] > nums[i±1]
-**📥 Input:** Integer array
-**📤 Output:** Index of any peak
-**🏷️ Tag:** Search Peak
+**Code Template:**
 
-#### What Makes This Special?
-```
-This is NOT searching for a specific value!
-We're searching for an INDEX with a PROPERTY (peak)
-```
-
-#### Algorithm
 ```python
-Binary search on property:
-1. mid = (left + right) // 2
-2. If nums[mid] < nums[mid+1]:
-   - Peak must be on right (go uphill)
-   - left = mid + 1
-3. Else:
-   - Peak is mid or on left
-   - right = mid
-4. Return left
-```
-
-#### Why Binary Search Works Here?
-```
-Key insight: If nums[mid] < nums[mid+1], we're on upslope
-→ Guaranteed to find peak on right side
-This guarantees O(log n) without seeing all elements!
-```
-
-#### Complexity
-- **Time:** O(log n)
-- **Space:** O(1)
-
----
-
-### 2️⃣ **Problem #041: Kth Missing Positive** (EASY)
-
-**🎯 Task:** Find kth missing positive number in sorted array
-**📥 Input:** Sorted array + k
-**📤 Output:** Integer (the kth missing number)
-**🏷️ Tag:** Search Answer
-
-#### Bridge Problem! 🌉
-```
-This introduces "searching for answer" concept
-We binary search to find WHERE the kth missing number would be
-```
-
-#### Algorithm
-```python
-Binary search on missing count:
-1. For index i: missing_count = arr[i] - (i + 1)
-2. Binary search to find where missing_count >= k
-3. If not found in array: k + array_length
-4. Else: calculate from position found
-```
-
-#### Key Pattern Shift
-```diff
-- Classical: "Is target at this index?"
-+ New: "How many missing at this position?"
-```
-
-#### Complexity
-- **Time:** O(log n)
-- **Space:** O(1)
-
----
-
-### 3️⃣ **Problem #042: Find First and Last Position** (MEDIUM)
-
-**🎯 Task:** Find starting and ending position of target
-**📥 Input:** Sorted array + target
-**📤 Output:** [start, end] or [-1, -1]
-**🏷️ Tag:** Dual Binary Search
-
-#### What's New?
-```
-TWO binary searches!
-1. Find leftmost occurrence
-2. Find rightmost occurrence
-```
-
-#### Algorithm
-```python
-def searchRange(nums, target):
-    def findFirst():
-        left, right = 0, len(nums) - 1
-        result = -1
-        while left <= right:
-            mid = (left + right) // 2
-            if nums[mid] == target:
-                result = mid
-                right = mid - 1  # Keep searching left
-            elif nums[mid] < target:
-                left = mid + 1
-            else:
-                right = mid - 1
-        return result
-
-    def findLast():
-        left, right = 0, len(nums) - 1
-        result = -1
-        while left <= right:
-            mid = (left + right) // 2
-            if nums[mid] == target:
-                result = mid
-                left = mid + 1  # Keep searching right
-            elif nums[mid] < target:
-                left = mid + 1
-            else:
-                right = mid - 1
-        return result
-
-    return [findFirst(), findLast()]
-```
-
-#### Pattern Recognition
-```
-Template for "first/last occurrence":
-- To find FIRST: right = mid - 1 when found
-- To find LAST: left = mid + 1 when found
-```
-
-#### Complexity
-- **Time:** O(log n) × 2 = O(log n)
-- **Space:** O(1)
-
----
-
-### 4️⃣ **Problem #074: Cutting Ribbons** (MEDIUM)
-
-**🎯 Task:** Find maximum length to cut k pieces
-**📥 Input:** ribbon lengths array + k pieces needed
-**📤 Output:** Maximum possible length
-**🏷️ Tag:** Search Answer
-
-#### 🎯 Pure "Answer Space" Binary Search!
-```
-We're NOT searching the array!
-We're searching all possible LENGTH values: [1, 2, ..., max_length]
-```
-
-#### The Key Question
-```
-Instead of: "Is X in the array?"
-Ask: "Can I achieve length X?"
-```
-
-#### Algorithm
-```python
-def maxLength(ribbons, k):
-    def can_cut(length):
-        """Can we get k pieces of this length?"""
-        pieces = sum(ribbon // length for ribbon in ribbons)
-        return pieces >= k
-
-    left, right = 1, max(ribbons)
-    result = 0
-
-    while left <= right:
-        mid = (left + right) // 2
-        if can_cut(mid):
-            result = mid
-            left = mid + 1  # Try longer
+def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+    while left <= right:  # NOTE: <=  for exact search
+        mid = left + (right - left) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            left = mid + 1
         else:
-            right = mid - 1  # Try shorter
+            right = mid - 1
+    return -1
+```
 
+**Common Bugs:**
+
+- ❌ Using < instead of <= (infinite loop or miss last element)
+- ❌ Not using left + (right - left) // 2 (integer overflow in other languages)
+- ❌ Forgetting to return after finding target (unnecessary iterations)
+- ❌ Wrong boundary: right = mid instead of mid - 1
+
+**Testing Strategy:**
+
+```
+Test cases:
+- Empty array []
+- Single element [1]
+- Target at start [1,2,3] target=1
+- Target at end [1,2,3] target=3
+- Target in middle [1,2,3,4,5] target=3
+- Target not found [1,3,5] target=2
+- Duplicates [1,2,2,2,3] target=2
+```
+
+---
+
+### Pattern 2: Binary Search for Boundaries
+
+**Description:** Find leftmost/rightmost occurrence in sorted array with duplicates
+
+**When to Use:** Need first or last position of value in sorted array
+
+**Examples in This Set:** #042 Find First and Last Position
+
+**Code Template:**
+
+```python
+def find_left_bound(arr, target):
+    left, right = 0, len(arr) - 1
+    result = -1
+    while left <= right:
+        mid = left + (right - left) // 2
+        if arr[mid] == target:
+            result = mid
+            right = mid - 1  # KEY: Keep searching LEFT
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return result
+
+def find_right_bound(arr, target):
+    left, right = 0, len(arr) - 1
+    result = -1
+    while left <= right:
+        mid = left + (right - left) // 2
+        if arr[mid] == target:
+            result = mid
+            left = mid + 1  # KEY: Keep searching RIGHT
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
     return result
 ```
 
-#### Pattern Template
-```
-Binary search on answer space:
-1. Define search range: [min_answer, max_answer]
-2. Create validation function: can_achieve(value)
-3. Binary search:
-   - If achievable: try better (increase/decrease based on goal)
-   - If not: adjust opposite direction
-```
+**Common Bugs:**
 
-#### Complexity
-- **Time:** O(n log(max_length))
-- **Space:** O(1)
+- ❌ Stopping at first match (not continuing search)
+- ❌ Moving wrong pointer (left vs right after match)
+- ❌ Not saving result before continuing search
+- ❌ Using < instead of <= for comparison
+
+**💡 Key Insight:**
+
+The critical difference from classic binary search:
+AFTER finding target, don't return immediately! Save it and keep searching in
+the direction needed (left for first, right for last).
 
 ---
 
-### 5️⃣ **Problem #079: Capacity To Ship Packages** (MEDIUM)
+### Pattern 3: Binary Search on Implicit Array
 
-**🎯 Task:** Find minimum ship capacity to ship in D days
-**📥 Input:** weights array + D days
-**📤 Output:** Minimum capacity
-**🏷️ Tag:** Search Capacity
+**Description:** Search in array with monotonic property but not explicitly sorted
 
-#### Same Pattern as #074!
-```
-Search space: [max(weights), sum(weights)]
-Question: "Can ship with this capacity?"
-```
+**When to Use:** Array has peaks/valleys, rotated sorted, or bitonic properties
 
-#### Algorithm
+**Examples in This Set:** #010 Find Peak Element
+
+**Code Template:**
+
 ```python
-def shipWithinDays(weights, days):
-    def can_ship(capacity):
-        """Can we ship in 'days' days with this capacity?"""
-        current_weight = 0
-        days_needed = 1
-
-        for weight in weights:
-            if current_weight + weight > capacity:
-                days_needed += 1
-                current_weight = weight
-            else:
-                current_weight += weight
-
-        return days_needed <= days
-
-    left, right = max(weights), sum(weights)
-
-    while left < right:
-        mid = (left + right) // 2
-        if can_ship(mid):
-            right = mid  # Try smaller capacity
+def find_peak(arr):
+    left, right = 0, len(arr) - 1
+    while left < right:  # NOTE: < not <= !
+        mid = left + (right - left) // 2
+        if arr[mid] > arr[mid + 1]:
+            # Peak is at mid or to the left
+            right = mid  # Keep mid as candidate
         else:
-            left = mid + 1  # Need larger capacity
-
-    return left
-```
-
-#### Key Insight
-```
-Minimum capacity has monotonic property:
-- If capacity X works → all capacity > X works
-- If capacity X fails → all capacity < X fails
-→ Perfect for binary search!
-```
-
-#### Complexity
-- **Time:** O(n log(sum))
-- **Space:** O(1)
-
----
-
-### 6️⃣ **Problem #084: Kth Smallest in Sorted Matrix** (MEDIUM)
-
-**🎯 Task:** Find kth smallest element in row/col sorted matrix
-**📥 Input:** n×n matrix (sorted) + k
-**📤 Output:** kth smallest value
-**🏷️ Tag:** Search Value Range
-
-#### Mind-Bending Approach!
-```
-We're NOT searching in the matrix!
-We're searching the VALUE RANGE: [matrix[0][0], matrix[n-1][n-1]]
-```
-
-#### Algorithm
-```python
-def kthSmallest(matrix, k):
-    def count_less_equal(target):
-        """Count elements <= target"""
-        count = 0
-        row = len(matrix) - 1
-        col = 0
-
-        while row >= 0 and col < len(matrix):
-            if matrix[row][col] <= target:
-                count += row + 1
-                col += 1
-            else:
-                row -= 1
-
-        return count
-
-    left, right = matrix[0][0], matrix[-1][-1]
-
-    while left < right:
-        mid = (left + right) // 2
-        count = count_less_equal(mid)
-
-        if count < k:
+            # Peak is to the right
             left = mid + 1
-        else:
-            right = mid
-
-    return left
+    return left  # left == right at end
 ```
 
-#### The Trick
-```
-We don't search FOR the element
-We search FOR a value where:
-- Exactly k-1 elements are smaller
-- This value exists in matrix
-```
+**Common Bugs:**
 
-#### Complexity
-- **Time:** O(n log(max-min))
-- **Space:** O(1)
+- ❌ Using left <= right (infinite loop with right = mid)
+- ❌ Using right = mid - 1 (might skip the peak)
+- ❌ Not checking mid+1 boundary (index out of bounds)
+- ❌ Returning mid instead of left/right
+
+**💡 Key Insight:**
+
+Template difference: while left < right (not <=)
+Because we use right = mid (not mid-1), need < to avoid infinite loop.
+This template finds "first occurrence of condition" pattern.
 
 ---
 
-### 7️⃣ **Problem #094: Koko Eating Bananas** (MEDIUM)
+### Pattern 4: Binary Search on Answer Space
 
-**🎯 Task:** Find minimum eating speed to finish in H hours
-**📥 Input:** piles array + H hours
-**📤 Output:** Minimum speed
-**🏷️ Tag:** Search Speed
+**Description:** Search for optimal value, not array index. "Minimize maximum" or "Maximize minimum" problems.
 
-#### Same Pattern Again!
-```
-Search space: [1, max(piles)]
-Question: "Can finish with this speed?"
-```
+**When to Use:** Problem asks "minimum capacity to...", "minimum speed to...", "maximum weight where...".
+Key signal: Not searching IN array, but for a VALUE that satisfies conditions.
 
-#### Algorithm
+**Examples in This Set:** #079 Capacity To Ship Packages, #094 Koko Eating Bananas, #074 Cutting Ribbons
+
+**Code Template:**
+
 ```python
-def minEatingSpeed(piles, h):
-    def can_finish(speed):
-        """Can finish all piles with this speed?"""
-        hours = sum((pile + speed - 1) // speed for pile in piles)
-        return hours <= h
+def binary_search_on_answer(problem_constraints):
+    """
+    Core pattern: Find minimum value that satisfies condition
+    OR: Find maximum value that satisfies condition
+    """
+    def is_valid(candidate_value):
+        """
+        Check if candidate_value satisfies problem constraints.
+        This is O(n) typically - must check all elements.
+        """
+        # Problem-specific validation logic
+        pass
 
-    left, right = 1, max(piles)
+    # Define search space based on problem
+    left = minimum_possible_answer
+    right = maximum_possible_answer
+
+    while left < right:  # Use < for "minimize" problems
+        mid = left + (right - left) // 2
+
+        if is_valid(mid):
+            # mid works, try smaller (for minimize problems)
+            right = mid
+        else:
+            # mid doesn't work, need larger value
+            left = mid + 1
+
+    return left  # Final answer
+
+# For "maximize" problems, flip the logic:
+def binary_search_maximize(problem_constraints):
+    def is_valid(candidate_value):
+        pass
+
+    left, right = min_val, max_val
 
     while left < right:
-        mid = (left + right) // 2
-        if can_finish(mid):
-            right = mid  # Try slower speed
+        mid = left + (right - left + 1) // 2  # NOTE: +1 for maximize!
+
+        if is_valid(mid):
+            # mid works, try larger
+            left = mid  # Use left = mid for maximize
         else:
-            left = mid + 1  # Need faster speed
+            # mid doesn't work, need smaller
+            right = mid - 1
 
     return left
 ```
 
-#### Pattern Recognition
-```
-This is IDENTICAL structure to #079!
-- Different domain (speed vs capacity)
-- Same algorithm (answer space binary search)
-```
+**Common Bugs:**
 
-#### Complexity
-- **Time:** O(n log m) where m = max(piles)
-- **Space:** O(1)
+- ❌ Wrong search space bounds (must be [min_possible, max_possible])
+- ❌ Inefficient is_valid() function (should short-circuit)
+- ❌ Not using +1 in mid calculation for maximize (infinite loop)
+- ❌ Confusing minimize vs maximize templates
+- ❌ Forgetting that is_valid() must be MONOTONIC
+
+**💡 Key Insight:**
+
+MENTAL MODEL SHIFT: You're not searching for an index!
+You're binary searching over POSSIBLE ANSWERS.
+
+The array defines constraints, but you're searching a conceptual number line:
+[1, 2, 3, ..., max_capacity]
+     ↑
+  Looking for minimum value where is_valid(value) = True
+
+Monotonicity requirement: If value X doesn't work, no value < X works.
+                         If value X works, all values > X work.
+
+This is why we can binary search - the condition splits space in half!
 
 ---
 
-### 8️⃣ **Problem #100: Median of Two Sorted Arrays** (HARD)
+## 🎓 Learning Path: Easiest to Hardest
 
-**🎯 Task:** Find median of two sorted arrays in O(log(min(m,n)))
-**📥 Input:** Two sorted arrays
-**📤 Output:** Median value
-**🏷️ Tag:** Search Partition
+### Level 1: Start: Classic Binary Search
 
-#### The Ultimate Challenge!
-```
-Binary search on PARTITION POINT
-Not searching for value, not searching answer space
-Searching for the RIGHT WAY to split arrays!
-```
+**Problems:** #042 Find First and Last Position
 
-#### Core Idea
-```
-Partition both arrays so:
-- Left half has (m+n+1)/2 elements
-- All left elements ≤ all right elements
-→ Median is at partition boundary
-```
+**Goal:** Master the basic template with <= comparison
 
-#### Algorithm
+**Practice:** Write from scratch 5 times without looking. Test all edge cases.
+
+---
+
+### Level 2: Boundaries: Left/Right Bound Search
+
+**Problems:** #042 (boundary variation)
+
+**Goal:** Understand when to continue searching after finding match
+
+**Practice:** Modify classic template to find first/last occurrence. Compare both.
+
+---
+
+### Level 3: Implicit Monotonicity: Peak Finding
+
+**Problems:** #010 Find Peak Element
+
+**Goal:** Recognize monotonic property without explicit sorting
+
+**Practice:** Draw array, mark mid, explain why one half can be eliminated
+
+---
+
+### Level 4: Answer Space: Minimize Problems
+
+**Problems:** #094 Koko Eating Bananas
+
+**Goal:** Mental shift from "search in array" to "search for value"
+
+**Practice:** Identify: What are we searching for? What is search space? What is is_valid()?
+
+---
+
+### Level 5: Answer Space: Capacity Problems
+
+**Problems:** #079 Capacity To Ship Packages, #074 Cutting Ribbons
+
+**Goal:** Apply pattern to capacity/resource allocation problems
+
+**Practice:** Before coding, write down: [min, max] bounds and is_valid() logic
+
+---
+
+### Level 6: Advanced: 2D Binary Search
+
+**Problems:** #084 Kth Smallest in Sorted Matrix
+
+**Goal:** Combine binary search with 2D array properties
+
+**Practice:** Identify what makes the search space monotonic in 2D
+
+---
+
+### Level 7: Master: Median of Two Sorted Arrays
+
+**Problems:** #100 Median of Two Sorted Arrays
+
+**Goal:** Binary search with partition logic and edge cases
+
+**Practice:** This is HARD. Study solution, then implement without looking.
+
+---
+
+## ⚠️ Common Errors Across All Patterns
+
+### Integer overflow in mid calculation
+
+**❌ Wrong:**
 ```python
-def findMedianSortedArrays(nums1, nums2):
-    # Ensure nums1 is smaller (optimization)
-    if len(nums1) > len(nums2):
-        nums1, nums2 = nums2, nums1
+mid = (left + right) // 2
+```
 
-    m, n = len(nums1), len(nums2)
-    left, right = 0, m
+**✅ Correct:**
+```python
+mid = left + (right - left) // 2
+```
+
+**Why:** In Python not a problem, but in Java/C++ left+right can overflow
+
+**Test:** left=2^30, right=2^30 → overflow in some languages
+
+---
+
+### Off-by-one errors with boundaries
+
+**❌ Wrong:**
+```python
+if found: right = mid - 1
+```
+
+**✅ Correct:**
+```python
+if found: right = mid (when using while left < right)
+```
+
+**Why:** Template choice determines boundary update. Mixing templates causes bugs.
+
+**Test:** Array of size 2, target is first element
+
+---
+
+### Infinite loop with wrong template
+
+**❌ Wrong:**
+```python
+while left < right: ... right = mid
+```
+
+**✅ Correct:**
+```python
+Match loop condition with boundary update
+```
+
+**Why:** left < right requires right = mid (include mid). left <= right requires right = mid - 1
+
+**Test:** Run with array [1,2], target=1. Does it terminate?
+
+---
+
+### Not checking array boundaries
+
+**❌ Wrong:**
+```python
+if arr[mid] > arr[mid+1]
+```
+
+**✅ Correct:**
+```python
+if mid < len(arr) - 1 and arr[mid] > arr[mid+1]
+```
+
+**Why:** mid+1 can go out of bounds when mid = len-1
+
+**Test:** Array of size 1
+
+---
+
+## ✅ Testing & Verification
+
+
+## Unit Testing Strategy for Binary Search
+
+### 1. Edge Cases (ALWAYS test these first)
+- Empty array: []
+- Single element: [1]
+- Two elements: [1, 2]
+- All same: [5, 5, 5, 5]
+
+### 2. Position Cases
+- Target at index 0
+- Target at last index
+- Target in middle
+- Target not present (between elements)
+- Target not present (before all)
+- Target not present (after all)
+
+### 3. Duplicate Cases (for boundary search)
+- All duplicates of target: [2, 2, 2, 2]
+- Target at boundaries: [2, 2, 3, 4] or [1, 2, 3, 3]
+- Single occurrence: [1, 2, 3]
+
+### 4. For Answer Space Problems
+- Minimum possible answer
+- Maximum possible answer
+- Answer in middle of range
+- Impossible case (if applicable)
+
+### 5. Property Testing
+Write a test that:
+1. Generates random sorted array
+2. Picks random target
+3. Runs your binary search
+4. Verifies result with linear search
+5. Repeat 1000 times
+
+```python
+import random
+
+def test_binary_search_random():
+    for _ in range(1000):
+        size = random.randint(0, 100)
+        arr = sorted([random.randint(-100, 100) for _ in range(size)])
+        target = random.randint(-100, 100)
+
+        result = binary_search(arr, target)
+        expected = linear_search(arr, target)
+
+        assert result == expected, f"Failed on arr={arr}, target={target}"
+```
+
+### 6. Invariant Checking
+Add assertions in your binary search:
+```python
+def binary_search_with_invariants(arr, target):
+    left, right = 0, len(arr) - 1
 
     while left <= right:
-        partition1 = (left + right) // 2
-        partition2 = (m + n + 1) // 2 - partition1
+        # Invariant: if target exists, it's in [left, right]
+        assert 0 <= left <= len(arr)
+        assert -1 <= right < len(arr)
+        assert left <= right + 1  # Allow left = right + 1 for termination
 
-        maxLeft1 = float('-inf') if partition1 == 0 else nums1[partition1-1]
-        minRight1 = float('inf') if partition1 == m else nums1[partition1]
-
-        maxLeft2 = float('-inf') if partition2 == 0 else nums2[partition2-1]
-        minRight2 = float('inf') if partition2 == n else nums2[partition2]
-
-        if maxLeft1 <= minRight2 and maxLeft2 <= minRight1:
-            # Found correct partition
-            if (m + n) % 2 == 0:
-                return (max(maxLeft1, maxLeft2) + min(minRight1, minRight2)) / 2
-            else:
-                return max(maxLeft1, maxLeft2)
-        elif maxLeft1 > minRight2:
-            right = partition1 - 1
-        else:
-            left = partition1 + 1
+        mid = left + (right - left) // 2
+        # ... rest of logic
 ```
 
-#### Why This is HARD
-```
-1. Must binary search on smaller array
-2. Partition point determines both arrays' splits
-3. Four boundary values to check
-4. Edge cases when partition at start/end
-5. Different logic for odd/even total length
-```
-
-#### Complexity
-- **Time:** O(log(min(m,n))) - only search smaller array
-- **Space:** O(1)
 
 ---
 
-## 🔄 Algorithm Progression
+## 💎 Mastery Insights
 
-### Can We Reuse Previous Solutions?
+### Two Completely Different Mental Models
 
-| From → To | Can Modify? | What Changes? |
-|-----------|-------------|---------------|
-| #010 → #041 | ✅ Partial | Add "missing count" calculation |
-| #042 → #074 | ❌ NO | Different paradigm: target → answer space |
-| #074 → #079 | ✅ YES | Same template, different validation |
-| #079 → #094 | ✅ YES | Identical structure, different domain |
-| #084 → #100 | ❌ NO | Value range → partition point |
+Binary search has TWO distinct use cases that require different thinking:
+
+1. SEARCH IN ARRAY: Find index/position
+   - Input: Sorted (or monotonic) array
+   - Output: Index or -1
+   - Template: Classic binary search
+
+2. SEARCH ON ANSWER: Find optimal value
+   - Input: Problem constraints (array defines constraints, not search space)
+   - Output: Optimal value (not an index!)
+   - Template: Binary search on answer
+
+Many students confuse these. #042 is type 1. #079 and #094 are type 2.
+
 
 ---
 
-## 💡 Key Learning Insights
+### Why Binary Search Works: The Monotonicity Guarantee
 
-### 1. **Two Distinct Patterns**
+Binary search ONLY works when checking mid tells us which half to eliminate.
 
-**Pattern A: Search in Array**
+For array search: If arr[mid] < target, we know target is in right half.
+For answer search: If is_valid(mid) = True, we know all values > mid are also valid.
+
+If this property doesn't hold, binary search fails!
+
+Example where it FAILS:
+Array: [3, 1, 4, 1, 5, 9, 2, 6]  ← Not monotonic!
+Cannot eliminate half based on arr[mid] comparison.
+
+
+---
+
+### Template Choice: < vs <= and When It Matters
+
+Two templates exist for good reasons:
+
+TEMPLATE A (for exact match):
 ```python
 while left <= right:
     mid = (left + right) // 2
-    if nums[mid] == target:
+    if arr[mid] == target:
         return mid
-    elif nums[mid] < target:
+    elif arr[mid] < target:
         left = mid + 1
     else:
         right = mid - 1
 ```
+Use when: Looking for exact value, need to check all elements.
+Boundary update: MUST be mid ± 1 (exclusive)
 
-**Pattern B: Search Answer Space**
+TEMPLATE B (for condition finding):
 ```python
 while left < right:
     mid = (left + right) // 2
-    if can_achieve(mid):
-        right = mid  # or left = mid + 1
+    if condition(mid):
+        right = mid  # Keep mid as candidate
     else:
-        left = mid + 1  # or right = mid - 1
+        left = mid + 1
 ```
+Use when: Finding first/last position satisfying condition.
+Boundary update: Can include mid (right = mid)
 
-### 2. **Monotonicity is Key**
-```
-Binary search works when:
-✓ If X works, all values > X work (or vice versa)
-✓ If X fails, all values < X fail (or vice versa)
-```
+Mixing these causes infinite loops! If using right = mid, MUST use left < right.
 
-### 3. **The Magic Question**
-```
-For answer space problems, ask:
-"Can I achieve result with value X?"
-NOT "Is X in the data?"
-```
-
-### 4. **Validation Function Pattern**
-```python
-def can_achieve(value):
-    """
-    Simulates whether value is achievable
-    Returns: boolean
-    """
-    # Simulate the process
-    # Count, calculate, or validate
-    return result satisfies constraint
-```
 
 ---
 
-## 🎨 Visual Comparison
+### Answer Space Problems: Identifying the Pattern
 
-| Problem | Search What? | Search Range | Validation | Complexity |
-|---------|-------------|--------------|------------|------------|
-| #010 | Array property | Indices | Compare neighbors | O(log n) |
-| #041 | Answer | [1, n+k] | Missing count | O(log n) |
-| #042 | Target | Indices (2×) | Value match | O(log n) |
-| #074 | Length | [1, max] | Can cut k pieces | O(n log m) |
-| #079 | Capacity | [max, sum] | Can ship in D days | O(n log sum) |
-| #084 | Value | [min, max] | Count ≤ value | O(n log range) |
-| #094 | Speed | [1, max] | Can finish in H | O(n log max) |
-| #100 | Partition | [0, m] | Valid split | O(log min) |
+How to recognize "binary search on answer" problems:
 
----
+🚨 SIGNALS 🚨
+- Problem asks for "minimum value that...", "maximum value where..."
+- Keywords: "minimum capacity", "minimum speed", "maximum pages", "kth element"
+- Array defines CONSTRAINTS, not the search space
+- Brute force would be "try every possible value from min to max"
 
-## 🚀 Recommended Study Order
+STEPS TO SOLVE:
+1. Identify what you're minimizing/maximizing (this is your "answer")
+2. Find bounds: [minimum_possible, maximum_possible]
+3. Write is_valid(candidate): checks if candidate satisfies constraints
+4. Verify monotonicity: if X works, does X+1 work? (or vice versa)
+5. Apply binary search template on [min, max]
 
-1. **Master Classical First:** #042
-   - Understand standard binary search
-   - Learn first/last occurrence pattern
+Example: "Minimum speed to eat all bananas in H hours"
+- Answer: speed (integer from 1 to max(piles))
+- is_valid(speed): returns true if can finish with this speed
+- Monotonic: if speed K works, speed K+1 also works
+- Binary search for smallest K where is_valid(K) = true
 
-2. **Bridge to Answer Space:** #041
-   - Transition from "find target" to "find answer"
-
-3. **Answer Space Trio:** #074 → #079 → #094
-   - These use SAME template!
-   - Practice validation functions
-
-4. **Advanced Applications:** #010, #084
-   - Non-standard search spaces
-
-5. **Ultimate Challenge:** #100
-   - Combines everything
-   - Requires deep understanding
 
 ---
 
-## 🎯 The Universal Template
+## 📋 Complete Problem Reference
 
-```python
-def binary_search_answer(data, constraint):
-    """
-    Template for answer space binary search
-    """
-    # 1. Define answer range
-    left, right = min_possible_answer, max_possible_answer
+| # | Problem | Difficulty | Frequency | File |
+|---|---------|------------|-----------|------|
+| 010 | Find Peak Element | MEDIUM | 82.9% | [010_find_peak_element.md](./010_find_peak_element.md) |
+| 041 | Kth Missing Positive Number | EASY | 59.4% | [041_kth_missing_positive_number.md](./041_kth_missing_positive_number.md) |
+| 042 | Find First and Last Position of Element in Sorted Array | MEDIUM | 59.4% | [042_find_first_and_last_position_of_element_in_sorted_array.md](./042_find_first_and_last_position_of_element_in_sorted_array.md) |
+| 074 | Cutting Ribbons | MEDIUM | 40.7% | [074_cutting_ribbons.md](./074_cutting_ribbons.md) |
+| 079 | Capacity To Ship Packages Within D Days | MEDIUM | 40.7% | [079_capacity_to_ship_packages_within_d_days.md](./079_capacity_to_ship_packages_within_d_days.md) |
+| 084 | Kth Smallest Element in a Sorted Matrix | MEDIUM | 40.7% | [084_kth_smallest_element_in_a_sorted_matrix.md](./084_kth_smallest_element_in_a_sorted_matrix.md) |
+| 094 | Koko Eating Bananas | MEDIUM | 32.0% | [094_koko_eating_bananas.md](./094_koko_eating_bananas.md) |
+| 100 | Median of Two Sorted Arrays | HARD | 32.0% | [100_median_of_two_sorted_arrays.md](./100_median_of_two_sorted_arrays.md) |
 
-    # 2. Define validation
-    def can_achieve(value):
-        # Simulate if 'value' satisfies constraint
-        return True/False
-
-    # 3. Binary search
-    result = left  # or right, depending on min/max goal
-    while left <= right:
-        mid = (left + right) // 2
-        if can_achieve(mid):
-            result = mid
-            # Adjust based on goal:
-            # For minimum: right = mid - 1
-            # For maximum: left = mid + 1
-        else:
-            # Opposite adjustment
-
-    return result
-```
 
 ---
 
-## 📝 Interview Tips
-
-### Red Flags (Common Mistakes)
-
-1. **#010:** Forgetting that ANY peak works (not a specific one)
-2. **#042:** Using one binary search for both first AND last
-3. **#074-#094:** Not recognizing answer space pattern
-4. **#100:** Searching on larger array (should search smaller!)
-
-### Optimization Opportunities
-
-```python
-# Instead of:
-hours = 0
-for pile in piles:
-    hours += (pile + speed - 1) // speed
-
-# Use:
-hours = sum((pile + speed - 1) // speed for pile in piles)
-```
-
----
-
-## 🧩 Pattern Recognition Guide
-
-### When to Binary Search on Answer Space?
-
-Ask these questions:
-1. ✅ Am I looking for minimum/maximum value?
-2. ✅ Can I validate if a value works?
-3. ✅ Does the validation have monotonic property?
-4. ✅ Is brute force too slow?
-
-If all YES → Answer space binary search!
-
-### Template Recognition
-```
-"Find minimum X such that..." → Binary search on X
-"Find maximum X such that..." → Binary search on X
-"Kth smallest/largest..." → Might be binary search on value range
-```
-
----
-
-**Summary:** Binary search has TWO paradigms: searching IN data vs searching FOR answer. Master classical binary search first (#042), then learn answer space template (#074, #079, #094). The key is recognizing monotonic properties and asking "Can I achieve X?" instead of "Is X here?". Problems #074, #079, #094 use IDENTICAL templates—once you master one, you can solve all three!
+[← Back to All Categories](../README.md)
