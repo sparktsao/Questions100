@@ -89,13 +89,14 @@ def find_problem_file(category, problem_num):
     if not category_dir.exists():
         return None
 
-    # Find file starting with problem number
+    # Find file starting with problem number (excluding summaries and README)
     for file in category_dir.glob(f'{problem_num}_*.md'):
-        return file
+        if 'summary' not in file.name.lower() and file.name != 'README.md':
+            return file
 
     return None
 
-def generate_problem_row(problem_data, difficulty, frequency):
+def generate_problem_row(problem_data, difficulty, frequency, actual_filename):
     """Generate HTML table row for a problem."""
     num = problem_data['number']
     title = problem_data['title']
@@ -105,11 +106,8 @@ def generate_problem_row(problem_data, difficulty, frequency):
     # Convert difficulty to badge class
     badge_class = f"badge-{difficulty.lower()}"
 
-    # Generate file path using GitHub URL for proper markdown rendering
-    filename = title.lower()
-    filename = re.sub(r'[^\w\s-]', '', filename)
-    filename = re.sub(r'[-\s]+', '_', filename)
-    file_path = f"https://github.com/sparktsao/Questions100/blob/main/LeetCode/{category}/{num}_{filename}.md"
+    # Use actual filename from filesystem for GitHub URL
+    file_path = f"https://github.com/sparktsao/Questions100/blob/main/LeetCode/{category}/{actual_filename}"
 
     return f'''                        <tr data-title="{title}" data-tag="{tag}" data-diff="{difficulty}" data-category="{category}">
                             <td class="num-col">{num}</td>
@@ -195,12 +193,18 @@ def main():
         problem_file = find_problem_file(category, num)
         if problem_file:
             difficulty, frequency = extract_problem_metadata(problem_file)
+            actual_filename = problem_file.name
         else:
             print(f"Warning: File not found for {num} - {problem['title']}")
             difficulty, frequency = 'MEDIUM', '0.0'
+            # Fallback to generated filename
+            filename = problem['title'].lower()
+            filename = re.sub(r'[^\w\s-]', '', filename)
+            filename = re.sub(r'[-\s]+', '_', filename)
+            actual_filename = f"{num}_{filename}.md"
 
         # Generate row HTML
-        row_html = generate_problem_row(problem, difficulty, frequency)
+        row_html = generate_problem_row(problem, difficulty, frequency, actual_filename)
 
         if category not in categories:
             categories[category] = []

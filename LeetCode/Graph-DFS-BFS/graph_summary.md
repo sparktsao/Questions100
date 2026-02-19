@@ -2,6 +2,7 @@
 
 
 
+
 ## 📋 Problems in This Category
 
 - [025. Clone Graph](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Graph-DFS-BFS/025_clone_graph.md) - `DFS+Clone`
@@ -12,7 +13,7 @@
 - [063. Course Schedule](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Graph-DFS-BFS/063_course_schedule.md) - `DFS Cycle Detect`
 - [070. Swim in Rising Water](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Graph-DFS-BFS/070_swim_in_rising_water.md) - `Dijkstra`
 - [081. Word Ladder](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Graph-DFS-BFS/081_word_ladder.md) - `BFS Transform`
-- [086. Shortest Path in Hidden Grid](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Graph-DFS-BFS/086_shortest_path_in_hidden_grid.md) - `DFS+BFS Hybrid`
+- [086. Shortest Path in Hidden Grid](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Graph-DFS-BFS/086_shortest_path_in_a_hidden_grid.md) - `DFS+BFS Hybrid`
 
 ---
 

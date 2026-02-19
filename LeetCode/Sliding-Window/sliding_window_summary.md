@@ -2,14 +2,15 @@
 
 
 
+
 ## 📋 Problems in This Category
 
 - [037. Minimum Window Substring](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Sliding-Window/037_minimum_window_substring.md) - `Variable Size`
 - [040. Max Consecutive Ones III](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Sliding-Window/040_max_consecutive_ones_iii.md) - `Variable Size`
 - [059. Continuous Subarray Sum](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Sliding-Window/059_continuous_subarray_sum.md) - `HashMap+Mod`
 - [068. Contains Duplicate II](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Sliding-Window/068_contains_duplicate_ii.md) - `Fixed Size`
-- [080. Longest Substring Without Repeating](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Sliding-Window/080_longest_substring_without_repeating.md) - `Variable Size`
-- [090. Frequency of Most Frequent Element](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Sliding-Window/090_frequency_of_most_frequent_element.md) - `Variable Size+Sort`
+- [080. Longest Substring Without Repeating](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Sliding-Window/080_longest_substring_without_repeating_characters.md) - `Variable Size`
+- [090. Frequency of Most Frequent Element](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Sliding-Window/090_frequency_of_the_most_frequent_element.md) - `Variable Size+Sort`
 
 ---
 

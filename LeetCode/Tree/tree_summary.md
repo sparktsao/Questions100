@@ -2,17 +2,18 @@
 
 
 
+
 ## 📋 Problems in This Category
 
-- [003. Binary Tree Vertical Order](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/003_binary_tree_vertical_order.md) - `BFS+Column Track`
-- [005. Lowest Common Ancestor III](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/005_lowest_common_ancestor_iii.md) - `DFS+Parent Ptr`
+- [003. Binary Tree Vertical Order](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/003_binary_tree_vertical_order_traversal.md) - `BFS+Column Track`
+- [005. Lowest Common Ancestor III](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/005_lowest_common_ancestor_of_a_binary_tree_iii.md) - `DFS+Parent Ptr`
 - [007. Binary Tree Right Side View](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/007_binary_tree_right_side_view.md) - `BFS Level-Order`
-- [009. Lowest Common Ancestor](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/009_lowest_common_ancestor.md) - `DFS Recursive`
+- [009. Lowest Common Ancestor](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/009_lowest_common_ancestor_of_a_binary_tree.md) - `DFS Recursive`
 - [011. Nested List Weight Sum](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/011_nested_list_weight_sum.md) - `DFS+Depth`
 - [013. Sum Root to Leaf Numbers](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/013_sum_root_to_leaf_numbers.md) - `DFS Path Track`
 - [014. Diameter of Binary Tree](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/014_diameter_of_binary_tree.md) - `DFS Bottom-Up`
-- [061. Vertical Order Traversal](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/061_vertical_order_traversal.md) - `DFS+Sort`
-- [066. All Nodes Distance K](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/066_all_nodes_distance_k.md) - `BFS+Parent Map`
+- [061. Vertical Order Traversal](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/061_vertical_order_traversal_of_a_binary_tree.md) - `DFS+Sort`
+- [066. All Nodes Distance K](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/066_all_nodes_distance_k_in_binary_tree.md) - `BFS+Parent Map`
 - [076. Binary Tree Maximum Path Sum](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/076_binary_tree_maximum_path_sum.md) - `DFS+Max Path`
 
 ---

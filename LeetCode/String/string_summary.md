@@ -2,13 +2,14 @@
 
 
 
+
 ## 📋 Problems in This Category
 
 - [043. Longest Common Prefix](https://github.com/sparktsao/Questions100/blob/main/LeetCode/String/043_longest_common_prefix.md) - `Vertical Scan`
 - [046. Diagonal Traverse](https://github.com/sparktsao/Questions100/blob/main/LeetCode/String/046_diagonal_traverse.md) - `Diagonal Sim`
 - [047. Missing Ranges](https://github.com/sparktsao/Questions100/blob/main/LeetCode/String/047_missing_ranges.md) - `Gap Check`
 - [058. Valid Number](https://github.com/sparktsao/Questions100/blob/main/LeetCode/String/058_valid_number.md) - `DFA Validation`
-- [067. String to Integer](https://github.com/sparktsao/Questions100/blob/main/LeetCode/String/067_string_to_integer.md) - `Parse+Validate`
+- [067. String to Integer](https://github.com/sparktsao/Questions100/blob/main/LeetCode/String/067_string_to_integer_atoi.md) - `Parse+Validate`
 - [095. Goat Latin](https://github.com/sparktsao/Questions100/blob/main/LeetCode/String/095_goat_latin.md) - `Transform`
 - [097. Text Justification](https://github.com/sparktsao/Questions100/blob/main/LeetCode/String/097_text_justification.md) - `Greedy Pack`
 

@@ -2,9 +2,10 @@
 
 
 
+
 ## 📋 Problems in This Category
 
-- [006. Kth Largest Element](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Heap-Priority-Queue/006_kth_largest_element.md) - `Min Heap`
+- [006. Kth Largest Element](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Heap-Priority-Queue/006_kth_largest_element_in_an_array.md) - `Min Heap`
 - [012. Random Pick with Weight](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Heap-Priority-Queue/012_random_pick_with_weight.md) - `Binary Search+Prefix`
 - [015. Top K Frequent Elements](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Heap-Priority-Queue/015_top_k_frequent_elements.md) - `Bucket Sort`
 - [019. Merge k Sorted Lists](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Heap-Priority-Queue/019_merge_k_sorted_lists.md) - `Min Heap`

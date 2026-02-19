@@ -6,6 +6,20 @@ Update all category summary files to include links to individual questions.
 import re
 from pathlib import Path
 
+def find_actual_problem_file(category, problem_num):
+    """Find the actual markdown file for a given problem."""
+    category_dir = Path(f'/Users/sparkt/2026C/Questions100/LeetCode/{category}')
+
+    if not category_dir.exists():
+        return None
+
+    # Find file starting with problem number (excluding summaries and README)
+    for file in category_dir.glob(f'{problem_num}_*.md'):
+        if 'summary' not in file.name.lower() and file.name != 'README.md':
+            return file.name
+
+    return None
+
 def parse_tag_reference():
     """Parse TAG_REFERENCE.md to extract problem data by category."""
     tag_ref_path = Path('/Users/sparkt/2026C/Questions100/LeetCode/TAG_REFERENCE.md')
@@ -35,17 +49,20 @@ def parse_tag_reference():
             title = problem_match.group(2).strip()
             tag = problem_match.group(3).strip()
 
-            # Generate filename
-            filename = title.lower()
-            filename = re.sub(r'[^\w\s-]', '', filename)
-            filename = re.sub(r'[-\s]+', '_', filename)
-            file_path = f"{num}_{filename}.md"
+            # Find actual filename from filesystem
+            actual_filename = find_actual_problem_file(current_category, num)
+            if not actual_filename:
+                # Fallback to generated filename
+                filename = title.lower()
+                filename = re.sub(r'[^\w\s-]', '', filename)
+                filename = re.sub(r'[-\s]+', '_', filename)
+                actual_filename = f"{num}_{filename}.md"
 
             categories[current_category].append({
                 'number': num,
                 'title': title,
                 'tag': tag,
-                'filename': file_path
+                'filename': actual_filename
             })
 
     return categories
