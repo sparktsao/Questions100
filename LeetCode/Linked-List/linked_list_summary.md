@@ -1,13 +1,14 @@
 # Linked List - Comprehensive Mastery Guide
 
 
+
 ## 📋 Problems in This Category
 
-- [019. Merge k Sorted Lists](019_merge_k_sorted_lists.md) - `Min Heap+Merge`
-- [032. Copy List with Random Pointer](032_copy_list_with_random_pointer.md) - `HashMap`
-- [045. Remove Nth Node From End](045_remove_nth_node_from_end.md) - `2-Ptr Gap`
-- [054. Add Two Numbers](054_add_two_numbers.md) - `Dummy+Carry`
-- [064. Insert into Sorted Circular List](064_insert_into_sorted_circular_list.md) - `Edge Cases`
+- [019. Merge k Sorted Lists](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Linked-List/019_merge_k_sorted_lists.md) - `Min Heap+Merge`
+- [032. Copy List with Random Pointer](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Linked-List/032_copy_list_with_random_pointer.md) - `HashMap`
+- [045. Remove Nth Node From End](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Linked-List/045_remove_nth_node_from_end.md) - `2-Ptr Gap`
+- [054. Add Two Numbers](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Linked-List/054_add_two_numbers.md) - `Dummy+Carry`
+- [064. Insert into Sorted Circular List](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Linked-List/064_insert_into_sorted_circular_list.md) - `Edge Cases`
 
 ---
 

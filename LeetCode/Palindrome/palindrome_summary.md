@@ -1,13 +1,14 @@
 # Palindrome - Comprehensive Guide
 
 
+
 ## 📋 Problems in This Category
 
-- [004. Valid Palindrome II](004_valid_palindrome_ii.md) - `2-Ptr, 1 Skip`
-- [029. Valid Palindrome](029_valid_palindrome.md) - `2-Ptr, Validation`
-- [057. Palindromic Substrings](057_palindromic_substrings.md) - `Expand Center`
-- [083. Valid Palindrome III](083_valid_palindrome_iii.md) - `DP, K Deletions`
-- [096. Longest Palindromic Substring](096_longest_palindromic_substring.md) - `Expand+DP`
+- [004. Valid Palindrome II](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Palindrome/004_valid_palindrome_ii.md) - `2-Ptr, 1 Skip`
+- [029. Valid Palindrome](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Palindrome/029_valid_palindrome.md) - `2-Ptr, Validation`
+- [057. Palindromic Substrings](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Palindrome/057_palindromic_substrings.md) - `Expand Center`
+- [083. Valid Palindrome III](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Palindrome/083_valid_palindrome_iii.md) - `DP, K Deletions`
+- [096. Longest Palindromic Substring](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Palindrome/096_longest_palindromic_substring.md) - `Expand+DP`
 
 ---
 

@@ -105,11 +105,11 @@ def generate_problem_row(problem_data, difficulty, frequency):
     # Convert difficulty to badge class
     badge_class = f"badge-{difficulty.lower()}"
 
-    # Generate file path
+    # Generate file path using GitHub URL for proper markdown rendering
     filename = title.lower()
     filename = re.sub(r'[^\w\s-]', '', filename)
     filename = re.sub(r'[-\s]+', '_', filename)
-    file_path = f"LeetCode/{category}/{num}_{filename}.md"
+    file_path = f"https://github.com/sparktsao/Questions100/blob/main/LeetCode/{category}/{num}_{filename}.md"
 
     return f'''                        <tr data-title="{title}" data-tag="{tag}" data-diff="{difficulty}" data-category="{category}">
                             <td class="num-col">{num}</td>
@@ -137,9 +137,12 @@ def generate_category_section(category, problems_in_category):
     # Generate problem rows
     problem_rows = '\n'.join(problems_in_category)
 
-    # Generate summary filename
+    # Generate summary filename using GitHub URL for proper markdown rendering
     summary_filename = category.lower().replace('-', '_') + '_summary.md'
-    summary_path = f"LeetCode/{category}/{summary_filename}"
+    # Special case: Graph-DFS-BFS uses graph_summary.md
+    if category == 'Graph-DFS-BFS':
+        summary_filename = 'graph_summary.md'
+    summary_path = f"https://github.com/sparktsao/Questions100/blob/main/LeetCode/{category}/{summary_filename}"
 
     return f'''
         <section id="{category}" class="category-section" data-category="{category}">

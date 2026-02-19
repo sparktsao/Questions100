@@ -1,13 +1,14 @@
 # Stack - Comprehensive Guide
 
 
+
 ## 📋 Problems in This Category
 
-- [008. Basic Calculator II](008_basic_calculator_ii.md) - `Stack+Operator`
-- [035. Simplify Path](035_simplify_path.md) - `Stack+Path`
-- [049. Exclusive Time of Functions](049_exclusive_time_of_functions.md) - `Stack+Time`
-- [093. Decode String](093_decode_string.md) - `Stack+Nested`
-- [098. Remove Adjacent Duplicates II](098_remove_adjacent_duplicates_ii.md) - `Stack+Count`
+- [008. Basic Calculator II](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Stack/008_basic_calculator_ii.md) - `Stack+Operator`
+- [035. Simplify Path](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Stack/035_simplify_path.md) - `Stack+Path`
+- [049. Exclusive Time of Functions](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Stack/049_exclusive_time_of_functions.md) - `Stack+Time`
+- [093. Decode String](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Stack/093_decode_string.md) - `Stack+Nested`
+- [098. Remove Adjacent Duplicates II](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Stack/098_remove_adjacent_duplicates_ii.md) - `Stack+Count`
 
 ---
 

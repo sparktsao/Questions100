@@ -1,16 +1,17 @@
 # Binary Search Mastery
 
 
+
 ## 📋 Problems in This Category
 
-- [010. Find Peak Element](010_find_peak_element.md) - `Search Peak`
-- [041. Kth Missing Positive Number](041_kth_missing_positive_number.md) - `Search Answer`
-- [042. Find First and Last Position](042_find_first_and_last_position.md) - `Dual Binary Search`
-- [074. Cutting Ribbons](074_cutting_ribbons.md) - `Search Answer`
-- [079. Capacity To Ship Packages](079_capacity_to_ship_packages.md) - `Search Capacity`
-- [084. Kth Smallest Element in Matrix](084_kth_smallest_element_in_matrix.md) - `Search Value Range`
-- [094. Koko Eating Bananas](094_koko_eating_bananas.md) - `Search Speed`
-- [100. Median of Two Sorted Arrays](100_median_of_two_sorted_arrays.md) - `Search Partition`
+- [010. Find Peak Element](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/010_find_peak_element.md) - `Search Peak`
+- [041. Kth Missing Positive Number](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/041_kth_missing_positive_number.md) - `Search Answer`
+- [042. Find First and Last Position](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/042_find_first_and_last_position.md) - `Dual Binary Search`
+- [074. Cutting Ribbons](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/074_cutting_ribbons.md) - `Search Answer`
+- [079. Capacity To Ship Packages](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/079_capacity_to_ship_packages.md) - `Search Capacity`
+- [084. Kth Smallest Element in Matrix](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/084_kth_smallest_element_in_matrix.md) - `Search Value Range`
+- [094. Koko Eating Bananas](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/094_koko_eating_bananas.md) - `Search Speed`
+- [100. Median of Two Sorted Arrays](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/100_median_of_two_sorted_arrays.md) - `Search Partition`
 
 ---
 

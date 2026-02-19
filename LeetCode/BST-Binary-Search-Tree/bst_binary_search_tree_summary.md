@@ -1,12 +1,13 @@
 # BST Binary Search Tree - Comprehensive Guide
 
 
+
 ## 📋 Problems in This Category
 
-- [027. Range Sum of BST](027_range_sum_of_bst.md) - `DFS+Pruning`
-- [051. Binary Search Tree Iterator](051_binary_search_tree_iterator.md) - `Iterator+Stack`
-- [060. Closest Binary Search Tree Value](060_closest_binary_search_tree_value.md) - `Binary Search`
-- [092. Kth Smallest Element in a BST](092_kth_smallest_element_in_a_bst.md) - `Inorder+Counter`
+- [027. Range Sum of BST](https://github.com/sparktsao/Questions100/blob/main/LeetCode/BST-Binary-Search-Tree/027_range_sum_of_bst.md) - `DFS+Pruning`
+- [051. Binary Search Tree Iterator](https://github.com/sparktsao/Questions100/blob/main/LeetCode/BST-Binary-Search-Tree/051_binary_search_tree_iterator.md) - `Iterator+Stack`
+- [060. Closest Binary Search Tree Value](https://github.com/sparktsao/Questions100/blob/main/LeetCode/BST-Binary-Search-Tree/060_closest_binary_search_tree_value.md) - `Binary Search`
+- [092. Kth Smallest Element in a BST](https://github.com/sparktsao/Questions100/blob/main/LeetCode/BST-Binary-Search-Tree/092_kth_smallest_element_in_a_bst.md) - `Inorder+Counter`
 
 ---
 

@@ -1,15 +1,16 @@
 # Heap & Priority Queue - Comprehensive Mastery Guide
 
 
+
 ## 📋 Problems in This Category
 
-- [006. Kth Largest Element](006_kth_largest_element.md) - `Min Heap`
-- [012. Random Pick with Weight](012_random_pick_with_weight.md) - `Binary Search+Prefix`
-- [015. Top K Frequent Elements](015_top_k_frequent_elements.md) - `Bucket Sort`
-- [019. Merge k Sorted Lists](019_merge_k_sorted_lists.md) - `Min Heap`
-- [034. Sliding Window Median](034_sliding_window_median.md) - `Dual Heap+Lazy`
-- [082. Find Median from Data Stream](082_find_median_from_data_stream.md) - `Dual Heap`
-- [091. Random Pick Index](091_random_pick_index.md) - `Reservoir Sampling`
+- [006. Kth Largest Element](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Heap-Priority-Queue/006_kth_largest_element.md) - `Min Heap`
+- [012. Random Pick with Weight](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Heap-Priority-Queue/012_random_pick_with_weight.md) - `Binary Search+Prefix`
+- [015. Top K Frequent Elements](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Heap-Priority-Queue/015_top_k_frequent_elements.md) - `Bucket Sort`
+- [019. Merge k Sorted Lists](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Heap-Priority-Queue/019_merge_k_sorted_lists.md) - `Min Heap`
+- [034. Sliding Window Median](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Heap-Priority-Queue/034_sliding_window_median.md) - `Dual Heap+Lazy`
+- [082. Find Median from Data Stream](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Heap-Priority-Queue/082_find_median_from_data_stream.md) - `Dual Heap`
+- [091. Random Pick Index](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Heap-Priority-Queue/091_random_pick_index.md) - `Reservoir Sampling`
 
 ---
 

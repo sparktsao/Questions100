@@ -50,7 +50,7 @@ def parse_tag_reference():
 
     return categories
 
-def generate_problem_links_section(problems):
+def generate_problem_links_section(problems, category):
     """Generate the problem links section for a summary."""
     links = []
     for problem in problems:
@@ -58,7 +58,9 @@ def generate_problem_links_section(problems):
         title = problem['title']
         tag = problem['tag']
         filename = problem['filename']
-        links.append(f"- [{num}. {title}]({filename}) - `{tag}`")
+        # Use GitHub URL for proper markdown rendering
+        github_url = f"https://github.com/sparktsao/Questions100/blob/main/LeetCode/{category}/{filename}"
+        links.append(f"- [{num}. {title}]({github_url}) - `{tag}`")
 
     section = f"""## 📋 Problems in This Category
 
@@ -87,13 +89,24 @@ def update_summary_file(category, problems):
     with open(summary_path, 'r') as f:
         content = f.read()
 
-    # Check if problem links section already exists
+    # Check if problem links section already exists - if so, remove it to regenerate with GitHub URLs
     if '## 📋 Problems in This Category' in content:
-        print(f"✓ {category}: Problem links already exist, skipping")
-        return False
+        # Remove old section to regenerate with GitHub URLs
+        lines = content.split('\n')
+        new_lines = []
+        skip_section = False
+        for line in lines:
+            if line.startswith('## 📋 Problems in This Category'):
+                skip_section = True
+                continue
+            if skip_section and line.startswith('## '):
+                skip_section = False
+            if not skip_section:
+                new_lines.append(line)
+        content = '\n'.join(new_lines)
 
     # Generate problem links section
-    links_section = generate_problem_links_section(problems)
+    links_section = generate_problem_links_section(problems, category)
 
     # Find where to insert (after the first header and any intro text, before the first ## section)
     # We'll insert after the first line and before the first ## (except the title)
