@@ -1,5 +1,16 @@
 # Dynamic Programming - Comprehensive Mastery Guide
 
+
+## 📋 Problems in This Category
+
+- [018. Best Time to Buy and Sell Stock](018_best_time_to_buy_and_sell_stock.md) - `1D DP`
+- [055. Subsets](055_subsets.md) - `Backtrack`
+- [075. Word Break](075_word_break.md) - `1D DP`
+- [083. Valid Palindrome III](083_valid_palindrome_iii.md) - `2D DP`
+- [099. Best Time to Buy and Sell Stock III](099_best_time_to_buy_and_sell_stock_iii.md) - `State Machine DP`
+
+---
+
 ## 🎯 Category Overview
 
 **Total Problems:** 4

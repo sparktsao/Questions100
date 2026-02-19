@@ -1,5 +1,15 @@
 # Math Compute - Comprehensive Guide
 
+
+## 📋 Problems in This Category
+
+- [021. Pow(x, n)](021_powx_n.md) - `Recursive`
+- [050. Add Strings](050_add_strings.md) - `Iterative+Carry`
+- [072. Maximum Swap](072_maximum_swap.md) - `Greedy+Digit`
+- [085. Add Two Integers](085_add_two_integers.md) - `Direct`
+
+---
+
 ## Mathematical Properties & Number Theory
 
 ---

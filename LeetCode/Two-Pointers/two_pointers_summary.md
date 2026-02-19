@@ -1,5 +1,21 @@
 # Two-Pointers Problems - Comprehensive Analysis
 
+
+## 📋 Problems in This Category
+
+- [002. Valid Word Abbreviation](002_valid_word_abbreviation.md) - `Same Dir`
+- [028. Dot Product of Two Sparse Vectors](028_dot_product_of_two_sparse_vectors.md) - `Same Dir`
+- [029. Valid Palindrome](029_valid_palindrome.md) - `Opposite Dir`
+- [030. Next Permutation](030_next_permutation.md) - `Same Dir+Greedy`
+- [033. Merge Sorted Array](033_merge_sorted_array.md) - `Opposite Dir`
+- [044. Squares of a Sorted Array](044_squares_of_a_sorted_array.md) - `Opposite Dir`
+- [065. 3Sum](065_3sum.md) - `Opposite Dir`
+- [073. Container With Most Water](073_container_with_most_water.md) - `Opposite Dir+Greedy`
+- [078. Strobogrammatic Number](078_strobogrammatic_number.md) - `Opposite Dir`
+- [088. Interval List Intersections](088_interval_list_intersections.md) - `Same Dir`
+
+---
+
 ## 🎯 Category Overview
 
 **Total Problems:** 9

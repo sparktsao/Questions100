@@ -1,5 +1,23 @@
 # Array & Hashing - Comprehensive Mastery Guide
 
+
+## 📋 Problems in This Category
+
+- [016. Merge Intervals](016_merge_intervals.md) - `Sort+Merge`
+- [017. Two Sum](017_two_sum.md) - `HashMap O(1)`
+- [022. Buildings With Ocean View](022_buildings_with_ocean_view.md) - `Right-to-Left`
+- [023. Custom Sort String](023_custom_sort_string.md) - `Count+Build`
+- [024. K Closest Points](024_k_closest_points.md) - `Max Heap`
+- [026. Subarray Sum Equals K](026_subarray_sum_equals_k.md) - `Prefix Sum+Hash`
+- [062. Group Shifted Strings](062_group_shifted_strings.md) - `Hash Pattern`
+- [069. Zero Array Transformation](069_zero_array_transformation.md) - `Heap+Greedy`
+- [071. Managers with 5+ Reports](071_managers_with_5_reports.md) - `SQL Aggregate`
+- [077. Car Pooling](077_car_pooling.md) - `Difference Array`
+- [087. Maximum Subarray](087_maximum_subarray.md) - `Kadane DP`
+- [089. Range Sum Query](089_range_sum_query.md) - `Prefix Sum`
+
+---
+
 ## From O(n²) Brute Force to O(n) Hash Map Optimization
 
 ---

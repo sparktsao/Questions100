@@ -137,6 +137,10 @@ def generate_category_section(category, problems_in_category):
     # Generate problem rows
     problem_rows = '\n'.join(problems_in_category)
 
+    # Generate summary filename
+    summary_filename = category.lower().replace('-', '_') + '_summary.md'
+    summary_path = f"LeetCode/{category}/{summary_filename}"
+
     return f'''
         <section id="{category}" class="category-section" data-category="{category}">
             <div class="category-header">
@@ -147,6 +151,11 @@ def generate_category_section(category, problems_in_category):
                 </div>
                 <div class="category-description">
                     <strong>Focus:</strong> {description}
+                </div>
+                <div style="margin-top: 15px;">
+                    <a href="{summary_path}" class="summary-link" style="display: inline-block; padding: 10px 25px; background: rgba(255,255,255,0.25); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; border: 2px solid white; transition: all 0.3s;" onmouseover="this.style.background='white'; this.style.color='#667eea'" onmouseout="this.style.background='rgba(255,255,255,0.25)'; this.style.color='white'">
+                        📚 View Category Summary & Learning Guide
+                    </a>
                 </div>
             </div>
 

@@ -1,5 +1,16 @@
 # Palindrome - Comprehensive Guide
 
+
+## 📋 Problems in This Category
+
+- [004. Valid Palindrome II](004_valid_palindrome_ii.md) - `2-Ptr, 1 Skip`
+- [029. Valid Palindrome](029_valid_palindrome.md) - `2-Ptr, Validation`
+- [057. Palindromic Substrings](057_palindromic_substrings.md) - `Expand Center`
+- [083. Valid Palindrome III](083_valid_palindrome_iii.md) - `DP, K Deletions`
+- [096. Longest Palindromic Substring](096_longest_palindromic_substring.md) - `Expand+DP`
+
+---
+
 ## Expand from Center vs Two Pointers
 
 ---

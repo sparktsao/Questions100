@@ -1,5 +1,14 @@
 # Design - Comprehensive Guide
 
+
+## 📋 Problems in This Category
+
+- [039. LRU Cache](039_lru_cache.md) - `HashMap+DLL`
+- [048. Moving Average](048_moving_average.md) - `Queue+Sum`
+- [091. Random Pick Index](091_random_pick_index.md) - `HashMap+Random`
+
+---
+
 ## Data Structure Design & API Implementation
 
 ---

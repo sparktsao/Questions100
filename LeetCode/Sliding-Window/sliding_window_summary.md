@@ -1,5 +1,17 @@
 # Sliding Window Problems - Comprehensive Analysis
 
+
+## 📋 Problems in This Category
+
+- [037. Minimum Window Substring](037_minimum_window_substring.md) - `Variable Size`
+- [040. Max Consecutive Ones III](040_max_consecutive_ones_iii.md) - `Variable Size`
+- [059. Continuous Subarray Sum](059_continuous_subarray_sum.md) - `HashMap+Mod`
+- [068. Contains Duplicate II](068_contains_duplicate_ii.md) - `Fixed Size`
+- [080. Longest Substring Without Repeating](080_longest_substring_without_repeating.md) - `Variable Size`
+- [090. Frequency of Most Frequent Element](090_frequency_of_most_frequent_element.md) - `Variable Size+Sort`
+
+---
+
 ## 🎯 Category Overview
 
 **Total Problems:** 6

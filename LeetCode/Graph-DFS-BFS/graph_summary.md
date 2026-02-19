@@ -1,5 +1,20 @@
 # Graph Problems - Comprehensive Analysis
 
+
+## 📋 Problems in This Category
+
+- [025. Clone Graph](025_clone_graph.md) - `DFS+Clone`
+- [031. Shortest Path in Binary Matrix](031_shortest_path_in_binary_matrix.md) - `BFS Shortest`
+- [036. Making A Large Island](036_making_a_large_island.md) - `DFS+Union-Find`
+- [038. Accounts Merge](038_accounts_merge.md) - `Union-Find`
+- [053. Robot Room Cleaner](053_robot_room_cleaner.md) - `DFS+Backtrack`
+- [063. Course Schedule](063_course_schedule.md) - `DFS Cycle Detect`
+- [070. Swim in Rising Water](070_swim_in_rising_water.md) - `Dijkstra`
+- [081. Word Ladder](081_word_ladder.md) - `BFS Transform`
+- [086. Shortest Path in Hidden Grid](086_shortest_path_in_hidden_grid.md) - `DFS+BFS Hybrid`
+
+---
+
 ## 🎯 Category Overview
 
 **Total Problems:** 9
