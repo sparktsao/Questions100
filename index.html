@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LeetCode 100 Problems - Searchable Cross-Category View</title>
+    <title>LeetCode 100 Questions - Modern Search Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -12,2680 +13,946 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
         }
 
+        /* Header */
         .header {
-            text-align: center;
-            color: white;
-            padding: 40px 20px 20px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        .header h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .header .subtitle {
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .logo i {
+            color: #667eea;
             font-size: 1.2em;
-            opacity: 0.95;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-login {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-login:hover {
+            background: #f8f9ff;
+        }
+
+        .btn-signup {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: 2px solid transparent;
+        }
+
+        .btn-signup:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Search Section */
+        .search-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            color: white;
+        }
+
+        .search-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .search-title {
+            text-align: center;
             margin-bottom: 30px;
         }
 
-        /* Search Box */
-        .search-container {
-            max-width: 800px;
-            margin: 20px auto 30px;
+        .search-title h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .search-title p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .search-boxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .search-box-wrapper {
             position: relative;
         }
 
         .search-box {
             width: 100%;
-            padding: 18px 60px 18px 20px;
-            font-size: 16px;
+            padding: 16px 50px 16px 20px;
             border: none;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            font-size: 15px;
             outline: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             transition: all 0.3s;
         }
 
         .search-box:focus {
-            box-shadow: 0 6px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
             transform: translateY(-2px);
         }
 
         .search-icon {
             position: absolute;
-            right: 20px;
+            right: 18px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 1.5em;
-            color: #667eea;
+            color: #999;
             pointer-events: none;
         }
 
         .search-stats {
             text-align: center;
-            color: white;
-            margin: 15px 0;
-            font-size: 1.1em;
+            font-size: 1.05em;
+            margin-top: 20px;
             opacity: 0.95;
         }
 
-        .stats-bar {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        }
-
-        .stats-bar .stat {
-            display: inline-block;
-            margin: 0 30px;
-            font-size: 1.1em;
-        }
-
-        .stats-bar .stat-number {
-            font-size: 2em;
-            font-weight: bold;
-            color: #667eea;
-            display: block;
-        }
-
-        .view-toggle {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .view-toggle button {
-            padding: 12px 30px;
-            margin: 0 10px;
-            font-size: 16px;
-            border: 2px solid white;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-        }
-
-        .view-toggle button:hover,
-        .view-toggle button.active {
-            background: white;
-            color: #667eea;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .category-nav {
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+        }
+
+        /* Sidebar Filters */
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .filter-section {
             margin-bottom: 30px;
         }
 
-        .category-card {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
+        .filter-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .filter-title {
+            font-size: 1.1em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .clear-filter {
+            font-size: 0.85em;
+            color: #667eea;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .category-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .category-icon {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        .category-name {
             font-weight: 600;
-            font-size: 1em;
-            margin-bottom: 5px;
         }
 
-        .category-count {
-            font-size: 0.9em;
-            opacity: 0.7;
+        .clear-filter:hover {
+            text-decoration: underline;
         }
 
-        .category-section {
-            background: white;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            overflow: hidden;
-        }
-
-        .category-section.hidden {
-            display: none;
-        }
-
-        .category-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-        }
-
-        .category-title {
+        .filter-option {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-
-        .category-icon-large {
-            font-size: 2.5em;
-        }
-
-        .category-title h2 {
-            font-size: 2em;
-            margin: 0;
-        }
-
-        .problem-count {
-            background: rgba(255,255,255,0.2);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9em;
-        }
-
-        .category-description {
-            font-size: 1.1em;
-            margin-bottom: 10px;
-            opacity: 0.95;
-        }
-
-        .key-differences {
-            background: rgba(255,255,255,0.15);
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-size: 1em;
-            margin-top: 15px;
-        }
-
-        .table-container {
-            padding: 20px;
-            overflow-x: auto;
-        }
-
-        .problem-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .problem-table th {
-            background: #f5f5f5;
-            padding: 15px 10px;
-            text-align: left;
-            font-weight: 600;
-            color: #333;
-            border-bottom: 2px solid #667eea;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        .problem-table td {
-            padding: 15px 10px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .problem-table tbody tr {
+            gap: 10px;
+            padding: 8px 0;
+            cursor: pointer;
             transition: all 0.2s;
         }
 
-        .problem-table tbody tr:hover {
-            background: #f9f9f9;
-            transform: scale(1.01);
+        .filter-option:hover {
+            padding-left: 5px;
         }
 
-        .problem-table tbody tr.hidden {
+        .filter-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .filter-option label {
+            cursor: pointer;
+            font-size: 0.95em;
+            flex: 1;
+        }
+
+        .filter-count {
+            font-size: 0.85em;
+            color: #999;
+            font-weight: 600;
+        }
+
+        /* Content Area */
+        .content-area {
+            min-height: 80vh;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .results-count {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .sort-dropdown {
+            padding: 10px 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            background: white;
+            outline: none;
+        }
+
+        /* Problem Cards Grid */
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .problem-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            border-color: #667eea;
+        }
+
+        .problem-card.hidden {
             display: none;
         }
 
-        .num-col {
-            width: 60px;
-            text-align: center;
-            font-weight: 600;
-            color: #667eea;
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: white;
+            position: relative;
         }
 
-        .title-col {
-            min-width: 280px;
-        }
-
-        .tag-col {
-            min-width: 140px;
-            text-align: center;
-        }
-
-        .tag-badge {
+        .category-badge {
             display: inline-block;
+            background: rgba(255,255,255,0.25);
             padding: 6px 12px;
             border-radius: 6px;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
+            margin-bottom: 10px;
         }
 
-        .problem-link {
-            color: #333;
-            text-decoration: none;
-            font-weight: 500;
-            border-bottom: 2px solid transparent;
-            transition: all 0.3s;
+        .problem-number {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2em;
+            font-weight: 700;
+            opacity: 0.3;
         }
 
-        .problem-link:hover {
+        .card-title {
+            font-size: 1.2em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .card-tag {
+            font-size: 0.9em;
+            opacity: 0.95;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .meta-item i {
             color: #667eea;
-            border-bottom-color: #667eea;
         }
 
-        .diff-col {
-            width: 100px;
-            text-align: center;
-        }
-
-        .badge {
+        .difficulty-badge {
             display: inline-block;
-            padding: 5px 12px;
-            border-radius: 12px;
-            font-size: 11px;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
         }
 
-        .badge-easy {
+        .difficulty-EASY {
             background: #d4edda;
             color: #155724;
         }
 
-        .badge-medium {
+        .difficulty-MEDIUM {
             background: #fff3cd;
             color: #856404;
         }
 
-        .badge-hard {
+        .difficulty-HARD {
             background: #f8d7da;
             color: #721c24;
         }
 
-        .freq-col {
-            width: 100px;
-            text-align: center;
-            font-weight: 600;
-            color: #764ba2;
-        }
-
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #667eea;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+        .card-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #f0f0f0;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
+        }
+
+        .view-btn {
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             transition: all 0.3s;
-            font-size: 1.5em;
-            z-index: 1000;
+            font-size: 0.9em;
         }
 
-        .back-to-top:hover {
-            background: #5568d3;
-            transform: translateY(-5px);
+        .view-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
         }
 
+        .favorite-btn {
+            background: none;
+            border: none;
+            font-size: 1.3em;
+            color: #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .favorite-btn:hover,
+        .favorite-btn.active {
+            color: #ff6b6b;
+            transform: scale(1.2);
+        }
+
+        /* No Results */
         .no-results {
             text-align: center;
             padding: 60px 20px;
-            color: #666;
-            font-size: 1.2em;
+            color: #999;
         }
 
-        .no-results-icon {
+        .no-results i {
             font-size: 4em;
             margin-bottom: 20px;
             opacity: 0.3;
         }
 
+        .no-results h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+        }
+
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2em;
+            .search-boxes {
+                grid-template-columns: 1fr;
             }
 
-            .category-nav {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                gap: 10px;
+            .problems-grid {
+                grid-template-columns: 1fr;
             }
 
-            .stats-bar .stat {
-                display: block;
-                margin: 10px 0;
+            .header-actions {
+                display: none;
             }
+        }
 
-            .view-toggle button {
-                padding: 10px 20px;
-                font-size: 14px;
-                margin: 5px;
-            }
+        /* Loading Animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
 
-            .tag-col {
-                min-width: 100px;
-            }
+        .loading {
+            animation: pulse 1.5s ease-in-out infinite;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🎯 LeetCode 100 Problems</h1>
-        <p class="subtitle">Searchable Cross-Category Table</p>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-code"></i>
+                <span>LEETCODE QUESTIONS</span>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-login">Login</button>
+                <button class="btn btn-signup">Sign Up</button>
+            </div>
+        </div>
+    </header>
 
+    <!-- Search Section -->
+    <section class="search-section">
         <div class="search-container">
-            <input
-                type="text"
-                id="searchBox"
-                class="search-box"
-                placeholder="Search by problem title, tag, difficulty, or category..."
-                autocomplete="off"
-            >
-            <span class="search-icon">🔍</span>
+            <div class="search-title">
+                <h1>Find Your Perfect Problem</h1>
+                <p>Search from 100 curated LeetCode problems across all categories</p>
+            </div>
+
+            <div class="search-boxes">
+                <div class="search-box-wrapper">
+                    <input type="text" id="searchTitle" class="search-box" placeholder="Search by problem title...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="search-box-wrapper">
+                    <input type="text" id="searchCategory" class="search-box" placeholder="Search by category...">
+                    <i class="fas fa-folder search-icon"></i>
+                </div>
+                <div class="search-box-wrapper">
+                    <input type="text" id="searchTag" class="search-box" placeholder="Search by tag...">
+                    <i class="fas fa-tag search-icon"></i>
+                </div>
+            </div>
+
+            <div class="search-stats">
+                <span id="visibleCount">100</span> problems found
+            </div>
         </div>
+    </section>
 
-        <div class="search-stats" id="searchStats">
-            Showing <strong id="visibleCount">100</strong> of <strong>100</strong> problems
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Sidebar Filters -->
+        <aside class="sidebar">
+            <div class="filter-section">
+                <div class="filter-title">
+                    <span>Difficulty</span>
+                    <span class="clear-filter" onclick="clearFilter('difficulty')">Clear</span>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="diff-easy" value="EASY" onchange="applyFilters()">
+                    <label for="diff-easy">Easy</label>
+                    <span class="filter-count" id="count-easy">0</span>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="diff-medium" value="MEDIUM" onchange="applyFilters()">
+                    <label for="diff-medium">Medium</label>
+                    <span class="filter-count" id="count-medium">0</span>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="diff-hard" value="HARD" onchange="applyFilters()">
+                    <label for="diff-hard">Hard</label>
+                    <span class="filter-count" id="count-hard">0</span>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-title">
+                    <span>Category</span>
+                    <span class="clear-filter" onclick="clearFilter('category')">Clear</span>
+                </div>
+                <div id="categoryFilters"></div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-title">
+                    <span>Frequency</span>
+                    <span class="clear-filter" onclick="clearFilter('frequency')">Clear</span>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="freq-high" value="high" onchange="applyFilters()">
+                    <label for="freq-high">High (≥70%)</label>
+                    <span class="filter-count" id="count-freq-high">0</span>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="freq-medium" value="medium" onchange="applyFilters()">
+                    <label for="freq-medium">Medium (40-70%)</label>
+                    <span class="filter-count" id="count-freq-medium">0</span>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="freq-low" value="low" onchange="applyFilters()">
+                    <label for="freq-low">Low (<40%)</label>
+                    <span class="filter-count" id="count-freq-low">0</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <div class="results-header">
+                <h2 class="results-count"><span id="resultCount">100</span> Problems</h2>
+                <select class="sort-dropdown" id="sortBy" onchange="sortProblems()">
+                    <option value="number">Sort by: Number</option>
+                    <option value="title">Sort by: Title</option>
+                    <option value="difficulty">Sort by: Difficulty</option>
+                    <option value="frequency">Sort by: Frequency</option>
+                </select>
+            </div>
+
+            <!-- Problems Grid -->
+            <div class="problems-grid" id="problemsGrid">
+                <!-- Problem cards will be dynamically inserted here -->
+            </div>
+
+            <!-- No Results Message -->
+            <div class="no-results" id="noResults" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>No problems found</h3>
+                <p>Try adjusting your search or filters</p>
+            </div>
         </div>
-    </div>
-
-    <div class="stats-bar">
-        <div class="stat">
-            <span class="stat-number">16</span>
-            <span>Categories</span>
-        </div>
-        <div class="stat">
-            <span class="stat-number">100</span>
-            <span>Problems</span>
-        </div>
-        <div class="stat">
-            <span class="stat-number">🏷️</span>
-            <span>Approach Tags</span>
-        </div>
-    </div>
-
-    <div class="view-toggle">
-        <button class="active" onclick="showAllCategories()">📊 All Categories</button>
-        <button onclick="showCategoryNav()">🗂️ Category Cards</button>
-    </div>
-
-    <div id="categoryNav" class="category-nav" style="display: none;">
-        <div class="category-card" onclick="scrollToCategory('Array-Hashing')">
-            <div class="category-icon">🗂️</div>
-            <div class="category-name">Array Hashing</div>
-            <div class="category-count">12 problems</div>
-        </div>
-        <div class="category-card" onclick="scrollToCategory('BST-Binary-Search-Tree')">
-            <div class="category-icon">🌲</div>
-            <div class="category-name">BST Binary Search Tree</div>
-            <div class="category-count">4 problems</div>
-        </div>
-        <div class="category-card" onclick="scrollToCategory('Binary-Search')">
-            <div class="category-icon">🔍</div>
-            <div class="category-name">Binary Search</div>
-            <div class="category-count">8 problems</div>
-        </div>
-        <div class="category-card" onclick="scrollToCategory('Design')">
-            <div class="category-icon">🛠️</div>
-            <div class="category-name">Design</div>
-            <div class="category-count">2 problems</div>
-        </div>
-        <div class="category-card" onclick="scrollToCategory('Dynamic-Programming')">
-            <div class="category-icon">📊</div>
-            <div class="category-name">Dynamic Programming</div>
-            <div class="category-count">4 problems</div>
-        </div>
-        <div class="category-card" onclick="scrollToCategory('Graph-DFS-BFS')">
-            <div class="category-icon">🕸️</div>
-            <div class="category-name">Graph DFS BFS</div>
-            <div class="category-count">9 problems</div>
-        </div>
-        <div class="category-card" onclick="scrollToCategory('Heap-Priority-Queue')">
-            <div class="category-icon">⛰️</div>
-            <div class="category-name">Heap Priority Queue</div>
-            <div class="category-count">7 problems</div>
-        </div>
-        <div class="category-card" onclick="scrollToCategory('Linked-List')">
-            <div class="category-icon">🔗</div>
-            <div class="category-name">Linked List</div>
-            <div class="category-count">4 problems</div>
-        </div>
-        <div class="category-card" onclick="scrollToCategory('Math-Compute')">
-            <div class="category-icon">🔢</div>
-            <div class="category-name">Math Compute</div>
-            <div class="category-count">4 problems</div>
-        </div>
-        <div class="category-card" onclick="scrollToCategory('Palindrome')">
-            <div class="category-icon">🔄</div>
-            <div class="category-name">Palindrome</div>
-            <div class="category-count">5 problems</div>
-        </div>
-        <div class="category-card" onclick="scrollToCategory('Parentheses')">
-            <div class="category-icon">📚</div>
-            <div class="category-name">Parentheses</div>
-            <div class="category-count">4 problems</div>
-        </div>
-        <div class="category-card" onclick="scrollToCategory('Sliding-Window')">
-            <div class="category-icon">🪟</div>
-            <div class="category-name">Sliding Window</div>
-            <div class="category-count">6 problems</div>
-        </div>
-        <div class="category-card" onclick="scrollToCategory('Stack')">
-            <div class="category-icon">📚</div>
-            <div class="category-name">Stack</div>
-            <div class="category-count">5 problems</div>
-        </div>
-        <div class="category-card" onclick="scrollToCategory('String')">
-            <div class="category-icon">📝</div>
-            <div class="category-name">String</div>
-            <div class="category-count">7 problems</div>
-        </div>
-        <div class="category-card" onclick="scrollToCategory('Tree')">
-            <div class="category-icon">🌳</div>
-            <div class="category-name">Tree</div>
-            <div class="category-count">10 problems</div>
-        </div>
-        <div class="category-card" onclick="scrollToCategory('Two-Pointers')">
-            <div class="category-icon">👉</div>
-            <div class="category-name">Two Pointers</div>
-            <div class="category-count">9 problems</div>
-        </div>
-    </div>
-
-    <div id="categorySections">
-        <section id="Parentheses" class="category-section" data-category="Parentheses">
-            <div class="category-header">
-                <div class="category-title">
-                    <span class="category-icon-large">📚</span>
-                    <h2>Parentheses</h2>
-                    <span class="problem-count">4 problems</span>
-                </div>
-                <div class="category-description">
-                    <strong>Focus:</strong> Stack-based tracking, different removal strategies
-                </div>
-                <div style="margin-top: 15px;">
-                    <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Parentheses/parentheses_summary.md" class="summary-link" style="display: inline-block; padding: 10px 25px; background: rgba(255,255,255,0.25); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; border: 2px solid white; transition: all 0.3s;" onmouseover="this.style.background='white'; this.style.color='#667eea'" onmouseout="this.style.background='rgba(255,255,255,0.25)'; this.style.color='white'">
-                        📚 View Category Summary & Learning Guide
-                    </a>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table class="problem-table">
-                    <thead>
-                        <tr>
-                            <th class="num-col">#</th>
-                            <th class="title-col">Problem</th>
-                            <th class="tag-col">🏷️ Approach Tag</th>
-                            <th class="diff-col">Difficulty</th>
-                            <th class="freq-col">Frequency</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-title="Minimum Remove to Make Valid Parentheses" data-tag="Stack+Indices" data-diff="MEDIUM" data-category="Parentheses">
-                            <td class="num-col">001</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Parentheses/001_minimum_remove_to_make_valid_parentheses.md" class="problem-link">
-                                    Minimum Remove to Make Valid Parentheses
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Stack+Indices</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">100.0%</td>
-                        </tr>
-                        <tr data-title="Valid Parentheses" data-tag="Stack+Matching" data-diff="EASY" data-category="Parentheses">
-                            <td class="num-col">020</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Parentheses/020_valid_parentheses.md" class="problem-link">
-                                    Valid Parentheses
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Stack+Matching</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-easy">EASY</span>
-                            </td>
-                            <td class="freq-col">74.9%</td>
-                        </tr>
-                        <tr data-title="Minimum Add to Make Parentheses Valid" data-tag="Greedy Count" data-diff="MEDIUM" data-category="Parentheses">
-                            <td class="num-col">052</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Parentheses/052_minimum_add_to_make_parentheses_valid.md" class="problem-link">
-                                    Minimum Add to Make Parentheses Valid
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Greedy Count</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">51.9%</td>
-                        </tr>
-                        <tr data-title="Remove Invalid Parentheses" data-tag="BFS+Removal" data-diff="HARD" data-category="Parentheses">
-                            <td class="num-col">056</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Parentheses/056_remove_invalid_parentheses.md" class="problem-link">
-                                    Remove Invalid Parentheses
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">BFS+Removal</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-hard">HARD</span>
-                            </td>
-                            <td class="freq-col">47.0%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="Two-Pointers" class="category-section" data-category="Two-Pointers">
-            <div class="category-header">
-                <div class="category-title">
-                    <span class="category-icon-large">👉</span>
-                    <h2>Two Pointers</h2>
-                    <span class="problem-count">10 problems</span>
-                </div>
-                <div class="category-description">
-                    <strong>Focus:</strong> Same direction vs opposite direction
-                </div>
-                <div style="margin-top: 15px;">
-                    <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Two-Pointers/two_pointers_summary.md" class="summary-link" style="display: inline-block; padding: 10px 25px; background: rgba(255,255,255,0.25); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; border: 2px solid white; transition: all 0.3s;" onmouseover="this.style.background='white'; this.style.color='#667eea'" onmouseout="this.style.background='rgba(255,255,255,0.25)'; this.style.color='white'">
-                        📚 View Category Summary & Learning Guide
-                    </a>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table class="problem-table">
-                    <thead>
-                        <tr>
-                            <th class="num-col">#</th>
-                            <th class="title-col">Problem</th>
-                            <th class="tag-col">🏷️ Approach Tag</th>
-                            <th class="diff-col">Difficulty</th>
-                            <th class="freq-col">Frequency</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-title="Valid Word Abbreviation" data-tag="Same Dir" data-diff="EASY" data-category="Two-Pointers">
-                            <td class="num-col">002</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Two-Pointers/002_valid_word_abbreviation.md" class="problem-link">
-                                    Valid Word Abbreviation
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Same Dir</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-easy">EASY</span>
-                            </td>
-                            <td class="freq-col">95.4%</td>
-                        </tr>
-                        <tr data-title="Dot Product of Two Sparse Vectors" data-tag="Same Dir" data-diff="MEDIUM" data-category="Two-Pointers">
-                            <td class="num-col">028</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Two-Pointers/028_dot_product_of_two_sparse_vectors.md" class="problem-link">
-                                    Dot Product of Two Sparse Vectors
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Same Dir</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">69.5%</td>
-                        </tr>
-                        <tr data-title="Valid Palindrome" data-tag="Opposite Dir" data-diff="MEDIUM" data-category="Two-Pointers">
-                            <td class="num-col">029</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Two-Pointers/029_valid_palindrome.md" class="problem-link">
-                                    Valid Palindrome
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Opposite Dir</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">0.0%</td>
-                        </tr>
-                        <tr data-title="Next Permutation" data-tag="Same Dir+Greedy" data-diff="MEDIUM" data-category="Two-Pointers">
-                            <td class="num-col">030</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Two-Pointers/030_next_permutation.md" class="problem-link">
-                                    Next Permutation
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Same Dir+Greedy</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">67.4%</td>
-                        </tr>
-                        <tr data-title="Merge Sorted Array" data-tag="Opposite Dir" data-diff="EASY" data-category="Two-Pointers">
-                            <td class="num-col">033</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Two-Pointers/033_merge_sorted_array.md" class="problem-link">
-                                    Merge Sorted Array
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Opposite Dir</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-easy">EASY</span>
-                            </td>
-                            <td class="freq-col">67.4%</td>
-                        </tr>
-                        <tr data-title="Squares of a Sorted Array" data-tag="Opposite Dir" data-diff="EASY" data-category="Two-Pointers">
-                            <td class="num-col">044</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Two-Pointers/044_squares_of_a_sorted_array.md" class="problem-link">
-                                    Squares of a Sorted Array
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Opposite Dir</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-easy">EASY</span>
-                            </td>
-                            <td class="freq-col">59.4%</td>
-                        </tr>
-                        <tr data-title="3Sum" data-tag="Opposite Dir" data-diff="MEDIUM" data-category="Two-Pointers">
-                            <td class="num-col">065</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Two-Pointers/065_3sum.md" class="problem-link">
-                                    3Sum
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Opposite Dir</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">47.0%</td>
-                        </tr>
-                        <tr data-title="Container With Most Water" data-tag="Opposite Dir+Greedy" data-diff="MEDIUM" data-category="Two-Pointers">
-                            <td class="num-col">073</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Two-Pointers/073_container_with_most_water.md" class="problem-link">
-                                    Container With Most Water
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Opposite Dir+Greedy</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">40.7%</td>
-                        </tr>
-                        <tr data-title="Strobogrammatic Number" data-tag="Opposite Dir" data-diff="EASY" data-category="Two-Pointers">
-                            <td class="num-col">078</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Two-Pointers/078_strobogrammatic_number.md" class="problem-link">
-                                    Strobogrammatic Number
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Opposite Dir</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-easy">EASY</span>
-                            </td>
-                            <td class="freq-col">40.7%</td>
-                        </tr>
-                        <tr data-title="Interval List Intersections" data-tag="Same Dir" data-diff="MEDIUM" data-category="Two-Pointers">
-                            <td class="num-col">088</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Two-Pointers/088_interval_list_intersections.md" class="problem-link">
-                                    Interval List Intersections
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Same Dir</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">32.0%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="Tree" class="category-section" data-category="Tree">
-            <div class="category-header">
-                <div class="category-title">
-                    <span class="category-icon-large">🌳</span>
-                    <h2>Tree</h2>
-                    <span class="problem-count">10 problems</span>
-                </div>
-                <div class="category-description">
-                    <strong>Focus:</strong> DFS vs BFS, pre/in/post-order, level-order
-                </div>
-                <div style="margin-top: 15px;">
-                    <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/tree_summary.md" class="summary-link" style="display: inline-block; padding: 10px 25px; background: rgba(255,255,255,0.25); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; border: 2px solid white; transition: all 0.3s;" onmouseover="this.style.background='white'; this.style.color='#667eea'" onmouseout="this.style.background='rgba(255,255,255,0.25)'; this.style.color='white'">
-                        📚 View Category Summary & Learning Guide
-                    </a>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table class="problem-table">
-                    <thead>
-                        <tr>
-                            <th class="num-col">#</th>
-                            <th class="title-col">Problem</th>
-                            <th class="tag-col">🏷️ Approach Tag</th>
-                            <th class="diff-col">Difficulty</th>
-                            <th class="freq-col">Frequency</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-title="Binary Tree Vertical Order" data-tag="BFS+Column Track" data-diff="MEDIUM" data-category="Tree">
-                            <td class="num-col">003</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/003_binary_tree_vertical_order_traversal.md" class="problem-link">
-                                    Binary Tree Vertical Order
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">BFS+Column Track</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">93.4%</td>
-                        </tr>
-                        <tr data-title="Lowest Common Ancestor III" data-tag="DFS+Parent Ptr" data-diff="MEDIUM" data-category="Tree">
-                            <td class="num-col">005</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/005_lowest_common_ancestor_of_a_binary_tree_iii.md" class="problem-link">
-                                    Lowest Common Ancestor III
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">DFS+Parent Ptr</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">89.6%</td>
-                        </tr>
-                        <tr data-title="Binary Tree Right Side View" data-tag="BFS Level-Order" data-diff="MEDIUM" data-category="Tree">
-                            <td class="num-col">007</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/007_binary_tree_right_side_view.md" class="problem-link">
-                                    Binary Tree Right Side View
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">BFS Level-Order</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">86.0%</td>
-                        </tr>
-                        <tr data-title="Lowest Common Ancestor" data-tag="DFS Recursive" data-diff="MEDIUM" data-category="Tree">
-                            <td class="num-col">009</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/009_lowest_common_ancestor_of_a_binary_tree.md" class="problem-link">
-                                    Lowest Common Ancestor
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">DFS Recursive</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">82.9%</td>
-                        </tr>
-                        <tr data-title="Nested List Weight Sum" data-tag="DFS+Depth" data-diff="MEDIUM" data-category="Tree">
-                            <td class="num-col">011</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/011_nested_list_weight_sum.md" class="problem-link">
-                                    Nested List Weight Sum
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">DFS+Depth</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">81.7%</td>
-                        </tr>
-                        <tr data-title="Sum Root to Leaf Numbers" data-tag="DFS Path Track" data-diff="MEDIUM" data-category="Tree">
-                            <td class="num-col">013</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/013_sum_root_to_leaf_numbers.md" class="problem-link">
-                                    Sum Root to Leaf Numbers
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">DFS Path Track</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">80.5%</td>
-                        </tr>
-                        <tr data-title="Diameter of Binary Tree" data-tag="DFS Bottom-Up" data-diff="EASY" data-category="Tree">
-                            <td class="num-col">014</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/014_diameter_of_binary_tree.md" class="problem-link">
-                                    Diameter of Binary Tree
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">DFS Bottom-Up</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-easy">EASY</span>
-                            </td>
-                            <td class="freq-col">79.2%</td>
-                        </tr>
-                        <tr data-title="Vertical Order Traversal" data-tag="DFS+Sort" data-diff="HARD" data-category="Tree">
-                            <td class="num-col">061</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/061_vertical_order_traversal_of_a_binary_tree.md" class="problem-link">
-                                    Vertical Order Traversal
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">DFS+Sort</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-hard">HARD</span>
-                            </td>
-                            <td class="freq-col">47.0%</td>
-                        </tr>
-                        <tr data-title="All Nodes Distance K" data-tag="BFS+Parent Map" data-diff="MEDIUM" data-category="Tree">
-                            <td class="num-col">066</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/066_all_nodes_distance_k_in_binary_tree.md" class="problem-link">
-                                    All Nodes Distance K
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">BFS+Parent Map</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">47.0%</td>
-                        </tr>
-                        <tr data-title="Binary Tree Maximum Path Sum" data-tag="DFS+Max Path" data-diff="HARD" data-category="Tree">
-                            <td class="num-col">076</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Tree/076_binary_tree_maximum_path_sum.md" class="problem-link">
-                                    Binary Tree Maximum Path Sum
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">DFS+Max Path</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-hard">HARD</span>
-                            </td>
-                            <td class="freq-col">40.7%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="Palindrome" class="category-section" data-category="Palindrome">
-            <div class="category-header">
-                <div class="category-title">
-                    <span class="category-icon-large">🔄</span>
-                    <h2>Palindrome</h2>
-                    <span class="problem-count">3 problems</span>
-                </div>
-                <div class="category-description">
-                    <strong>Focus:</strong> Two-pointers vs DP, string modification allowed
-                </div>
-                <div style="margin-top: 15px;">
-                    <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Palindrome/palindrome_summary.md" class="summary-link" style="display: inline-block; padding: 10px 25px; background: rgba(255,255,255,0.25); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; border: 2px solid white; transition: all 0.3s;" onmouseover="this.style.background='white'; this.style.color='#667eea'" onmouseout="this.style.background='rgba(255,255,255,0.25)'; this.style.color='white'">
-                        📚 View Category Summary & Learning Guide
-                    </a>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table class="problem-table">
-                    <thead>
-                        <tr>
-                            <th class="num-col">#</th>
-                            <th class="title-col">Problem</th>
-                            <th class="tag-col">🏷️ Approach Tag</th>
-                            <th class="diff-col">Difficulty</th>
-                            <th class="freq-col">Frequency</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-title="Valid Palindrome II" data-tag="2-Ptr, 1 Skip" data-diff="EASY" data-category="Palindrome">
-                            <td class="num-col">004</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Palindrome/004_valid_palindrome_ii.md" class="problem-link">
-                                    Valid Palindrome II
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">2-Ptr, 1 Skip</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-easy">EASY</span>
-                            </td>
-                            <td class="freq-col">92.7%</td>
-                        </tr>
-                        <tr data-title="Palindromic Substrings" data-tag="Expand Center" data-diff="MEDIUM" data-category="Palindrome">
-                            <td class="num-col">057</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Palindrome/057_palindromic_substrings.md" class="problem-link">
-                                    Palindromic Substrings
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Expand Center</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">47.0%</td>
-                        </tr>
-                        <tr data-title="Longest Palindromic Substring" data-tag="Expand+DP" data-diff="MEDIUM" data-category="Palindrome">
-                            <td class="num-col">096</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Palindrome/096_longest_palindromic_substring.md" class="problem-link">
-                                    Longest Palindromic Substring
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Expand+DP</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">32.0%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="Heap-Priority-Queue" class="category-section" data-category="Heap-Priority-Queue">
-            <div class="category-header">
-                <div class="category-title">
-                    <span class="category-icon-large">⛰️</span>
-                    <h2>Heap Priority Queue</h2>
-                    <span class="problem-count">5 problems</span>
-                </div>
-                <div class="category-description">
-                    <strong>Focus:</strong> Min heap vs max heap vs dual heap
-                </div>
-                <div style="margin-top: 15px;">
-                    <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Heap-Priority-Queue/heap_priority_queue_summary.md" class="summary-link" style="display: inline-block; padding: 10px 25px; background: rgba(255,255,255,0.25); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; border: 2px solid white; transition: all 0.3s;" onmouseover="this.style.background='white'; this.style.color='#667eea'" onmouseout="this.style.background='rgba(255,255,255,0.25)'; this.style.color='white'">
-                        📚 View Category Summary & Learning Guide
-                    </a>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table class="problem-table">
-                    <thead>
-                        <tr>
-                            <th class="num-col">#</th>
-                            <th class="title-col">Problem</th>
-                            <th class="tag-col">🏷️ Approach Tag</th>
-                            <th class="diff-col">Difficulty</th>
-                            <th class="freq-col">Frequency</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-title="Kth Largest Element" data-tag="Min Heap" data-diff="MEDIUM" data-category="Heap-Priority-Queue">
-                            <td class="num-col">006</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Heap-Priority-Queue/006_kth_largest_element_in_an_array.md" class="problem-link">
-                                    Kth Largest Element
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Min Heap</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">86.9%</td>
-                        </tr>
-                        <tr data-title="Random Pick with Weight" data-tag="Binary Search+Prefix" data-diff="MEDIUM" data-category="Heap-Priority-Queue">
-                            <td class="num-col">012</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Heap-Priority-Queue/012_random_pick_with_weight.md" class="problem-link">
-                                    Random Pick with Weight
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Binary Search+Prefix</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">80.5%</td>
-                        </tr>
-                        <tr data-title="Top K Frequent Elements" data-tag="Bucket Sort" data-diff="MEDIUM" data-category="Heap-Priority-Queue">
-                            <td class="num-col">015</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Heap-Priority-Queue/015_top_k_frequent_elements.md" class="problem-link">
-                                    Top K Frequent Elements
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Bucket Sort</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">77.9%</td>
-                        </tr>
-                        <tr data-title="Sliding Window Median" data-tag="Dual Heap+Lazy" data-diff="HARD" data-category="Heap-Priority-Queue">
-                            <td class="num-col">034</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Heap-Priority-Queue/034_sliding_window_median.md" class="problem-link">
-                                    Sliding Window Median
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Dual Heap+Lazy</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-hard">HARD</span>
-                            </td>
-                            <td class="freq-col">65.0%</td>
-                        </tr>
-                        <tr data-title="Find Median from Data Stream" data-tag="Dual Heap" data-diff="HARD" data-category="Heap-Priority-Queue">
-                            <td class="num-col">082</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Heap-Priority-Queue/082_find_median_from_data_stream.md" class="problem-link">
-                                    Find Median from Data Stream
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Dual Heap</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-hard">HARD</span>
-                            </td>
-                            <td class="freq-col">40.7%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="Stack" class="category-section" data-category="Stack">
-            <div class="category-header">
-                <div class="category-title">
-                    <span class="category-icon-large">📚</span>
-                    <h2>Stack</h2>
-                    <span class="problem-count">5 problems</span>
-                </div>
-                <div class="category-description">
-                    <strong>Focus:</strong> Monotonic stack vs regular stack, what to store
-                </div>
-                <div style="margin-top: 15px;">
-                    <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Stack/stack_summary.md" class="summary-link" style="display: inline-block; padding: 10px 25px; background: rgba(255,255,255,0.25); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; border: 2px solid white; transition: all 0.3s;" onmouseover="this.style.background='white'; this.style.color='#667eea'" onmouseout="this.style.background='rgba(255,255,255,0.25)'; this.style.color='white'">
-                        📚 View Category Summary & Learning Guide
-                    </a>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table class="problem-table">
-                    <thead>
-                        <tr>
-                            <th class="num-col">#</th>
-                            <th class="title-col">Problem</th>
-                            <th class="tag-col">🏷️ Approach Tag</th>
-                            <th class="diff-col">Difficulty</th>
-                            <th class="freq-col">Frequency</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-title="Basic Calculator II" data-tag="Stack+Operator" data-diff="MEDIUM" data-category="Stack">
-                            <td class="num-col">008</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Stack/008_basic_calculator_ii.md" class="problem-link">
-                                    Basic Calculator II
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Stack+Operator</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">84.0%</td>
-                        </tr>
-                        <tr data-title="Simplify Path" data-tag="Stack+Path" data-diff="MEDIUM" data-category="Stack">
-                            <td class="num-col">035</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Stack/035_simplify_path.md" class="problem-link">
-                                    Simplify Path
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Stack+Path</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">65.0%</td>
-                        </tr>
-                        <tr data-title="Exclusive Time of Functions" data-tag="Stack+Time" data-diff="MEDIUM" data-category="Stack">
-                            <td class="num-col">049</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Stack/049_exclusive_time_of_functions.md" class="problem-link">
-                                    Exclusive Time of Functions
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Stack+Time</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">56.0%</td>
-                        </tr>
-                        <tr data-title="Decode String" data-tag="Stack+Nested" data-diff="MEDIUM" data-category="Stack">
-                            <td class="num-col">093</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Stack/093_decode_string.md" class="problem-link">
-                                    Decode String
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Stack+Nested</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">32.0%</td>
-                        </tr>
-                        <tr data-title="Remove Adjacent Duplicates II" data-tag="Stack+Count" data-diff="MEDIUM" data-category="Stack">
-                            <td class="num-col">098</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Stack/098_remove_all_adjacent_duplicates_in_string_ii.md" class="problem-link">
-                                    Remove Adjacent Duplicates II
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Stack+Count</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">32.0%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="Binary-Search" class="category-section" data-category="Binary-Search">
-            <div class="category-header">
-                <div class="category-title">
-                    <span class="category-icon-large">🔍</span>
-                    <h2>Binary Search</h2>
-                    <span class="problem-count">8 problems</span>
-                </div>
-                <div class="category-description">
-                    <strong>Focus:</strong> Search target vs search answer space
-                </div>
-                <div style="margin-top: 15px;">
-                    <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/binary_search_summary.md" class="summary-link" style="display: inline-block; padding: 10px 25px; background: rgba(255,255,255,0.25); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; border: 2px solid white; transition: all 0.3s;" onmouseover="this.style.background='white'; this.style.color='#667eea'" onmouseout="this.style.background='rgba(255,255,255,0.25)'; this.style.color='white'">
-                        📚 View Category Summary & Learning Guide
-                    </a>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table class="problem-table">
-                    <thead>
-                        <tr>
-                            <th class="num-col">#</th>
-                            <th class="title-col">Problem</th>
-                            <th class="tag-col">🏷️ Approach Tag</th>
-                            <th class="diff-col">Difficulty</th>
-                            <th class="freq-col">Frequency</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-title="Find Peak Element" data-tag="Search Peak" data-diff="MEDIUM" data-category="Binary-Search">
-                            <td class="num-col">010</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/010_find_peak_element.md" class="problem-link">
-                                    Find Peak Element
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Search Peak</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">82.9%</td>
-                        </tr>
-                        <tr data-title="Kth Missing Positive Number" data-tag="Search Answer" data-diff="EASY" data-category="Binary-Search">
-                            <td class="num-col">041</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/041_kth_missing_positive_number.md" class="problem-link">
-                                    Kth Missing Positive Number
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Search Answer</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-easy">EASY</span>
-                            </td>
-                            <td class="freq-col">59.4%</td>
-                        </tr>
-                        <tr data-title="Find First and Last Position" data-tag="Dual Binary Search" data-diff="MEDIUM" data-category="Binary-Search">
-                            <td class="num-col">042</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/042_find_first_and_last_position_of_element_in_sorted_array.md" class="problem-link">
-                                    Find First and Last Position
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Dual Binary Search</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">59.4%</td>
-                        </tr>
-                        <tr data-title="Cutting Ribbons" data-tag="Search Answer" data-diff="MEDIUM" data-category="Binary-Search">
-                            <td class="num-col">074</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/074_cutting_ribbons.md" class="problem-link">
-                                    Cutting Ribbons
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Search Answer</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">40.7%</td>
-                        </tr>
-                        <tr data-title="Capacity To Ship Packages" data-tag="Search Capacity" data-diff="MEDIUM" data-category="Binary-Search">
-                            <td class="num-col">079</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/079_capacity_to_ship_packages_within_d_days.md" class="problem-link">
-                                    Capacity To Ship Packages
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Search Capacity</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">40.7%</td>
-                        </tr>
-                        <tr data-title="Kth Smallest Element in Matrix" data-tag="Search Value Range" data-diff="MEDIUM" data-category="Binary-Search">
-                            <td class="num-col">084</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/084_kth_smallest_element_in_a_sorted_matrix.md" class="problem-link">
-                                    Kth Smallest Element in Matrix
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Search Value Range</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">40.7%</td>
-                        </tr>
-                        <tr data-title="Koko Eating Bananas" data-tag="Search Speed" data-diff="MEDIUM" data-category="Binary-Search">
-                            <td class="num-col">094</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/094_koko_eating_bananas.md" class="problem-link">
-                                    Koko Eating Bananas
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Search Speed</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">32.0%</td>
-                        </tr>
-                        <tr data-title="Median of Two Sorted Arrays" data-tag="Search Partition" data-diff="HARD" data-category="Binary-Search">
-                            <td class="num-col">100</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/100_median_of_two_sorted_arrays.md" class="problem-link">
-                                    Median of Two Sorted Arrays
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Search Partition</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-hard">HARD</span>
-                            </td>
-                            <td class="freq-col">32.0%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="Array-Hashing" class="category-section" data-category="Array-Hashing">
-            <div class="category-header">
-                <div class="category-title">
-                    <span class="category-icon-large">🗂️</span>
-                    <h2>Array Hashing</h2>
-                    <span class="problem-count">12 problems</span>
-                </div>
-                <div class="category-description">
-                    <strong>Focus:</strong> Prefix sum, hash for O(1) lookup, sorting
-                </div>
-                <div style="margin-top: 15px;">
-                    <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Array-Hashing/array_hashing_summary.md" class="summary-link" style="display: inline-block; padding: 10px 25px; background: rgba(255,255,255,0.25); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; border: 2px solid white; transition: all 0.3s;" onmouseover="this.style.background='white'; this.style.color='#667eea'" onmouseout="this.style.background='rgba(255,255,255,0.25)'; this.style.color='white'">
-                        📚 View Category Summary & Learning Guide
-                    </a>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table class="problem-table">
-                    <thead>
-                        <tr>
-                            <th class="num-col">#</th>
-                            <th class="title-col">Problem</th>
-                            <th class="tag-col">🏷️ Approach Tag</th>
-                            <th class="diff-col">Difficulty</th>
-                            <th class="freq-col">Frequency</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-title="Merge Intervals" data-tag="Sort+Merge" data-diff="MEDIUM" data-category="Array-Hashing">
-                            <td class="num-col">016</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Array-Hashing/016_merge_intervals.md" class="problem-link">
-                                    Merge Intervals
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Sort+Merge</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">77.9%</td>
-                        </tr>
-                        <tr data-title="Two Sum" data-tag="HashMap O(1)" data-diff="EASY" data-category="Array-Hashing">
-                            <td class="num-col">017</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Array-Hashing/017_two_sum.md" class="problem-link">
-                                    Two Sum
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">HashMap O(1)</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-easy">EASY</span>
-                            </td>
-                            <td class="freq-col">76.4%</td>
-                        </tr>
-                        <tr data-title="Buildings With Ocean View" data-tag="Right-to-Left" data-diff="MEDIUM" data-category="Array-Hashing">
-                            <td class="num-col">022</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Array-Hashing/022_buildings_with_an_ocean_view.md" class="problem-link">
-                                    Buildings With Ocean View
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Right-to-Left</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">74.9%</td>
-                        </tr>
-                        <tr data-title="Custom Sort String" data-tag="Count+Build" data-diff="MEDIUM" data-category="Array-Hashing">
-                            <td class="num-col">023</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Array-Hashing/023_custom_sort_string.md" class="problem-link">
-                                    Custom Sort String
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Count+Build</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">73.2%</td>
-                        </tr>
-                        <tr data-title="K Closest Points" data-tag="Max Heap" data-diff="MEDIUM" data-category="Array-Hashing">
-                            <td class="num-col">024</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Array-Hashing/024_k_closest_points_to_origin.md" class="problem-link">
-                                    K Closest Points
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Max Heap</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">71.4%</td>
-                        </tr>
-                        <tr data-title="Subarray Sum Equals K" data-tag="Prefix Sum+Hash" data-diff="MEDIUM" data-category="Array-Hashing">
-                            <td class="num-col">026</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Array-Hashing/026_subarray_sum_equals_k.md" class="problem-link">
-                                    Subarray Sum Equals K
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Prefix Sum+Hash</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">71.4%</td>
-                        </tr>
-                        <tr data-title="Group Shifted Strings" data-tag="Hash Pattern" data-diff="MEDIUM" data-category="Array-Hashing">
-                            <td class="num-col">062</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Array-Hashing/062_group_shifted_strings.md" class="problem-link">
-                                    Group Shifted Strings
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Hash Pattern</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">47.0%</td>
-                        </tr>
-                        <tr data-title="Zero Array Transformation" data-tag="Heap+Greedy" data-diff="MEDIUM" data-category="Array-Hashing">
-                            <td class="num-col">069</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Array-Hashing/069_zero_array_transformation_iii.md" class="problem-link">
-                                    Zero Array Transformation
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Heap+Greedy</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">40.7%</td>
-                        </tr>
-                        <tr data-title="Managers with 5+ Reports" data-tag="SQL Aggregate" data-diff="MEDIUM" data-category="Array-Hashing">
-                            <td class="num-col">071</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Array-Hashing/071_managers_with_at_least_5_direct_reports.md" class="problem-link">
-                                    Managers with 5+ Reports
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">SQL Aggregate</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">40.7%</td>
-                        </tr>
-                        <tr data-title="Car Pooling" data-tag="Difference Array" data-diff="MEDIUM" data-category="Array-Hashing">
-                            <td class="num-col">077</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Array-Hashing/077_car_pooling.md" class="problem-link">
-                                    Car Pooling
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Difference Array</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">40.7%</td>
-                        </tr>
-                        <tr data-title="Maximum Subarray" data-tag="Kadane DP" data-diff="MEDIUM" data-category="Array-Hashing">
-                            <td class="num-col">087</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Array-Hashing/087_maximum_subarray.md" class="problem-link">
-                                    Maximum Subarray
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Kadane DP</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">32.0%</td>
-                        </tr>
-                        <tr data-title="Range Sum Query" data-tag="Prefix Sum" data-diff="EASY" data-category="Array-Hashing">
-                            <td class="num-col">089</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Array-Hashing/089_range_sum_query_immutable.md" class="problem-link">
-                                    Range Sum Query
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Prefix Sum</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-easy">EASY</span>
-                            </td>
-                            <td class="freq-col">32.0%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="Dynamic-Programming" class="category-section" data-category="Dynamic-Programming">
-            <div class="category-header">
-                <div class="category-title">
-                    <span class="category-icon-large">📊</span>
-                    <h2>Dynamic Programming</h2>
-                    <span class="problem-count">5 problems</span>
-                </div>
-                <div class="category-description">
-                    <strong>Focus:</strong> DP patterns and state machines
-                </div>
-                <div style="margin-top: 15px;">
-                    <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Dynamic-Programming/dynamic_programming_summary.md" class="summary-link" style="display: inline-block; padding: 10px 25px; background: rgba(255,255,255,0.25); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; border: 2px solid white; transition: all 0.3s;" onmouseover="this.style.background='white'; this.style.color='#667eea'" onmouseout="this.style.background='rgba(255,255,255,0.25)'; this.style.color='white'">
-                        📚 View Category Summary & Learning Guide
-                    </a>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table class="problem-table">
-                    <thead>
-                        <tr>
-                            <th class="num-col">#</th>
-                            <th class="title-col">Problem</th>
-                            <th class="tag-col">🏷️ Approach Tag</th>
-                            <th class="diff-col">Difficulty</th>
-                            <th class="freq-col">Frequency</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-title="Best Time to Buy and Sell Stock" data-tag="1D DP" data-diff="EASY" data-category="Dynamic-Programming">
-                            <td class="num-col">018</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Dynamic-Programming/018_best_time_to_buy_and_sell_stock.md" class="problem-link">
-                                    Best Time to Buy and Sell Stock
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">1D DP</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-easy">EASY</span>
-                            </td>
-                            <td class="freq-col">76.4%</td>
-                        </tr>
-                        <tr data-title="Subsets" data-tag="Backtrack" data-diff="MEDIUM" data-category="Dynamic-Programming">
-                            <td class="num-col">055</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Dynamic-Programming/055_subsets.md" class="problem-link">
-                                    Subsets
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Backtrack</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">47.0%</td>
-                        </tr>
-                        <tr data-title="Word Break" data-tag="1D DP" data-diff="MEDIUM" data-category="Dynamic-Programming">
-                            <td class="num-col">075</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Dynamic-Programming/075_word_break.md" class="problem-link">
-                                    Word Break
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">1D DP</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">40.7%</td>
-                        </tr>
-                        <tr data-title="Valid Palindrome III" data-tag="2D DP" data-diff="MEDIUM" data-category="Dynamic-Programming">
-                            <td class="num-col">083</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Dynamic-Programming/083_valid_palindrome_iii.md" class="problem-link">
-                                    Valid Palindrome III
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">2D DP</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">0.0%</td>
-                        </tr>
-                        <tr data-title="Best Time to Buy and Sell Stock III" data-tag="State Machine DP" data-diff="HARD" data-category="Dynamic-Programming">
-                            <td class="num-col">099</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Dynamic-Programming/099_best_time_to_buy_and_sell_stock_iii.md" class="problem-link">
-                                    Best Time to Buy and Sell Stock III
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">State Machine DP</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-hard">HARD</span>
-                            </td>
-                            <td class="freq-col">32.0%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="Linked-List" class="category-section" data-category="Linked-List">
-            <div class="category-header">
-                <div class="category-title">
-                    <span class="category-icon-large">🔗</span>
-                    <h2>Linked List</h2>
-                    <span class="problem-count">5 problems</span>
-                </div>
-                <div class="category-description">
-                    <strong>Focus:</strong> Dummy node, two-pointer, in-place modification
-                </div>
-                <div style="margin-top: 15px;">
-                    <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Linked-List/linked_list_summary.md" class="summary-link" style="display: inline-block; padding: 10px 25px; background: rgba(255,255,255,0.25); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; border: 2px solid white; transition: all 0.3s;" onmouseover="this.style.background='white'; this.style.color='#667eea'" onmouseout="this.style.background='rgba(255,255,255,0.25)'; this.style.color='white'">
-                        📚 View Category Summary & Learning Guide
-                    </a>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table class="problem-table">
-                    <thead>
-                        <tr>
-                            <th class="num-col">#</th>
-                            <th class="title-col">Problem</th>
-                            <th class="tag-col">🏷️ Approach Tag</th>
-                            <th class="diff-col">Difficulty</th>
-                            <th class="freq-col">Frequency</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-title="Merge k Sorted Lists" data-tag="Min Heap+Merge" data-diff="MEDIUM" data-category="Linked-List">
-                            <td class="num-col">019</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Linked-List/019_merge_k_sorted_lists.md" class="problem-link">
-                                    Merge k Sorted Lists
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Min Heap+Merge</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">0.0%</td>
-                        </tr>
-                        <tr data-title="Copy List with Random Pointer" data-tag="HashMap" data-diff="MEDIUM" data-category="Linked-List">
-                            <td class="num-col">032</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Linked-List/032_copy_list_with_random_pointer.md" class="problem-link">
-                                    Copy List with Random Pointer
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">HashMap</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">67.4%</td>
-                        </tr>
-                        <tr data-title="Remove Nth Node From End" data-tag="2-Ptr Gap" data-diff="MEDIUM" data-category="Linked-List">
-                            <td class="num-col">045</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Linked-List/045_remove_nth_node_from_end_of_list.md" class="problem-link">
-                                    Remove Nth Node From End
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">2-Ptr Gap</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">56.0%</td>
-                        </tr>
-                        <tr data-title="Add Two Numbers" data-tag="Dummy+Carry" data-diff="MEDIUM" data-category="Linked-List">
-                            <td class="num-col">054</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Linked-List/054_add_two_numbers.md" class="problem-link">
-                                    Add Two Numbers
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Dummy+Carry</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">47.0%</td>
-                        </tr>
-                        <tr data-title="Insert into Sorted Circular List" data-tag="Edge Cases" data-diff="MEDIUM" data-category="Linked-List">
-                            <td class="num-col">064</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Linked-List/064_insert_into_a_sorted_circular_linked_list.md" class="problem-link">
-                                    Insert into Sorted Circular List
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Edge Cases</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">47.0%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="Math-Compute" class="category-section" data-category="Math-Compute">
-            <div class="category-header">
-                <div class="category-title">
-                    <span class="category-icon-large">🔢</span>
-                    <h2>Math Compute</h2>
-                    <span class="problem-count">4 problems</span>
-                </div>
-                <div class="category-description">
-                    <strong>Focus:</strong> Iterative vs recursive, carry handling
-                </div>
-                <div style="margin-top: 15px;">
-                    <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Math-Compute/math_compute_summary.md" class="summary-link" style="display: inline-block; padding: 10px 25px; background: rgba(255,255,255,0.25); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; border: 2px solid white; transition: all 0.3s;" onmouseover="this.style.background='white'; this.style.color='#667eea'" onmouseout="this.style.background='rgba(255,255,255,0.25)'; this.style.color='white'">
-                        📚 View Category Summary & Learning Guide
-                    </a>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table class="problem-table">
-                    <thead>
-                        <tr>
-                            <th class="num-col">#</th>
-                            <th class="title-col">Problem</th>
-                            <th class="tag-col">🏷️ Approach Tag</th>
-                            <th class="diff-col">Difficulty</th>
-                            <th class="freq-col">Frequency</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-title="Pow(x, n)" data-tag="Recursive" data-diff="MEDIUM" data-category="Math-Compute">
-                            <td class="num-col">021</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Math-Compute/021_pow_x_n.md" class="problem-link">
-                                    Pow(x, n)
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Recursive</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">74.9%</td>
-                        </tr>
-                        <tr data-title="Add Strings" data-tag="Iterative+Carry" data-diff="EASY" data-category="Math-Compute">
-                            <td class="num-col">050</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Math-Compute/050_add_strings.md" class="problem-link">
-                                    Add Strings
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Iterative+Carry</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-easy">EASY</span>
-                            </td>
-                            <td class="freq-col">51.9%</td>
-                        </tr>
-                        <tr data-title="Maximum Swap" data-tag="Greedy+Digit" data-diff="MEDIUM" data-category="Math-Compute">
-                            <td class="num-col">072</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Math-Compute/072_maximum_swap.md" class="problem-link">
-                                    Maximum Swap
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Greedy+Digit</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">40.7%</td>
-                        </tr>
-                        <tr data-title="Add Two Integers" data-tag="Direct" data-diff="EASY" data-category="Math-Compute">
-                            <td class="num-col">085</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Math-Compute/085_add_two_integers.md" class="problem-link">
-                                    Add Two Integers
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Direct</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-easy">EASY</span>
-                            </td>
-                            <td class="freq-col">32.0%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="Graph-DFS-BFS" class="category-section" data-category="Graph-DFS-BFS">
-            <div class="category-header">
-                <div class="category-title">
-                    <span class="category-icon-large">🕸️</span>
-                    <h2>Graph Dfs Bfs</h2>
-                    <span class="problem-count">9 problems</span>
-                </div>
-                <div class="category-description">
-                    <strong>Focus:</strong> DFS for cycles, BFS for shortest path
-                </div>
-                <div style="margin-top: 15px;">
-                    <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Graph-DFS-BFS/graph_summary.md" class="summary-link" style="display: inline-block; padding: 10px 25px; background: rgba(255,255,255,0.25); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; border: 2px solid white; transition: all 0.3s;" onmouseover="this.style.background='white'; this.style.color='#667eea'" onmouseout="this.style.background='rgba(255,255,255,0.25)'; this.style.color='white'">
-                        📚 View Category Summary & Learning Guide
-                    </a>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table class="problem-table">
-                    <thead>
-                        <tr>
-                            <th class="num-col">#</th>
-                            <th class="title-col">Problem</th>
-                            <th class="tag-col">🏷️ Approach Tag</th>
-                            <th class="diff-col">Difficulty</th>
-                            <th class="freq-col">Frequency</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-title="Clone Graph" data-tag="DFS+Clone" data-diff="MEDIUM" data-category="Graph-DFS-BFS">
-                            <td class="num-col">025</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Graph-DFS-BFS/025_clone_graph.md" class="problem-link">
-                                    Clone Graph
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">DFS+Clone</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">71.4%</td>
-                        </tr>
-                        <tr data-title="Shortest Path in Binary Matrix" data-tag="BFS Shortest" data-diff="MEDIUM" data-category="Graph-DFS-BFS">
-                            <td class="num-col">031</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Graph-DFS-BFS/031_shortest_path_in_binary_matrix.md" class="problem-link">
-                                    Shortest Path in Binary Matrix
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">BFS Shortest</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">67.4%</td>
-                        </tr>
-                        <tr data-title="Making A Large Island" data-tag="DFS+Union-Find" data-diff="HARD" data-category="Graph-DFS-BFS">
-                            <td class="num-col">036</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Graph-DFS-BFS/036_making_a_large_island.md" class="problem-link">
-                                    Making A Large Island
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">DFS+Union-Find</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-hard">HARD</span>
-                            </td>
-                            <td class="freq-col">65.0%</td>
-                        </tr>
-                        <tr data-title="Accounts Merge" data-tag="Union-Find" data-diff="MEDIUM" data-category="Graph-DFS-BFS">
-                            <td class="num-col">038</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Graph-DFS-BFS/038_accounts_merge.md" class="problem-link">
-                                    Accounts Merge
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Union-Find</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">62.4%</td>
-                        </tr>
-                        <tr data-title="Robot Room Cleaner" data-tag="DFS+Backtrack" data-diff="HARD" data-category="Graph-DFS-BFS">
-                            <td class="num-col">053</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Graph-DFS-BFS/053_robot_room_cleaner.md" class="problem-link">
-                                    Robot Room Cleaner
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">DFS+Backtrack</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-hard">HARD</span>
-                            </td>
-                            <td class="freq-col">51.9%</td>
-                        </tr>
-                        <tr data-title="Course Schedule" data-tag="DFS Cycle Detect" data-diff="MEDIUM" data-category="Graph-DFS-BFS">
-                            <td class="num-col">063</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Graph-DFS-BFS/063_course_schedule.md" class="problem-link">
-                                    Course Schedule
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">DFS Cycle Detect</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">47.0%</td>
-                        </tr>
-                        <tr data-title="Swim in Rising Water" data-tag="Dijkstra" data-diff="HARD" data-category="Graph-DFS-BFS">
-                            <td class="num-col">070</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Graph-DFS-BFS/070_swim_in_rising_water.md" class="problem-link">
-                                    Swim in Rising Water
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Dijkstra</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-hard">HARD</span>
-                            </td>
-                            <td class="freq-col">40.7%</td>
-                        </tr>
-                        <tr data-title="Word Ladder" data-tag="BFS Transform" data-diff="HARD" data-category="Graph-DFS-BFS">
-                            <td class="num-col">081</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Graph-DFS-BFS/081_word_ladder.md" class="problem-link">
-                                    Word Ladder
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">BFS Transform</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-hard">HARD</span>
-                            </td>
-                            <td class="freq-col">40.7%</td>
-                        </tr>
-                        <tr data-title="Shortest Path in Hidden Grid" data-tag="DFS+BFS Hybrid" data-diff="MEDIUM" data-category="Graph-DFS-BFS">
-                            <td class="num-col">086</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Graph-DFS-BFS/086_shortest_path_in_a_hidden_grid.md" class="problem-link">
-                                    Shortest Path in Hidden Grid
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">DFS+BFS Hybrid</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">32.0%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="BST-Binary-Search-Tree" class="category-section" data-category="BST-Binary-Search-Tree">
-            <div class="category-header">
-                <div class="category-title">
-                    <span class="category-icon-large">🌲</span>
-                    <h2>Bst Binary Search Tree</h2>
-                    <span class="problem-count">4 problems</span>
-                </div>
-                <div class="category-description">
-                    <strong>Focus:</strong> In-order traversal, BST property pruning
-                </div>
-                <div style="margin-top: 15px;">
-                    <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/BST-Binary-Search-Tree/bst_binary_search_tree_summary.md" class="summary-link" style="display: inline-block; padding: 10px 25px; background: rgba(255,255,255,0.25); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; border: 2px solid white; transition: all 0.3s;" onmouseover="this.style.background='white'; this.style.color='#667eea'" onmouseout="this.style.background='rgba(255,255,255,0.25)'; this.style.color='white'">
-                        📚 View Category Summary & Learning Guide
-                    </a>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table class="problem-table">
-                    <thead>
-                        <tr>
-                            <th class="num-col">#</th>
-                            <th class="title-col">Problem</th>
-                            <th class="tag-col">🏷️ Approach Tag</th>
-                            <th class="diff-col">Difficulty</th>
-                            <th class="freq-col">Frequency</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-title="Range Sum of BST" data-tag="DFS+Pruning" data-diff="EASY" data-category="BST-Binary-Search-Tree">
-                            <td class="num-col">027</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/BST-Binary-Search-Tree/027_range_sum_of_bst.md" class="problem-link">
-                                    Range Sum of BST
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">DFS+Pruning</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-easy">EASY</span>
-                            </td>
-                            <td class="freq-col">69.5%</td>
-                        </tr>
-                        <tr data-title="Binary Search Tree Iterator" data-tag="Iterator+Stack" data-diff="MEDIUM" data-category="BST-Binary-Search-Tree">
-                            <td class="num-col">051</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/BST-Binary-Search-Tree/051_binary_search_tree_iterator.md" class="problem-link">
-                                    Binary Search Tree Iterator
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Iterator+Stack</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">51.9%</td>
-                        </tr>
-                        <tr data-title="Closest Binary Search Tree Value" data-tag="Binary Search" data-diff="EASY" data-category="BST-Binary-Search-Tree">
-                            <td class="num-col">060</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/BST-Binary-Search-Tree/060_closest_binary_search_tree_value.md" class="problem-link">
-                                    Closest Binary Search Tree Value
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Binary Search</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-easy">EASY</span>
-                            </td>
-                            <td class="freq-col">47.0%</td>
-                        </tr>
-                        <tr data-title="Kth Smallest Element in a BST" data-tag="Inorder+Counter" data-diff="MEDIUM" data-category="BST-Binary-Search-Tree">
-                            <td class="num-col">092</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/BST-Binary-Search-Tree/092_kth_smallest_element_in_a_bst.md" class="problem-link">
-                                    Kth Smallest Element in a BST
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Inorder+Counter</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">32.0%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="Sliding-Window" class="category-section" data-category="Sliding-Window">
-            <div class="category-header">
-                <div class="category-title">
-                    <span class="category-icon-large">🪟</span>
-                    <h2>Sliding Window</h2>
-                    <span class="problem-count">6 problems</span>
-                </div>
-                <div class="category-description">
-                    <strong>Focus:</strong> Fixed size vs variable size
-                </div>
-                <div style="margin-top: 15px;">
-                    <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Sliding-Window/sliding_window_summary.md" class="summary-link" style="display: inline-block; padding: 10px 25px; background: rgba(255,255,255,0.25); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; border: 2px solid white; transition: all 0.3s;" onmouseover="this.style.background='white'; this.style.color='#667eea'" onmouseout="this.style.background='rgba(255,255,255,0.25)'; this.style.color='white'">
-                        📚 View Category Summary & Learning Guide
-                    </a>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table class="problem-table">
-                    <thead>
-                        <tr>
-                            <th class="num-col">#</th>
-                            <th class="title-col">Problem</th>
-                            <th class="tag-col">🏷️ Approach Tag</th>
-                            <th class="diff-col">Difficulty</th>
-                            <th class="freq-col">Frequency</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-title="Minimum Window Substring" data-tag="Variable Size" data-diff="HARD" data-category="Sliding-Window">
-                            <td class="num-col">037</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Sliding-Window/037_minimum_window_substring.md" class="problem-link">
-                                    Minimum Window Substring
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Variable Size</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-hard">HARD</span>
-                            </td>
-                            <td class="freq-col">62.4%</td>
-                        </tr>
-                        <tr data-title="Max Consecutive Ones III" data-tag="Variable Size" data-diff="MEDIUM" data-category="Sliding-Window">
-                            <td class="num-col">040</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Sliding-Window/040_max_consecutive_ones_iii.md" class="problem-link">
-                                    Max Consecutive Ones III
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Variable Size</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">62.4%</td>
-                        </tr>
-                        <tr data-title="Continuous Subarray Sum" data-tag="HashMap+Mod" data-diff="MEDIUM" data-category="Sliding-Window">
-                            <td class="num-col">059</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Sliding-Window/059_continuous_subarray_sum.md" class="problem-link">
-                                    Continuous Subarray Sum
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">HashMap+Mod</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">47.0%</td>
-                        </tr>
-                        <tr data-title="Contains Duplicate II" data-tag="Fixed Size" data-diff="EASY" data-category="Sliding-Window">
-                            <td class="num-col">068</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Sliding-Window/068_contains_duplicate_ii.md" class="problem-link">
-                                    Contains Duplicate II
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Fixed Size</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-easy">EASY</span>
-                            </td>
-                            <td class="freq-col">40.7%</td>
-                        </tr>
-                        <tr data-title="Longest Substring Without Repeating" data-tag="Variable Size" data-diff="MEDIUM" data-category="Sliding-Window">
-                            <td class="num-col">080</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Sliding-Window/080_longest_substring_without_repeating_characters.md" class="problem-link">
-                                    Longest Substring Without Repeating
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Variable Size</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">40.7%</td>
-                        </tr>
-                        <tr data-title="Frequency of Most Frequent Element" data-tag="Variable Size+Sort" data-diff="MEDIUM" data-category="Sliding-Window">
-                            <td class="num-col">090</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Sliding-Window/090_frequency_of_the_most_frequent_element.md" class="problem-link">
-                                    Frequency of Most Frequent Element
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Variable Size+Sort</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">32.0%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="Design" class="category-section" data-category="Design">
-            <div class="category-header">
-                <div class="category-title">
-                    <span class="category-icon-large">🛠️</span>
-                    <h2>Design</h2>
-                    <span class="problem-count">3 problems</span>
-                </div>
-                <div class="category-description">
-                    <strong>Focus:</strong> Trade-offs between time/space complexity
-                </div>
-                <div style="margin-top: 15px;">
-                    <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Design/design_summary.md" class="summary-link" style="display: inline-block; padding: 10px 25px; background: rgba(255,255,255,0.25); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; border: 2px solid white; transition: all 0.3s;" onmouseover="this.style.background='white'; this.style.color='#667eea'" onmouseout="this.style.background='rgba(255,255,255,0.25)'; this.style.color='white'">
-                        📚 View Category Summary & Learning Guide
-                    </a>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table class="problem-table">
-                    <thead>
-                        <tr>
-                            <th class="num-col">#</th>
-                            <th class="title-col">Problem</th>
-                            <th class="tag-col">🏷️ Approach Tag</th>
-                            <th class="diff-col">Difficulty</th>
-                            <th class="freq-col">Frequency</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-title="LRU Cache" data-tag="HashMap+DLL" data-diff="MEDIUM" data-category="Design">
-                            <td class="num-col">039</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Design/039_lru_cache.md" class="problem-link">
-                                    LRU Cache
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">HashMap+DLL</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">62.4%</td>
-                        </tr>
-                        <tr data-title="Moving Average" data-tag="Queue+Sum" data-diff="EASY" data-category="Design">
-                            <td class="num-col">048</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Design/048_moving_average_from_data_stream.md" class="problem-link">
-                                    Moving Average
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Queue+Sum</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-easy">EASY</span>
-                            </td>
-                            <td class="freq-col">56.0%</td>
-                        </tr>
-                        <tr data-title="Random Pick Index" data-tag="HashMap+Random" data-diff="MEDIUM" data-category="Design">
-                            <td class="num-col">091</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/Design/091_random_pick_index.md" class="problem-link">
-                                    Random Pick Index
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">HashMap+Random</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">0.0%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="String" class="category-section" data-category="String">
-            <div class="category-header">
-                <div class="category-title">
-                    <span class="category-icon-large">📝</span>
-                    <h2>String</h2>
-                    <span class="problem-count">7 problems</span>
-                </div>
-                <div class="category-description">
-                    <strong>Focus:</strong> In-place vs new string, validation vs parsing
-                </div>
-                <div style="margin-top: 15px;">
-                    <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/String/string_summary.md" class="summary-link" style="display: inline-block; padding: 10px 25px; background: rgba(255,255,255,0.25); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; border: 2px solid white; transition: all 0.3s;" onmouseover="this.style.background='white'; this.style.color='#667eea'" onmouseout="this.style.background='rgba(255,255,255,0.25)'; this.style.color='white'">
-                        📚 View Category Summary & Learning Guide
-                    </a>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table class="problem-table">
-                    <thead>
-                        <tr>
-                            <th class="num-col">#</th>
-                            <th class="title-col">Problem</th>
-                            <th class="tag-col">🏷️ Approach Tag</th>
-                            <th class="diff-col">Difficulty</th>
-                            <th class="freq-col">Frequency</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-title="Longest Common Prefix" data-tag="Vertical Scan" data-diff="EASY" data-category="String">
-                            <td class="num-col">043</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/String/043_longest_common_prefix.md" class="problem-link">
-                                    Longest Common Prefix
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Vertical Scan</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-easy">EASY</span>
-                            </td>
-                            <td class="freq-col">59.4%</td>
-                        </tr>
-                        <tr data-title="Diagonal Traverse" data-tag="Diagonal Sim" data-diff="MEDIUM" data-category="String">
-                            <td class="num-col">046</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/String/046_diagonal_traverse.md" class="problem-link">
-                                    Diagonal Traverse
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Diagonal Sim</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">56.0%</td>
-                        </tr>
-                        <tr data-title="Missing Ranges" data-tag="Gap Check" data-diff="EASY" data-category="String">
-                            <td class="num-col">047</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/String/047_missing_ranges.md" class="problem-link">
-                                    Missing Ranges
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Gap Check</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-easy">EASY</span>
-                            </td>
-                            <td class="freq-col">56.0%</td>
-                        </tr>
-                        <tr data-title="Valid Number" data-tag="DFA Validation" data-diff="HARD" data-category="String">
-                            <td class="num-col">058</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/String/058_valid_number.md" class="problem-link">
-                                    Valid Number
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">DFA Validation</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-hard">HARD</span>
-                            </td>
-                            <td class="freq-col">47.0%</td>
-                        </tr>
-                        <tr data-title="String to Integer" data-tag="Parse+Validate" data-diff="MEDIUM" data-category="String">
-                            <td class="num-col">067</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/String/067_string_to_integer_atoi.md" class="problem-link">
-                                    String to Integer
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Parse+Validate</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-medium">MEDIUM</span>
-                            </td>
-                            <td class="freq-col">40.7%</td>
-                        </tr>
-                        <tr data-title="Goat Latin" data-tag="Transform" data-diff="EASY" data-category="String">
-                            <td class="num-col">095</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/String/095_goat_latin.md" class="problem-link">
-                                    Goat Latin
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Transform</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-easy">EASY</span>
-                            </td>
-                            <td class="freq-col">32.0%</td>
-                        </tr>
-                        <tr data-title="Text Justification" data-tag="Greedy Pack" data-diff="HARD" data-category="String">
-                            <td class="num-col">097</td>
-                            <td class="title-col">
-                                <a href="https://github.com/sparktsao/Questions100/blob/main/LeetCode/String/097_text_justification.md" class="problem-link">
-                                    Text Justification
-                                </a>
-                            </td>
-                            <td class="tag-col">
-                                <span class="tag-badge">Greedy Pack</span>
-                            </td>
-                            <td class="diff-col">
-                                <span class="badge badge-hard">HARD</span>
-                            </td>
-                            <td class="freq-col">32.0%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-    </div>
-
-    <div id="noResults" class="no-results" style="display: none;">
-        <div class="no-results-icon">🔍</div>
-        <div>No problems found matching your search</div>
-        <div style="margin-top: 10px; font-size: 0.9em; opacity: 0.7;">
-            Try different keywords or clear your search
-        </div>
-    </div>
-
-    <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-        ↑
-    </div>
+    </main>
 
     <script>
-        // Search functionality
-        const searchBox = document.getElementById('searchBox');
-        const searchStats = document.getElementById('searchStats');
-        const visibleCount = document.getElementById('visibleCount');
-        const noResults = document.getElementById('noResults');
-        const categorySections = document.getElementById('categorySections');
+        // Problem data structure
+        const problems = [
+            // Array & Hashing
+            {num: "001", title: "Two Sum", category: "Array & Hashing", tag: "HashMap", difficulty: "EASY", frequency: 96.7, link: "LeetCode/Array-Hashing/001_two_sum.md"},
+            {num: "002", title: "Product of Array Except Self", category: "Array & Hashing", tag: "Prefix/Suffix", difficulty: "MEDIUM", frequency: 91.6, link: "LeetCode/Array-Hashing/002_product_of_array_except_self.md"},
+            {num: "003", title: "Valid Sudoku", category: "Array & Hashing", tag: "HashSet", difficulty: "MEDIUM", frequency: 89.7, link: "LeetCode/Array-Hashing/003_valid_sudoku.md"},
+            {num: "004", title: "Encode and Decode Strings", category: "Array & Hashing", tag: "Delimiter", difficulty: "MEDIUM", frequency: 87.5, link: "LeetCode/Array-Hashing/004_encode_and_decode_strings.md"},
+            {num: "005", title: "Longest Consecutive Sequence", category: "Array & Hashing", tag: "HashSet", difficulty: "MEDIUM", frequency: 82.0, link: "LeetCode/Array-Hashing/005_longest_consecutive_sequence.md"},
+            {num: "006", title: "Minimum Window Substring", category: "Array & Hashing", tag: "Sliding Window", difficulty: "HARD", frequency: 81.1, link: "LeetCode/Array-Hashing/006_minimum_window_substring.md"},
+            {num: "007", title: "Meeting Rooms II", category: "Array & Hashing", tag: "Interval Sort", difficulty: "MEDIUM", frequency: 80.7, link: "LeetCode/Array-Hashing/007_meeting_rooms_ii.md"},
 
-        searchBox.addEventListener('input', function() {
-            const query = this.value.toLowerCase().trim();
-            const allRows = document.querySelectorAll('.problem-table tbody tr[data-title]');
-            let visible = 0;
+            // Two Pointers
+            {num: "009", title: "Valid Palindrome", category: "Two Pointers", tag: "String Filter", difficulty: "EASY", frequency: 83.7, link: "LeetCode/Two-Pointers/009_valid_palindrome.md"},
+            {num: "010", title: "3Sum", category: "Two Pointers", tag: "Sort+TwoPtr", difficulty: "MEDIUM", frequency: 83.0, link: "LeetCode/Two-Pointers/010_3sum.md"},
+            {num: "011", title: "Container With Most Water", category: "Two Pointers", tag: "Greedy", difficulty: "MEDIUM", frequency: 78.1, link: "LeetCode/Two-Pointers/011_container_with_most_water.md"},
+            {num: "012", title: "Trapping Rain Water", category: "Two Pointers", tag: "Two Pointers", difficulty: "HARD", frequency: 73.0, link: "LeetCode/Two-Pointers/012_trapping_rain_water.md"},
+            {num: "013", title: "Valid Palindrome II", category: "Two Pointers", tag: "Greedy+TwoPtr", difficulty: "EASY", frequency: 68.0, link: "LeetCode/Two-Pointers/013_valid_palindrome_ii.md"},
 
-            if (query === '') {
-                // Show all
-                allRows.forEach(row => {
-                    row.classList.remove('hidden');
-                    visible++;
+            // Sliding Window
+            {num: "014", title: "Best Time to Buy and Sell Stock", category: "Sliding Window", tag: "Min Tracker", difficulty: "EASY", frequency: 83.5, link: "LeetCode/Sliding-Window/014_best_time_to_buy_and_sell_stock.md"},
+            {num: "015", title: "Longest Substring Without Repeating Characters", category: "Sliding Window", tag: "HashMap Window", difficulty: "MEDIUM", frequency: 78.4, link: "LeetCode/Sliding-Window/015_longest_substring_without_repeating_characters.md"},
+            {num: "016", title: "Longest Repeating Character Replacement", category: "Sliding Window", tag: "MaxFreq Window", difficulty: "MEDIUM", frequency: 73.0, link: "LeetCode/Sliding-Window/016_longest_repeating_character_replacement.md"},
+            {num: "017", title: "Permutation in String", category: "Sliding Window", tag: "Fixed Window", difficulty: "MEDIUM", frequency: 68.0, link: "LeetCode/Sliding-Window/017_permutation_in_string.md"},
+            {num: "018", title: "Minimum Size Subarray Sum", category: "Sliding Window", tag: "Dynamic Window", difficulty: "MEDIUM", frequency: 62.0, link: "LeetCode/Sliding-Window/018_minimum_size_subarray_sum.md"},
+
+            // Stack
+            {num: "019", title: "Valid Parentheses", category: "Stack", tag: "Stack Match", difficulty: "EASY", frequency: 89.3, link: "LeetCode/Stack/019_valid_parentheses.md"},
+            {num: "020", title: "Min Stack", category: "Stack", tag: "Aux Stack", difficulty: "MEDIUM", frequency: 81.0, link: "LeetCode/Stack/020_min_stack.md"},
+            {num: "021", title: "Evaluate Reverse Polish Notation", category: "Stack", tag: "Stack Calc", difficulty: "MEDIUM", frequency: 75.0, link: "LeetCode/Stack/021_evaluate_reverse_polish_notation.md"},
+
+            // Binary Search
+            {num: "022", title: "Binary Search", category: "Binary Search", tag: "Classic BS", difficulty: "EASY", frequency: 86.0, link: "LeetCode/Binary-Search/022_binary_search.md"},
+            {num: "023", title: "Search in Rotated Sorted Array", category: "Binary Search", tag: "Modified BS", difficulty: "MEDIUM", frequency: 81.5, link: "LeetCode/Binary-Search/023_search_in_rotated_sorted_array.md"},
+            {num: "024", title: "Find Minimum in Rotated Sorted Array", category: "Binary Search", tag: "Modified BS", difficulty: "MEDIUM", frequency: 76.0, link: "LeetCode/Binary-Search/024_find_minimum_in_rotated_sorted_array.md"},
+            {num: "025", title: "Time Based Key-Value Store", category: "Binary Search", tag: "BS on Timestamp", difficulty: "MEDIUM", frequency: 70.0, link: "LeetCode/Binary-Search/025_time_based_key_value_store.md"},
+
+            // Linked List
+            {num: "026", title: "Reverse Linked List", category: "Linked List", tag: "Iterative", difficulty: "EASY", frequency: 90.2, link: "LeetCode/Linked-List/026_reverse_linked_list.md"},
+            {num: "027", title: "Merge Two Sorted Lists", category: "Linked List", tag: "Two Pointers", difficulty: "EASY", frequency: 85.0, link: "LeetCode/Linked-List/027_merge_two_sorted_lists.md"},
+            {num: "028", title: "Linked List Cycle", category: "Linked List", tag: "Fast-Slow Ptr", difficulty: "EASY", frequency: 82.0, link: "LeetCode/Linked-List/028_linked_list_cycle.md"},
+            {num: "029", title: "Reorder List", category: "Linked List", tag: "3-Step Algo", difficulty: "MEDIUM", frequency: 75.0, link: "LeetCode/Linked-List/029_reorder_list.md"},
+            {num: "030", title: "Remove Nth Node From End of List", category: "Linked List", tag: "Two Pointers", difficulty: "MEDIUM", frequency: 73.0, link: "LeetCode/Linked-List/030_remove_nth_node_from_end_of_list.md"},
+
+            // Trees
+            {num: "031", title: "Invert Binary Tree", category: "Trees", tag: "Recursion", difficulty: "EASY", frequency: 88.0, link: "LeetCode/Trees/031_invert_binary_tree.md"},
+            {num: "032", title: "Maximum Depth of Binary Tree", category: "Trees", tag: "DFS", difficulty: "EASY", frequency: 85.0, link: "LeetCode/Trees/032_maximum_depth_of_binary_tree.md"},
+            {num: "033", title: "Same Tree", category: "Trees", tag: "Recursion", difficulty: "EASY", frequency: 80.0, link: "LeetCode/Trees/033_same_tree.md"},
+            {num: "034", title: "Subtree of Another Tree", category: "Trees", tag: "Recursion", difficulty: "EASY", frequency: 75.0, link: "LeetCode/Trees/034_subtree_of_another_tree.md"},
+            {num: "035", title: "Binary Tree Level Order Traversal", category: "Trees", tag: "BFS", difficulty: "MEDIUM", frequency: 82.0, link: "LeetCode/Trees/035_binary_tree_level_order_traversal.md"},
+            {num: "036", title: "Validate Binary Search Tree", category: "Trees", tag: "DFS+Range", difficulty: "MEDIUM", frequency: 78.0, link: "LeetCode/Trees/036_validate_binary_search_tree.md"},
+            {num: "037", title: "Kth Smallest Element in BST", category: "Trees", tag: "Inorder", difficulty: "MEDIUM", frequency: 73.0, link: "LeetCode/Trees/037_kth_smallest_element_in_bst.md"},
+            {num: "038", title: "Binary Tree Maximum Path Sum", category: "Trees", tag: "DFS", difficulty: "HARD", frequency: 70.0, link: "LeetCode/Trees/038_binary_tree_maximum_path_sum.md"},
+            {num: "039", title: "Serialize and Deserialize Binary Tree", category: "Trees", tag: "DFS", difficulty: "HARD", frequency: 68.0, link: "LeetCode/Trees/039_serialize_and_deserialize_binary_tree.md"},
+
+            // Tries
+            {num: "040", title: "Implement Trie", category: "Tries", tag: "TrieNode", difficulty: "MEDIUM", frequency: 79.0, link: "LeetCode/Tries/040_implement_trie.md"},
+            {num: "041", title: "Design Add and Search Words Data Structure", category: "Tries", tag: "Trie+DFS", difficulty: "MEDIUM", frequency: 72.0, link: "LeetCode/Tries/041_design_add_and_search_words_data_structure.md"},
+            {num: "042", title: "Word Search II", category: "Tries", tag: "Trie+Backtrack", difficulty: "HARD", frequency: 67.0, link: "LeetCode/Tries/042_word_search_ii.md"},
+
+            // Heap / Priority Queue
+            {num: "043", title: "Kth Largest Element in Array", category: "Heap / Priority Queue", tag: "Min Heap", difficulty: "MEDIUM", frequency: 81.0, link: "LeetCode/Heap-Priority-Queue/043_kth_largest_element_in_array.md"},
+            {num: "044", title: "Find Median from Data Stream", category: "Heap / Priority Queue", tag: "Two Heaps", difficulty: "HARD", frequency: 76.0, link: "LeetCode/Heap-Priority-Queue/044_find_median_from_data_stream.md"},
+            {num: "045", title: "Task Scheduler", category: "Heap / Priority Queue", tag: "Max Heap", difficulty: "MEDIUM", frequency: 70.0, link: "LeetCode/Heap-Priority-Queue/045_task_scheduler.md"},
+
+            // Backtracking
+            {num: "046", title: "Subsets", category: "Backtracking", tag: "Decision Tree", difficulty: "MEDIUM", frequency: 85.0, link: "LeetCode/Backtracking/046_subsets.md"},
+            {num: "047", title: "Combination Sum", category: "Backtracking", tag: "Backtrack", difficulty: "MEDIUM", frequency: 80.0, link: "LeetCode/Backtracking/047_combination_sum.md"},
+            {num: "048", title: "Permutations", category: "Backtracking", tag: "Backtrack", difficulty: "MEDIUM", frequency: 78.0, link: "LeetCode/Backtracking/048_permutations.md"},
+            {num: "049", title: "Word Search", category: "Backtracking", tag: "DFS", difficulty: "MEDIUM", frequency: 75.0, link: "LeetCode/Backtracking/049_word_search.md"},
+            {num: "050", title: "Palindrome Partitioning", category: "Backtracking", tag: "Backtrack", difficulty: "MEDIUM", frequency: 68.0, link: "LeetCode/Backtracking/050_palindrome_partitioning.md"},
+
+            // Graphs
+            {num: "051", title: "Number of Islands", category: "Graphs", tag: "DFS/BFS", difficulty: "MEDIUM", frequency: 87.0, link: "LeetCode/Graphs/051_number_of_islands.md"},
+            {num: "052", title: "Clone Graph", category: "Graphs", tag: "DFS+HashMap", difficulty: "MEDIUM", frequency: 80.0, link: "LeetCode/Graphs/052_clone_graph.md"},
+            {num: "053", title: "Pacific Atlantic Water Flow", category: "Graphs", tag: "DFS", difficulty: "MEDIUM", frequency: 75.0, link: "LeetCode/Graphs/053_pacific_atlantic_water_flow.md"},
+            {num: "054", title: "Course Schedule", category: "Graphs", tag: "Topo Sort", difficulty: "MEDIUM", frequency: 82.0, link: "LeetCode/Graphs/054_course_schedule.md"},
+            {num: "055", title: "Course Schedule II", category: "Graphs", tag: "Topo Sort", difficulty: "MEDIUM", frequency: 75.0, link: "LeetCode/Graphs/055_course_schedule_ii.md"},
+            {num: "056", title: "Graph Valid Tree", category: "Graphs", tag: "Union Find", difficulty: "MEDIUM", frequency: 70.0, link: "LeetCode/Graphs/056_graph_valid_tree.md"},
+            {num: "057", title: "Number of Connected Components", category: "Graphs", tag: "Union Find", difficulty: "MEDIUM", frequency: 68.0, link: "LeetCode/Graphs/057_number_of_connected_components.md"},
+
+            // Advanced Graphs
+            {num: "058", title: "Alien Dictionary", category: "Advanced Graphs", tag: "Topo Sort", difficulty: "HARD", frequency: 72.0, link: "LeetCode/Advanced-Graphs/058_alien_dictionary.md"},
+            {num: "059", title: "Cheapest Flights Within K Stops", category: "Advanced Graphs", tag: "Bellman-Ford", difficulty: "MEDIUM", frequency: 65.0, link: "LeetCode/Advanced-Graphs/059_cheapest_flights_within_k_stops.md"},
+            {num: "060", title: "Network Delay Time", category: "Advanced Graphs", tag: "Dijkstra", difficulty: "MEDIUM", frequency: 68.0, link: "LeetCode/Advanced-Graphs/060_network_delay_time.md"},
+
+            // 1-D Dynamic Programming
+            {num: "061", title: "Climbing Stairs", category: "1-D Dynamic Programming", tag: "Fibonacci", difficulty: "EASY", frequency: 90.0, link: "LeetCode/1D-DP/061_climbing_stairs.md"},
+            {num: "062", title: "House Robber", category: "1-D Dynamic Programming", tag: "DP", difficulty: "MEDIUM", frequency: 85.0, link: "LeetCode/1D-DP/062_house_robber.md"},
+            {num: "063", title: "House Robber II", category: "1-D Dynamic Programming", tag: "DP", difficulty: "MEDIUM", frequency: 78.0, link: "LeetCode/1D-DP/063_house_robber_ii.md"},
+            {num: "064", title: "Longest Palindromic Substring", category: "1-D Dynamic Programming", tag: "Expand Center", difficulty: "MEDIUM", frequency: 82.0, link: "LeetCode/1D-DP/064_longest_palindromic_substring.md"},
+            {num: "065", title: "Palindromic Substrings", category: "1-D Dynamic Programming", tag: "Expand Center", difficulty: "MEDIUM", frequency: 75.0, link: "LeetCode/1D-DP/065_palindromic_substrings.md"},
+            {num: "066", title: "Decode Ways", category: "1-D Dynamic Programming", tag: "DP", difficulty: "MEDIUM", frequency: 70.0, link: "LeetCode/1D-DP/066_decode_ways.md"},
+            {num: "067", title: "Coin Change", category: "1-D Dynamic Programming", tag: "DP", difficulty: "MEDIUM", frequency: 88.0, link: "LeetCode/1D-DP/067_coin_change.md"},
+            {num: "068", title: "Maximum Product Subarray", category: "1-D Dynamic Programming", tag: "DP", difficulty: "MEDIUM", frequency: 76.0, link: "LeetCode/1D-DP/068_maximum_product_subarray.md"},
+            {num: "069", title: "Word Break", category: "1-D Dynamic Programming", tag: "DP", difficulty: "MEDIUM", frequency: 80.0, link: "LeetCode/1D-DP/069_word_break.md"},
+            {num: "070", title: "Longest Increasing Subsequence", category: "1-D Dynamic Programming", tag: "DP", difficulty: "MEDIUM", frequency: 79.0, link: "LeetCode/1D-DP/070_longest_increasing_subsequence.md"},
+
+            // 2-D Dynamic Programming
+            {num: "071", title: "Unique Paths", category: "2-D Dynamic Programming", tag: "Grid DP", difficulty: "MEDIUM", frequency: 83.0, link: "LeetCode/2D-DP/071_unique_paths.md"},
+            {num: "072", title: "Longest Common Subsequence", category: "2-D Dynamic Programming", tag: "2D DP", difficulty: "MEDIUM", frequency: 80.0, link: "LeetCode/2D-DP/072_longest_common_subsequence.md"},
+            {num: "073", title: "Best Time to Buy and Sell Stock with Cooldown", category: "2-D Dynamic Programming", tag: "State Machine", difficulty: "MEDIUM", frequency: 72.0, link: "LeetCode/2D-DP/073_best_time_to_buy_and_sell_stock_with_cooldown.md"},
+            {num: "074", title: "Coin Change 2", category: "2-D Dynamic Programming", tag: "2D DP", difficulty: "MEDIUM", frequency: 70.0, link: "LeetCode/2D-DP/074_coin_change_2.md"},
+            {num: "075", title: "Target Sum", category: "2-D Dynamic Programming", tag: "DP", difficulty: "MEDIUM", frequency: 68.0, link: "LeetCode/2D-DP/075_target_sum.md"},
+            {num: "076", title: "Interleaving String", category: "2-D Dynamic Programming", tag: "2D DP", difficulty: "MEDIUM", frequency: 65.0, link: "LeetCode/2D-DP/076_interleaving_string.md"},
+            {num: "077", title: "Edit Distance", category: "2-D Dynamic Programming", tag: "2D DP", difficulty: "HARD", frequency: 75.0, link: "LeetCode/2D-DP/077_edit_distance.md"},
+
+            // Greedy
+            {num: "078", title: "Maximum Subarray", category: "Greedy", tag: "Kadane's", difficulty: "MEDIUM", frequency: 86.0, link: "LeetCode/Greedy/078_maximum_subarray.md"},
+            {num: "079", title: "Jump Game", category: "Greedy", tag: "Greedy", difficulty: "MEDIUM", frequency: 80.0, link: "LeetCode/Greedy/079_jump_game.md"},
+            {num: "080", title: "Jump Game II", category: "Greedy", tag: "Greedy", difficulty: "MEDIUM", frequency: 73.0, link: "LeetCode/Greedy/080_jump_game_ii.md"},
+
+            // Intervals
+            {num: "081", title: "Insert Interval", category: "Intervals", tag: "Merge", difficulty: "MEDIUM", frequency: 82.0, link: "LeetCode/Intervals/081_insert_interval.md"},
+            {num: "082", title: "Merge Intervals", category: "Intervals", tag: "Sort+Merge", difficulty: "MEDIUM", frequency: 85.0, link: "LeetCode/Intervals/082_merge_intervals.md"},
+            {num: "083", title: "Non-overlapping Intervals", category: "Intervals", tag: "Greedy", difficulty: "MEDIUM", frequency: 75.0, link: "LeetCode/Intervals/083_non_overlapping_intervals.md"},
+            {num: "084", title: "Meeting Rooms", category: "Intervals", tag: "Sort", difficulty: "EASY", frequency: 78.0, link: "LeetCode/Intervals/084_meeting_rooms.md"},
+
+            // Math & Geometry
+            {num: "085", title: "Rotate Image", category: "Math & Geometry", tag: "Matrix", difficulty: "MEDIUM", frequency: 77.0, link: "LeetCode/Math-Geometry/085_rotate_image.md"},
+            {num: "086", title: "Spiral Matrix", category: "Math & Geometry", tag: "Simulation", difficulty: "MEDIUM", frequency: 73.0, link: "LeetCode/Math-Geometry/086_spiral_matrix.md"},
+            {num: "087", title: "Set Matrix Zeroes", category: "Math & Geometry", tag: "In-place", difficulty: "MEDIUM", frequency: 70.0, link: "LeetCode/Math-Geometry/087_set_matrix_zeroes.md"},
+            {num: "088", title: "Happy Number", category: "Math & Geometry", tag: "Cycle", difficulty: "EASY", frequency: 65.0, link: "LeetCode/Math-Geometry/088_happy_number.md"},
+            {num: "089", title: "Plus One", category: "Math & Geometry", tag: "Math", difficulty: "EASY", frequency: 68.0, link: "LeetCode/Math-Geometry/089_plus_one.md"},
+            {num: "090", title: "Pow(x, n)", category: "Math & Geometry", tag: "Fast Power", difficulty: "MEDIUM", frequency: 72.0, link: "LeetCode/Math-Geometry/090_pow_x_n.md"},
+
+            // Bit Manipulation
+            {num: "091", title: "Single Number", category: "Bit Manipulation", tag: "XOR", difficulty: "EASY", frequency: 85.0, link: "LeetCode/Bit-Manipulation/091_single_number.md"},
+            {num: "092", title: "Number of 1 Bits", category: "Bit Manipulation", tag: "Bit Count", difficulty: "EASY", frequency: 80.0, link: "LeetCode/Bit-Manipulation/092_number_of_1_bits.md"},
+            {num: "093", title: "Counting Bits", category: "Bit Manipulation", tag: "DP", difficulty: "EASY", frequency: 75.0, link: "LeetCode/Bit-Manipulation/093_counting_bits.md"},
+            {num: "094", title: "Reverse Bits", category: "Bit Manipulation", tag: "Bit", difficulty: "EASY", frequency: 70.0, link: "LeetCode/Bit-Manipulation/094_reverse_bits.md"},
+            {num: "095", title: "Missing Number", category: "Bit Manipulation", tag: "XOR", difficulty: "EASY", frequency: 78.0, link: "LeetCode/Bit-Manipulation/095_missing_number.md"},
+            {num: "096", title: "Sum of Two Integers", category: "Bit Manipulation", tag: "Bit", difficulty: "MEDIUM", frequency: 65.0, link: "LeetCode/Bit-Manipulation/096_sum_of_two_integers.md"},
+
+            // String
+            {num: "097", title: "Longest Common Prefix", category: "String", tag: "Vertical Scan", difficulty: "EASY", frequency: 59.4, link: "LeetCode/String/097_longest_common_prefix.md"},
+            {num: "098", title: "Valid Number", category: "String", tag: "DFA", difficulty: "HARD", frequency: 47.0, link: "LeetCode/String/098_valid_number.md"},
+            {num: "099", title: "Text Justification", category: "String", tag: "Greedy", difficulty: "HARD", frequency: 32.0, link: "LeetCode/String/099_text_justification.md"},
+            {num: "100", title: "Goat Latin", category: "String", tag: "Transform", difficulty: "EASY", frequency: 32.0, link: "LeetCode/String/100_goat_latin.md"},
+        ];
+
+        let allProblems = [...problems];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProblems(allProblems);
+            populateCategoryFilters();
+            updateCounts();
+            setupSearchListeners();
+        });
+
+        // Render problem cards
+        function renderProblems(problemsList) {
+            const grid = document.getElementById('problemsGrid');
+            const noResults = document.getElementById('noResults');
+
+            if (problemsList.length === 0) {
+                grid.innerHTML = '';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            noResults.style.display = 'none';
+            grid.innerHTML = problemsList.map(p => `
+                <div class="problem-card" data-problem='${JSON.stringify(p)}'>
+                    <div class="card-header">
+                        <div class="category-badge">${p.category}</div>
+                        <div class="problem-number">${p.num}</div>
+                        <h3 class="card-title">${p.title}</h3>
+                        <div class="card-tag"><i class="fas fa-tag"></i> ${p.tag}</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>${p.frequency}% frequency</span>
+                            </div>
+                        </div>
+                        <div class="difficulty-badge difficulty-${p.difficulty}">
+                            ${p.difficulty}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="view-btn" onclick="window.open('${p.link}', '_blank')">
+                            View Problem
+                        </button>
+                        <button class="favorite-btn" onclick="toggleFavorite(this, event)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            updateResultCount(problemsList.length);
+        }
+
+        // Toggle favorite
+        function toggleFavorite(btn, event) {
+            event.stopPropagation();
+            btn.classList.toggle('active');
+            const icon = btn.querySelector('i');
+            icon.className = btn.classList.contains('active') ? 'fas fa-heart' : 'far fa-heart';
+        }
+
+        // Populate category filters
+        function populateCategoryFilters() {
+            const categories = [...new Set(allProblems.map(p => p.category))].sort();
+            const container = document.getElementById('categoryFilters');
+
+            container.innerHTML = categories.map((cat, idx) => {
+                const count = allProblems.filter(p => p.category === cat).length;
+                const id = `cat-${idx}`;
+                return `
+                    <div class="filter-option">
+                        <input type="checkbox" id="${id}" value="${cat}" onchange="applyFilters()">
+                        <label for="${id}">${cat}</label>
+                        <span class="filter-count">${count}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Update counts
+        function updateCounts() {
+            // Difficulty counts
+            document.getElementById('count-easy').textContent =
+                allProblems.filter(p => p.difficulty === 'EASY').length;
+            document.getElementById('count-medium').textContent =
+                allProblems.filter(p => p.difficulty === 'MEDIUM').length;
+            document.getElementById('count-hard').textContent =
+                allProblems.filter(p => p.difficulty === 'HARD').length;
+
+            // Frequency counts
+            document.getElementById('count-freq-high').textContent =
+                allProblems.filter(p => p.frequency >= 70).length;
+            document.getElementById('count-freq-medium').textContent =
+                allProblems.filter(p => p.frequency >= 40 && p.frequency < 70).length;
+            document.getElementById('count-freq-low').textContent =
+                allProblems.filter(p => p.frequency < 40).length;
+        }
+
+        // Apply all filters
+        function applyFilters() {
+            let filtered = [...allProblems];
+
+            // Difficulty filter
+            const difficultyChecked = Array.from(document.querySelectorAll('input[id^="diff-"]:checked'))
+                .map(cb => cb.value);
+            if (difficultyChecked.length > 0) {
+                filtered = filtered.filter(p => difficultyChecked.includes(p.difficulty));
+            }
+
+            // Category filter
+            const categoryChecked = Array.from(document.querySelectorAll('input[id^="cat-"]:checked'))
+                .map(cb => cb.value);
+            if (categoryChecked.length > 0) {
+                filtered = filtered.filter(p => categoryChecked.includes(p.category));
+            }
+
+            // Frequency filter
+            const freqChecked = Array.from(document.querySelectorAll('input[id^="freq-"]:checked'))
+                .map(cb => cb.value);
+            if (freqChecked.length > 0) {
+                filtered = filtered.filter(p => {
+                    if (freqChecked.includes('high') && p.frequency >= 70) return true;
+                    if (freqChecked.includes('medium') && p.frequency >= 40 && p.frequency < 70) return true;
+                    if (freqChecked.includes('low') && p.frequency < 40) return true;
+                    return false;
                 });
-                categorySections.style.display = 'block';
-                noResults.style.display = 'none';
-                document.querySelectorAll('.category-section').forEach(section => {
-                    section.classList.remove('hidden');
-                });
-            } else {
-                // Filter rows
-                allRows.forEach(row => {
-                    const title = row.dataset.title.toLowerCase();
-                    const tag = row.dataset.tag.toLowerCase();
-                    const diff = row.dataset.diff.toLowerCase();
-                    const category = row.dataset.category.toLowerCase();
+            }
 
-                    const matches = title.includes(query) ||
-                                  tag.includes(query) ||
-                                  diff.includes(query) ||
-                                  category.includes(query);
+            // Apply search
+            applySearch(filtered);
+        }
 
-                    if (matches) {
-                        row.classList.remove('hidden');
-                        visible++;
-                    } else {
-                        row.classList.add('hidden');
-                    }
-                });
+        // Clear specific filter
+        function clearFilter(filterType) {
+            if (filterType === 'difficulty') {
+                document.querySelectorAll('input[id^="diff-"]').forEach(cb => cb.checked = false);
+            } else if (filterType === 'category') {
+                document.querySelectorAll('input[id^="cat-"]').forEach(cb => cb.checked = false);
+            } else if (filterType === 'frequency') {
+                document.querySelectorAll('input[id^="freq-"]').forEach(cb => cb.checked = false);
+            }
+            applyFilters();
+        }
 
-                // Hide empty categories
-                document.querySelectorAll('.category-section').forEach(section => {
-                    const visibleInSection = section.querySelectorAll('.problem-table tbody tr:not(.hidden)').length;
-                    if (visibleInSection === 0) {
-                        section.classList.add('hidden');
-                    } else {
-                        section.classList.remove('hidden');
-                    }
-                });
+        // Setup search listeners
+        function setupSearchListeners() {
+            ['searchTitle', 'searchCategory', 'searchTag'].forEach(id => {
+                document.getElementById(id).addEventListener('input', () => applyFilters());
+            });
+        }
 
-                // Show/hide no results message
-                if (visible === 0) {
-                    categorySections.style.display = 'none';
-                    noResults.style.display = 'block';
-                } else {
-                    categorySections.style.display = 'block';
-                    noResults.style.display = 'none';
+        // Apply search on filtered results
+        function applySearch(filtered) {
+            const titleSearch = document.getElementById('searchTitle').value.toLowerCase();
+            const categorySearch = document.getElementById('searchCategory').value.toLowerCase();
+            const tagSearch = document.getElementById('searchTag').value.toLowerCase();
+
+            filtered = filtered.filter(p => {
+                const matchTitle = !titleSearch || p.title.toLowerCase().includes(titleSearch);
+                const matchCategory = !categorySearch || p.category.toLowerCase().includes(categorySearch);
+                const matchTag = !tagSearch || p.tag.toLowerCase().includes(tagSearch);
+                return matchTitle && matchCategory && matchTag;
+            });
+
+            renderProblems(filtered);
+            updateVisibleCount(filtered.length);
+        }
+
+        // Sort problems
+        function sortProblems() {
+            const sortBy = document.getElementById('sortBy').value;
+            const cards = document.querySelectorAll('.problem-card');
+            const problemsArray = Array.from(cards).map(card =>
+                JSON.parse(card.getAttribute('data-problem'))
+            );
+
+            problemsArray.sort((a, b) => {
+                switch(sortBy) {
+                    case 'number':
+                        return parseInt(a.num) - parseInt(b.num);
+                    case 'title':
+                        return a.title.localeCompare(b.title);
+                    case 'difficulty':
+                        const diffOrder = {EASY: 1, MEDIUM: 2, HARD: 3};
+                        return diffOrder[a.difficulty] - diffOrder[b.difficulty];
+                    case 'frequency':
+                        return b.frequency - a.frequency;
+                    default:
+                        return 0;
                 }
-            }
+            });
 
-            visibleCount.textContent = visible;
-        });
-
-        function scrollToCategory(categoryId) {
-            const element = document.getElementById(categoryId);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+            renderProblems(problemsArray);
         }
 
-        function showAllCategories() {
-            document.getElementById('categoryNav').style.display = 'none';
-            document.getElementById('categorySections').style.display = 'block';
-            document.querySelectorAll('.view-toggle button').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+        // Update visible count
+        function updateVisibleCount(count) {
+            document.getElementById('visibleCount').textContent = count;
         }
 
-        function showCategoryNav() {
-            document.getElementById('categoryNav').style.display = 'grid';
-            document.getElementById('categorySections').style.display = 'none';
-            document.querySelectorAll('.view-toggle button').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+        // Update result count
+        function updateResultCount(count) {
+            document.getElementById('resultCount').textContent = count;
         }
-
-        // Keyboard shortcut: Ctrl+K or Cmd+K to focus search
-        document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-                e.preventDefault();
-                searchBox.focus();
-            }
-            // ESC to clear search
-            if (e.key === 'Escape' && document.activeElement === searchBox) {
-                searchBox.value = '';
-                searchBox.dispatchEvent(new Event('input'));
-            }
-        });
     </script>
 </body>
 </html>

@@ -82,6 +82,37 @@ def topKFrequent(nums: List[int], k: int) -> List[int]:
 
 ### Alternative Implementation (Min Heap - O(n log k) Time)
 
+#### Approach 1: Explicit Min Heap (Easier to Understand)
+
+```python
+from collections import Counter
+import heapq
+
+def topKFrequent(nums, k):
+    """
+    Find k most frequent elements using min heap.
+    Maintains heap of size k by removing smallest frequency element.
+
+    Time: O(n log k), Space: O(n)
+    """
+    # Count frequency of each element
+    count = Counter(nums)
+    heap = []
+
+    # Push (freq, num) tuples and maintain heap size of k
+    for num, freq in count.items():
+        heapq.heappush(heap, (freq, num))
+
+        # If heap exceeds k, remove smallest frequency element
+        if len(heap) > k:
+            heapq.heappop(heap)
+
+    # Extract numbers from heap
+    return [num for freq, num in heap]
+```
+
+#### Approach 2: Pythonic Min Heap
+
 ```python
 from typing import List
 from collections import Counter
@@ -89,7 +120,7 @@ import heapq
 
 def topKFrequent(nums: List[int], k: int) -> List[int]:
     """
-    Find k most frequent elements using min heap.
+    Find k most frequent elements using heapq.nlargest.
 
     Time: O(n log k), Space: O(n)
     """

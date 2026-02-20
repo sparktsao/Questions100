@@ -66,123 +66,87 @@ Return the maximum number of elements that can be removed from `queries`, such t
 
 ## Optimal Solution
 
+### Key Insight
+
+The key insight is we don't need to track which specific queries we use - we only need to know the **maximum number of queries needed simultaneously** at any position. This maximum represents the minimum queries we must use. Therefore, maximum removals = total queries - maximum simultaneously needed.
+
+### Algorithm Logic
+
+For each position `idx` in `nums`:
+1. **Add queries to active pool**: Include all queries starting at or before `idx`
+2. **Remove expired queries**: Remove queries that end before `idx`
+3. **Check if coverage is possible**: If active queries < `nums[idx]`, impossible → return -1
+4. **Track maximum usage**: Record the maximum number of queries needed at any single position
+5. **Return result**: `len(queries) - max_used`
+
 ### Implementation
 
 ```python
-def maxRemoval(nums: List[int], queries: List[List[int]]) -> int:
-    """
-    Use greedy approach with heap to maximize query removals.
+import heapq
 
-    Time: O(n log n + q log q), Space: O(n + q)
+def maxRemoval(nums, queries):
     """
-    import heapq
+    Cleaner approach: track maximum simultaneous query usage.
 
+    Time: O(n log q + q log q), Space: O(q)
+    """
     n = len(nums)
-    queries.sort()  # Sort queries by start position
+    queries.sort()  # Sort by start position
 
-    # Priority queue to track available queries (by end position, descending)
-    available = []
-    # Track which queries we're using
-    using = []
+    active = []  # Max heap of query end positions (store negative for max heap)
+    used = 0     # Maximum queries used simultaneously
+    i = 0        # Query index
 
-    query_idx = 0
-    q_len = len(queries)
+    for idx in range(n):
+        # Step 1: Add all queries starting at or before idx
+        while i < len(queries) and queries[i][0] <= idx:
+            heapq.heappush(active, -queries[i][1])  # Negative for max heap
+            i += 1
 
-    for i in range(n):
-        # Add all queries that start at or before position i
-        while query_idx < q_len and queries[query_idx][0] <= i:
-            # Push negative end to create max heap
-            heapq.heappush(available, -queries[query_idx][1])
-            query_idx += 1
+        # Step 2: Remove expired queries (those ending before idx)
+        while active and -active[0] < idx:
+            heapq.heappop(active)
 
-        # Remove queries that can't cover position i anymore
-        while using and using[0] < i:
-            heapq.heappop(using)
+        # Step 3: Check if we have enough active queries
+        if len(active) < nums[idx]:
+            return -1  # Not enough queries to cover position idx
 
-        # Need to cover nums[i] decrements
-        need = nums[i] - len(using)
+        # Step 4: Track maximum simultaneous usage
+        used = max(used, nums[idx])
 
-        # Greedily select queries with largest end positions
-        while need > 0 and available:
-            end = -heapq.heappop(available)
-            if end < i:
-                continue  # This query can't cover position i
-
-            # Use this query
-            heapq.heappush(using, end)
-            need -= 1
-
-        # If we can't cover position i
-        if need > 0:
-            return -1
-
-    # Maximum removals = total queries - queries we had to use
-    return len(queries) - len(using)
-```
-
-### Alternative Implementation (Difference Array)
-
-```python
-def maxRemoval(nums: List[int], queries: List[List[int]]) -> int:
-    """
-    Alternative using difference array and greedy selection.
-
-    Time: O(n + q log q), Space: O(n + q)
-    """
-    import heapq
-
-    n = len(nums)
-    queries.sort()
-
-    available = []  # Max heap of query end positions
-    active = []     # Min heap of active query end positions
-    qi = 0
-
-    diff = [0] * (n + 1)
-
-    for i in range(n):
-        # Add queries starting at position i
-        while qi < len(queries) and queries[qi][0] <= i:
-            heapq.heappush(available, -queries[qi][1])
-            qi += 1
-
-        # Apply difference array
-        if i > 0:
-            diff[i] += diff[i - 1]
-
-        # Calculate current coverage
-        current_coverage = diff[i]
-        needed = nums[i] - current_coverage
-
-        # Activate queries greedily
-        while needed > 0 and available:
-            end = -heapq.heappop(available)
-            if end < i:
-                continue
-
-            # Activate this query
-            diff[i] += 1
-            diff[end + 1] -= 1
-            current_coverage += 1
-            heapq.heappush(active, end)
-            needed -= 1
-
-        if needed > 0:
-            return -1
-
-    return len(queries) - len(active)
+    # Step 5: Maximum removals = total - minimum we must use
+    return len(queries) - used
 ```
 
 ### Complexity Analysis
 
-**Time: O(n log q + q log q) - sorting queries and heap operations. Space: O(n + q) - heaps and auxiliary arrays**
+**Time: O(n log q + q log q)**
+- Sorting queries: O(q log q)
+- Processing each position: O(n)
+- Heap operations: Each query pushed/popped at most once: O(q log q)
+- Total: O(n log q + q log q)
 
-**Why This is Optimal:**
-- Greedy approach: always choose queries with largest end positions to maximize flexibility
-- Heap provides efficient selection of best queries
-- Must process each position, so O(n) is necessary
-- Sorting ensures we consider queries in optimal order
-- Binary heap gives O(log q) operations for query selection
+**Space: O(q)** - Max heap of queries
+
+### Why This Approach Works
+
+**Greedy Insight:** At each position, we only care about having enough queries available, not which specific queries we use.
+
+**Key Observations:**
+1. If at any position we don't have enough active queries → impossible
+2. The position requiring the most simultaneous queries determines minimum usage
+3. Maximum removals = Total queries - Minimum required usage
+
+**Example Walkthrough:**
+```
+nums = [2, 0, 2], queries = [[0,2], [0,2], [1,1]]
+
+idx=0: active=[[0,2], [0,2]], need=2, used=max(0,2)=2
+idx=1: active=[[0,2], [0,2], [1,1]], need=0, used=max(2,0)=2
+idx=2: active=[[0,2], [0,2]], need=2, used=max(2,2)=2
+
+Result: 3 - 2 = 1 (can remove 1 query)
+```
 
 ---
 
