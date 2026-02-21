@@ -37,6 +37,206 @@
 
 ---
 
+## 🧠 Array + Hashing: Technique Pattern Recognition
+
+**Important:** We're grouping problems by **technique pattern**, not by topic name — that's very good interview prep thinking! 👍
+
+### Core Idea
+
+Use an extra hash structure (dict / set / counter / prefix map) to convert brute-force **O(n²) → O(n)**
+
+This is usually:
+- `value → index` (Two Sum)
+- `prefix_sum → frequency` (Subarray Sum)
+- `key → grouped items` (Group Shifted Strings)
+- `canonical_form → list of strings` (Grouping)
+- `element → count` (Frequency)
+
+---
+
+### 🔹 Pattern 1: Two Sum (value → index)
+
+**Problem:** #017 – Two Sum (Easy)
+
+**Pattern:** Store what you've seen, lookup complement in O(1)
+
+```python
+def twoSum(nums, target):
+    seen = {}
+    for i, n in enumerate(nums):
+        diff = target - n
+        if diff in seen:
+            return [seen[diff], i]
+        seen[n] = i
+```
+
+**Why O(n)?**
+- Each element processed once
+- Hash lookup O(1)
+- Classic "store what I've seen"
+
+---
+
+### 🔹 Pattern 2: Prefix + Hash (prefix_sum → frequency)
+
+**Problem:** #026 – Subarray Sum Equals K
+
+**Pattern:** Prefix sum + hashmap frequency counter
+
+```python
+def subarraySum(nums, k):
+    count = {0: 1}  # CRITICAL: handle subarrays from start
+    prefix = 0
+    result = 0
+
+    for n in nums:
+        prefix += n
+        result += count.get(prefix - k, 0)
+        count[prefix] = count.get(prefix, 0) + 1
+
+    return result
+```
+
+**Key idea:**
+- If `prefix[i] - prefix[j] = k`, then subarray `j+1 → i` sums to k
+- Store: `prefix_sum → how many times it appeared`
+
+---
+
+### 🔹 Pattern 3: Grouping (canonical_form → list)
+
+**Problem:** #062 – Group Shifted Strings
+
+**Pattern:** Use canonical key to group similar items
+
+```python
+from collections import defaultdict
+
+def groupStrings(strings):
+    groups = defaultdict(list)
+
+    for s in strings:
+        key = []
+        for i in range(1, len(s)):
+            diff = (ord(s[i]) - ord(s[i-1])) % 26
+            key.append(diff)
+        groups[tuple(key)].append(s)
+
+    return list(groups.values())
+```
+
+**Example:**
+- `"abc" → (1,1)` (b-a=1, c-b=1)
+- `"bcd" → (1,1)` (same pattern!)
+
+**Pattern:** `canonical_form → list of items`
+
+---
+
+### 🔹 Pattern 4: Frequency Map (element → count)
+
+**Problem:** #023 – Custom Sort String
+
+**Pattern:** Count first, then rebuild
+
+```python
+from collections import Counter
+
+def customSortString(order, s):
+    count = Counter(s)
+    result = []
+
+    for c in order:
+        result.append(c * count[c])
+        count[c] = 0
+
+    for c in count:
+        result.append(c * count[c])
+
+    return "".join(result)
+```
+
+**Pattern:** `element → frequency`
+
+---
+
+### 🔹 Pattern 5: Random Pick Index (value → indices)
+
+**Problem:** #091 – Random Pick Index
+
+**Pattern:** HashMap + list of indices
+
+```python
+import random
+from collections import defaultdict
+
+class Solution:
+    def __init__(self, nums):
+        self.map = defaultdict(list)
+        for i, n in enumerate(nums):
+            self.map[n].append(i)
+
+    def pick(self, target):
+        return random.choice(self.map[target])
+```
+
+- **O(n)** preprocessing
+- **O(1)** pick
+
+⚠️ **Note:** Optimal solution uses **Reservoir Sampling (O(1) space)**, so categorizing this as pure HashMap is incomplete.
+
+---
+
+### ⚠️ Not Really Array + Hash
+
+Some problems are miscategorized:
+
+**#016 – Merge Intervals**
+- This is: **Sort → Linear merge**
+- No hash needed
+- Time: O(n log n)
+- More accurately: **Array + Sorting + Greedy**
+
+**#089 – Range Sum Query**
+- This is: **Prefix Sum** only
+- No hash needed
+- Pattern: Precomputation for O(1) queries
+
+---
+
+### 🧩 True Array + Hash Pattern Summary
+
+| Pattern | Key Stored | Why |
+|---------|-----------|-----|
+| **Two Sum** | value → index | find complement |
+| **Subarray Sum** | prefix → frequency | count valid subarrays |
+| **Grouping** | canonical key → list | cluster similar items |
+| **Frequency** | element → count | sorting/rebuild |
+| **Random Pick** | value → indices | fast random access |
+
+---
+
+### 🔥 Mental Template: When to Trigger Hash Thinking
+
+When you see:
+- "find pair"
+- "count subarrays"
+- "group by pattern"
+- "frequency matters"
+- "remove duplicates"
+- "first occurrence"
+
+**Your brain should auto-trigger:**
+
+> Can I store something in a dict/set to avoid double loop?
+
+**Question to ask yourself:**
+1. What am I looking for? (complement, pattern, count)
+2. What should I store? (value, prefix_sum, canonical_key)
+3. When should I check? (before or after storing)
+
+---
+
 ## 📊 Problem Progression Map
 
 ```
