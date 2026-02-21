@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LeetCode Problems - 3D Similarity Graph</title>
+    <title>LeetCode Problems - 2D Similarity Graph</title>
     <style>
         * {
             margin: 0;
@@ -18,22 +18,33 @@
             overflow: hidden;
         }
 
-        #container {
+        #canvas-container {
             width: 100vw;
             height: 100vh;
+            position: relative;
+        }
+
+        canvas {
+            display: block;
+            cursor: grab;
+        }
+
+        canvas:active {
+            cursor: grabbing;
         }
 
         #info-panel {
             position: absolute;
             top: 20px;
             left: 20px;
-            background: rgba(30, 30, 30, 0.9);
+            background: rgba(30, 30, 30, 0.95);
             padding: 20px;
             border-radius: 12px;
             max-width: 350px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(231, 76, 60, 0.3);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            z-index: 10;
         }
 
         #info-panel h1 {
@@ -52,11 +63,12 @@
             position: absolute;
             bottom: 20px;
             left: 20px;
-            background: rgba(30, 30, 30, 0.9);
+            background: rgba(30, 30, 30, 0.95);
             padding: 15px;
             border-radius: 12px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(231, 76, 60, 0.3);
+            z-index: 10;
         }
 
         .legend h3 {
@@ -90,6 +102,7 @@
             border: 1px solid rgba(231, 76, 60, 0.5);
             max-width: 300px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+            z-index: 100;
         }
 
         #tooltip .title {
@@ -101,6 +114,23 @@
         #tooltip .meta {
             color: #aaa;
             font-size: 0.9em;
+        }
+
+        #tooltip .keywords {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.85em;
+        }
+
+        #tooltip .keyword-tag {
+            display: inline-block;
+            background: rgba(231, 76, 60, 0.2);
+            color: #f39c12;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin: 2px;
+            font-size: 0.85em;
         }
 
         .difficulty-badge {
@@ -131,11 +161,12 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            background: rgba(30, 30, 30, 0.9);
+            background: rgba(30, 30, 30, 0.95);
             padding: 15px;
             border-radius: 12px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(231, 76, 60, 0.3);
+            z-index: 10;
         }
 
         #controls button {
@@ -161,13 +192,16 @@
             position: absolute;
             bottom: 20px;
             right: 20px;
-            background: rgba(30, 30, 30, 0.9);
+            background: rgba(30, 30, 30, 0.95);
             padding: 15px;
             border-radius: 12px;
             max-width: 350px;
+            max-height: 400px;
+            overflow-y: auto;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(231, 76, 60, 0.3);
             display: none;
+            z-index: 10;
         }
 
         #selected-info h3 {
@@ -191,6 +225,11 @@
             font-weight: 700;
         }
 
+        .category-tag {
+            color: #888;
+            font-size: 0.85em;
+        }
+
         .loading {
             position: absolute;
             top: 50%;
@@ -198,21 +237,24 @@
             transform: translate(-50%, -50%);
             font-size: 1.5em;
             color: #e74c3c;
+            z-index: 100;
         }
     </style>
 </head>
 <body>
-    <div id="container"></div>
+    <div id="canvas-container">
+        <canvas id="graph-canvas"></canvas>
+    </div>
 
     <div id="info-panel">
-        <h1><i class="fas fa-project-diagram"></i> 3D Problem Graph</h1>
+        <h1><i class="fas fa-project-diagram"></i> 2D Similarity Graph</h1>
         <p>
-            Explore 100 LeetCode problems in 3D space based on description similarity.
+            Explore 100 LeetCode problems based on algorithmic similarity.
             <br><br>
-            <strong>Click</strong> a sphere to see similar problems<br>
-            <strong>Drag</strong> to rotate<br>
-            <strong>Scroll</strong> to zoom<br>
-            <strong>Right-click</strong> to pan
+            <strong>Hover</strong> to see details<br>
+            <strong>Click</strong> to see similar problems<br>
+            <strong>Drag</strong> to pan<br>
+            <strong>Scroll</strong> to zoom
         </p>
     </div>
 
@@ -235,248 +277,294 @@
     <div id="controls">
         <button onclick="location.href='index.html'">← Back to List</button>
         <button onclick="resetView()">Reset View</button>
-        <button onclick="toggleRotation()">Auto Rotate</button>
-        <button onclick="showAllProblems()">Show All</button>
+        <button onclick="showAllProblems()">Clear Selection</button>
     </div>
 
     <div id="tooltip"></div>
     <div id="selected-info"></div>
     <div class="loading" id="loading">Loading graph data...</div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script>
-        let scene, camera, renderer, controls;
-        let problemSpheres = [];
-        let selectedProblem = null;
-        let autoRotate = false;
-        let raycaster = new THREE.Raycaster();
-        let mouse = new THREE.Vector2();
+        const canvas = document.getElementById('graph-canvas');
+        const ctx = canvas.getContext('2d');
 
-        const COLORS = {
-            EASY: 0x27ae60,
-            MEDIUM: 0xf39c12,
-            HARD: 0xe74c3c
+        let problems = [];
+        let transform = {
+            x: 0,
+            y: 0,
+            scale: 1
         };
 
-        // Initialize Three.js scene
-        function init() {
-            const container = document.getElementById('container');
+        let isDragging = false;
+        let dragStart = { x: 0, y: 0 };
+        let hoveredProblem = null;
+        let selectedProblem = null;
 
-            // Scene
-            scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x1a1a1a);
-            scene.fog = new THREE.Fog(0x1a1a1a, 10, 50);
+        const COLORS = {
+            EASY: '#27ae60',
+            MEDIUM: '#f39c12',
+            HARD: '#e74c3c'
+        };
 
-            // Camera
-            camera = new THREE.PerspectiveCamera(
-                75,
-                window.innerWidth / window.innerHeight,
-                0.1,
-                1000
-            );
-            camera.position.set(5, 5, 5);
+        const RADIUS = 8;
+        const SELECTED_RADIUS = 12;
+        const SIMILAR_RADIUS = 10;
 
-            // Renderer
-            renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(window.devicePixelRatio);
-            container.appendChild(renderer.domElement);
-
-            // Controls
-            controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true;
-            controls.dampingFactor = 0.05;
-
-            // Lights
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-            scene.add(ambientLight);
-
-            const pointLight = new THREE.PointLight(0xffffff, 0.8);
-            pointLight.position.set(5, 5, 5);
-            scene.add(pointLight);
-
-            // Grid helper
-            const gridHelper = new THREE.GridHelper(10, 10, 0x444444, 0x222222);
-            scene.add(gridHelper);
-
-            // Axes helper
-            const axesHelper = new THREE.AxesHelper(5);
-            scene.add(axesHelper);
-
-            // Event listeners
-            window.addEventListener('resize', onWindowResize);
-            renderer.domElement.addEventListener('mousemove', onMouseMove);
-            renderer.domElement.addEventListener('click', onClick);
-
-            animate();
+        // Setup canvas
+        function setupCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
 
-        // Load problem data
+        // Load data
         fetch('graph_data.json')
             .then(response => response.json())
             .then(data => {
+                problems = data;
                 document.getElementById('loading').style.display = 'none';
-                createProblemSpheres(data);
+
+                // Scale embeddings to fit canvas
+                scaleEmbeddings();
+                centerView();
+                draw();
             })
             .catch(error => {
                 console.error('Error loading graph data:', error);
-                document.getElementById('loading').textContent = 'Error loading data. Please use a local server to view this file.';
+                document.getElementById('loading').textContent = 'Error loading data';
             });
 
-        function createProblemSpheres(problems) {
-            problems.forEach(problem => {
-                const geometry = new THREE.SphereGeometry(0.15, 16, 16);
-                const material = new THREE.MeshPhongMaterial({
-                    color: COLORS[problem.difficulty],
-                    emissive: COLORS[problem.difficulty],
-                    emissiveIntensity: 0.2
+        function scaleEmbeddings() {
+            // Find min/max of embeddings
+            let minX = Infinity, maxX = -Infinity;
+            let minY = Infinity, maxY = -Infinity;
+
+            problems.forEach(p => {
+                minX = Math.min(minX, p.embedding[0]);
+                maxX = Math.max(maxX, p.embedding[0]);
+                minY = Math.min(minY, p.embedding[1]);
+                maxY = Math.max(maxY, p.embedding[1]);
+            });
+
+            const rangeX = maxX - minX;
+            const rangeY = maxY - minY;
+            const scale = Math.min(canvas.width, canvas.height) * 0.35;
+
+            problems.forEach(p => {
+                p.x = ((p.embedding[0] - minX) / rangeX - 0.5) * scale * 2;
+                p.y = ((p.embedding[1] - minY) / rangeY - 0.5) * scale * 2;
+            });
+        }
+
+        function centerView() {
+            transform.x = canvas.width / 2;
+            transform.y = canvas.height / 2;
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.save();
+            ctx.translate(transform.x, transform.y);
+            ctx.scale(transform.scale, transform.scale);
+
+            // Draw similarity lines if selected
+            if (selectedProblem) {
+                selectedProblem.similar.forEach(sim => {
+                    const target = problems.find(p => p.num === sim.num);
+                    if (target) {
+                        ctx.strokeStyle = `rgba(231, 76, 60, ${sim.similarity * 0.5})`;
+                        ctx.lineWidth = 2 / transform.scale;
+                        ctx.beginPath();
+                        ctx.moveTo(selectedProblem.x, selectedProblem.y);
+                        ctx.lineTo(target.x, target.y);
+                        ctx.stroke();
+                    }
                 });
-
-                const sphere = new THREE.Mesh(geometry, material);
-
-                // Scale embeddings to fit scene
-                const scale = 3;
-                sphere.position.set(
-                    problem.embedding[0] * scale,
-                    problem.embedding[1] * scale,
-                    problem.embedding[2] * scale
-                );
-
-                sphere.userData = problem;
-                sphere.userData.originalColor = COLORS[problem.difficulty];
-
-                scene.add(sphere);
-                problemSpheres.push(sphere);
-            });
-
-            console.log(`Created ${problemSpheres.length} problem spheres`);
-        }
-
-        function onMouseMove(event) {
-            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-            raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(problemSpheres);
-
-            const tooltip = document.getElementById('tooltip');
-
-            if (intersects.length > 0) {
-                const problem = intersects[0].object.userData;
-                tooltip.innerHTML = `
-                    <div class="title">#${problem.num}: ${problem.title}</div>
-                    <div class="meta">
-                        <span class="difficulty-badge difficulty-${problem.difficulty}">${problem.difficulty}</span>
-                        ${problem.category} | ${problem.frequency}%
-                    </div>
-                `;
-                tooltip.style.display = 'block';
-                tooltip.style.left = event.clientX + 15 + 'px';
-                tooltip.style.top = event.clientY + 15 + 'px';
-
-                document.body.style.cursor = 'pointer';
-            } else {
-                tooltip.style.display = 'none';
-                document.body.style.cursor = 'default';
             }
-        }
 
-        function onClick(event) {
-            raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(problemSpheres);
+            // Draw problems
+            problems.forEach(problem => {
+                let radius = RADIUS;
+                let alpha = 0.8;
 
-            if (intersects.length > 0) {
-                const clickedSphere = intersects[0].object;
-                selectProblem(clickedSphere);
-            } else {
-                deselectAll();
-            }
-        }
-
-        function selectProblem(sphere) {
-            // Reset all spheres
-            problemSpheres.forEach(s => {
-                s.material.color.setHex(s.userData.originalColor);
-                s.material.emissiveIntensity = 0.2;
-                s.scale.set(1, 1, 1);
-            });
-
-            // Highlight selected
-            sphere.material.color.setHex(0xffffff);
-            sphere.material.emissiveIntensity = 0.8;
-            sphere.scale.set(1.5, 1.5, 1.5);
-
-            selectedProblem = sphere.userData;
-
-            // Highlight similar problems
-            const similarNums = selectedProblem.similar.map(s => s.num);
-            problemSpheres.forEach(s => {
-                if (similarNums.includes(s.userData.num)) {
-                    s.material.emissiveIntensity = 0.6;
-                    s.scale.set(1.2, 1.2, 1.2);
+                if (selectedProblem) {
+                    if (problem.num === selectedProblem.num) {
+                        radius = SELECTED_RADIUS;
+                        alpha = 1;
+                    } else if (selectedProblem.similar.some(s => s.num === problem.num)) {
+                        radius = SIMILAR_RADIUS;
+                        alpha = 0.9;
+                    } else {
+                        alpha = 0.3;
+                    }
                 }
+
+                if (hoveredProblem && problem.num === hoveredProblem.num) {
+                    radius += 2;
+                }
+
+                ctx.fillStyle = COLORS[problem.difficulty];
+                ctx.globalAlpha = alpha;
+                ctx.beginPath();
+                ctx.arc(problem.x, problem.y, radius / transform.scale, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Stroke for better visibility
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 1 / transform.scale;
+                ctx.stroke();
             });
 
-            // Show similar problems panel
+            ctx.globalAlpha = 1;
+            ctx.restore();
+
+            requestAnimationFrame(draw);
+        }
+
+        // Mouse events
+        canvas.addEventListener('mousedown', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            const problem = findProblemAtPosition(mouseX, mouseY);
+
+            if (problem) {
+                selectProblem(problem);
+            } else {
+                isDragging = true;
+                dragStart = { x: mouseX - transform.x, y: mouseY - transform.y };
+            }
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            if (isDragging) {
+                transform.x = mouseX - dragStart.x;
+                transform.y = mouseY - dragStart.y;
+            } else {
+                const problem = findProblemAtPosition(mouseX, mouseY);
+                hoveredProblem = problem;
+
+                const tooltip = document.getElementById('tooltip');
+                if (problem) {
+                    const keywordTags = problem.keywords.slice(0, 4).map(kw =>
+                        `<span class="keyword-tag">${kw.term}</span>`
+                    ).join('');
+
+                    tooltip.innerHTML = `
+                        <div class="title">#${problem.num}: ${problem.title}</div>
+                        <div class="meta">
+                            <span class="difficulty-badge difficulty-${problem.difficulty}">${problem.difficulty}</span>
+                            ${problem.category} | ${problem.frequency}%
+                        </div>
+                        <div class="keywords">
+                            🎯 ${keywordTags}
+                        </div>
+                    `;
+                    tooltip.style.display = 'block';
+                    tooltip.style.left = e.clientX + 15 + 'px';
+                    tooltip.style.top = e.clientY + 15 + 'px';
+                } else {
+                    tooltip.style.display = 'none';
+                }
+            }
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        canvas.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            const zoom = e.deltaY < 0 ? 1.1 : 0.9;
+            const newScale = Math.max(0.1, Math.min(5, transform.scale * zoom));
+
+            // Zoom towards mouse position
+            transform.x = mouseX - (mouseX - transform.x) * (newScale / transform.scale);
+            transform.y = mouseY - (mouseY - transform.y) * (newScale / transform.scale);
+            transform.scale = newScale;
+        });
+
+        function findProblemAtPosition(mouseX, mouseY) {
+            const worldX = (mouseX - transform.x) / transform.scale;
+            const worldY = (mouseY - transform.y) / transform.scale;
+
+            for (const problem of problems) {
+                const dx = worldX - problem.x;
+                const dy = worldY - problem.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                let radius = RADIUS;
+                if (selectedProblem && problem.num === selectedProblem.num) {
+                    radius = SELECTED_RADIUS;
+                } else if (selectedProblem && selectedProblem.similar.some(s => s.num === problem.num)) {
+                    radius = SIMILAR_RADIUS;
+                }
+
+                if (distance < radius / transform.scale) {
+                    return problem;
+                }
+            }
+            return null;
+        }
+
+        function selectProblem(problem) {
+            selectedProblem = problem;
+
             const panel = document.getElementById('selected-info');
             panel.style.display = 'block';
+
+            const keywordList = problem.keywords.slice(0, 6).map(kw =>
+                `<span class="keyword-tag">${kw.term}</span>`
+            ).join('');
+
             panel.innerHTML = `
-                <h3>#${selectedProblem.num}: ${selectedProblem.title}</h3>
-                <div style="margin: 10px 0; color: #aaa;">Most Similar Problems:</div>
-                ${selectedProblem.similar.slice(0, 5).map(s => `
+                <h3>#${problem.num}: ${problem.title}</h3>
+                <div style="margin: 10px 0; color: #aaa;">
+                    <span class="difficulty-badge difficulty-${problem.difficulty}">${problem.difficulty}</span>
+                    ${problem.category}
+                </div>
+                <div style="margin: 10px 0;">
+                    <div style="color: #f39c12; font-weight: 600; margin-bottom: 6px;">🎯 Key Recognition Features:</div>
+                    ${keywordList}
+                </div>
+                <div style="margin: 10px 0; color: #aaa;">📚 Similar Problems for Practice:</div>
+                ${problem.similar.slice(0, 8).map(s => `
                     <div class="similar-item">
                         <span class="similarity-score">${(s.similarity * 100).toFixed(1)}%</span>
                         - #${s.num}: ${s.title}
+                        <div class="category-tag">└─ ${s.category}</div>
                     </div>
                 `).join('')}
             `;
         }
 
-        function deselectAll() {
-            problemSpheres.forEach(s => {
-                s.material.color.setHex(s.userData.originalColor);
-                s.material.emissiveIntensity = 0.2;
-                s.scale.set(1, 1, 1);
-            });
-            selectedProblem = null;
-            document.getElementById('selected-info').style.display = 'none';
-        }
-
         function resetView() {
-            camera.position.set(5, 5, 5);
-            controls.target.set(0, 0, 0);
-            controls.update();
-            deselectAll();
-        }
-
-        function toggleRotation() {
-            autoRotate = !autoRotate;
+            centerView();
+            transform.scale = 1;
         }
 
         function showAllProblems() {
-            deselectAll();
+            selectedProblem = null;
+            hoveredProblem = null;
+            document.getElementById('selected-info').style.display = 'none';
         }
 
-        function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        }
+        window.addEventListener('resize', () => {
+            setupCanvas();
+            scaleEmbeddings();
+            draw();
+        });
 
-        function animate() {
-            requestAnimationFrame(animate);
-
-            if (autoRotate) {
-                scene.rotation.y += 0.001;
-            }
-
-            controls.update();
-            renderer.render(scene, camera);
-        }
-
-        // Start
-        init();
+        setupCanvas();
     </script>
 </body>
 </html>
