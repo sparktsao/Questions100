@@ -70,38 +70,51 @@ def findBuildings(heights: List[int]) -> List[int]:
     return result[::-1]
 ```
 
-### Alternative Implementation (Using Stack)
+### Alternative Implementation (Using Monotonic Stack)
 
 ```python
 def findBuildings(heights: List[int]) -> List[int]:
     """
-    Stack-based monotonic stack approach.
+    Monotonic decreasing stack approach (left-to-right scan).
+
+    Key Insight: Maintain a stack where buildings are in DECREASING height order.
+    When we encounter a taller building, all shorter buildings to its left
+    cannot see the ocean (blocked by this taller one).
 
     Time: O(n), Space: O(n)
     """
     stack = []
 
     for i in range(len(heights)):
-        # Pop buildings that are shorter or equal
+        # Remove buildings that are blocked by current building
+        # (shorter or equal height buildings to the left)
         while stack and heights[stack[-1]] <= heights[i]:
             stack.pop()
         stack.append(i)
 
-    # The remaining buildings in stack can see the ocean
-    # Last building always has ocean view, so we need to check rightward
-    result = []
-    for i in range(len(stack)):
-        # Check if this building is taller than all to its right in stack
-        is_visible = True
-        for j in range(i + 1, len(stack)):
-            if heights[stack[j]] >= heights[stack[i]]:
-                is_visible = False
-                break
-        if is_visible:
-            result.append(stack[i])
+    # Buildings remaining in stack can all see the ocean
+    # They're already in increasing index order
+    return stack
 
-    return result
+# Trace Example 1: heights = [4,2,3,1]
+# i=0: stack=[] → append 0 → [0]
+# i=1: h[0]=4 > h[1]=2, don't pop → append 1 → [0,1]
+# i=2: h[1]=2 <= h[2]=3, pop 1 → [0], h[0]=4 > h[2]=3 → append 2 → [0,2]
+# i=3: h[2]=3 > h[3]=1, don't pop → append 3 → [0,2,3] ✓
+
+# Trace Example 3: heights = [1,3,2,4]
+# i=0: stack=[] → append 0 → [0]
+# i=1: h[0]=1 <= h[1]=3, pop 0 → [], append 1 → [1]
+# i=2: h[1]=3 > h[2]=2, don't pop → append 2 → [1,2]
+# i=3: h[2]=2 <= h[3]=4, pop 2 → [1], h[1]=3 <= h[3]=4, pop 1 → []
+#      append 3 → [3] ✓
 ```
+
+**Why This Works:**
+- We scan left-to-right, maintaining buildings in **monotonic decreasing height** order
+- When we see a taller building, we pop all shorter ones (they're blocked)
+- Buildings that remain in the stack are never blocked by anything to their right
+- The last building is always included (nothing blocks it)
 
 ### Most Efficient Implementation
 
