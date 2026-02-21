@@ -527,17 +527,22 @@
                             hoveredEdge = { from: selectedProblem.num, to: problem.num };
 
                             const sharedKw = simInfo.shared_keywords || [];
-                            const sharedText = sharedKw.length > 0
-                                ? `<div class="edge-label">🔗 Shared: ${sharedKw.join(', ')}</div>`
-                                : '';
+                            let tooltipContent = `<div class="edge-label">📊 Similarity: ${(simInfo.similarity * 100).toFixed(1)}%</div>`;
 
-                            edgeTooltip.innerHTML = `
-                                <div class="edge-label">📊 Similarity: ${(simInfo.similarity * 100).toFixed(1)}%</div>
-                                ${sharedText}
-                            `;
+                            if (sharedKw.length > 0) {
+                                // Format shared keywords nicely
+                                const formattedKw = sharedKw.map(kw =>
+                                    `<strong>${kw}</strong>`
+                                ).join(', ');
+                                tooltipContent += `<div class="edge-label">🎯 Common: ${formattedKw}</div>`;
+                            } else {
+                                tooltipContent += `<div class="edge-label" style="font-size: 0.9em; opacity: 0.8;">Similar approach/pattern</div>`;
+                            }
+
+                            edgeTooltip.innerHTML = tooltipContent;
                             edgeTooltip.style.display = 'block';
                             edgeTooltip.style.left = e.clientX + 15 + 'px';
-                            edgeTooltip.style.top = (e.clientY - 60) + 'px';
+                            edgeTooltip.style.top = (e.clientY - 70) + 'px';
                         } else {
                             hoveredEdge = null;
                             edgeTooltip.style.display = 'none';
