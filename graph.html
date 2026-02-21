@@ -93,16 +93,17 @@
 
         #tooltip {
             position: absolute;
-            background: rgba(30, 30, 30, 0.95);
-            padding: 12px 16px;
-            border-radius: 8px;
+            background: rgba(30, 30, 30, 0.98);
+            padding: 16px 20px;
+            border-radius: 12px;
             pointer-events: none;
             display: none;
-            font-size: 0.85em;
-            border: 1px solid rgba(231, 76, 60, 0.5);
-            max-width: 300px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
-            z-index: 100;
+            font-size: 0.9em;
+            border: 2px solid rgba(231, 76, 60, 0.6);
+            max-width: 450px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            line-height: 1.5;
         }
 
         #tooltip .title {
@@ -116,21 +117,50 @@
             font-size: 0.9em;
         }
 
+        #tooltip .description {
+            margin-top: 10px;
+            color: #ccc;
+            font-size: 0.9em;
+            line-height: 1.4;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 10px;
+        }
+
         #tooltip .keywords {
-            margin-top: 8px;
-            padding-top: 8px;
+            margin-top: 10px;
+            padding-top: 10px;
             border-top: 1px solid rgba(255, 255, 255, 0.2);
             font-size: 0.85em;
         }
 
-        #tooltip .keyword-tag {
+        .keyword-tag {
             display: inline-block;
-            background: rgba(231, 76, 60, 0.2);
+            background: rgba(231, 76, 60, 0.3);
             color: #f39c12;
-            padding: 2px 8px;
-            border-radius: 4px;
-            margin: 2px;
+            padding: 3px 10px;
+            border-radius: 6px;
+            margin: 3px;
             font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        #edge-tooltip {
+            position: absolute;
+            background: rgba(231, 76, 60, 0.95);
+            padding: 8px 12px;
+            border-radius: 6px;
+            pointer-events: none;
+            display: none;
+            font-size: 0.8em;
+            color: white;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+            z-index: 999;
+            font-weight: 600;
+        }
+
+        .edge-label {
+            display: block;
+            margin: 2px 0;
         }
 
         .difficulty-badge {
@@ -281,6 +311,7 @@
     </div>
 
     <div id="tooltip"></div>
+    <div id="edge-tooltip"></div>
     <div id="selected-info"></div>
     <div class="loading" id="loading">Loading graph data...</div>
 
@@ -299,6 +330,7 @@
         let dragStart = { x: 0, y: 0 };
         let hoveredProblem = null;
         let selectedProblem = null;
+        let hoveredEdge = null;
 
         const COLORS = {
             EASY: '#27ae60',
@@ -369,15 +401,29 @@
 
             // Draw similarity lines if selected
             if (selectedProblem) {
-                selectedProblem.similar.forEach(sim => {
+                selectedProblem.similar.forEach((sim, idx) => {
                     const target = problems.find(p => p.num === sim.num);
                     if (target) {
-                        ctx.strokeStyle = `rgba(231, 76, 60, ${sim.similarity * 0.5})`;
-                        ctx.lineWidth = 2 / transform.scale;
+                        const isHovered = hoveredEdge &&
+                                         hoveredEdge.from === selectedProblem.num &&
+                                         hoveredEdge.to === sim.num;
+
+                        ctx.strokeStyle = isHovered
+                            ? `rgba(231, 76, 60, 0.9)`
+                            : `rgba(231, 76, 60, ${sim.similarity * 0.5})`;
+                        ctx.lineWidth = (isHovered ? 4 : 2) / transform.scale;
                         ctx.beginPath();
                         ctx.moveTo(selectedProblem.x, selectedProblem.y);
                         ctx.lineTo(target.x, target.y);
                         ctx.stroke();
+
+                        // Store edge info for hover detection
+                        if (!target.edgeInfo) target.edgeInfo = [];
+                        target.edgeInfo.push({
+                            from: selectedProblem,
+                            to: target,
+                            similarity: sim
+                        });
                     }
                 });
             }
@@ -450,8 +496,10 @@
                 hoveredProblem = problem;
 
                 const tooltip = document.getElementById('tooltip');
+                const edgeTooltip = document.getElementById('edge-tooltip');
+
                 if (problem) {
-                    const keywordTags = problem.keywords.slice(0, 4).map(kw =>
+                    const keywordTags = problem.keywords.slice(0, 5).map(kw =>
                         `<span class="keyword-tag">${kw.term}</span>`
                     ).join('');
 
@@ -461,15 +509,47 @@
                             <span class="difficulty-badge difficulty-${problem.difficulty}">${problem.difficulty}</span>
                             ${problem.category} | ${problem.frequency}%
                         </div>
+                        <div class="description">
+                            ${problem.description || 'No description available'}
+                        </div>
                         <div class="keywords">
-                            🎯 ${keywordTags}
+                            🎯 Key Features: ${keywordTags}
                         </div>
                     `;
                     tooltip.style.display = 'block';
                     tooltip.style.left = e.clientX + 15 + 'px';
                     tooltip.style.top = e.clientY + 15 + 'px';
+
+                    // Check for edge hover
+                    if (selectedProblem && problem.num !== selectedProblem.num) {
+                        const simInfo = selectedProblem.similar.find(s => s.num === problem.num);
+                        if (simInfo) {
+                            hoveredEdge = { from: selectedProblem.num, to: problem.num };
+
+                            const sharedKw = simInfo.shared_keywords || [];
+                            const sharedText = sharedKw.length > 0
+                                ? `<div class="edge-label">🔗 Shared: ${sharedKw.join(', ')}</div>`
+                                : '';
+
+                            edgeTooltip.innerHTML = `
+                                <div class="edge-label">📊 Similarity: ${(simInfo.similarity * 100).toFixed(1)}%</div>
+                                ${sharedText}
+                            `;
+                            edgeTooltip.style.display = 'block';
+                            edgeTooltip.style.left = e.clientX + 15 + 'px';
+                            edgeTooltip.style.top = (e.clientY - 60) + 'px';
+                        } else {
+                            hoveredEdge = null;
+                            edgeTooltip.style.display = 'none';
+                        }
+                    } else {
+                        hoveredEdge = null;
+                        edgeTooltip.style.display = 'none';
+                    }
                 } else {
                     tooltip.style.display = 'none';
+                    edgeTooltip.style.display = 'none';
+                    hoveredEdge = null;
                 }
             }
         });
