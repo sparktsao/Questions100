@@ -1,0 +1,6602 @@
+[
+  {
+    "num": "001",
+    "title": "Minimum Remove to Make Valid Parentheses",
+    "category": "Parentheses",
+    "difficulty": "MEDIUM",
+    "tag": "Stack",
+    "frequency": 100.0,
+    "link": "LeetCode/Parentheses/001_minimum_remove_to_make_valid_parentheses.md",
+    "embedding": [
+      -0.42593973220538184,
+      -0.37791412120009404,
+      0.25321414207336745
+    ],
+    "similar": [
+      {
+        "num": "052",
+        "title": "Minimum Add to Make Parentheses Valid",
+        "similarity": 0.7274727603779104
+      },
+      {
+        "num": "056",
+        "title": "Remove Invalid Parentheses",
+        "similarity": 0.7090973449387756
+      },
+      {
+        "num": "020",
+        "title": "Valid Parentheses",
+        "similarity": 0.6935788009608759
+      },
+      {
+        "num": "057",
+        "title": "Palindromic Substrings",
+        "similarity": 0.6906838917751816
+      },
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.6308824280497273
+      },
+      {
+        "num": "043",
+        "title": "Longest Common Prefix",
+        "similarity": 0.5406109816027176
+      },
+      {
+        "num": "004",
+        "title": "Valid Palindrome II",
+        "similarity": 0.5382987575376524
+      },
+      {
+        "num": "098",
+        "title": "Remove All Adjacent Duplicates in String II",
+        "similarity": 0.5101349699535833
+      },
+      {
+        "num": "093",
+        "title": "Decode String",
+        "similarity": 0.4956305163119813
+      },
+      {
+        "num": "002",
+        "title": "Valid Word Abbreviation",
+        "similarity": 0.4881441890555493
+      }
+    ]
+  },
+  {
+    "num": "002",
+    "title": "Valid Word Abbreviation",
+    "category": "Two-Pointers",
+    "difficulty": "EASY",
+    "tag": "Two Pointers",
+    "frequency": 95.4,
+    "link": "LeetCode/Two-Pointers/002_valid_word_abbreviation.md",
+    "embedding": [
+      -0.40888638650347486,
+      -0.36862279787828445,
+      0.19389059353464191
+    ],
+    "similar": [
+      {
+        "num": "095",
+        "title": "Goat Latin",
+        "similarity": 0.6276095737277392
+      },
+      {
+        "num": "043",
+        "title": "Longest Common Prefix",
+        "similarity": 0.5993927119834929
+      },
+      {
+        "num": "057",
+        "title": "Palindromic Substrings",
+        "similarity": 0.5991577071111968
+      },
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.5987403266436486
+      },
+      {
+        "num": "004",
+        "title": "Valid Palindrome II",
+        "similarity": 0.5842987681380492
+      },
+      {
+        "num": "098",
+        "title": "Remove All Adjacent Duplicates in String II",
+        "similarity": 0.5658265413922613
+      },
+      {
+        "num": "080",
+        "title": "Longest Substring Without Repeating Characters",
+        "similarity": 0.5272427614358827
+      },
+      {
+        "num": "075",
+        "title": "Word Break",
+        "similarity": 0.5270674820027069
+      },
+      {
+        "num": "056",
+        "title": "Remove Invalid Parentheses",
+        "similarity": 0.49526893992769444
+      },
+      {
+        "num": "001",
+        "title": "Minimum Remove to Make Valid Parentheses",
+        "similarity": 0.4881441890555493
+      }
+    ]
+  },
+  {
+    "num": "003",
+    "title": "Binary Tree Vertical Order Traversal",
+    "category": "Tree",
+    "difficulty": "MEDIUM",
+    "tag": "DFS",
+    "frequency": 93.4,
+    "link": "LeetCode/Tree/003_binary_tree_vertical_order_traversal.md",
+    "embedding": [
+      -0.1549222350096349,
+      0.6129025415485342,
+      0.2069773609616601
+    ],
+    "similar": [
+      {
+        "num": "007",
+        "title": "Binary Tree Right Side View",
+        "similarity": 0.9410652727727135
+      },
+      {
+        "num": "061",
+        "title": "Vertical Order Traversal of a Binary Tree",
+        "similarity": 0.7291732899076039
+      },
+      {
+        "num": "092",
+        "title": "Kth Smallest Element in a BST",
+        "similarity": 0.6826656864934338
+      },
+      {
+        "num": "009",
+        "title": "Lowest Common Ancestor of a Binary Tree",
+        "similarity": 0.6429519210537924
+      },
+      {
+        "num": "027",
+        "title": "Range Sum of BST",
+        "similarity": 0.6036208602219167
+      },
+      {
+        "num": "066",
+        "title": "All Nodes Distance K in Binary Tree",
+        "similarity": 0.5942696466865194
+      },
+      {
+        "num": "005",
+        "title": "Lowest Common Ancestor of a Binary Tree III",
+        "similarity": 0.5071630802796404
+      },
+      {
+        "num": "051",
+        "title": "Binary Search Tree Iterator",
+        "similarity": 0.4797227123723697
+      },
+      {
+        "num": "060",
+        "title": "Closest Binary Search Tree Value",
+        "similarity": 0.43385448898907963
+      },
+      {
+        "num": "045",
+        "title": "Remove Nth Node From End of List",
+        "similarity": 0.4211284365072044
+      }
+    ]
+  },
+  {
+    "num": "004",
+    "title": "Valid Palindrome II",
+    "category": "Palindrome",
+    "difficulty": "EASY",
+    "tag": "Two Pointers",
+    "frequency": 92.7,
+    "link": "LeetCode/Palindrome/004_valid_palindrome_ii.md",
+    "embedding": [
+      -0.4284011804983957,
+      -0.42825812500429083,
+      0.21599397745272814
+    ],
+    "similar": [
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.7789451625371604
+      },
+      {
+        "num": "037",
+        "title": "Minimum Window Substring",
+        "similarity": 0.7322705267197841
+      },
+      {
+        "num": "098",
+        "title": "Remove All Adjacent Duplicates in String II",
+        "similarity": 0.6791666676222048
+      },
+      {
+        "num": "057",
+        "title": "Palindromic Substrings",
+        "similarity": 0.6636028869387809
+      },
+      {
+        "num": "080",
+        "title": "Longest Substring Without Repeating Characters",
+        "similarity": 0.6474749234781176
+      },
+      {
+        "num": "043",
+        "title": "Longest Common Prefix",
+        "similarity": 0.5978759950685834
+      },
+      {
+        "num": "002",
+        "title": "Valid Word Abbreviation",
+        "similarity": 0.5842987681380492
+      },
+      {
+        "num": "096",
+        "title": "Longest Palindromic Substring",
+        "similarity": 0.5779775004195459
+      },
+      {
+        "num": "056",
+        "title": "Remove Invalid Parentheses",
+        "similarity": 0.5593622397185191
+      },
+      {
+        "num": "075",
+        "title": "Word Break",
+        "similarity": 0.5455285383477797
+      }
+    ]
+  },
+  {
+    "num": "005",
+    "title": "Lowest Common Ancestor of a Binary Tree III",
+    "category": "Tree",
+    "difficulty": "MEDIUM",
+    "tag": "Two Pointers",
+    "frequency": 89.6,
+    "link": "LeetCode/Tree/005_lowest_common_ancestor_of_a_binary_tree_iii.md",
+    "embedding": [
+      -0.15028319493075012,
+      0.6679813704770989,
+      0.2807008565936541
+    ],
+    "similar": [
+      {
+        "num": "009",
+        "title": "Lowest Common Ancestor of a Binary Tree",
+        "similarity": 0.8687279714787302
+      },
+      {
+        "num": "025",
+        "title": "Clone Graph",
+        "similarity": 0.8108605908608367
+      },
+      {
+        "num": "027",
+        "title": "Range Sum of BST",
+        "similarity": 0.8045785368988143
+      },
+      {
+        "num": "032",
+        "title": "Copy List with Random Pointer",
+        "similarity": 0.6427085356260975
+      },
+      {
+        "num": "066",
+        "title": "All Nodes Distance K in Binary Tree",
+        "similarity": 0.6362196578308744
+      },
+      {
+        "num": "092",
+        "title": "Kth Smallest Element in a BST",
+        "similarity": 0.6037390365188895
+      },
+      {
+        "num": "061",
+        "title": "Vertical Order Traversal of a Binary Tree",
+        "similarity": 0.5299645050003847
+      },
+      {
+        "num": "064",
+        "title": "Insert into a Sorted Circular Linked List",
+        "similarity": 0.5286301803650668
+      },
+      {
+        "num": "007",
+        "title": "Binary Tree Right Side View",
+        "similarity": 0.5219312624328629
+      },
+      {
+        "num": "003",
+        "title": "Binary Tree Vertical Order Traversal",
+        "similarity": 0.5071630802796404
+      }
+    ]
+  },
+  {
+    "num": "006",
+    "title": "Kth Largest Element in an Array",
+    "category": "Heap-Priority-Queue",
+    "difficulty": "MEDIUM",
+    "tag": "Heap",
+    "frequency": 86.9,
+    "link": "LeetCode/Heap-Priority-Queue/006_kth_largest_element_in_an_array.md",
+    "embedding": [
+      0.612249339812222,
+      -0.17145742294052949,
+      0.12184789541135076
+    ],
+    "similar": [
+      {
+        "num": "090",
+        "title": "Frequency of the Most Frequent Element",
+        "similarity": 0.8683496094625756
+      },
+      {
+        "num": "068",
+        "title": "Contains Duplicate II",
+        "similarity": 0.7718985799518466
+      },
+      {
+        "num": "044",
+        "title": "Squares of a Sorted Array",
+        "similarity": 0.758761220253545
+      },
+      {
+        "num": "010",
+        "title": "Find Peak Element",
+        "similarity": 0.7139562186207021
+      },
+      {
+        "num": "055",
+        "title": "Subsets",
+        "similarity": 0.7041969897495695
+      },
+      {
+        "num": "087",
+        "title": "Maximum Subarray",
+        "similarity": 0.68555714458029
+      },
+      {
+        "num": "065",
+        "title": "3Sum",
+        "similarity": 0.6564372094264195
+      },
+      {
+        "num": "040",
+        "title": "Max Consecutive Ones III",
+        "similarity": 0.6551484765722743
+      },
+      {
+        "num": "069",
+        "title": "Zero Array Transformation III",
+        "similarity": 0.6511517477956126
+      },
+      {
+        "num": "015",
+        "title": "Top K Frequent Elements",
+        "similarity": 0.6143227355790939
+      }
+    ]
+  },
+  {
+    "num": "007",
+    "title": "Binary Tree Right Side View",
+    "category": "Tree",
+    "difficulty": "MEDIUM",
+    "tag": "DFS",
+    "frequency": 86.0,
+    "link": "LeetCode/Tree/007_binary_tree_right_side_view.md",
+    "embedding": [
+      -0.16723542750187143,
+      0.6416934012924594,
+      0.22201985453993273
+    ],
+    "similar": [
+      {
+        "num": "003",
+        "title": "Binary Tree Vertical Order Traversal",
+        "similarity": 0.9410652727727135
+      },
+      {
+        "num": "092",
+        "title": "Kth Smallest Element in a BST",
+        "similarity": 0.7092909762558497
+      },
+      {
+        "num": "061",
+        "title": "Vertical Order Traversal of a Binary Tree",
+        "similarity": 0.6954908348778975
+      },
+      {
+        "num": "009",
+        "title": "Lowest Common Ancestor of a Binary Tree",
+        "similarity": 0.6638677864494519
+      },
+      {
+        "num": "027",
+        "title": "Range Sum of BST",
+        "similarity": 0.6309647927193996
+      },
+      {
+        "num": "066",
+        "title": "All Nodes Distance K in Binary Tree",
+        "similarity": 0.5957843576547965
+      },
+      {
+        "num": "005",
+        "title": "Lowest Common Ancestor of a Binary Tree III",
+        "similarity": 0.5219312624328629
+      },
+      {
+        "num": "051",
+        "title": "Binary Search Tree Iterator",
+        "similarity": 0.47645222000093324
+      },
+      {
+        "num": "060",
+        "title": "Closest Binary Search Tree Value",
+        "similarity": 0.46280041618317114
+      },
+      {
+        "num": "045",
+        "title": "Remove Nth Node From End of List",
+        "similarity": 0.43940585644219743
+      }
+    ]
+  },
+  {
+    "num": "008",
+    "title": "Basic Calculator II",
+    "category": "Stack",
+    "difficulty": "MEDIUM",
+    "tag": "Stack",
+    "frequency": 84.0,
+    "link": "LeetCode/Stack/008_basic_calculator_ii.md",
+    "embedding": [
+      -0.16774088539741877,
+      -0.16449713029056195,
+      -0.024827173359806616
+    ],
+    "similar": [
+      {
+        "num": "067",
+        "title": "String to Integer (atoi)",
+        "similarity": 0.5070821771001327
+      },
+      {
+        "num": "052",
+        "title": "Minimum Add to Make Parentheses Valid",
+        "similarity": 0.3911740697826639
+      },
+      {
+        "num": "050",
+        "title": "Add Strings",
+        "similarity": 0.3893512109736577
+      },
+      {
+        "num": "056",
+        "title": "Remove Invalid Parentheses",
+        "similarity": 0.3838103773925302
+      },
+      {
+        "num": "093",
+        "title": "Decode String",
+        "similarity": 0.3807796800626494
+      },
+      {
+        "num": "020",
+        "title": "Valid Parentheses",
+        "similarity": 0.37530714765298706
+      },
+      {
+        "num": "024",
+        "title": "K Closest Points to Origin",
+        "similarity": 0.36683238778544797
+      },
+      {
+        "num": "098",
+        "title": "Remove All Adjacent Duplicates in String II",
+        "similarity": 0.3413421169176062
+      },
+      {
+        "num": "001",
+        "title": "Minimum Remove to Make Valid Parentheses",
+        "similarity": 0.3353941906274133
+      },
+      {
+        "num": "021",
+        "title": "Pow(x, n)",
+        "similarity": 0.33243268454789265
+      }
+    ]
+  },
+  {
+    "num": "009",
+    "title": "Lowest Common Ancestor of a Binary Tree",
+    "category": "Tree",
+    "difficulty": "MEDIUM",
+    "tag": "DFS",
+    "frequency": 82.9,
+    "link": "LeetCode/Tree/009_lowest_common_ancestor_of_a_binary_tree.md",
+    "embedding": [
+      -0.15434289778152308,
+      0.7056422618812056,
+      0.29928357077021706
+    ],
+    "similar": [
+      {
+        "num": "027",
+        "title": "Range Sum of BST",
+        "similarity": 0.8806368587961378
+      },
+      {
+        "num": "005",
+        "title": "Lowest Common Ancestor of a Binary Tree III",
+        "similarity": 0.8687279714787302
+      },
+      {
+        "num": "092",
+        "title": "Kth Smallest Element in a BST",
+        "similarity": 0.8453966696108511
+      },
+      {
+        "num": "066",
+        "title": "All Nodes Distance K in Binary Tree",
+        "similarity": 0.6927636304469015
+      },
+      {
+        "num": "061",
+        "title": "Vertical Order Traversal of a Binary Tree",
+        "similarity": 0.6830593088633242
+      },
+      {
+        "num": "007",
+        "title": "Binary Tree Right Side View",
+        "similarity": 0.6638677864494519
+      },
+      {
+        "num": "003",
+        "title": "Binary Tree Vertical Order Traversal",
+        "similarity": 0.6429519210537924
+      },
+      {
+        "num": "060",
+        "title": "Closest Binary Search Tree Value",
+        "similarity": 0.6177851886258504
+      },
+      {
+        "num": "025",
+        "title": "Clone Graph",
+        "similarity": 0.5823587703693653
+      },
+      {
+        "num": "032",
+        "title": "Copy List with Random Pointer",
+        "similarity": 0.5118789115601147
+      }
+    ]
+  },
+  {
+    "num": "010",
+    "title": "Find Peak Element",
+    "category": "Binary-Search",
+    "difficulty": "MEDIUM",
+    "tag": "Binary Search",
+    "frequency": 82.9,
+    "link": "LeetCode/Binary-Search/010_find_peak_element.md",
+    "embedding": [
+      0.5525960610025358,
+      -0.1566463457751076,
+      0.26648371795866277
+    ],
+    "similar": [
+      {
+        "num": "090",
+        "title": "Frequency of the Most Frequent Element",
+        "similarity": 0.8122810057285816
+      },
+      {
+        "num": "065",
+        "title": "3Sum",
+        "similarity": 0.7374196043619593
+      },
+      {
+        "num": "006",
+        "title": "Kth Largest Element in an Array",
+        "similarity": 0.7139562186207021
+      },
+      {
+        "num": "069",
+        "title": "Zero Array Transformation III",
+        "similarity": 0.696006895861997
+      },
+      {
+        "num": "040",
+        "title": "Max Consecutive Ones III",
+        "similarity": 0.6637865507590719
+      },
+      {
+        "num": "091",
+        "title": "Random Pick Index",
+        "similarity": 0.6615997170194575
+      },
+      {
+        "num": "068",
+        "title": "Contains Duplicate II",
+        "similarity": 0.6427188008228547
+      },
+      {
+        "num": "047",
+        "title": "Missing Ranges",
+        "similarity": 0.5964788350860442
+      },
+      {
+        "num": "055",
+        "title": "Subsets",
+        "similarity": 0.5770959522345585
+      },
+      {
+        "num": "044",
+        "title": "Squares of a Sorted Array",
+        "similarity": 0.5289873940232402
+      }
+    ]
+  },
+  {
+    "num": "011",
+    "title": "Nested List Weight Sum",
+    "category": "Tree",
+    "difficulty": "MEDIUM",
+    "tag": "DFS",
+    "frequency": 81.7,
+    "link": "LeetCode/Tree/011_nested_list_weight_sum.md",
+    "embedding": [
+      -0.021655869477008212,
+      0.18059231322574176,
+      -0.20646019067334156
+    ],
+    "similar": [
+      {
+        "num": "085",
+        "title": "Add Two Integers",
+        "similarity": 0.6456796641407355
+      },
+      {
+        "num": "050",
+        "title": "Add Strings",
+        "similarity": 0.4770759625249286
+      },
+      {
+        "num": "045",
+        "title": "Remove Nth Node From End of List",
+        "similarity": 0.42953988863122594
+      },
+      {
+        "num": "054",
+        "title": "Add Two Numbers",
+        "similarity": 0.41949692962174057
+      },
+      {
+        "num": "082",
+        "title": "Find Median from Data Stream",
+        "similarity": 0.41811927901516704
+      },
+      {
+        "num": "064",
+        "title": "Insert into a Sorted Circular Linked List",
+        "similarity": 0.40971286792090034
+      },
+      {
+        "num": "032",
+        "title": "Copy List with Random Pointer",
+        "similarity": 0.31863721054665517
+      },
+      {
+        "num": "047",
+        "title": "Missing Ranges",
+        "similarity": 0.3056705278674804
+      },
+      {
+        "num": "030",
+        "title": "Next Permutation",
+        "similarity": 0.30180293217629284
+      },
+      {
+        "num": "088",
+        "title": "Interval List Intersections",
+        "similarity": 0.28602839566524063
+      }
+    ]
+  },
+  {
+    "num": "012",
+    "title": "Random Pick with Weight",
+    "category": "Heap-Priority-Queue",
+    "difficulty": "MEDIUM",
+    "tag": "Binary Search",
+    "frequency": 80.5,
+    "link": "LeetCode/Heap-Priority-Queue/012_random_pick_with_weight.md",
+    "embedding": [
+      0.05637563774503162,
+      -0.01724888059845642,
+      -0.14946379978787422
+    ],
+    "similar": [
+      {
+        "num": "090",
+        "title": "Frequency of the Most Frequent Element",
+        "similarity": 0.41027873002608417
+      },
+      {
+        "num": "069",
+        "title": "Zero Array Transformation III",
+        "similarity": 0.33192691137421837
+      },
+      {
+        "num": "091",
+        "title": "Random Pick Index",
+        "similarity": 0.3127191225473293
+      },
+      {
+        "num": "010",
+        "title": "Find Peak Element",
+        "similarity": 0.2533176888227294
+      },
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.24805686590161924
+      },
+      {
+        "num": "094",
+        "title": "Koko Eating Bananas",
+        "similarity": 0.2318923912572328
+      },
+      {
+        "num": "050",
+        "title": "Add Strings",
+        "similarity": 0.20762989362088424
+      },
+      {
+        "num": "049",
+        "title": "Exclusive Time of Functions",
+        "similarity": 0.2043982008187692
+      },
+      {
+        "num": "016",
+        "title": "Merge Intervals",
+        "similarity": 0.19911946472647438
+      },
+      {
+        "num": "087",
+        "title": "Maximum Subarray",
+        "similarity": 0.18630714677211008
+      }
+    ]
+  },
+  {
+    "num": "013",
+    "title": "Sum Root to Leaf Numbers",
+    "category": "Tree",
+    "difficulty": "MEDIUM",
+    "tag": "DFS",
+    "frequency": 80.5,
+    "link": "LeetCode/Tree/013_sum_root_to_leaf_numbers.md",
+    "embedding": [
+      -0.06165213021793534,
+      0.26305499045631114,
+      -0.2291727253862458
+    ],
+    "similar": [
+      {
+        "num": "059",
+        "title": "Continuous Subarray Sum",
+        "similarity": 0.8759667074683405
+      },
+      {
+        "num": "026",
+        "title": "Subarray Sum Equals K",
+        "similarity": 0.8759667074683405
+      },
+      {
+        "num": "014",
+        "title": "Diameter of Binary Tree",
+        "similarity": 0.8665547654763922
+      },
+      {
+        "num": "061",
+        "title": "Vertical Order Traversal of a Binary Tree",
+        "similarity": 0.35007759388017884
+      },
+      {
+        "num": "093",
+        "title": "Decode String",
+        "similarity": 0.3195651354648509
+      },
+      {
+        "num": "092",
+        "title": "Kth Smallest Element in a BST",
+        "similarity": 0.2786257125967473
+      },
+      {
+        "num": "051",
+        "title": "Binary Search Tree Iterator",
+        "similarity": 0.278130059433416
+      },
+      {
+        "num": "009",
+        "title": "Lowest Common Ancestor of a Binary Tree",
+        "similarity": 0.2630664059478653
+      },
+      {
+        "num": "027",
+        "title": "Range Sum of BST",
+        "similarity": 0.24084896386743068
+      },
+      {
+        "num": "007",
+        "title": "Binary Tree Right Side View",
+        "similarity": 0.23715992866166608
+      }
+    ]
+  },
+  {
+    "num": "014",
+    "title": "Diameter of Binary Tree",
+    "category": "Tree",
+    "difficulty": "EASY",
+    "tag": "DFS",
+    "frequency": 79.2,
+    "link": "LeetCode/Tree/014_diameter_of_binary_tree.md",
+    "embedding": [
+      -0.0859690322445721,
+      0.3564582581069047,
+      -0.11008656959782022
+    ],
+    "similar": [
+      {
+        "num": "013",
+        "title": "Sum Root to Leaf Numbers",
+        "similarity": 0.8665547654763922
+      },
+      {
+        "num": "061",
+        "title": "Vertical Order Traversal of a Binary Tree",
+        "similarity": 0.6093675366466978
+      },
+      {
+        "num": "026",
+        "title": "Subarray Sum Equals K",
+        "similarity": 0.5917022185283631
+      },
+      {
+        "num": "059",
+        "title": "Continuous Subarray Sum",
+        "similarity": 0.5917022185283631
+      },
+      {
+        "num": "009",
+        "title": "Lowest Common Ancestor of a Binary Tree",
+        "similarity": 0.4240340005071057
+      },
+      {
+        "num": "092",
+        "title": "Kth Smallest Element in a BST",
+        "similarity": 0.41245032738371173
+      },
+      {
+        "num": "007",
+        "title": "Binary Tree Right Side View",
+        "similarity": 0.3718067295313073
+      },
+      {
+        "num": "003",
+        "title": "Binary Tree Vertical Order Traversal",
+        "similarity": 0.3289848706274399
+      },
+      {
+        "num": "051",
+        "title": "Binary Search Tree Iterator",
+        "similarity": 0.32863457284989855
+      },
+      {
+        "num": "060",
+        "title": "Closest Binary Search Tree Value",
+        "similarity": 0.2997372916815891
+      }
+    ]
+  },
+  {
+    "num": "015",
+    "title": "Top K Frequent Elements",
+    "category": "Heap-Priority-Queue",
+    "difficulty": "MEDIUM",
+    "tag": "Heap",
+    "frequency": 77.9,
+    "link": "LeetCode/Heap-Priority-Queue/015_top_k_frequent_elements.md",
+    "embedding": [
+      0.5192669041392801,
+      -0.16027611282369664,
+      0.11997480367495707
+    ],
+    "similar": [
+      {
+        "num": "055",
+        "title": "Subsets",
+        "similarity": 0.8090165833792242
+      },
+      {
+        "num": "068",
+        "title": "Contains Duplicate II",
+        "similarity": 0.6979533632043807
+      },
+      {
+        "num": "069",
+        "title": "Zero Array Transformation III",
+        "similarity": 0.6928209714191811
+      },
+      {
+        "num": "087",
+        "title": "Maximum Subarray",
+        "similarity": 0.6854599100648293
+      },
+      {
+        "num": "040",
+        "title": "Max Consecutive Ones III",
+        "similarity": 0.6167946845328832
+      },
+      {
+        "num": "006",
+        "title": "Kth Largest Element in an Array",
+        "similarity": 0.6143227355790939
+      },
+      {
+        "num": "047",
+        "title": "Missing Ranges",
+        "similarity": 0.611972576537261
+      },
+      {
+        "num": "024",
+        "title": "K Closest Points to Origin",
+        "similarity": 0.6085778841316474
+      },
+      {
+        "num": "044",
+        "title": "Squares of a Sorted Array",
+        "similarity": 0.6043140494289742
+      },
+      {
+        "num": "090",
+        "title": "Frequency of the Most Frequent Element",
+        "similarity": 0.5893140473307111
+      }
+    ]
+  },
+  {
+    "num": "016",
+    "title": "Merge Intervals",
+    "category": "Array-Hashing",
+    "difficulty": "MEDIUM",
+    "tag": "Array Hashing",
+    "frequency": 77.9,
+    "link": "LeetCode/Array-Hashing/016_merge_intervals.md",
+    "embedding": [
+      0.14313057917400562,
+      -0.14667994754915134,
+      -0.32996256503705507
+    ],
+    "similar": [
+      {
+        "num": "018",
+        "title": "Best Time to Buy and Sell Stock",
+        "similarity": 0.6328828066990736
+      },
+      {
+        "num": "099",
+        "title": "Best Time to Buy and Sell Stock III",
+        "similarity": 0.623724113265961
+      },
+      {
+        "num": "094",
+        "title": "Koko Eating Bananas",
+        "similarity": 0.5355319547167053
+      },
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.5174332285850614
+      },
+      {
+        "num": "063",
+        "title": "Course Schedule",
+        "similarity": 0.48521728996199565
+      },
+      {
+        "num": "073",
+        "title": "Container With Most Water",
+        "similarity": 0.470922952105583
+      },
+      {
+        "num": "042",
+        "title": "Find First and Last Position of Element in Sorted Array",
+        "similarity": 0.4549237438269862
+      },
+      {
+        "num": "024",
+        "title": "K Closest Points to Origin",
+        "similarity": 0.41588745324662996
+      },
+      {
+        "num": "044",
+        "title": "Squares of a Sorted Array",
+        "similarity": 0.39578333588530445
+      },
+      {
+        "num": "079",
+        "title": "Capacity To Ship Packages Within D Days",
+        "similarity": 0.38548767885808866
+      }
+    ]
+  },
+  {
+    "num": "017",
+    "title": "Two Sum",
+    "category": "Array-Hashing",
+    "difficulty": "EASY",
+    "tag": "HashMap",
+    "frequency": 76.4,
+    "link": "LeetCode/Array-Hashing/017_two_sum.md",
+    "embedding": [
+      0.422150383194232,
+      -0.1062212401577265,
+      0.08736576772365288
+    ],
+    "similar": [
+      {
+        "num": "042",
+        "title": "Find First and Last Position of Element in Sorted Array",
+        "similarity": 0.7875349740761579
+      },
+      {
+        "num": "091",
+        "title": "Random Pick Index",
+        "similarity": 0.6294477803671226
+      },
+      {
+        "num": "055",
+        "title": "Subsets",
+        "similarity": 0.5940666969880296
+      },
+      {
+        "num": "015",
+        "title": "Top K Frequent Elements",
+        "similarity": 0.579492104849857
+      },
+      {
+        "num": "068",
+        "title": "Contains Duplicate II",
+        "similarity": 0.5777170437873442
+      },
+      {
+        "num": "006",
+        "title": "Kth Largest Element in an Array",
+        "similarity": 0.5598813535950783
+      },
+      {
+        "num": "090",
+        "title": "Frequency of the Most Frequent Element",
+        "similarity": 0.5277332409380721
+      },
+      {
+        "num": "024",
+        "title": "K Closest Points to Origin",
+        "similarity": 0.5269212403144147
+      },
+      {
+        "num": "087",
+        "title": "Maximum Subarray",
+        "similarity": 0.5055290750980584
+      },
+      {
+        "num": "044",
+        "title": "Squares of a Sorted Array",
+        "similarity": 0.49893464645849017
+      }
+    ]
+  },
+  {
+    "num": "018",
+    "title": "Best Time to Buy and Sell Stock",
+    "category": "Dynamic-Programming",
+    "difficulty": "EASY",
+    "tag": "DP",
+    "frequency": 76.4,
+    "link": "LeetCode/Dynamic-Programming/018_best_time_to_buy_and_sell_stock.md",
+    "embedding": [
+      0.1211882634022131,
+      -0.10250985625781645,
+      -0.36454038263509797
+    ],
+    "similar": [
+      {
+        "num": "099",
+        "title": "Best Time to Buy and Sell Stock III",
+        "similarity": 0.7833144664434003
+      },
+      {
+        "num": "016",
+        "title": "Merge Intervals",
+        "similarity": 0.6328828066990736
+      },
+      {
+        "num": "073",
+        "title": "Container With Most Water",
+        "similarity": 0.5869475151902462
+      },
+      {
+        "num": "094",
+        "title": "Koko Eating Bananas",
+        "similarity": 0.5551034843230235
+      },
+      {
+        "num": "079",
+        "title": "Capacity To Ship Packages Within D Days",
+        "similarity": 0.5368402797209013
+      },
+      {
+        "num": "063",
+        "title": "Course Schedule",
+        "similarity": 0.4587559743743149
+      },
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.4463975445321204
+      },
+      {
+        "num": "072",
+        "title": "Maximum Swap",
+        "similarity": 0.4403343768644597
+      },
+      {
+        "num": "024",
+        "title": "K Closest Points to Origin",
+        "similarity": 0.4243998763949298
+      },
+      {
+        "num": "042",
+        "title": "Find First and Last Position of Element in Sorted Array",
+        "similarity": 0.33017657773507186
+      }
+    ]
+  },
+  {
+    "num": "019",
+    "title": "Merge k Sorted Lists",
+    "category": "Heap-Priority-Queue",
+    "difficulty": "HARD",
+    "tag": "Heap",
+    "frequency": 76.4,
+    "link": "LeetCode/Heap-Priority-Queue/019_merge_k_sorted_lists.md",
+    "embedding": [
+      -0.011113859927159403,
+      0.0747638494817118,
+      -0.2529226616681828
+    ],
+    "similar": [
+      {
+        "num": "088",
+        "title": "Interval List Intersections",
+        "similarity": 0.6772092287036693
+      },
+      {
+        "num": "054",
+        "title": "Add Two Numbers",
+        "similarity": 0.4498933425140778
+      },
+      {
+        "num": "011",
+        "title": "Nested List Weight Sum",
+        "similarity": 0.282651108051996
+      },
+      {
+        "num": "032",
+        "title": "Copy List with Random Pointer",
+        "similarity": 0.245659727750097
+      },
+      {
+        "num": "064",
+        "title": "Insert into a Sorted Circular Linked List",
+        "similarity": 0.2199395806421417
+      },
+      {
+        "num": "045",
+        "title": "Remove Nth Node From End of List",
+        "similarity": 0.20939958855867152
+      },
+      {
+        "num": "022",
+        "title": "Buildings With an Ocean View",
+        "similarity": 0.19359661843880957
+      },
+      {
+        "num": "044",
+        "title": "Squares of a Sorted Array",
+        "similarity": 0.18039178111833612
+      },
+      {
+        "num": "094",
+        "title": "Koko Eating Bananas",
+        "similarity": 0.16773338066301688
+      },
+      {
+        "num": "016",
+        "title": "Merge Intervals",
+        "similarity": 0.1648237388810932
+      }
+    ]
+  },
+  {
+    "num": "020",
+    "title": "Valid Parentheses",
+    "category": "Parentheses",
+    "difficulty": "EASY",
+    "tag": "Stack",
+    "frequency": 74.9,
+    "link": "LeetCode/Parentheses/020_valid_parentheses.md",
+    "embedding": [
+      -0.3576789009665688,
+      -0.3115240839512912,
+      0.10448132882192435
+    ],
+    "similar": [
+      {
+        "num": "052",
+        "title": "Minimum Add to Make Parentheses Valid",
+        "similarity": 0.6966150919998253
+      },
+      {
+        "num": "001",
+        "title": "Minimum Remove to Make Valid Parentheses",
+        "similarity": 0.6935788009608759
+      },
+      {
+        "num": "056",
+        "title": "Remove Invalid Parentheses",
+        "similarity": 0.6097998732681746
+      },
+      {
+        "num": "093",
+        "title": "Decode String",
+        "similarity": 0.6079165213700498
+      },
+      {
+        "num": "057",
+        "title": "Palindromic Substrings",
+        "similarity": 0.5534098037183458
+      },
+      {
+        "num": "080",
+        "title": "Longest Substring Without Repeating Characters",
+        "similarity": 0.5174905885353083
+      },
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.5018951467776022
+      },
+      {
+        "num": "029",
+        "title": "Valid Palindrome",
+        "similarity": 0.4140657797984836
+      },
+      {
+        "num": "098",
+        "title": "Remove All Adjacent Duplicates in String II",
+        "similarity": 0.39368334399655025
+      },
+      {
+        "num": "004",
+        "title": "Valid Palindrome II",
+        "similarity": 0.3770558102171639
+      }
+    ]
+  },
+  {
+    "num": "021",
+    "title": "Pow(x, n)",
+    "category": "Math-Compute",
+    "difficulty": "MEDIUM",
+    "tag": "Math Compute",
+    "frequency": 74.9,
+    "link": "LeetCode/Math-Compute/021_pow_x_n.md",
+    "embedding": [
+      0.021075005219776465,
+      0.09606909312957239,
+      -0.13999672197079274
+    ],
+    "similar": [
+      {
+        "num": "067",
+        "title": "String to Integer (atoi)",
+        "similarity": 0.4081098163443215
+      },
+      {
+        "num": "085",
+        "title": "Add Two Integers",
+        "similarity": 0.3536902286433986
+      },
+      {
+        "num": "008",
+        "title": "Basic Calculator II",
+        "similarity": 0.33243268454789265
+      },
+      {
+        "num": "007",
+        "title": "Binary Tree Right Side View",
+        "similarity": 0.2921061693880483
+      },
+      {
+        "num": "034",
+        "title": "Sliding Window Median",
+        "similarity": 0.27424540624572397
+      },
+      {
+        "num": "003",
+        "title": "Binary Tree Vertical Order Traversal",
+        "similarity": 0.2584636121749171
+      },
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.24230370294371134
+      },
+      {
+        "num": "077",
+        "title": "Car Pooling",
+        "similarity": 0.20973317375659473
+      },
+      {
+        "num": "010",
+        "title": "Find Peak Element",
+        "similarity": 0.2018049751966766
+      },
+      {
+        "num": "091",
+        "title": "Random Pick Index",
+        "similarity": 0.19929687535060694
+      }
+    ]
+  },
+  {
+    "num": "022",
+    "title": "Buildings With an Ocean View",
+    "category": "Array-Hashing",
+    "difficulty": "MEDIUM",
+    "tag": "Stack",
+    "frequency": 74.9,
+    "link": "LeetCode/Array-Hashing/022_buildings_with_an_ocean_view.md",
+    "embedding": [
+      0.14961519964867404,
+      -0.008215823472801654,
+      -0.21205207328724562
+    ],
+    "similar": [
+      {
+        "num": "034",
+        "title": "Sliding Window Median",
+        "similarity": 0.5127417354011155
+      },
+      {
+        "num": "073",
+        "title": "Container With Most Water",
+        "similarity": 0.4679987718733223
+      },
+      {
+        "num": "024",
+        "title": "K Closest Points to Origin",
+        "similarity": 0.42790288003006255
+      },
+      {
+        "num": "044",
+        "title": "Squares of a Sorted Array",
+        "similarity": 0.41113526180166926
+      },
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.39906544031175967
+      },
+      {
+        "num": "094",
+        "title": "Koko Eating Bananas",
+        "similarity": 0.3912177152437969
+      },
+      {
+        "num": "015",
+        "title": "Top K Frequent Elements",
+        "similarity": 0.3740104563039253
+      },
+      {
+        "num": "006",
+        "title": "Kth Largest Element in an Array",
+        "similarity": 0.3472541199078815
+      },
+      {
+        "num": "089",
+        "title": "Range Sum Query - Immutable",
+        "similarity": 0.33202916296299056
+      },
+      {
+        "num": "079",
+        "title": "Capacity To Ship Packages Within D Days",
+        "similarity": 0.33189942282842716
+      }
+    ]
+  },
+  {
+    "num": "023",
+    "title": "Custom Sort String",
+    "category": "Array-Hashing",
+    "difficulty": "MEDIUM",
+    "tag": "HashMap",
+    "frequency": 73.2,
+    "link": "LeetCode/Array-Hashing/023_custom_sort_string.md",
+    "embedding": [
+      -0.19044514943210913,
+      -0.16640755160762696,
+      -0.00429275547499587
+    ],
+    "similar": [
+      {
+        "num": "079",
+        "title": "Capacity To Ship Packages Within D Days",
+        "similarity": 0.5024000156543331
+      },
+      {
+        "num": "037",
+        "title": "Minimum Window Substring",
+        "similarity": 0.3848248708823495
+      },
+      {
+        "num": "030",
+        "title": "Next Permutation",
+        "similarity": 0.3653942827060873
+      },
+      {
+        "num": "029",
+        "title": "Valid Palindrome",
+        "similarity": 0.35541200934484557
+      },
+      {
+        "num": "024",
+        "title": "K Closest Points to Origin",
+        "similarity": 0.3420158757251898
+      },
+      {
+        "num": "056",
+        "title": "Remove Invalid Parentheses",
+        "similarity": 0.33918203939809055
+      },
+      {
+        "num": "058",
+        "title": "Valid Number",
+        "similarity": 0.33826508382974524
+      },
+      {
+        "num": "044",
+        "title": "Squares of a Sorted Array",
+        "similarity": 0.3325719159316213
+      },
+      {
+        "num": "001",
+        "title": "Minimum Remove to Make Valid Parentheses",
+        "similarity": 0.33092991000143446
+      },
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.3157424807684684
+      }
+    ]
+  },
+  {
+    "num": "024",
+    "title": "K Closest Points to Origin",
+    "category": "Array-Hashing",
+    "difficulty": "MEDIUM",
+    "tag": "Heap",
+    "frequency": 71.4,
+    "link": "LeetCode/Array-Hashing/024_k_closest_points_to_origin.md",
+    "embedding": [
+      0.0989069998817104,
+      -0.10742423381859714,
+      -0.21026865949045606
+    ],
+    "similar": [
+      {
+        "num": "015",
+        "title": "Top K Frequent Elements",
+        "similarity": 0.6085778841316474
+      },
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.5389949952067994
+      },
+      {
+        "num": "017",
+        "title": "Two Sum",
+        "similarity": 0.5269212403144147
+      },
+      {
+        "num": "094",
+        "title": "Koko Eating Bananas",
+        "similarity": 0.4503511049972615
+      },
+      {
+        "num": "079",
+        "title": "Capacity To Ship Packages Within D Days",
+        "similarity": 0.4418223702587174
+      },
+      {
+        "num": "098",
+        "title": "Remove All Adjacent Duplicates in String II",
+        "similarity": 0.44103480914518817
+      },
+      {
+        "num": "022",
+        "title": "Buildings With an Ocean View",
+        "similarity": 0.42790288003006255
+      },
+      {
+        "num": "018",
+        "title": "Best Time to Buy and Sell Stock",
+        "similarity": 0.4243998763949298
+      },
+      {
+        "num": "016",
+        "title": "Merge Intervals",
+        "similarity": 0.41588745324662996
+      },
+      {
+        "num": "037",
+        "title": "Minimum Window Substring",
+        "similarity": 0.3887396747510124
+      }
+    ]
+  },
+  {
+    "num": "025",
+    "title": "Clone Graph",
+    "category": "Graph-DFS-BFS",
+    "difficulty": "MEDIUM",
+    "tag": "DFS",
+    "frequency": 71.4,
+    "link": "LeetCode/Graph-DFS-BFS/025_clone_graph.md",
+    "embedding": [
+      -0.160689810775496,
+      0.600702001441276,
+      0.19887406786867814
+    ],
+    "similar": [
+      {
+        "num": "005",
+        "title": "Lowest Common Ancestor of a Binary Tree III",
+        "similarity": 0.8108605908608367
+      },
+      {
+        "num": "032",
+        "title": "Copy List with Random Pointer",
+        "similarity": 0.7841518773142991
+      },
+      {
+        "num": "045",
+        "title": "Remove Nth Node From End of List",
+        "similarity": 0.7546766989796364
+      },
+      {
+        "num": "064",
+        "title": "Insert into a Sorted Circular Linked List",
+        "similarity": 0.745963914664258
+      },
+      {
+        "num": "027",
+        "title": "Range Sum of BST",
+        "similarity": 0.5953642320710273
+      },
+      {
+        "num": "009",
+        "title": "Lowest Common Ancestor of a Binary Tree",
+        "similarity": 0.5823587703693653
+      },
+      {
+        "num": "066",
+        "title": "All Nodes Distance K in Binary Tree",
+        "similarity": 0.5181390270987819
+      },
+      {
+        "num": "007",
+        "title": "Binary Tree Right Side View",
+        "similarity": 0.43368361875003997
+      },
+      {
+        "num": "054",
+        "title": "Add Two Numbers",
+        "similarity": 0.41412786138897495
+      },
+      {
+        "num": "003",
+        "title": "Binary Tree Vertical Order Traversal",
+        "similarity": 0.41132832597091235
+      }
+    ]
+  },
+  {
+    "num": "026",
+    "title": "Subarray Sum Equals K",
+    "category": "Array-Hashing",
+    "difficulty": "MEDIUM",
+    "tag": "HashMap",
+    "frequency": 71.4,
+    "link": "LeetCode/Array-Hashing/026_subarray_sum_equals_k.md",
+    "embedding": [
+      -0.004104430474923768,
+      0.0967780441135176,
+      -0.3414472064917445
+    ],
+    "similar": [
+      {
+        "num": "059",
+        "title": "Continuous Subarray Sum",
+        "similarity": 1.0
+      },
+      {
+        "num": "013",
+        "title": "Sum Root to Leaf Numbers",
+        "similarity": 0.8759667074683405
+      },
+      {
+        "num": "014",
+        "title": "Diameter of Binary Tree",
+        "similarity": 0.5917022185283631
+      },
+      {
+        "num": "093",
+        "title": "Decode String",
+        "similarity": 0.3297531179191342
+      },
+      {
+        "num": "050",
+        "title": "Add Strings",
+        "similarity": 0.26762349597743407
+      },
+      {
+        "num": "016",
+        "title": "Merge Intervals",
+        "similarity": 0.2628265521956231
+      },
+      {
+        "num": "087",
+        "title": "Maximum Subarray",
+        "similarity": 0.2581391316539869
+      },
+      {
+        "num": "020",
+        "title": "Valid Parentheses",
+        "similarity": 0.21895966659804944
+      },
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.186187658568432
+      },
+      {
+        "num": "017",
+        "title": "Two Sum",
+        "similarity": 0.1819024167518937
+      }
+    ]
+  },
+  {
+    "num": "027",
+    "title": "Range Sum of BST",
+    "category": "BST-Binary-Search-Tree",
+    "difficulty": "EASY",
+    "tag": "Binary Search",
+    "frequency": 69.5,
+    "link": "LeetCode/BST-Binary-Search-Tree/027_range_sum_of_bst.md",
+    "embedding": [
+      -0.13447480066369627,
+      0.6776584085973137,
+      0.24953806670412246
+    ],
+    "similar": [
+      {
+        "num": "009",
+        "title": "Lowest Common Ancestor of a Binary Tree",
+        "similarity": 0.8806368587961378
+      },
+      {
+        "num": "092",
+        "title": "Kth Smallest Element in a BST",
+        "similarity": 0.8115379940072477
+      },
+      {
+        "num": "005",
+        "title": "Lowest Common Ancestor of a Binary Tree III",
+        "similarity": 0.8045785368988143
+      },
+      {
+        "num": "066",
+        "title": "All Nodes Distance K in Binary Tree",
+        "similarity": 0.6858083800247256
+      },
+      {
+        "num": "060",
+        "title": "Closest Binary Search Tree Value",
+        "similarity": 0.6585018836116858
+      },
+      {
+        "num": "007",
+        "title": "Binary Tree Right Side View",
+        "similarity": 0.6309647927193996
+      },
+      {
+        "num": "003",
+        "title": "Binary Tree Vertical Order Traversal",
+        "similarity": 0.6036208602219167
+      },
+      {
+        "num": "025",
+        "title": "Clone Graph",
+        "similarity": 0.5953642320710273
+      },
+      {
+        "num": "061",
+        "title": "Vertical Order Traversal of a Binary Tree",
+        "similarity": 0.5594195719525737
+      },
+      {
+        "num": "032",
+        "title": "Copy List with Random Pointer",
+        "similarity": 0.5257859047550192
+      }
+    ]
+  },
+  {
+    "num": "028",
+    "title": "Dot Product of Two Sparse Vectors",
+    "category": "Two-Pointers",
+    "difficulty": "MEDIUM",
+    "tag": "Two Pointers",
+    "frequency": 69.5,
+    "link": "LeetCode/Two-Pointers/028_dot_product_of_two_sparse_vectors.md",
+    "embedding": [
+      0.20847655155961173,
+      -0.02137599979763918,
+      -0.08455809768931101
+    ],
+    "similar": [
+      {
+        "num": "033",
+        "title": "Merge Sorted Array",
+        "similarity": 0.7681296807217356
+      },
+      {
+        "num": "100",
+        "title": "Median of Two Sorted Arrays",
+        "similarity": 0.7625979483847674
+      },
+      {
+        "num": "065",
+        "title": "3Sum",
+        "similarity": 0.3646503256779214
+      },
+      {
+        "num": "040",
+        "title": "Max Consecutive Ones III",
+        "similarity": 0.32427123913548145
+      },
+      {
+        "num": "047",
+        "title": "Missing Ranges",
+        "similarity": 0.3191004635769229
+      },
+      {
+        "num": "068",
+        "title": "Contains Duplicate II",
+        "similarity": 0.31563282874944104
+      },
+      {
+        "num": "069",
+        "title": "Zero Array Transformation III",
+        "similarity": 0.3136314907100652
+      },
+      {
+        "num": "055",
+        "title": "Subsets",
+        "similarity": 0.29508093756504494
+      },
+      {
+        "num": "089",
+        "title": "Range Sum Query - Immutable",
+        "similarity": 0.27785577724986404
+      },
+      {
+        "num": "010",
+        "title": "Find Peak Element",
+        "similarity": 0.26775228708578075
+      }
+    ]
+  },
+  {
+    "num": "029",
+    "title": "Valid Palindrome",
+    "category": "Palindrome",
+    "difficulty": "EASY",
+    "tag": "Two Pointers",
+    "frequency": 69.5,
+    "link": "LeetCode/Palindrome/029_valid_palindrome.md",
+    "embedding": [
+      -0.33435397104757325,
+      -0.3004682270314479,
+      0.12680979741136683
+    ],
+    "similar": [
+      {
+        "num": "080",
+        "title": "Longest Substring Without Repeating Characters",
+        "similarity": 0.6622697597123253
+      },
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.6531444224849624
+      },
+      {
+        "num": "057",
+        "title": "Palindromic Substrings",
+        "similarity": 0.5651482662493835
+      },
+      {
+        "num": "004",
+        "title": "Valid Palindrome II",
+        "similarity": 0.4989743914916166
+      },
+      {
+        "num": "098",
+        "title": "Remove All Adjacent Duplicates in String II",
+        "similarity": 0.4598204274707335
+      },
+      {
+        "num": "020",
+        "title": "Valid Parentheses",
+        "similarity": 0.4140657797984836
+      },
+      {
+        "num": "002",
+        "title": "Valid Word Abbreviation",
+        "similarity": 0.4032856831948217
+      },
+      {
+        "num": "056",
+        "title": "Remove Invalid Parentheses",
+        "similarity": 0.37988902287100024
+      },
+      {
+        "num": "096",
+        "title": "Longest Palindromic Substring",
+        "similarity": 0.3736666401892622
+      },
+      {
+        "num": "001",
+        "title": "Minimum Remove to Make Valid Parentheses",
+        "similarity": 0.3638765296997441
+      }
+    ]
+  },
+  {
+    "num": "030",
+    "title": "Next Permutation",
+    "category": "Two-Pointers",
+    "difficulty": "MEDIUM",
+    "tag": "Two Pointers",
+    "frequency": 67.4,
+    "link": "LeetCode/Two-Pointers/030_next_permutation.md",
+    "embedding": [
+      0.4003888361329862,
+      -0.09988929885946041,
+      -0.015846472826521886
+    ],
+    "similar": [
+      {
+        "num": "044",
+        "title": "Squares of a Sorted Array",
+        "similarity": 0.6321054424309183
+      },
+      {
+        "num": "069",
+        "title": "Zero Array Transformation III",
+        "similarity": 0.5398711442358302
+      },
+      {
+        "num": "042",
+        "title": "Find First and Last Position of Element in Sorted Array",
+        "similarity": 0.5207068401116142
+      },
+      {
+        "num": "040",
+        "title": "Max Consecutive Ones III",
+        "similarity": 0.5198352777820321
+      },
+      {
+        "num": "006",
+        "title": "Kth Largest Element in an Array",
+        "similarity": 0.4929221750174437
+      },
+      {
+        "num": "065",
+        "title": "3Sum",
+        "similarity": 0.4824275492274826
+      },
+      {
+        "num": "047",
+        "title": "Missing Ranges",
+        "similarity": 0.471877082461486
+      },
+      {
+        "num": "041",
+        "title": "Kth Missing Positive Number",
+        "similarity": 0.46953937169012044
+      },
+      {
+        "num": "068",
+        "title": "Contains Duplicate II",
+        "similarity": 0.45946628662441086
+      },
+      {
+        "num": "010",
+        "title": "Find Peak Element",
+        "similarity": 0.44545749714647326
+      }
+    ]
+  },
+  {
+    "num": "031",
+    "title": "Shortest Path in Binary Matrix",
+    "category": "Graph-DFS-BFS",
+    "difficulty": "MEDIUM",
+    "tag": "BFS",
+    "frequency": 67.4,
+    "link": "LeetCode/Graph-DFS-BFS/031_shortest_path_in_binary_matrix.md",
+    "embedding": [
+      -0.10384482766488114,
+      0.10597240308091989,
+      -0.2798248444734134
+    ],
+    "similar": [
+      {
+        "num": "035",
+        "title": "Simplify Path",
+        "similarity": 0.7720258971927311
+      },
+      {
+        "num": "076",
+        "title": "Binary Tree Maximum Path Sum",
+        "similarity": 0.6312718803683116
+      },
+      {
+        "num": "036",
+        "title": "Making A Large Island",
+        "similarity": 0.46431090358058325
+      },
+      {
+        "num": "070",
+        "title": "Swim in Rising Water",
+        "similarity": 0.41304128667172185
+      },
+      {
+        "num": "086",
+        "title": "Shortest Path in a Hidden Grid",
+        "similarity": 0.34178819832251045
+      },
+      {
+        "num": "084",
+        "title": "Kth Smallest Element in a Sorted Matrix",
+        "similarity": 0.25904134154219505
+      },
+      {
+        "num": "053",
+        "title": "Robot Room Cleaner",
+        "similarity": 0.19537499935123046
+      },
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.1459583933443598
+      },
+      {
+        "num": "003",
+        "title": "Binary Tree Vertical Order Traversal",
+        "similarity": 0.09389671307169276
+      },
+      {
+        "num": "007",
+        "title": "Binary Tree Right Side View",
+        "similarity": 0.09021443935559109
+      }
+    ]
+  },
+  {
+    "num": "032",
+    "title": "Copy List with Random Pointer",
+    "category": "Linked-List",
+    "difficulty": "MEDIUM",
+    "tag": "HashMap",
+    "frequency": 67.4,
+    "link": "LeetCode/Linked-List/032_copy_list_with_random_pointer.md",
+    "embedding": [
+      -0.13838181037602515,
+      0.5368808720666093,
+      0.13216074877510736
+    ],
+    "similar": [
+      {
+        "num": "064",
+        "title": "Insert into a Sorted Circular Linked List",
+        "similarity": 0.8369178398623887
+      },
+      {
+        "num": "045",
+        "title": "Remove Nth Node From End of List",
+        "similarity": 0.787311496393402
+      },
+      {
+        "num": "025",
+        "title": "Clone Graph",
+        "similarity": 0.7841518773142991
+      },
+      {
+        "num": "005",
+        "title": "Lowest Common Ancestor of a Binary Tree III",
+        "similarity": 0.6427085356260975
+      },
+      {
+        "num": "054",
+        "title": "Add Two Numbers",
+        "similarity": 0.5779170319501017
+      },
+      {
+        "num": "027",
+        "title": "Range Sum of BST",
+        "similarity": 0.5257859047550192
+      },
+      {
+        "num": "009",
+        "title": "Lowest Common Ancestor of a Binary Tree",
+        "similarity": 0.5118789115601147
+      },
+      {
+        "num": "066",
+        "title": "All Nodes Distance K in Binary Tree",
+        "similarity": 0.41919115865290413
+      },
+      {
+        "num": "082",
+        "title": "Find Median from Data Stream",
+        "similarity": 0.3458901070338103
+      },
+      {
+        "num": "092",
+        "title": "Kth Smallest Element in a BST",
+        "similarity": 0.3355269559132119
+      }
+    ]
+  },
+  {
+    "num": "033",
+    "title": "Merge Sorted Array",
+    "category": "Two-Pointers",
+    "difficulty": "EASY",
+    "tag": "Two Pointers",
+    "frequency": 67.4,
+    "link": "LeetCode/Two-Pointers/033_merge_sorted_array.md",
+    "embedding": [
+      0.0463138846907185,
+      -0.0018952807656007012,
+      -0.27683239055098
+    ],
+    "similar": [
+      {
+        "num": "100",
+        "title": "Median of Two Sorted Arrays",
+        "similarity": 0.8628806681549389
+      },
+      {
+        "num": "028",
+        "title": "Dot Product of Two Sparse Vectors",
+        "similarity": 0.7681296807217356
+      },
+      {
+        "num": "044",
+        "title": "Squares of a Sorted Array",
+        "similarity": 0.23047944487264124
+      },
+      {
+        "num": "030",
+        "title": "Next Permutation",
+        "similarity": 0.20404617949810802
+      },
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.20193886544379153
+      },
+      {
+        "num": "015",
+        "title": "Top K Frequent Elements",
+        "similarity": 0.1777678684439049
+      },
+      {
+        "num": "016",
+        "title": "Merge Intervals",
+        "similarity": 0.17648255343725722
+      },
+      {
+        "num": "041",
+        "title": "Kth Missing Positive Number",
+        "similarity": 0.16877537195204476
+      },
+      {
+        "num": "069",
+        "title": "Zero Array Transformation III",
+        "similarity": 0.1567958569115995
+      },
+      {
+        "num": "087",
+        "title": "Maximum Subarray",
+        "similarity": 0.15424589592670962
+      }
+    ]
+  },
+  {
+    "num": "034",
+    "title": "Sliding Window Median",
+    "category": "Heap-Priority-Queue",
+    "difficulty": "HARD",
+    "tag": "Heap",
+    "frequency": 65.0,
+    "link": "LeetCode/Heap-Priority-Queue/034_sliding_window_median.md",
+    "embedding": [
+      0.4162198122639624,
+      -0.01275240049749416,
+      0.05524878373126507
+    ],
+    "similar": [
+      {
+        "num": "069",
+        "title": "Zero Array Transformation III",
+        "similarity": 0.6036300264027724
+      },
+      {
+        "num": "068",
+        "title": "Contains Duplicate II",
+        "similarity": 0.5439354018001274
+      },
+      {
+        "num": "089",
+        "title": "Range Sum Query - Immutable",
+        "similarity": 0.5327038340833727
+      },
+      {
+        "num": "010",
+        "title": "Find Peak Element",
+        "similarity": 0.5194906279142631
+      },
+      {
+        "num": "015",
+        "title": "Top K Frequent Elements",
+        "similarity": 0.514654687942604
+      },
+      {
+        "num": "040",
+        "title": "Max Consecutive Ones III",
+        "similarity": 0.5139215423029209
+      },
+      {
+        "num": "022",
+        "title": "Buildings With an Ocean View",
+        "similarity": 0.5127417354011155
+      },
+      {
+        "num": "082",
+        "title": "Find Median from Data Stream",
+        "similarity": 0.5014771942644286
+      },
+      {
+        "num": "055",
+        "title": "Subsets",
+        "similarity": 0.49068657844071345
+      },
+      {
+        "num": "087",
+        "title": "Maximum Subarray",
+        "similarity": 0.4817461599061474
+      }
+    ]
+  },
+  {
+    "num": "035",
+    "title": "Simplify Path",
+    "category": "Stack",
+    "difficulty": "MEDIUM",
+    "tag": "Stack",
+    "frequency": 65.0,
+    "link": "LeetCode/Stack/035_simplify_path.md",
+    "embedding": [
+      -0.15356461007169245,
+      0.052129931502127254,
+      -0.14323931699343762
+    ],
+    "similar": [
+      {
+        "num": "031",
+        "title": "Shortest Path in Binary Matrix",
+        "similarity": 0.7720258971927311
+      },
+      {
+        "num": "076",
+        "title": "Binary Tree Maximum Path Sum",
+        "similarity": 0.7336153796254371
+      },
+      {
+        "num": "008",
+        "title": "Basic Calculator II",
+        "similarity": 0.11745032937026918
+      },
+      {
+        "num": "052",
+        "title": "Minimum Add to Make Parentheses Valid",
+        "similarity": 0.11539951150508562
+      },
+      {
+        "num": "056",
+        "title": "Remove Invalid Parentheses",
+        "similarity": 0.11534818619652802
+      },
+      {
+        "num": "058",
+        "title": "Valid Number",
+        "similarity": 0.10722105629849259
+      },
+      {
+        "num": "093",
+        "title": "Decode String",
+        "similarity": 0.10679209716031689
+      },
+      {
+        "num": "001",
+        "title": "Minimum Remove to Make Valid Parentheses",
+        "similarity": 0.10345737189088107
+      },
+      {
+        "num": "020",
+        "title": "Valid Parentheses",
+        "similarity": 0.0929030155832293
+      },
+      {
+        "num": "080",
+        "title": "Longest Substring Without Repeating Characters",
+        "similarity": 0.0887318838555029
+      }
+    ]
+  },
+  {
+    "num": "036",
+    "title": "Making A Large Island",
+    "category": "Graph-DFS-BFS",
+    "difficulty": "HARD",
+    "tag": "DFS",
+    "frequency": 65.0,
+    "link": "LeetCode/Graph-DFS-BFS/036_making_a_large_island.md",
+    "embedding": [
+      -0.0812668588124662,
+      0.06292077219706382,
+      -0.3229182780564232
+    ],
+    "similar": [
+      {
+        "num": "070",
+        "title": "Swim in Rising Water",
+        "similarity": 0.8854368345379101
+      },
+      {
+        "num": "086",
+        "title": "Shortest Path in a Hidden Grid",
+        "similarity": 0.5376519757728458
+      },
+      {
+        "num": "031",
+        "title": "Shortest Path in Binary Matrix",
+        "similarity": 0.46431090358058325
+      },
+      {
+        "num": "084",
+        "title": "Kth Smallest Element in a Sorted Matrix",
+        "similarity": 0.17656387754046302
+      },
+      {
+        "num": "053",
+        "title": "Robot Room Cleaner",
+        "similarity": 0.12608550502816948
+      },
+      {
+        "num": "048",
+        "title": "Moving Average from Data Stream",
+        "similarity": 0.11648896632473238
+      },
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.11439719166921151
+      },
+      {
+        "num": "063",
+        "title": "Course Schedule",
+        "similarity": 0.07978667449835908
+      },
+      {
+        "num": "094",
+        "title": "Koko Eating Bananas",
+        "similarity": 0.07502518417425438
+      },
+      {
+        "num": "022",
+        "title": "Buildings With an Ocean View",
+        "similarity": 0.07175308527822198
+      }
+    ]
+  },
+  {
+    "num": "037",
+    "title": "Minimum Window Substring",
+    "category": "Sliding-Window",
+    "difficulty": "HARD",
+    "tag": "HashMap",
+    "frequency": 62.4,
+    "link": "LeetCode/Sliding-Window/037_minimum_window_substring.md",
+    "embedding": [
+      -0.35169066805092314,
+      -0.3926845431798794,
+      0.15456839208207565
+    ],
+    "similar": [
+      {
+        "num": "004",
+        "title": "Valid Palindrome II",
+        "similarity": 0.7322705267197841
+      },
+      {
+        "num": "098",
+        "title": "Remove All Adjacent Duplicates in String II",
+        "similarity": 0.684132262579393
+      },
+      {
+        "num": "056",
+        "title": "Remove Invalid Parentheses",
+        "similarity": 0.6437740905671546
+      },
+      {
+        "num": "043",
+        "title": "Longest Common Prefix",
+        "similarity": 0.6399672120166896
+      },
+      {
+        "num": "075",
+        "title": "Word Break",
+        "similarity": 0.6294599453195541
+      },
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.5627789951563166
+      },
+      {
+        "num": "057",
+        "title": "Palindromic Substrings",
+        "similarity": 0.5301665273895336
+      },
+      {
+        "num": "062",
+        "title": "Group Shifted Strings",
+        "similarity": 0.5151155184975291
+      },
+      {
+        "num": "080",
+        "title": "Longest Substring Without Repeating Characters",
+        "similarity": 0.48731647942300244
+      },
+      {
+        "num": "096",
+        "title": "Longest Palindromic Substring",
+        "similarity": 0.4835615015260214
+      }
+    ]
+  },
+  {
+    "num": "038",
+    "title": "Accounts Merge",
+    "category": "Graph-DFS-BFS",
+    "difficulty": "MEDIUM",
+    "tag": "DFS",
+    "frequency": 62.4,
+    "link": "LeetCode/Graph-DFS-BFS/038_accounts_merge.md",
+    "embedding": [
+      -0.06977228462582696,
+      0.020895115733522998,
+      -0.11462648877990321
+    ],
+    "similar": [
+      {
+        "num": "056",
+        "title": "Remove Invalid Parentheses",
+        "similarity": 0.08846357632679318
+      },
+      {
+        "num": "006",
+        "title": "Kth Largest Element in an Array",
+        "similarity": 0.08323703179479476
+      },
+      {
+        "num": "082",
+        "title": "Find Median from Data Stream",
+        "similarity": 0.071844163952558
+      },
+      {
+        "num": "079",
+        "title": "Capacity To Ship Packages Within D Days",
+        "similarity": 0.06785391265772892
+      },
+      {
+        "num": "011",
+        "title": "Nested List Weight Sum",
+        "similarity": 0.06781523555177302
+      },
+      {
+        "num": "023",
+        "title": "Custom Sort String",
+        "similarity": 0.06605778143840224
+      },
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.0649006572878531
+      },
+      {
+        "num": "084",
+        "title": "Kth Smallest Element in a Sorted Matrix",
+        "similarity": 0.0644574950538882
+      },
+      {
+        "num": "075",
+        "title": "Word Break",
+        "similarity": 0.06339666347234314
+      },
+      {
+        "num": "022",
+        "title": "Buildings With an Ocean View",
+        "similarity": 0.062354433752355345
+      }
+    ]
+  },
+  {
+    "num": "039",
+    "title": "LRU Cache",
+    "category": "Design",
+    "difficulty": "MEDIUM",
+    "tag": "HashMap",
+    "frequency": 62.4,
+    "link": "LeetCode/Design/039_lru_cache.md",
+    "embedding": [
+      0.026892634644925615,
+      0.13692358290483872,
+      -0.15379701956531466
+    ],
+    "similar": [
+      {
+        "num": "082",
+        "title": "Find Median from Data Stream",
+        "similarity": 0.574457281219793
+      },
+      {
+        "num": "048",
+        "title": "Moving Average from Data Stream",
+        "similarity": 0.44446011774009303
+      },
+      {
+        "num": "071",
+        "title": "Managers with at Least 5 Direct Reports",
+        "similarity": 0.33835261920842724
+      },
+      {
+        "num": "034",
+        "title": "Sliding Window Median",
+        "similarity": 0.2954185816229701
+      },
+      {
+        "num": "089",
+        "title": "Range Sum Query - Immutable",
+        "similarity": 0.26508624169112155
+      },
+      {
+        "num": "091",
+        "title": "Random Pick Index",
+        "similarity": 0.2519470245884715
+      },
+      {
+        "num": "060",
+        "title": "Closest Binary Search Tree Value",
+        "similarity": 0.2516723137284425
+      },
+      {
+        "num": "025",
+        "title": "Clone Graph",
+        "similarity": 0.21342968378696167
+      },
+      {
+        "num": "051",
+        "title": "Binary Search Tree Iterator",
+        "similarity": 0.19544235428695392
+      },
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.16254309466336944
+      }
+    ]
+  },
+  {
+    "num": "040",
+    "title": "Max Consecutive Ones III",
+    "category": "Sliding-Window",
+    "difficulty": "MEDIUM",
+    "tag": "Two Pointers",
+    "frequency": 62.4,
+    "link": "LeetCode/Sliding-Window/040_max_consecutive_ones_iii.md",
+    "embedding": [
+      0.6288161612242166,
+      -0.17908374539069247,
+      0.2676383459794967
+    ],
+    "similar": [
+      {
+        "num": "069",
+        "title": "Zero Array Transformation III",
+        "similarity": 0.8535282825672194
+      },
+      {
+        "num": "065",
+        "title": "3Sum",
+        "similarity": 0.8290936469847718
+      },
+      {
+        "num": "068",
+        "title": "Contains Duplicate II",
+        "similarity": 0.8115400294022889
+      },
+      {
+        "num": "055",
+        "title": "Subsets",
+        "similarity": 0.7340937467326634
+      },
+      {
+        "num": "090",
+        "title": "Frequency of the Most Frequent Element",
+        "similarity": 0.7168911982804365
+      },
+      {
+        "num": "087",
+        "title": "Maximum Subarray",
+        "similarity": 0.699385038147439
+      },
+      {
+        "num": "047",
+        "title": "Missing Ranges",
+        "similarity": 0.6638609669916689
+      },
+      {
+        "num": "010",
+        "title": "Find Peak Element",
+        "similarity": 0.6637865507590719
+      },
+      {
+        "num": "006",
+        "title": "Kth Largest Element in an Array",
+        "similarity": 0.6551484765722743
+      },
+      {
+        "num": "044",
+        "title": "Squares of a Sorted Array",
+        "similarity": 0.6372316805184288
+      }
+    ]
+  },
+  {
+    "num": "041",
+    "title": "Kth Missing Positive Number",
+    "category": "Binary-Search",
+    "difficulty": "EASY",
+    "tag": "Binary Search",
+    "frequency": 59.4,
+    "link": "LeetCode/Binary-Search/041_kth_missing_positive_number.md",
+    "embedding": [
+      0.03922768627003957,
+      -0.10111200495733222,
+      -0.24167546036740872
+    ],
+    "similar": [
+      {
+        "num": "077",
+        "title": "Car Pooling",
+        "similarity": 0.666691718244119
+      },
+      {
+        "num": "030",
+        "title": "Next Permutation",
+        "similarity": 0.46953937169012044
+      },
+      {
+        "num": "016",
+        "title": "Merge Intervals",
+        "similarity": 0.3646978415021941
+      },
+      {
+        "num": "088",
+        "title": "Interval List Intersections",
+        "similarity": 0.33684847975712734
+      },
+      {
+        "num": "063",
+        "title": "Course Schedule",
+        "similarity": 0.3256648616107758
+      },
+      {
+        "num": "096",
+        "title": "Longest Palindromic Substring",
+        "similarity": 0.3252030045705535
+      },
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.3165897372381822
+      },
+      {
+        "num": "100",
+        "title": "Median of Two Sorted Arrays",
+        "similarity": 0.30086695711581807
+      },
+      {
+        "num": "018",
+        "title": "Best Time to Buy and Sell Stock",
+        "similarity": 0.2939867931081915
+      },
+      {
+        "num": "044",
+        "title": "Squares of a Sorted Array",
+        "similarity": 0.2934242816833953
+      }
+    ]
+  },
+  {
+    "num": "042",
+    "title": "Find First and Last Position of Element in Sorted Array",
+    "category": "Binary-Search",
+    "difficulty": "MEDIUM",
+    "tag": "Binary Search",
+    "frequency": 59.4,
+    "link": "LeetCode/Binary-Search/042_find_first_and_last_position_of_element_in_sorted_array.md",
+    "embedding": [
+      0.5343341445862246,
+      -0.09083281565555716,
+      0.11289597087513209
+    ],
+    "similar": [
+      {
+        "num": "017",
+        "title": "Two Sum",
+        "similarity": 0.7875349740761579
+      },
+      {
+        "num": "044",
+        "title": "Squares of a Sorted Array",
+        "similarity": 0.7055774535510644
+      },
+      {
+        "num": "091",
+        "title": "Random Pick Index",
+        "similarity": 0.6768788496162594
+      },
+      {
+        "num": "068",
+        "title": "Contains Duplicate II",
+        "similarity": 0.6392875165119184
+      },
+      {
+        "num": "087",
+        "title": "Maximum Subarray",
+        "similarity": 0.627405116986567
+      },
+      {
+        "num": "069",
+        "title": "Zero Array Transformation III",
+        "similarity": 0.6209508907181474
+      },
+      {
+        "num": "040",
+        "title": "Max Consecutive Ones III",
+        "similarity": 0.599442133335194
+      },
+      {
+        "num": "055",
+        "title": "Subsets",
+        "similarity": 0.5986118675133842
+      },
+      {
+        "num": "065",
+        "title": "3Sum",
+        "similarity": 0.595594591467714
+      },
+      {
+        "num": "006",
+        "title": "Kth Largest Element in an Array",
+        "similarity": 0.5666285495214716
+      }
+    ]
+  },
+  {
+    "num": "043",
+    "title": "Longest Common Prefix",
+    "category": "String",
+    "difficulty": "EASY",
+    "tag": "Trie",
+    "frequency": 59.4,
+    "link": "LeetCode/String/043_longest_common_prefix.md",
+    "embedding": [
+      -0.41309265760221486,
+      -0.4215313987275517,
+      0.19617141810020178
+    ],
+    "similar": [
+      {
+        "num": "057",
+        "title": "Palindromic Substrings",
+        "similarity": 0.6704269696697703
+      },
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.6648312804383796
+      },
+      {
+        "num": "037",
+        "title": "Minimum Window Substring",
+        "similarity": 0.6399672120166896
+      },
+      {
+        "num": "002",
+        "title": "Valid Word Abbreviation",
+        "similarity": 0.5993927119834929
+      },
+      {
+        "num": "004",
+        "title": "Valid Palindrome II",
+        "similarity": 0.5978759950685834
+      },
+      {
+        "num": "056",
+        "title": "Remove Invalid Parentheses",
+        "similarity": 0.5975425774438671
+      },
+      {
+        "num": "098",
+        "title": "Remove All Adjacent Duplicates in String II",
+        "similarity": 0.5820002361053582
+      },
+      {
+        "num": "075",
+        "title": "Word Break",
+        "similarity": 0.5790333103442363
+      },
+      {
+        "num": "062",
+        "title": "Group Shifted Strings",
+        "similarity": 0.5726213924020251
+      },
+      {
+        "num": "001",
+        "title": "Minimum Remove to Make Valid Parentheses",
+        "similarity": 0.5406109816027176
+      }
+    ]
+  },
+  {
+    "num": "044",
+    "title": "Squares of a Sorted Array",
+    "category": "Two-Pointers",
+    "difficulty": "EASY",
+    "tag": "Two Pointers",
+    "frequency": 59.4,
+    "link": "LeetCode/Two-Pointers/044_squares_of_a_sorted_array.md",
+    "embedding": [
+      0.5655565733809444,
+      -0.15511955717116094,
+      0.12456317359197466
+    ],
+    "similar": [
+      {
+        "num": "006",
+        "title": "Kth Largest Element in an Array",
+        "similarity": 0.758761220253545
+      },
+      {
+        "num": "042",
+        "title": "Find First and Last Position of Element in Sorted Array",
+        "similarity": 0.7055774535510644
+      },
+      {
+        "num": "087",
+        "title": "Maximum Subarray",
+        "similarity": 0.6960308309203208
+      },
+      {
+        "num": "068",
+        "title": "Contains Duplicate II",
+        "similarity": 0.6957262388690634
+      },
+      {
+        "num": "055",
+        "title": "Subsets",
+        "similarity": 0.6921623082849911
+      },
+      {
+        "num": "090",
+        "title": "Frequency of the Most Frequent Element",
+        "similarity": 0.6421353148143154
+      },
+      {
+        "num": "040",
+        "title": "Max Consecutive Ones III",
+        "similarity": 0.6372316805184288
+      },
+      {
+        "num": "030",
+        "title": "Next Permutation",
+        "similarity": 0.6321054424309183
+      },
+      {
+        "num": "065",
+        "title": "3Sum",
+        "similarity": 0.631484721766494
+      },
+      {
+        "num": "069",
+        "title": "Zero Array Transformation III",
+        "similarity": 0.6268838074191566
+      }
+    ]
+  },
+  {
+    "num": "045",
+    "title": "Remove Nth Node From End of List",
+    "category": "Linked-List",
+    "difficulty": "MEDIUM",
+    "tag": "Two Pointers",
+    "frequency": 56.0,
+    "link": "LeetCode/Linked-List/045_remove_nth_node_from_end_of_list.md",
+    "embedding": [
+      -0.16167406897012257,
+      0.5355650722336297,
+      0.13842170862994244
+    ],
+    "similar": [
+      {
+        "num": "032",
+        "title": "Copy List with Random Pointer",
+        "similarity": 0.787311496393402
+      },
+      {
+        "num": "064",
+        "title": "Insert into a Sorted Circular Linked List",
+        "similarity": 0.7596516293422948
+      },
+      {
+        "num": "025",
+        "title": "Clone Graph",
+        "similarity": 0.7546766989796364
+      },
+      {
+        "num": "054",
+        "title": "Add Two Numbers",
+        "similarity": 0.6773614587488727
+      },
+      {
+        "num": "005",
+        "title": "Lowest Common Ancestor of a Binary Tree III",
+        "similarity": 0.5041257269479432
+      },
+      {
+        "num": "027",
+        "title": "Range Sum of BST",
+        "similarity": 0.44129554940792043
+      },
+      {
+        "num": "007",
+        "title": "Binary Tree Right Side View",
+        "similarity": 0.43940585644219743
+      },
+      {
+        "num": "009",
+        "title": "Lowest Common Ancestor of a Binary Tree",
+        "similarity": 0.43170158752397303
+      },
+      {
+        "num": "011",
+        "title": "Nested List Weight Sum",
+        "similarity": 0.42953988863122594
+      },
+      {
+        "num": "003",
+        "title": "Binary Tree Vertical Order Traversal",
+        "similarity": 0.4211284365072044
+      }
+    ]
+  },
+  {
+    "num": "046",
+    "title": "Diagonal Traverse",
+    "category": "String",
+    "difficulty": "MEDIUM",
+    "tag": "String",
+    "frequency": 56.0,
+    "link": "LeetCode/String/046_diagonal_traverse.md",
+    "embedding": [
+      0.20179577197759846,
+      -0.09287221928681477,
+      -0.2969894431718149
+    ],
+    "similar": [
+      {
+        "num": "094",
+        "title": "Koko Eating Bananas",
+        "similarity": 0.5470938526222523
+      },
+      {
+        "num": "024",
+        "title": "K Closest Points to Origin",
+        "similarity": 0.5389949952067994
+      },
+      {
+        "num": "016",
+        "title": "Merge Intervals",
+        "similarity": 0.5174332285850614
+      },
+      {
+        "num": "015",
+        "title": "Top K Frequent Elements",
+        "similarity": 0.4787860261746176
+      },
+      {
+        "num": "079",
+        "title": "Capacity To Ship Packages Within D Days",
+        "similarity": 0.45521457148645034
+      },
+      {
+        "num": "018",
+        "title": "Best Time to Buy and Sell Stock",
+        "similarity": 0.4463975445321204
+      },
+      {
+        "num": "099",
+        "title": "Best Time to Buy and Sell Stock III",
+        "similarity": 0.43855431420148283
+      },
+      {
+        "num": "073",
+        "title": "Container With Most Water",
+        "similarity": 0.43793751558402644
+      },
+      {
+        "num": "084",
+        "title": "Kth Smallest Element in a Sorted Matrix",
+        "similarity": 0.42947932022414814
+      },
+      {
+        "num": "055",
+        "title": "Subsets",
+        "similarity": 0.4254722302361958
+      }
+    ]
+  },
+  {
+    "num": "047",
+    "title": "Missing Ranges",
+    "category": "String",
+    "difficulty": "EASY",
+    "tag": "String",
+    "frequency": 56.0,
+    "link": "LeetCode/String/047_missing_ranges.md",
+    "embedding": [
+      0.5050659402139815,
+      -0.008898409910478574,
+      0.29739382492953875
+    ],
+    "similar": [
+      {
+        "num": "065",
+        "title": "3Sum",
+        "similarity": 0.718651917567685
+      },
+      {
+        "num": "055",
+        "title": "Subsets",
+        "similarity": 0.6754535505616158
+      },
+      {
+        "num": "040",
+        "title": "Max Consecutive Ones III",
+        "similarity": 0.6638609669916689
+      },
+      {
+        "num": "069",
+        "title": "Zero Array Transformation III",
+        "similarity": 0.6587536811741639
+      },
+      {
+        "num": "068",
+        "title": "Contains Duplicate II",
+        "similarity": 0.6414940168382905
+      },
+      {
+        "num": "015",
+        "title": "Top K Frequent Elements",
+        "similarity": 0.611972576537261
+      },
+      {
+        "num": "044",
+        "title": "Squares of a Sorted Array",
+        "similarity": 0.6040079567722867
+      },
+      {
+        "num": "010",
+        "title": "Find Peak Element",
+        "similarity": 0.5964788350860442
+      },
+      {
+        "num": "090",
+        "title": "Frequency of the Most Frequent Element",
+        "similarity": 0.5950836768115377
+      },
+      {
+        "num": "006",
+        "title": "Kth Largest Element in an Array",
+        "similarity": 0.5890868786055892
+      }
+    ]
+  },
+  {
+    "num": "048",
+    "title": "Moving Average from Data Stream",
+    "category": "Design",
+    "difficulty": "EASY",
+    "tag": "Design",
+    "frequency": 56.0,
+    "link": "LeetCode/Design/048_moving_average_from_data_stream.md",
+    "embedding": [
+      -0.0013325545565734227,
+      0.1488145636897812,
+      -0.2210859900876739
+    ],
+    "similar": [
+      {
+        "num": "082",
+        "title": "Find Median from Data Stream",
+        "similarity": 0.4577255934671603
+      },
+      {
+        "num": "039",
+        "title": "LRU Cache",
+        "similarity": 0.44446011774009303
+      },
+      {
+        "num": "022",
+        "title": "Buildings With an Ocean View",
+        "similarity": 0.26898712335126557
+      },
+      {
+        "num": "034",
+        "title": "Sliding Window Median",
+        "similarity": 0.2562697406456158
+      },
+      {
+        "num": "050",
+        "title": "Add Strings",
+        "similarity": 0.23340670595450147
+      },
+      {
+        "num": "051",
+        "title": "Binary Search Tree Iterator",
+        "similarity": 0.22897598291173343
+      },
+      {
+        "num": "085",
+        "title": "Add Two Integers",
+        "similarity": 0.2008919288690879
+      },
+      {
+        "num": "011",
+        "title": "Nested List Weight Sum",
+        "similarity": 0.19917557690420293
+      },
+      {
+        "num": "027",
+        "title": "Range Sum of BST",
+        "similarity": 0.19533772585528614
+      },
+      {
+        "num": "015",
+        "title": "Top K Frequent Elements",
+        "similarity": 0.1863814933675729
+      }
+    ]
+  },
+  {
+    "num": "049",
+    "title": "Exclusive Time of Functions",
+    "category": "Stack",
+    "difficulty": "MEDIUM",
+    "tag": "Stack",
+    "frequency": 56.0,
+    "link": "LeetCode/Stack/049_exclusive_time_of_functions.md",
+    "embedding": [
+      -0.08726382186309203,
+      0.0398450527410363,
+      -0.1596594486470201
+    ],
+    "similar": [
+      {
+        "num": "071",
+        "title": "Managers with at Least 5 Direct Reports",
+        "similarity": 0.3958807701727076
+      },
+      {
+        "num": "043",
+        "title": "Longest Common Prefix",
+        "similarity": 0.30984226315878965
+      },
+      {
+        "num": "008",
+        "title": "Basic Calculator II",
+        "similarity": 0.2173856970591876
+      },
+      {
+        "num": "012",
+        "title": "Random Pick with Weight",
+        "similarity": 0.2043982008187692
+      },
+      {
+        "num": "067",
+        "title": "String to Integer (atoi)",
+        "similarity": 0.19913579479708124
+      },
+      {
+        "num": "095",
+        "title": "Goat Latin",
+        "similarity": 0.12522028728072726
+      },
+      {
+        "num": "064",
+        "title": "Insert into a Sorted Circular Linked List",
+        "similarity": 0.12200383562926707
+      },
+      {
+        "num": "070",
+        "title": "Swim in Rising Water",
+        "similarity": 0.10249105636073823
+      },
+      {
+        "num": "045",
+        "title": "Remove Nth Node From End of List",
+        "similarity": 0.09964477214326467
+      },
+      {
+        "num": "033",
+        "title": "Merge Sorted Array",
+        "similarity": 0.07461226944861735
+      }
+    ]
+  },
+  {
+    "num": "050",
+    "title": "Add Strings",
+    "category": "Math-Compute",
+    "difficulty": "EASY",
+    "tag": "Math Compute",
+    "frequency": 51.9,
+    "link": "LeetCode/Math-Compute/050_add_strings.md",
+    "embedding": [
+      -0.17200664759165368,
+      -0.132811848739888,
+      -0.17388221324261074
+    ],
+    "similar": [
+      {
+        "num": "085",
+        "title": "Add Two Integers",
+        "similarity": 0.5688701471308949
+      },
+      {
+        "num": "011",
+        "title": "Nested List Weight Sum",
+        "similarity": 0.4770759625249286
+      },
+      {
+        "num": "093",
+        "title": "Decode String",
+        "similarity": 0.39637839450457985
+      },
+      {
+        "num": "008",
+        "title": "Basic Calculator II",
+        "similarity": 0.3893512109736577
+      },
+      {
+        "num": "067",
+        "title": "String to Integer (atoi)",
+        "similarity": 0.338272227991493
+      },
+      {
+        "num": "080",
+        "title": "Longest Substring Without Repeating Characters",
+        "similarity": 0.3215238818566514
+      },
+      {
+        "num": "002",
+        "title": "Valid Word Abbreviation",
+        "similarity": 0.29097171728958293
+      },
+      {
+        "num": "096",
+        "title": "Longest Palindromic Substring",
+        "similarity": 0.2892918426428227
+      },
+      {
+        "num": "052",
+        "title": "Minimum Add to Make Parentheses Valid",
+        "similarity": 0.28428707528079866
+      },
+      {
+        "num": "020",
+        "title": "Valid Parentheses",
+        "similarity": 0.28050390379346607
+      }
+    ]
+  },
+  {
+    "num": "051",
+    "title": "Binary Search Tree Iterator",
+    "category": "BST-Binary-Search-Tree",
+    "difficulty": "MEDIUM",
+    "tag": "Binary Search",
+    "frequency": 51.9,
+    "link": "LeetCode/BST-Binary-Search-Tree/051_binary_search_tree_iterator.md",
+    "embedding": [
+      -0.07521950672956404,
+      0.3963506274540929,
+      0.12538391590012268
+    ],
+    "similar": [
+      {
+        "num": "092",
+        "title": "Kth Smallest Element in a BST",
+        "similarity": 0.556730349848808
+      },
+      {
+        "num": "009",
+        "title": "Lowest Common Ancestor of a Binary Tree",
+        "similarity": 0.5056128880515025
+      },
+      {
+        "num": "027",
+        "title": "Range Sum of BST",
+        "similarity": 0.5038315175393614
+      },
+      {
+        "num": "061",
+        "title": "Vertical Order Traversal of a Binary Tree",
+        "similarity": 0.48237224655354705
+      },
+      {
+        "num": "003",
+        "title": "Binary Tree Vertical Order Traversal",
+        "similarity": 0.4797227123723697
+      },
+      {
+        "num": "007",
+        "title": "Binary Tree Right Side View",
+        "similarity": 0.47645222000093324
+      },
+      {
+        "num": "060",
+        "title": "Closest Binary Search Tree Value",
+        "similarity": 0.4469781778064903
+      },
+      {
+        "num": "005",
+        "title": "Lowest Common Ancestor of a Binary Tree III",
+        "similarity": 0.4157484252011886
+      },
+      {
+        "num": "066",
+        "title": "All Nodes Distance K in Binary Tree",
+        "similarity": 0.37492136834380335
+      },
+      {
+        "num": "078",
+        "title": "Strobogrammatic Number",
+        "similarity": 0.36994813194919934
+      }
+    ]
+  },
+  {
+    "num": "052",
+    "title": "Minimum Add to Make Parentheses Valid",
+    "category": "Parentheses",
+    "difficulty": "MEDIUM",
+    "tag": "Stack",
+    "frequency": 51.9,
+    "link": "LeetCode/Parentheses/052_minimum_add_to_make_parentheses_valid.md",
+    "embedding": [
+      -0.363231860983043,
+      -0.2563182134928225,
+      0.1735775604340882
+    ],
+    "similar": [
+      {
+        "num": "001",
+        "title": "Minimum Remove to Make Valid Parentheses",
+        "similarity": 0.7274727603779104
+      },
+      {
+        "num": "020",
+        "title": "Valid Parentheses",
+        "similarity": 0.6966150919998253
+      },
+      {
+        "num": "056",
+        "title": "Remove Invalid Parentheses",
+        "similarity": 0.5901156470252084
+      },
+      {
+        "num": "057",
+        "title": "Palindromic Substrings",
+        "similarity": 0.49734992843275333
+      },
+      {
+        "num": "093",
+        "title": "Decode String",
+        "similarity": 0.45027107706091524
+      },
+      {
+        "num": "043",
+        "title": "Longest Common Prefix",
+        "similarity": 0.4017747421139853
+      },
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.3934080851025615
+      },
+      {
+        "num": "008",
+        "title": "Basic Calculator II",
+        "similarity": 0.3911740697826639
+      },
+      {
+        "num": "096",
+        "title": "Longest Palindromic Substring",
+        "similarity": 0.3397172071018513
+      },
+      {
+        "num": "075",
+        "title": "Word Break",
+        "similarity": 0.293142961969262
+      }
+    ]
+  },
+  {
+    "num": "053",
+    "title": "Robot Room Cleaner",
+    "category": "Graph-DFS-BFS",
+    "difficulty": "HARD",
+    "tag": "DFS",
+    "frequency": 51.9,
+    "link": "LeetCode/Graph-DFS-BFS/053_robot_room_cleaner.md",
+    "embedding": [
+      -0.08055218590482773,
+      0.06907841171833652,
+      -0.21214394278732587
+    ],
+    "similar": [
+      {
+        "num": "086",
+        "title": "Shortest Path in a Hidden Grid",
+        "similarity": 0.7322203962995143
+      },
+      {
+        "num": "031",
+        "title": "Shortest Path in Binary Matrix",
+        "similarity": 0.19537499935123046
+      },
+      {
+        "num": "070",
+        "title": "Swim in Rising Water",
+        "similarity": 0.1305713712723737
+      },
+      {
+        "num": "036",
+        "title": "Making A Large Island",
+        "similarity": 0.12608550502816948
+      },
+      {
+        "num": "051",
+        "title": "Binary Search Tree Iterator",
+        "similarity": 0.0783071062022461
+      },
+      {
+        "num": "022",
+        "title": "Buildings With an Ocean View",
+        "similarity": 0.061147682114539734
+      },
+      {
+        "num": "078",
+        "title": "Strobogrammatic Number",
+        "similarity": 0.05735114555054291
+      },
+      {
+        "num": "008",
+        "title": "Basic Calculator II",
+        "similarity": 0.053528106396490215
+      },
+      {
+        "num": "077",
+        "title": "Car Pooling",
+        "similarity": 0.052720717710464715
+      },
+      {
+        "num": "089",
+        "title": "Range Sum Query - Immutable",
+        "similarity": 0.052456094260141285
+      }
+    ]
+  },
+  {
+    "num": "054",
+    "title": "Add Two Numbers",
+    "category": "Linked-List",
+    "difficulty": "MEDIUM",
+    "tag": "Linked List",
+    "frequency": 47.0,
+    "link": "LeetCode/Linked-List/054_add_two_numbers.md",
+    "embedding": [
+      -0.14340842949000435,
+      0.3724976946176976,
+      0.008101674838239127
+    ],
+    "similar": [
+      {
+        "num": "045",
+        "title": "Remove Nth Node From End of List",
+        "similarity": 0.6773614587488727
+      },
+      {
+        "num": "032",
+        "title": "Copy List with Random Pointer",
+        "similarity": 0.5779170319501017
+      },
+      {
+        "num": "064",
+        "title": "Insert into a Sorted Circular Linked List",
+        "similarity": 0.5316012029156452
+      },
+      {
+        "num": "019",
+        "title": "Merge k Sorted Lists",
+        "similarity": 0.4498933425140778
+      },
+      {
+        "num": "011",
+        "title": "Nested List Weight Sum",
+        "similarity": 0.41949692962174057
+      },
+      {
+        "num": "025",
+        "title": "Clone Graph",
+        "similarity": 0.41412786138897495
+      },
+      {
+        "num": "003",
+        "title": "Binary Tree Vertical Order Traversal",
+        "similarity": 0.3647257657784487
+      },
+      {
+        "num": "088",
+        "title": "Interval List Intersections",
+        "similarity": 0.3490708561613699
+      },
+      {
+        "num": "027",
+        "title": "Range Sum of BST",
+        "similarity": 0.343005101406138
+      },
+      {
+        "num": "007",
+        "title": "Binary Tree Right Side View",
+        "similarity": 0.3381792404638317
+      }
+    ]
+  },
+  {
+    "num": "055",
+    "title": "Subsets",
+    "category": "Dynamic-Programming",
+    "difficulty": "MEDIUM",
+    "tag": "Backtracking",
+    "frequency": 47.0,
+    "link": "LeetCode/Dynamic-Programming/055_subsets.md",
+    "embedding": [
+      0.6252501788429888,
+      -0.18632733440143492,
+      0.22851669784691442
+    ],
+    "similar": [
+      {
+        "num": "068",
+        "title": "Contains Duplicate II",
+        "similarity": 0.846126248978454
+      },
+      {
+        "num": "015",
+        "title": "Top K Frequent Elements",
+        "similarity": 0.8090165833792242
+      },
+      {
+        "num": "065",
+        "title": "3Sum",
+        "similarity": 0.7969636652661839
+      },
+      {
+        "num": "087",
+        "title": "Maximum Subarray",
+        "similarity": 0.7681163536796934
+      },
+      {
+        "num": "069",
+        "title": "Zero Array Transformation III",
+        "similarity": 0.7460677893349094
+      },
+      {
+        "num": "040",
+        "title": "Max Consecutive Ones III",
+        "similarity": 0.7340937467326634
+      },
+      {
+        "num": "006",
+        "title": "Kth Largest Element in an Array",
+        "similarity": 0.7041969897495695
+      },
+      {
+        "num": "044",
+        "title": "Squares of a Sorted Array",
+        "similarity": 0.6921623082849911
+      },
+      {
+        "num": "090",
+        "title": "Frequency of the Most Frequent Element",
+        "similarity": 0.6854895789778234
+      },
+      {
+        "num": "047",
+        "title": "Missing Ranges",
+        "similarity": 0.6754535505616158
+      }
+    ]
+  },
+  {
+    "num": "056",
+    "title": "Remove Invalid Parentheses",
+    "category": "Parentheses",
+    "difficulty": "HARD",
+    "tag": "DFS",
+    "frequency": 47.0,
+    "link": "LeetCode/Parentheses/056_remove_invalid_parentheses.md",
+    "embedding": [
+      -0.45221788019033715,
+      -0.3423477775047723,
+      0.2794159090446764
+    ],
+    "similar": [
+      {
+        "num": "001",
+        "title": "Minimum Remove to Make Valid Parentheses",
+        "similarity": 0.7090973449387756
+      },
+      {
+        "num": "037",
+        "title": "Minimum Window Substring",
+        "similarity": 0.6437740905671546
+      },
+      {
+        "num": "098",
+        "title": "Remove All Adjacent Duplicates in String II",
+        "similarity": 0.6373716950670197
+      },
+      {
+        "num": "057",
+        "title": "Palindromic Substrings",
+        "similarity": 0.6238999160896941
+      },
+      {
+        "num": "020",
+        "title": "Valid Parentheses",
+        "similarity": 0.6097998732681746
+      },
+      {
+        "num": "043",
+        "title": "Longest Common Prefix",
+        "similarity": 0.5975425774438671
+      },
+      {
+        "num": "052",
+        "title": "Minimum Add to Make Parentheses Valid",
+        "similarity": 0.5901156470252084
+      },
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.577478493914542
+      },
+      {
+        "num": "004",
+        "title": "Valid Palindrome II",
+        "similarity": 0.5593622397185191
+      },
+      {
+        "num": "093",
+        "title": "Decode String",
+        "similarity": 0.5272883463695928
+      }
+    ]
+  },
+  {
+    "num": "057",
+    "title": "Palindromic Substrings",
+    "category": "Palindrome",
+    "difficulty": "MEDIUM",
+    "tag": "Two Pointers",
+    "frequency": 47.0,
+    "link": "LeetCode/Palindrome/057_palindromic_substrings.md",
+    "embedding": [
+      -0.5329404613770674,
+      -0.4320177960279281,
+      0.3173333299952299
+    ],
+    "similar": [
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.8713257732629877
+      },
+      {
+        "num": "001",
+        "title": "Minimum Remove to Make Valid Parentheses",
+        "similarity": 0.6906838917751816
+      },
+      {
+        "num": "080",
+        "title": "Longest Substring Without Repeating Characters",
+        "similarity": 0.6763504080906081
+      },
+      {
+        "num": "043",
+        "title": "Longest Common Prefix",
+        "similarity": 0.6704269696697703
+      },
+      {
+        "num": "096",
+        "title": "Longest Palindromic Substring",
+        "similarity": 0.6677173345090232
+      },
+      {
+        "num": "004",
+        "title": "Valid Palindrome II",
+        "similarity": 0.6636028869387809
+      },
+      {
+        "num": "098",
+        "title": "Remove All Adjacent Duplicates in String II",
+        "similarity": 0.6436934754904485
+      },
+      {
+        "num": "056",
+        "title": "Remove Invalid Parentheses",
+        "similarity": 0.6238999160896941
+      },
+      {
+        "num": "002",
+        "title": "Valid Word Abbreviation",
+        "similarity": 0.5991577071111968
+      },
+      {
+        "num": "075",
+        "title": "Word Break",
+        "similarity": 0.5669378808448464
+      }
+    ]
+  },
+  {
+    "num": "058",
+    "title": "Valid Number",
+    "category": "String",
+    "difficulty": "HARD",
+    "tag": "String",
+    "frequency": 47.0,
+    "link": "LeetCode/String/058_valid_number.md",
+    "embedding": [
+      -0.29013953955682015,
+      -0.2090687327350788,
+      0.13170818820306027
+    ],
+    "similar": [
+      {
+        "num": "078",
+        "title": "Strobogrammatic Number",
+        "similarity": 0.6170528907315882
+      },
+      {
+        "num": "093",
+        "title": "Decode String",
+        "similarity": 0.5480638275216386
+      },
+      {
+        "num": "096",
+        "title": "Longest Palindromic Substring",
+        "similarity": 0.5155285357199624
+      },
+      {
+        "num": "067",
+        "title": "String to Integer (atoi)",
+        "similarity": 0.5028685972985297
+      },
+      {
+        "num": "080",
+        "title": "Longest Substring Without Repeating Characters",
+        "similarity": 0.480423231861821
+      },
+      {
+        "num": "072",
+        "title": "Maximum Swap",
+        "similarity": 0.45850985193043264
+      },
+      {
+        "num": "056",
+        "title": "Remove Invalid Parentheses",
+        "similarity": 0.4048908561198819
+      },
+      {
+        "num": "004",
+        "title": "Valid Palindrome II",
+        "similarity": 0.3812196026144492
+      },
+      {
+        "num": "002",
+        "title": "Valid Word Abbreviation",
+        "similarity": 0.3426364570458407
+      },
+      {
+        "num": "023",
+        "title": "Custom Sort String",
+        "similarity": 0.33826508382974524
+      }
+    ]
+  },
+  {
+    "num": "059",
+    "title": "Continuous Subarray Sum",
+    "category": "Sliding-Window",
+    "difficulty": "MEDIUM",
+    "tag": "HashMap",
+    "frequency": 47.0,
+    "link": "LeetCode/Sliding-Window/059_continuous_subarray_sum.md",
+    "embedding": [
+      -0.004104430474923768,
+      0.0967780441135176,
+      -0.3414472064917444
+    ],
+    "similar": [
+      {
+        "num": "059",
+        "title": "Continuous Subarray Sum",
+        "similarity": 1.0
+      },
+      {
+        "num": "013",
+        "title": "Sum Root to Leaf Numbers",
+        "similarity": 0.8759667074683405
+      },
+      {
+        "num": "014",
+        "title": "Diameter of Binary Tree",
+        "similarity": 0.5917022185283631
+      },
+      {
+        "num": "093",
+        "title": "Decode String",
+        "similarity": 0.3297531179191342
+      },
+      {
+        "num": "050",
+        "title": "Add Strings",
+        "similarity": 0.26762349597743407
+      },
+      {
+        "num": "016",
+        "title": "Merge Intervals",
+        "similarity": 0.2628265521956231
+      },
+      {
+        "num": "087",
+        "title": "Maximum Subarray",
+        "similarity": 0.2581391316539869
+      },
+      {
+        "num": "020",
+        "title": "Valid Parentheses",
+        "similarity": 0.21895966659804944
+      },
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.186187658568432
+      },
+      {
+        "num": "017",
+        "title": "Two Sum",
+        "similarity": 0.1819024167518937
+      }
+    ]
+  },
+  {
+    "num": "060",
+    "title": "Closest Binary Search Tree Value",
+    "category": "BST-Binary-Search-Tree",
+    "difficulty": "EASY",
+    "tag": "Binary Search",
+    "frequency": 47.0,
+    "link": "LeetCode/BST-Binary-Search-Tree/060_closest_binary_search_tree_value.md",
+    "embedding": [
+      -0.02030794599921613,
+      0.504496476703847,
+      0.18344594334535488
+    ],
+    "similar": [
+      {
+        "num": "066",
+        "title": "All Nodes Distance K in Binary Tree",
+        "similarity": 0.8009794739536276
+      },
+      {
+        "num": "092",
+        "title": "Kth Smallest Element in a BST",
+        "similarity": 0.6820104954286283
+      },
+      {
+        "num": "027",
+        "title": "Range Sum of BST",
+        "similarity": 0.6585018836116858
+      },
+      {
+        "num": "009",
+        "title": "Lowest Common Ancestor of a Binary Tree",
+        "similarity": 0.6177851886258504
+      },
+      {
+        "num": "005",
+        "title": "Lowest Common Ancestor of a Binary Tree III",
+        "similarity": 0.4828970835256374
+      },
+      {
+        "num": "017",
+        "title": "Two Sum",
+        "similarity": 0.48026073755115234
+      },
+      {
+        "num": "042",
+        "title": "Find First and Last Position of Element in Sorted Array",
+        "similarity": 0.4786970021245434
+      },
+      {
+        "num": "007",
+        "title": "Binary Tree Right Side View",
+        "similarity": 0.46280041618317114
+      },
+      {
+        "num": "061",
+        "title": "Vertical Order Traversal of a Binary Tree",
+        "similarity": 0.4496751112244652
+      },
+      {
+        "num": "051",
+        "title": "Binary Search Tree Iterator",
+        "similarity": 0.4469781778064903
+      }
+    ]
+  },
+  {
+    "num": "061",
+    "title": "Vertical Order Traversal of a Binary Tree",
+    "category": "Tree",
+    "difficulty": "HARD",
+    "tag": "DFS",
+    "frequency": 47.0,
+    "link": "LeetCode/Tree/061_vertical_order_traversal_of_a_binary_tree.md",
+    "embedding": [
+      -0.160517391078779,
+      0.5905983044408722,
+      0.2059039113572532
+    ],
+    "similar": [
+      {
+        "num": "003",
+        "title": "Binary Tree Vertical Order Traversal",
+        "similarity": 0.7291732899076039
+      },
+      {
+        "num": "007",
+        "title": "Binary Tree Right Side View",
+        "similarity": 0.6954908348778975
+      },
+      {
+        "num": "092",
+        "title": "Kth Smallest Element in a BST",
+        "similarity": 0.6913066179653418
+      },
+      {
+        "num": "009",
+        "title": "Lowest Common Ancestor of a Binary Tree",
+        "similarity": 0.6830593088633242
+      },
+      {
+        "num": "014",
+        "title": "Diameter of Binary Tree",
+        "similarity": 0.6093675366466978
+      },
+      {
+        "num": "066",
+        "title": "All Nodes Distance K in Binary Tree",
+        "similarity": 0.6038755373411753
+      },
+      {
+        "num": "027",
+        "title": "Range Sum of BST",
+        "similarity": 0.5594195719525737
+      },
+      {
+        "num": "005",
+        "title": "Lowest Common Ancestor of a Binary Tree III",
+        "similarity": 0.5299645050003847
+      },
+      {
+        "num": "051",
+        "title": "Binary Search Tree Iterator",
+        "similarity": 0.48237224655354705
+      },
+      {
+        "num": "076",
+        "title": "Binary Tree Maximum Path Sum",
+        "similarity": 0.4818684843880604
+      }
+    ]
+  },
+  {
+    "num": "062",
+    "title": "Group Shifted Strings",
+    "category": "Array-Hashing",
+    "difficulty": "MEDIUM",
+    "tag": "HashMap",
+    "frequency": 47.0,
+    "link": "LeetCode/Array-Hashing/062_group_shifted_strings.md",
+    "embedding": [
+      -0.274792807360668,
+      -0.24818175678570276,
+      0.06153888115888297
+    ],
+    "similar": [
+      {
+        "num": "075",
+        "title": "Word Break",
+        "similarity": 0.641345364753808
+      },
+      {
+        "num": "043",
+        "title": "Longest Common Prefix",
+        "similarity": 0.5726213924020251
+      },
+      {
+        "num": "037",
+        "title": "Minimum Window Substring",
+        "similarity": 0.5151155184975291
+      },
+      {
+        "num": "056",
+        "title": "Remove Invalid Parentheses",
+        "similarity": 0.4762359440275398
+      },
+      {
+        "num": "057",
+        "title": "Palindromic Substrings",
+        "similarity": 0.39510609145084274
+      },
+      {
+        "num": "098",
+        "title": "Remove All Adjacent Duplicates in String II",
+        "similarity": 0.30263512106722157
+      },
+      {
+        "num": "002",
+        "title": "Valid Word Abbreviation",
+        "similarity": 0.29977312652182087
+      },
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.28738200774559314
+      },
+      {
+        "num": "052",
+        "title": "Minimum Add to Make Parentheses Valid",
+        "similarity": 0.27411284799701796
+      },
+      {
+        "num": "004",
+        "title": "Valid Palindrome II",
+        "similarity": 0.2643369348971133
+      }
+    ]
+  },
+  {
+    "num": "063",
+    "title": "Course Schedule",
+    "category": "Graph-DFS-BFS",
+    "difficulty": "MEDIUM",
+    "tag": "DFS",
+    "frequency": 47.0,
+    "link": "LeetCode/Graph-DFS-BFS/063_course_schedule.md",
+    "embedding": [
+      -0.011339577388627807,
+      -0.13874297364187846,
+      -0.20928296439123953
+    ],
+    "similar": [
+      {
+        "num": "016",
+        "title": "Merge Intervals",
+        "similarity": 0.48521728996199565
+      },
+      {
+        "num": "018",
+        "title": "Best Time to Buy and Sell Stock",
+        "similarity": 0.4587559743743149
+      },
+      {
+        "num": "077",
+        "title": "Car Pooling",
+        "similarity": 0.39209882376972816
+      },
+      {
+        "num": "099",
+        "title": "Best Time to Buy and Sell Stock III",
+        "similarity": 0.3764211734032395
+      },
+      {
+        "num": "024",
+        "title": "K Closest Points to Origin",
+        "similarity": 0.34604922923088377
+      },
+      {
+        "num": "041",
+        "title": "Kth Missing Positive Number",
+        "similarity": 0.3256648616107758
+      },
+      {
+        "num": "030",
+        "title": "Next Permutation",
+        "similarity": 0.3227703286647395
+      },
+      {
+        "num": "075",
+        "title": "Word Break",
+        "similarity": 0.31316167398590294
+      },
+      {
+        "num": "088",
+        "title": "Interval List Intersections",
+        "similarity": 0.2934528513349916
+      },
+      {
+        "num": "037",
+        "title": "Minimum Window Substring",
+        "similarity": 0.2843102890435596
+      }
+    ]
+  },
+  {
+    "num": "064",
+    "title": "Insert into a Sorted Circular Linked List",
+    "category": "Linked-List",
+    "difficulty": "MEDIUM",
+    "tag": "Linked List",
+    "frequency": 47.0,
+    "link": "LeetCode/Linked-List/064_insert_into_a_sorted_circular_linked_list.md",
+    "embedding": [
+      -0.08774081323955939,
+      0.46773652388815545,
+      0.05019773955714678
+    ],
+    "similar": [
+      {
+        "num": "032",
+        "title": "Copy List with Random Pointer",
+        "similarity": 0.8369178398623887
+      },
+      {
+        "num": "045",
+        "title": "Remove Nth Node From End of List",
+        "similarity": 0.7596516293422948
+      },
+      {
+        "num": "025",
+        "title": "Clone Graph",
+        "similarity": 0.745963914664258
+      },
+      {
+        "num": "054",
+        "title": "Add Two Numbers",
+        "similarity": 0.5316012029156452
+      },
+      {
+        "num": "005",
+        "title": "Lowest Common Ancestor of a Binary Tree III",
+        "similarity": 0.5286301803650668
+      },
+      {
+        "num": "027",
+        "title": "Range Sum of BST",
+        "similarity": 0.43549291822687536
+      },
+      {
+        "num": "082",
+        "title": "Find Median from Data Stream",
+        "similarity": 0.4342813465855812
+      },
+      {
+        "num": "011",
+        "title": "Nested List Weight Sum",
+        "similarity": 0.40971286792090034
+      },
+      {
+        "num": "009",
+        "title": "Lowest Common Ancestor of a Binary Tree",
+        "similarity": 0.4000501478254541
+      },
+      {
+        "num": "066",
+        "title": "All Nodes Distance K in Binary Tree",
+        "similarity": 0.35062289516696304
+      }
+    ]
+  },
+  {
+    "num": "065",
+    "title": "3Sum",
+    "category": "Two-Pointers",
+    "difficulty": "MEDIUM",
+    "tag": "Two Pointers",
+    "frequency": 47.0,
+    "link": "LeetCode/Two-Pointers/065_3sum.md",
+    "embedding": [
+      0.6763585207016136,
+      -0.16636096681796905,
+      0.3690118576420282
+    ],
+    "similar": [
+      {
+        "num": "068",
+        "title": "Contains Duplicate II",
+        "similarity": 0.8658482098019935
+      },
+      {
+        "num": "040",
+        "title": "Max Consecutive Ones III",
+        "similarity": 0.8290936469847718
+      },
+      {
+        "num": "055",
+        "title": "Subsets",
+        "similarity": 0.7969636652661839
+      },
+      {
+        "num": "069",
+        "title": "Zero Array Transformation III",
+        "similarity": 0.7791375385254872
+      },
+      {
+        "num": "010",
+        "title": "Find Peak Element",
+        "similarity": 0.7374196043619593
+      },
+      {
+        "num": "047",
+        "title": "Missing Ranges",
+        "similarity": 0.718651917567685
+      },
+      {
+        "num": "087",
+        "title": "Maximum Subarray",
+        "similarity": 0.7076801140099288
+      },
+      {
+        "num": "090",
+        "title": "Frequency of the Most Frequent Element",
+        "similarity": 0.7005655635954996
+      },
+      {
+        "num": "089",
+        "title": "Range Sum Query - Immutable",
+        "similarity": 0.6900281643240815
+      },
+      {
+        "num": "091",
+        "title": "Random Pick Index",
+        "similarity": 0.664545131469674
+      }
+    ]
+  },
+  {
+    "num": "066",
+    "title": "All Nodes Distance K in Binary Tree",
+    "category": "Tree",
+    "difficulty": "MEDIUM",
+    "tag": "DFS",
+    "frequency": 47.0,
+    "link": "LeetCode/Tree/066_all_nodes_distance_k_in_binary_tree.md",
+    "embedding": [
+      -0.09874322871339403,
+      0.6026931755786803,
+      0.2931858042230851
+    ],
+    "similar": [
+      {
+        "num": "060",
+        "title": "Closest Binary Search Tree Value",
+        "similarity": 0.8009794739536276
+      },
+      {
+        "num": "092",
+        "title": "Kth Smallest Element in a BST",
+        "similarity": 0.6956851762506032
+      },
+      {
+        "num": "009",
+        "title": "Lowest Common Ancestor of a Binary Tree",
+        "similarity": 0.6927636304469015
+      },
+      {
+        "num": "027",
+        "title": "Range Sum of BST",
+        "similarity": 0.6858083800247256
+      },
+      {
+        "num": "005",
+        "title": "Lowest Common Ancestor of a Binary Tree III",
+        "similarity": 0.6362196578308744
+      },
+      {
+        "num": "061",
+        "title": "Vertical Order Traversal of a Binary Tree",
+        "similarity": 0.6038755373411753
+      },
+      {
+        "num": "007",
+        "title": "Binary Tree Right Side View",
+        "similarity": 0.5957843576547965
+      },
+      {
+        "num": "003",
+        "title": "Binary Tree Vertical Order Traversal",
+        "similarity": 0.5942696466865194
+      },
+      {
+        "num": "025",
+        "title": "Clone Graph",
+        "similarity": 0.5181390270987819
+      },
+      {
+        "num": "032",
+        "title": "Copy List with Random Pointer",
+        "similarity": 0.41919115865290413
+      }
+    ]
+  },
+  {
+    "num": "067",
+    "title": "String to Integer (atoi)",
+    "category": "String",
+    "difficulty": "MEDIUM",
+    "tag": "String",
+    "frequency": 40.7,
+    "link": "LeetCode/String/067_string_to_integer_atoi.md",
+    "embedding": [
+      -0.24807689737064323,
+      -0.2013287370209339,
+      0.07394226002484049
+    ],
+    "similar": [
+      {
+        "num": "008",
+        "title": "Basic Calculator II",
+        "similarity": 0.5070821771001327
+      },
+      {
+        "num": "058",
+        "title": "Valid Number",
+        "similarity": 0.5028685972985297
+      },
+      {
+        "num": "093",
+        "title": "Decode String",
+        "similarity": 0.4173228684145686
+      },
+      {
+        "num": "021",
+        "title": "Pow(x, n)",
+        "similarity": 0.4081098163443215
+      },
+      {
+        "num": "080",
+        "title": "Longest Substring Without Repeating Characters",
+        "similarity": 0.3601720226731378
+      },
+      {
+        "num": "004",
+        "title": "Valid Palindrome II",
+        "similarity": 0.347197717709853
+      },
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.3442630066839759
+      },
+      {
+        "num": "050",
+        "title": "Add Strings",
+        "similarity": 0.338272227991493
+      },
+      {
+        "num": "057",
+        "title": "Palindromic Substrings",
+        "similarity": 0.3253515611247793
+      },
+      {
+        "num": "096",
+        "title": "Longest Palindromic Substring",
+        "similarity": 0.3217245410918646
+      }
+    ]
+  },
+  {
+    "num": "068",
+    "title": "Contains Duplicate II",
+    "category": "Sliding-Window",
+    "difficulty": "EASY",
+    "tag": "HashMap",
+    "frequency": 40.7,
+    "link": "LeetCode/Sliding-Window/068_contains_duplicate_ii.md",
+    "embedding": [
+      0.6820934469072161,
+      -0.1980501256530936,
+      0.2576092744745945
+    ],
+    "similar": [
+      {
+        "num": "065",
+        "title": "3Sum",
+        "similarity": 0.8658482098019935
+      },
+      {
+        "num": "055",
+        "title": "Subsets",
+        "similarity": 0.846126248978454
+      },
+      {
+        "num": "087",
+        "title": "Maximum Subarray",
+        "similarity": 0.8173694401483087
+      },
+      {
+        "num": "040",
+        "title": "Max Consecutive Ones III",
+        "similarity": 0.8115400294022889
+      },
+      {
+        "num": "069",
+        "title": "Zero Array Transformation III",
+        "similarity": 0.781425921494077
+      },
+      {
+        "num": "006",
+        "title": "Kth Largest Element in an Array",
+        "similarity": 0.7718985799518466
+      },
+      {
+        "num": "090",
+        "title": "Frequency of the Most Frequent Element",
+        "similarity": 0.7678857139247999
+      },
+      {
+        "num": "015",
+        "title": "Top K Frequent Elements",
+        "similarity": 0.6979533632043807
+      },
+      {
+        "num": "044",
+        "title": "Squares of a Sorted Array",
+        "similarity": 0.6957262388690634
+      },
+      {
+        "num": "089",
+        "title": "Range Sum Query - Immutable",
+        "similarity": 0.6484474685029454
+      }
+    ]
+  },
+  {
+    "num": "069",
+    "title": "Zero Array Transformation III",
+    "category": "Array-Hashing",
+    "difficulty": "MEDIUM",
+    "tag": "Heap",
+    "frequency": 40.7,
+    "link": "LeetCode/Array-Hashing/069_zero_array_transformation_iii.md",
+    "embedding": [
+      0.6529669062029005,
+      -0.1877868254124068,
+      0.1994188705699664
+    ],
+    "similar": [
+      {
+        "num": "040",
+        "title": "Max Consecutive Ones III",
+        "similarity": 0.8535282825672194
+      },
+      {
+        "num": "068",
+        "title": "Contains Duplicate II",
+        "similarity": 0.781425921494077
+      },
+      {
+        "num": "065",
+        "title": "3Sum",
+        "similarity": 0.7791375385254872
+      },
+      {
+        "num": "090",
+        "title": "Frequency of the Most Frequent Element",
+        "similarity": 0.7692581206358903
+      },
+      {
+        "num": "055",
+        "title": "Subsets",
+        "similarity": 0.7460677893349094
+      },
+      {
+        "num": "087",
+        "title": "Maximum Subarray",
+        "similarity": 0.7410230138458187
+      },
+      {
+        "num": "010",
+        "title": "Find Peak Element",
+        "similarity": 0.696006895861997
+      },
+      {
+        "num": "015",
+        "title": "Top K Frequent Elements",
+        "similarity": 0.6928209714191811
+      },
+      {
+        "num": "047",
+        "title": "Missing Ranges",
+        "similarity": 0.6587536811741639
+      },
+      {
+        "num": "006",
+        "title": "Kth Largest Element in an Array",
+        "similarity": 0.6511517477956126
+      }
+    ]
+  },
+  {
+    "num": "070",
+    "title": "Swim in Rising Water",
+    "category": "Graph-DFS-BFS",
+    "difficulty": "HARD",
+    "tag": "Binary Search",
+    "frequency": 40.7,
+    "link": "LeetCode/Graph-DFS-BFS/070_swim_in_rising_water.md",
+    "embedding": [
+      -0.05431066856546291,
+      0.06838919995308,
+      -0.29333236459735607
+    ],
+    "similar": [
+      {
+        "num": "036",
+        "title": "Making A Large Island",
+        "similarity": 0.8854368345379101
+      },
+      {
+        "num": "086",
+        "title": "Shortest Path in a Hidden Grid",
+        "similarity": 0.5058383070720811
+      },
+      {
+        "num": "031",
+        "title": "Shortest Path in Binary Matrix",
+        "similarity": 0.41304128667172185
+      },
+      {
+        "num": "034",
+        "title": "Sliding Window Median",
+        "similarity": 0.19369244788726395
+      },
+      {
+        "num": "039",
+        "title": "LRU Cache",
+        "similarity": 0.1490601929653567
+      },
+      {
+        "num": "022",
+        "title": "Buildings With an Ocean View",
+        "similarity": 0.13428392431449077
+      },
+      {
+        "num": "053",
+        "title": "Robot Room Cleaner",
+        "similarity": 0.1305713712723737
+      },
+      {
+        "num": "084",
+        "title": "Kth Smallest Element in a Sorted Matrix",
+        "similarity": 0.11849385255307984
+      },
+      {
+        "num": "015",
+        "title": "Top K Frequent Elements",
+        "similarity": 0.11454078568669768
+      },
+      {
+        "num": "082",
+        "title": "Find Median from Data Stream",
+        "similarity": 0.10596727911352913
+      }
+    ]
+  },
+  {
+    "num": "071",
+    "title": "Managers with at Least 5 Direct Reports",
+    "category": "Array-Hashing",
+    "difficulty": "MEDIUM",
+    "tag": "Array Hashing",
+    "frequency": 40.7,
+    "link": "LeetCode/Array-Hashing/071_managers_with_at_least_5_direct_reports.md",
+    "embedding": [
+      -0.04713540657258931,
+      0.06118979267598461,
+      -0.15427525740720668
+    ],
+    "similar": [
+      {
+        "num": "049",
+        "title": "Exclusive Time of Functions",
+        "similarity": 0.3958807701727076
+      },
+      {
+        "num": "039",
+        "title": "LRU Cache",
+        "similarity": 0.33835261920842724
+      },
+      {
+        "num": "048",
+        "title": "Moving Average from Data Stream",
+        "similarity": 0.1454586037022042
+      },
+      {
+        "num": "089",
+        "title": "Range Sum Query - Immutable",
+        "similarity": 0.12442332156310512
+      },
+      {
+        "num": "091",
+        "title": "Random Pick Index",
+        "similarity": 0.12315590039115329
+      },
+      {
+        "num": "024",
+        "title": "K Closest Points to Origin",
+        "similarity": 0.11603561120468846
+      },
+      {
+        "num": "082",
+        "title": "Find Median from Data Stream",
+        "similarity": 0.11491825171591834
+      },
+      {
+        "num": "023",
+        "title": "Custom Sort String",
+        "similarity": 0.113024957145519
+      },
+      {
+        "num": "079",
+        "title": "Capacity To Ship Packages Within D Days",
+        "similarity": 0.1071105767893735
+      },
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.09516745185302167
+      }
+    ]
+  },
+  {
+    "num": "072",
+    "title": "Maximum Swap",
+    "category": "Math-Compute",
+    "difficulty": "MEDIUM",
+    "tag": "Greedy",
+    "frequency": 40.7,
+    "link": "LeetCode/Math-Compute/072_maximum_swap.md",
+    "embedding": [
+      0.005437805389137716,
+      -0.0271312430556705,
+      -0.13137935465084266
+    ],
+    "similar": [
+      {
+        "num": "073",
+        "title": "Container With Most Water",
+        "similarity": 0.5359218619790852
+      },
+      {
+        "num": "078",
+        "title": "Strobogrammatic Number",
+        "similarity": 0.46845449821452323
+      },
+      {
+        "num": "058",
+        "title": "Valid Number",
+        "similarity": 0.45850985193043264
+      },
+      {
+        "num": "018",
+        "title": "Best Time to Buy and Sell Stock",
+        "similarity": 0.4403343768644597
+      },
+      {
+        "num": "099",
+        "title": "Best Time to Buy and Sell Stock III",
+        "similarity": 0.4240567889616426
+      },
+      {
+        "num": "079",
+        "title": "Capacity To Ship Packages Within D Days",
+        "similarity": 0.390993631003083
+      },
+      {
+        "num": "077",
+        "title": "Car Pooling",
+        "similarity": 0.3130792928200572
+      },
+      {
+        "num": "090",
+        "title": "Frequency of the Most Frequent Element",
+        "similarity": 0.30142474794083823
+      },
+      {
+        "num": "040",
+        "title": "Max Consecutive Ones III",
+        "similarity": 0.2772353634826754
+      },
+      {
+        "num": "051",
+        "title": "Binary Search Tree Iterator",
+        "similarity": 0.240954453085737
+      }
+    ]
+  },
+  {
+    "num": "073",
+    "title": "Container With Most Water",
+    "category": "Two-Pointers",
+    "difficulty": "MEDIUM",
+    "tag": "Two Pointers",
+    "frequency": 40.7,
+    "link": "LeetCode/Two-Pointers/073_container_with_most_water.md",
+    "embedding": [
+      0.2034787393015825,
+      -0.16374427644153072,
+      -0.29432819512397024
+    ],
+    "similar": [
+      {
+        "num": "099",
+        "title": "Best Time to Buy and Sell Stock III",
+        "similarity": 0.7199051464442491
+      },
+      {
+        "num": "079",
+        "title": "Capacity To Ship Packages Within D Days",
+        "similarity": 0.6427406985992902
+      },
+      {
+        "num": "094",
+        "title": "Koko Eating Bananas",
+        "similarity": 0.6080224981632634
+      },
+      {
+        "num": "018",
+        "title": "Best Time to Buy and Sell Stock",
+        "similarity": 0.5869475151902462
+      },
+      {
+        "num": "072",
+        "title": "Maximum Swap",
+        "similarity": 0.5359218619790852
+      },
+      {
+        "num": "016",
+        "title": "Merge Intervals",
+        "similarity": 0.470922952105583
+      },
+      {
+        "num": "022",
+        "title": "Buildings With an Ocean View",
+        "similarity": 0.4679987718733223
+      },
+      {
+        "num": "006",
+        "title": "Kth Largest Element in an Array",
+        "similarity": 0.4621017593231397
+      },
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.43793751558402644
+      },
+      {
+        "num": "077",
+        "title": "Car Pooling",
+        "similarity": 0.42027729264761504
+      }
+    ]
+  },
+  {
+    "num": "074",
+    "title": "Cutting Ribbons",
+    "category": "Binary-Search",
+    "difficulty": "MEDIUM",
+    "tag": "Binary Search",
+    "frequency": 40.7,
+    "link": "LeetCode/Binary-Search/074_cutting_ribbons.md",
+    "embedding": [
+      -0.010997719205308782,
+      -0.040512858235316286,
+      -0.18819406160329363
+    ],
+    "similar": [
+      {
+        "num": "073",
+        "title": "Container With Most Water",
+        "similarity": 0.256705811985645
+      },
+      {
+        "num": "094",
+        "title": "Koko Eating Bananas",
+        "similarity": 0.22194944890010473
+      },
+      {
+        "num": "077",
+        "title": "Car Pooling",
+        "similarity": 0.16230268878725843
+      },
+      {
+        "num": "016",
+        "title": "Merge Intervals",
+        "similarity": 0.1521132263484273
+      },
+      {
+        "num": "099",
+        "title": "Best Time to Buy and Sell Stock III",
+        "similarity": 0.15155001011458477
+      },
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.14661538471822438
+      },
+      {
+        "num": "063",
+        "title": "Course Schedule",
+        "similarity": 0.14604099368578033
+      },
+      {
+        "num": "088",
+        "title": "Interval List Intersections",
+        "similarity": 0.14567513600542029
+      },
+      {
+        "num": "022",
+        "title": "Buildings With an Ocean View",
+        "similarity": 0.13663396426678623
+      },
+      {
+        "num": "079",
+        "title": "Capacity To Ship Packages Within D Days",
+        "similarity": 0.1354881223425835
+      }
+    ]
+  },
+  {
+    "num": "075",
+    "title": "Word Break",
+    "category": "Dynamic-Programming",
+    "difficulty": "MEDIUM",
+    "tag": "DP",
+    "frequency": 40.7,
+    "link": "LeetCode/Dynamic-Programming/075_word_break.md",
+    "embedding": [
+      -0.40187510120393966,
+      -0.3638866489790732,
+      0.12600622444919074
+    ],
+    "similar": [
+      {
+        "num": "062",
+        "title": "Group Shifted Strings",
+        "similarity": 0.641345364753808
+      },
+      {
+        "num": "037",
+        "title": "Minimum Window Substring",
+        "similarity": 0.6294599453195541
+      },
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.6077099637774463
+      },
+      {
+        "num": "081",
+        "title": "Word Ladder",
+        "similarity": 0.5973504120922807
+      },
+      {
+        "num": "043",
+        "title": "Longest Common Prefix",
+        "similarity": 0.5790333103442363
+      },
+      {
+        "num": "057",
+        "title": "Palindromic Substrings",
+        "similarity": 0.5669378808448464
+      },
+      {
+        "num": "004",
+        "title": "Valid Palindrome II",
+        "similarity": 0.5455285383477797
+      },
+      {
+        "num": "002",
+        "title": "Valid Word Abbreviation",
+        "similarity": 0.5270674820027069
+      },
+      {
+        "num": "056",
+        "title": "Remove Invalid Parentheses",
+        "similarity": 0.5212317888135443
+      },
+      {
+        "num": "096",
+        "title": "Longest Palindromic Substring",
+        "similarity": 0.5150720516901526
+      }
+    ]
+  },
+  {
+    "num": "076",
+    "title": "Binary Tree Maximum Path Sum",
+    "category": "Tree",
+    "difficulty": "HARD",
+    "tag": "DFS",
+    "frequency": 40.7,
+    "link": "LeetCode/Tree/076_binary_tree_maximum_path_sum.md",
+    "embedding": [
+      -0.1570283397253539,
+      0.4239129378335889,
+      0.01467233153561058
+    ],
+    "similar": [
+      {
+        "num": "035",
+        "title": "Simplify Path",
+        "similarity": 0.7336153796254371
+      },
+      {
+        "num": "031",
+        "title": "Shortest Path in Binary Matrix",
+        "similarity": 0.6312718803683116
+      },
+      {
+        "num": "061",
+        "title": "Vertical Order Traversal of a Binary Tree",
+        "similarity": 0.4818684843880604
+      },
+      {
+        "num": "009",
+        "title": "Lowest Common Ancestor of a Binary Tree",
+        "similarity": 0.4380375220413558
+      },
+      {
+        "num": "027",
+        "title": "Range Sum of BST",
+        "similarity": 0.43780920398792267
+      },
+      {
+        "num": "092",
+        "title": "Kth Smallest Element in a BST",
+        "similarity": 0.4256454438720371
+      },
+      {
+        "num": "007",
+        "title": "Binary Tree Right Side View",
+        "similarity": 0.4128185017010383
+      },
+      {
+        "num": "003",
+        "title": "Binary Tree Vertical Order Traversal",
+        "similarity": 0.4002748875643152
+      },
+      {
+        "num": "066",
+        "title": "All Nodes Distance K in Binary Tree",
+        "similarity": 0.39657606244491045
+      },
+      {
+        "num": "005",
+        "title": "Lowest Common Ancestor of a Binary Tree III",
+        "similarity": 0.38250910624100726
+      }
+    ]
+  },
+  {
+    "num": "077",
+    "title": "Car Pooling",
+    "category": "Array-Hashing",
+    "difficulty": "MEDIUM",
+    "tag": "Heap",
+    "frequency": 40.7,
+    "link": "LeetCode/Array-Hashing/077_car_pooling.md",
+    "embedding": [
+      0.0026090204503789348,
+      -0.07249976711333331,
+      -0.14940500767923345
+    ],
+    "similar": [
+      {
+        "num": "041",
+        "title": "Kth Missing Positive Number",
+        "similarity": 0.666691718244119
+      },
+      {
+        "num": "073",
+        "title": "Container With Most Water",
+        "similarity": 0.42027729264761504
+      },
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.4009567169471792
+      },
+      {
+        "num": "063",
+        "title": "Course Schedule",
+        "similarity": 0.39209882376972816
+      },
+      {
+        "num": "078",
+        "title": "Strobogrammatic Number",
+        "similarity": 0.3773451921760333
+      },
+      {
+        "num": "096",
+        "title": "Longest Palindromic Substring",
+        "similarity": 0.3367743230135392
+      },
+      {
+        "num": "016",
+        "title": "Merge Intervals",
+        "similarity": 0.3222568038966304
+      },
+      {
+        "num": "075",
+        "title": "Word Break",
+        "similarity": 0.31845692681064586
+      },
+      {
+        "num": "072",
+        "title": "Maximum Swap",
+        "similarity": 0.3130792928200572
+      },
+      {
+        "num": "088",
+        "title": "Interval List Intersections",
+        "similarity": 0.3107840863285581
+      }
+    ]
+  },
+  {
+    "num": "078",
+    "title": "Strobogrammatic Number",
+    "category": "Two-Pointers",
+    "difficulty": "EASY",
+    "tag": "Two Pointers",
+    "frequency": 40.7,
+    "link": "LeetCode/Two-Pointers/078_strobogrammatic_number.md",
+    "embedding": [
+      -0.26451560655444245,
+      -0.16659522182946587,
+      0.1228361722595162
+    ],
+    "similar": [
+      {
+        "num": "058",
+        "title": "Valid Number",
+        "similarity": 0.6170528907315882
+      },
+      {
+        "num": "072",
+        "title": "Maximum Swap",
+        "similarity": 0.46845449821452323
+      },
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.42993459842621984
+      },
+      {
+        "num": "057",
+        "title": "Palindromic Substrings",
+        "similarity": 0.4140643965912021
+      },
+      {
+        "num": "080",
+        "title": "Longest Substring Without Repeating Characters",
+        "similarity": 0.4057057511538164
+      },
+      {
+        "num": "056",
+        "title": "Remove Invalid Parentheses",
+        "similarity": 0.3941398424396756
+      },
+      {
+        "num": "077",
+        "title": "Car Pooling",
+        "similarity": 0.3773451921760333
+      },
+      {
+        "num": "096",
+        "title": "Longest Palindromic Substring",
+        "similarity": 0.3744720642721364
+      },
+      {
+        "num": "051",
+        "title": "Binary Search Tree Iterator",
+        "similarity": 0.36994813194919934
+      },
+      {
+        "num": "004",
+        "title": "Valid Palindrome II",
+        "similarity": 0.3667327244761998
+      }
+    ]
+  },
+  {
+    "num": "079",
+    "title": "Capacity To Ship Packages Within D Days",
+    "category": "Binary-Search",
+    "difficulty": "MEDIUM",
+    "tag": "Binary Search",
+    "frequency": 40.7,
+    "link": "LeetCode/Binary-Search/079_capacity_to_ship_packages_within_d_days.md",
+    "embedding": [
+      0.10179061205432832,
+      -0.11155108779623095,
+      -0.31728118951568
+    ],
+    "similar": [
+      {
+        "num": "099",
+        "title": "Best Time to Buy and Sell Stock III",
+        "similarity": 0.6748289660999122
+      },
+      {
+        "num": "073",
+        "title": "Container With Most Water",
+        "similarity": 0.6427406985992902
+      },
+      {
+        "num": "018",
+        "title": "Best Time to Buy and Sell Stock",
+        "similarity": 0.5368402797209013
+      },
+      {
+        "num": "023",
+        "title": "Custom Sort String",
+        "similarity": 0.5024000156543331
+      },
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.45521457148645034
+      },
+      {
+        "num": "024",
+        "title": "K Closest Points to Origin",
+        "similarity": 0.4418223702587174
+      },
+      {
+        "num": "094",
+        "title": "Koko Eating Bananas",
+        "similarity": 0.4077559000909629
+      },
+      {
+        "num": "072",
+        "title": "Maximum Swap",
+        "similarity": 0.390993631003083
+      },
+      {
+        "num": "016",
+        "title": "Merge Intervals",
+        "similarity": 0.38548767885808866
+      },
+      {
+        "num": "030",
+        "title": "Next Permutation",
+        "similarity": 0.36899311551483704
+      }
+    ]
+  },
+  {
+    "num": "080",
+    "title": "Longest Substring Without Repeating Characters",
+    "category": "Sliding-Window",
+    "difficulty": "MEDIUM",
+    "tag": "HashMap",
+    "frequency": 40.7,
+    "link": "LeetCode/Sliding-Window/080_longest_substring_without_repeating_characters.md",
+    "embedding": [
+      -0.41537902420263184,
+      -0.42589868828831395,
+      0.1675655133469812
+    ],
+    "similar": [
+      {
+        "num": "096",
+        "title": "Longest Palindromic Substring",
+        "similarity": 0.7678607145724391
+      },
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.7200963741256927
+      },
+      {
+        "num": "057",
+        "title": "Palindromic Substrings",
+        "similarity": 0.6763504080906081
+      },
+      {
+        "num": "029",
+        "title": "Valid Palindrome",
+        "similarity": 0.6622697597123253
+      },
+      {
+        "num": "004",
+        "title": "Valid Palindrome II",
+        "similarity": 0.6474749234781176
+      },
+      {
+        "num": "098",
+        "title": "Remove All Adjacent Duplicates in String II",
+        "similarity": 0.602831466363309
+      },
+      {
+        "num": "002",
+        "title": "Valid Word Abbreviation",
+        "similarity": 0.5272427614358827
+      },
+      {
+        "num": "020",
+        "title": "Valid Parentheses",
+        "similarity": 0.5174905885353083
+      },
+      {
+        "num": "043",
+        "title": "Longest Common Prefix",
+        "similarity": 0.49230828072963007
+      },
+      {
+        "num": "037",
+        "title": "Minimum Window Substring",
+        "similarity": 0.48731647942300244
+      }
+    ]
+  },
+  {
+    "num": "081",
+    "title": "Word Ladder",
+    "category": "Graph-DFS-BFS",
+    "difficulty": "HARD",
+    "tag": "BFS",
+    "frequency": 40.7,
+    "link": "LeetCode/Graph-DFS-BFS/081_word_ladder.md",
+    "embedding": [
+      -0.17076610685828209,
+      -0.13277489230514955,
+      -0.074872933808483
+    ],
+    "similar": [
+      {
+        "num": "097",
+        "title": "Text Justification",
+        "similarity": 0.8193867124132139
+      },
+      {
+        "num": "075",
+        "title": "Word Break",
+        "similarity": 0.5973504120922807
+      },
+      {
+        "num": "095",
+        "title": "Goat Latin",
+        "similarity": 0.3798958611355145
+      },
+      {
+        "num": "002",
+        "title": "Valid Word Abbreviation",
+        "similarity": 0.3041872294735395
+      },
+      {
+        "num": "057",
+        "title": "Palindromic Substrings",
+        "similarity": 0.2670894753715365
+      },
+      {
+        "num": "062",
+        "title": "Group Shifted Strings",
+        "similarity": 0.2590328830641178
+      },
+      {
+        "num": "037",
+        "title": "Minimum Window Substring",
+        "similarity": 0.23233445043983808
+      },
+      {
+        "num": "043",
+        "title": "Longest Common Prefix",
+        "similarity": 0.19241955122439744
+      },
+      {
+        "num": "004",
+        "title": "Valid Palindrome II",
+        "similarity": 0.18502137568954152
+      },
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.178138567251788
+      }
+    ]
+  },
+  {
+    "num": "082",
+    "title": "Find Median from Data Stream",
+    "category": "Heap-Priority-Queue",
+    "difficulty": "HARD",
+    "tag": "Two Pointers",
+    "frequency": 40.7,
+    "link": "LeetCode/Heap-Priority-Queue/082_find_median_from_data_stream.md",
+    "embedding": [
+      0.09076925818540019,
+      0.18498230285343503,
+      -0.15467934613225875
+    ],
+    "similar": [
+      {
+        "num": "039",
+        "title": "LRU Cache",
+        "similarity": 0.574457281219793
+      },
+      {
+        "num": "034",
+        "title": "Sliding Window Median",
+        "similarity": 0.5014771942644286
+      },
+      {
+        "num": "048",
+        "title": "Moving Average from Data Stream",
+        "similarity": 0.4577255934671603
+      },
+      {
+        "num": "064",
+        "title": "Insert into a Sorted Circular Linked List",
+        "similarity": 0.4342813465855812
+      },
+      {
+        "num": "011",
+        "title": "Nested List Weight Sum",
+        "similarity": 0.41811927901516704
+      },
+      {
+        "num": "032",
+        "title": "Copy List with Random Pointer",
+        "similarity": 0.3458901070338103
+      },
+      {
+        "num": "022",
+        "title": "Buildings With an Ocean View",
+        "similarity": 0.3182088911605292
+      },
+      {
+        "num": "051",
+        "title": "Binary Search Tree Iterator",
+        "similarity": 0.30587139782366746
+      },
+      {
+        "num": "094",
+        "title": "Koko Eating Bananas",
+        "similarity": 0.2905573843205656
+      },
+      {
+        "num": "006",
+        "title": "Kth Largest Element in an Array",
+        "similarity": 0.2752766444778268
+      }
+    ]
+  },
+  {
+    "num": "083",
+    "title": "Valid Palindrome III",
+    "category": "Palindrome",
+    "difficulty": "HARD",
+    "tag": "DP",
+    "frequency": 40.7,
+    "link": "LeetCode/Palindrome/083_valid_palindrome_iii.md",
+    "embedding": [
+      -0.49774266953174234,
+      -0.4679688466911889,
+      0.26452231017271427
+    ],
+    "similar": [
+      {
+        "num": "057",
+        "title": "Palindromic Substrings",
+        "similarity": 0.8713257732629877
+      },
+      {
+        "num": "004",
+        "title": "Valid Palindrome II",
+        "similarity": 0.7789451625371604
+      },
+      {
+        "num": "080",
+        "title": "Longest Substring Without Repeating Characters",
+        "similarity": 0.7200963741256927
+      },
+      {
+        "num": "096",
+        "title": "Longest Palindromic Substring",
+        "similarity": 0.6879429052396043
+      },
+      {
+        "num": "098",
+        "title": "Remove All Adjacent Duplicates in String II",
+        "similarity": 0.6663607023197674
+      },
+      {
+        "num": "043",
+        "title": "Longest Common Prefix",
+        "similarity": 0.6648312804383796
+      },
+      {
+        "num": "029",
+        "title": "Valid Palindrome",
+        "similarity": 0.6531444224849624
+      },
+      {
+        "num": "001",
+        "title": "Minimum Remove to Make Valid Parentheses",
+        "similarity": 0.6308824280497273
+      },
+      {
+        "num": "075",
+        "title": "Word Break",
+        "similarity": 0.6077099637774463
+      },
+      {
+        "num": "002",
+        "title": "Valid Word Abbreviation",
+        "similarity": 0.5987403266436486
+      }
+    ]
+  },
+  {
+    "num": "084",
+    "title": "Kth Smallest Element in a Sorted Matrix",
+    "category": "Binary-Search",
+    "difficulty": "MEDIUM",
+    "tag": "Binary Search",
+    "frequency": 40.7,
+    "link": "LeetCode/Binary-Search/084_kth_smallest_element_in_a_sorted_matrix.md",
+    "embedding": [
+      0.022241969126208433,
+      0.007792457918062898,
+      -0.25315449485742825
+    ],
+    "similar": [
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.42947932022414814
+      },
+      {
+        "num": "044",
+        "title": "Squares of a Sorted Array",
+        "similarity": 0.3066666368838272
+      },
+      {
+        "num": "006",
+        "title": "Kth Largest Element in an Array",
+        "similarity": 0.3048318444891399
+      },
+      {
+        "num": "023",
+        "title": "Custom Sort String",
+        "similarity": 0.26473429912506197
+      },
+      {
+        "num": "031",
+        "title": "Shortest Path in Binary Matrix",
+        "similarity": 0.25904134154219505
+      },
+      {
+        "num": "079",
+        "title": "Capacity To Ship Packages Within D Days",
+        "similarity": 0.2407560384052254
+      },
+      {
+        "num": "030",
+        "title": "Next Permutation",
+        "similarity": 0.20464878323525867
+      },
+      {
+        "num": "022",
+        "title": "Buildings With an Ocean View",
+        "similarity": 0.17688404178076003
+      },
+      {
+        "num": "036",
+        "title": "Making A Large Island",
+        "similarity": 0.17656387754046302
+      },
+      {
+        "num": "090",
+        "title": "Frequency of the Most Frequent Element",
+        "similarity": 0.1757271375521895
+      }
+    ]
+  },
+  {
+    "num": "085",
+    "title": "Add Two Integers",
+    "category": "Math-Compute",
+    "difficulty": "EASY",
+    "tag": "Math Compute",
+    "frequency": 32.0,
+    "link": "LeetCode/Math-Compute/085_add_two_integers.md",
+    "embedding": [
+      -0.0678123122246046,
+      0.12792370028929054,
+      -0.21663197239030982
+    ],
+    "similar": [
+      {
+        "num": "011",
+        "title": "Nested List Weight Sum",
+        "similarity": 0.6456796641407355
+      },
+      {
+        "num": "050",
+        "title": "Add Strings",
+        "similarity": 0.5688701471308949
+      },
+      {
+        "num": "030",
+        "title": "Next Permutation",
+        "similarity": 0.39153130319002444
+      },
+      {
+        "num": "007",
+        "title": "Binary Tree Right Side View",
+        "similarity": 0.36972197097062376
+      },
+      {
+        "num": "021",
+        "title": "Pow(x, n)",
+        "similarity": 0.3536902286433986
+      },
+      {
+        "num": "003",
+        "title": "Binary Tree Vertical Order Traversal",
+        "similarity": 0.32714021863246256
+      },
+      {
+        "num": "077",
+        "title": "Car Pooling",
+        "similarity": 0.26397482145460754
+      },
+      {
+        "num": "008",
+        "title": "Basic Calculator II",
+        "similarity": 0.25160623655904024
+      },
+      {
+        "num": "054",
+        "title": "Add Two Numbers",
+        "similarity": 0.23288748640860568
+      },
+      {
+        "num": "048",
+        "title": "Moving Average from Data Stream",
+        "similarity": 0.2008919288690879
+      }
+    ]
+  },
+  {
+    "num": "086",
+    "title": "Shortest Path in a Hidden Grid",
+    "category": "Graph-DFS-BFS",
+    "difficulty": "MEDIUM",
+    "tag": "DFS",
+    "frequency": 32.0,
+    "link": "LeetCode/Graph-DFS-BFS/086_shortest_path_in_a_hidden_grid.md",
+    "embedding": [
+      -0.06761201070876287,
+      0.08398987295588572,
+      -0.24324337970250492
+    ],
+    "similar": [
+      {
+        "num": "053",
+        "title": "Robot Room Cleaner",
+        "similarity": 0.7322203962995143
+      },
+      {
+        "num": "036",
+        "title": "Making A Large Island",
+        "similarity": 0.5376519757728458
+      },
+      {
+        "num": "070",
+        "title": "Swim in Rising Water",
+        "similarity": 0.5058383070720811
+      },
+      {
+        "num": "031",
+        "title": "Shortest Path in Binary Matrix",
+        "similarity": 0.34178819832251045
+      },
+      {
+        "num": "042",
+        "title": "Find First and Last Position of Element in Sorted Array",
+        "similarity": 0.2168309033608495
+      },
+      {
+        "num": "060",
+        "title": "Closest Binary Search Tree Value",
+        "similarity": 0.18000780211389097
+      },
+      {
+        "num": "017",
+        "title": "Two Sum",
+        "similarity": 0.16850905799080831
+      },
+      {
+        "num": "091",
+        "title": "Random Pick Index",
+        "similarity": 0.15778399109006946
+      },
+      {
+        "num": "066",
+        "title": "All Nodes Distance K in Binary Tree",
+        "similarity": 0.15713273937282415
+      },
+      {
+        "num": "052",
+        "title": "Minimum Add to Make Parentheses Valid",
+        "similarity": 0.10921293753374971
+      }
+    ]
+  },
+  {
+    "num": "087",
+    "title": "Maximum Subarray",
+    "category": "Array-Hashing",
+    "difficulty": "MEDIUM",
+    "tag": "DP",
+    "frequency": 32.0,
+    "link": "LeetCode/Array-Hashing/087_maximum_subarray.md",
+    "embedding": [
+      0.5999946756846065,
+      -0.1649267320408056,
+      0.1300174509369032
+    ],
+    "similar": [
+      {
+        "num": "068",
+        "title": "Contains Duplicate II",
+        "similarity": 0.8173694401483087
+      },
+      {
+        "num": "055",
+        "title": "Subsets",
+        "similarity": 0.7681163536796934
+      },
+      {
+        "num": "069",
+        "title": "Zero Array Transformation III",
+        "similarity": 0.7410230138458187
+      },
+      {
+        "num": "065",
+        "title": "3Sum",
+        "similarity": 0.7076801140099288
+      },
+      {
+        "num": "040",
+        "title": "Max Consecutive Ones III",
+        "similarity": 0.699385038147439
+      },
+      {
+        "num": "044",
+        "title": "Squares of a Sorted Array",
+        "similarity": 0.6960308309203208
+      },
+      {
+        "num": "006",
+        "title": "Kth Largest Element in an Array",
+        "similarity": 0.68555714458029
+      },
+      {
+        "num": "015",
+        "title": "Top K Frequent Elements",
+        "similarity": 0.6854599100648293
+      },
+      {
+        "num": "090",
+        "title": "Frequency of the Most Frequent Element",
+        "similarity": 0.6681894523902076
+      },
+      {
+        "num": "042",
+        "title": "Find First and Last Position of Element in Sorted Array",
+        "similarity": 0.627405116986567
+      }
+    ]
+  },
+  {
+    "num": "088",
+    "title": "Interval List Intersections",
+    "category": "Two-Pointers",
+    "difficulty": "MEDIUM",
+    "tag": "Two Pointers",
+    "frequency": 32.0,
+    "link": "LeetCode/Two-Pointers/088_interval_list_intersections.md",
+    "embedding": [
+      -0.0322339557825477,
+      -0.014411972890603544,
+      -0.28248170699568026
+    ],
+    "similar": [
+      {
+        "num": "019",
+        "title": "Merge k Sorted Lists",
+        "similarity": 0.6772092287036693
+      },
+      {
+        "num": "054",
+        "title": "Add Two Numbers",
+        "similarity": 0.3490708561613699
+      },
+      {
+        "num": "041",
+        "title": "Kth Missing Positive Number",
+        "similarity": 0.33684847975712734
+      },
+      {
+        "num": "077",
+        "title": "Car Pooling",
+        "similarity": 0.3107840863285581
+      },
+      {
+        "num": "094",
+        "title": "Koko Eating Bananas",
+        "similarity": 0.3104855732889546
+      },
+      {
+        "num": "063",
+        "title": "Course Schedule",
+        "similarity": 0.2934528513349916
+      },
+      {
+        "num": "011",
+        "title": "Nested List Weight Sum",
+        "similarity": 0.28602839566524063
+      },
+      {
+        "num": "022",
+        "title": "Buildings With an Ocean View",
+        "similarity": 0.2653382788242817
+      },
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.2608833638737218
+      },
+      {
+        "num": "079",
+        "title": "Capacity To Ship Packages Within D Days",
+        "similarity": 0.2489226342887551
+      }
+    ]
+  },
+  {
+    "num": "089",
+    "title": "Range Sum Query - Immutable",
+    "category": "Array-Hashing",
+    "difficulty": "EASY",
+    "tag": "Array Hashing",
+    "frequency": 32.0,
+    "link": "LeetCode/Array-Hashing/089_range_sum_query_immutable.md",
+    "embedding": [
+      0.509838219011046,
+      -0.07447452827038684,
+      0.21152971501432882
+    ],
+    "similar": [
+      {
+        "num": "065",
+        "title": "3Sum",
+        "similarity": 0.6900281643240815
+      },
+      {
+        "num": "068",
+        "title": "Contains Duplicate II",
+        "similarity": 0.6484474685029454
+      },
+      {
+        "num": "040",
+        "title": "Max Consecutive Ones III",
+        "similarity": 0.6057966758222181
+      },
+      {
+        "num": "087",
+        "title": "Maximum Subarray",
+        "similarity": 0.6057317324467941
+      },
+      {
+        "num": "055",
+        "title": "Subsets",
+        "similarity": 0.6039487115317574
+      },
+      {
+        "num": "069",
+        "title": "Zero Array Transformation III",
+        "similarity": 0.6008652864799028
+      },
+      {
+        "num": "091",
+        "title": "Random Pick Index",
+        "similarity": 0.5642832629192541
+      },
+      {
+        "num": "034",
+        "title": "Sliding Window Median",
+        "similarity": 0.5327038340833727
+      },
+      {
+        "num": "047",
+        "title": "Missing Ranges",
+        "similarity": 0.5224413451195438
+      },
+      {
+        "num": "090",
+        "title": "Frequency of the Most Frequent Element",
+        "similarity": 0.5198561131840846
+      }
+    ]
+  },
+  {
+    "num": "090",
+    "title": "Frequency of the Most Frequent Element",
+    "category": "Sliding-Window",
+    "difficulty": "MEDIUM",
+    "tag": "Binary Search",
+    "frequency": 32.0,
+    "link": "LeetCode/Sliding-Window/090_frequency_of_the_most_frequent_element.md",
+    "embedding": [
+      0.628483204298133,
+      -0.16071985169531364,
+      0.19204195509506805
+    ],
+    "similar": [
+      {
+        "num": "006",
+        "title": "Kth Largest Element in an Array",
+        "similarity": 0.8683496094625756
+      },
+      {
+        "num": "010",
+        "title": "Find Peak Element",
+        "similarity": 0.8122810057285816
+      },
+      {
+        "num": "069",
+        "title": "Zero Array Transformation III",
+        "similarity": 0.7692581206358903
+      },
+      {
+        "num": "068",
+        "title": "Contains Duplicate II",
+        "similarity": 0.7678857139247999
+      },
+      {
+        "num": "040",
+        "title": "Max Consecutive Ones III",
+        "similarity": 0.7168911982804365
+      },
+      {
+        "num": "065",
+        "title": "3Sum",
+        "similarity": 0.7005655635954996
+      },
+      {
+        "num": "055",
+        "title": "Subsets",
+        "similarity": 0.6854895789778234
+      },
+      {
+        "num": "087",
+        "title": "Maximum Subarray",
+        "similarity": 0.6681894523902076
+      },
+      {
+        "num": "044",
+        "title": "Squares of a Sorted Array",
+        "similarity": 0.6421353148143154
+      },
+      {
+        "num": "091",
+        "title": "Random Pick Index",
+        "similarity": 0.6221723831512493
+      }
+    ]
+  },
+  {
+    "num": "091",
+    "title": "Random Pick Index",
+    "category": "Heap-Priority-Queue",
+    "difficulty": "MEDIUM",
+    "tag": "HashMap",
+    "frequency": 32.0,
+    "link": "LeetCode/Heap-Priority-Queue/091_random_pick_index.md",
+    "embedding": [
+      0.5226484697621724,
+      -0.0794445618402326,
+      0.2796120248215309
+    ],
+    "similar": [
+      {
+        "num": "042",
+        "title": "Find First and Last Position of Element in Sorted Array",
+        "similarity": 0.6768788496162594
+      },
+      {
+        "num": "065",
+        "title": "3Sum",
+        "similarity": 0.664545131469674
+      },
+      {
+        "num": "010",
+        "title": "Find Peak Element",
+        "similarity": 0.6615997170194575
+      },
+      {
+        "num": "069",
+        "title": "Zero Array Transformation III",
+        "similarity": 0.6477404065867234
+      },
+      {
+        "num": "017",
+        "title": "Two Sum",
+        "similarity": 0.6294477803671226
+      },
+      {
+        "num": "068",
+        "title": "Contains Duplicate II",
+        "similarity": 0.6250682989548927
+      },
+      {
+        "num": "090",
+        "title": "Frequency of the Most Frequent Element",
+        "similarity": 0.6221723831512493
+      },
+      {
+        "num": "040",
+        "title": "Max Consecutive Ones III",
+        "similarity": 0.6041009551935305
+      },
+      {
+        "num": "089",
+        "title": "Range Sum Query - Immutable",
+        "similarity": 0.5642832629192541
+      },
+      {
+        "num": "055",
+        "title": "Subsets",
+        "similarity": 0.551285700386366
+      }
+    ]
+  },
+  {
+    "num": "092",
+    "title": "Kth Smallest Element in a BST",
+    "category": "BST-Binary-Search-Tree",
+    "difficulty": "MEDIUM",
+    "tag": "Binary Search",
+    "frequency": 32.0,
+    "link": "LeetCode/BST-Binary-Search-Tree/092_kth_smallest_element_in_a_bst.md",
+    "embedding": [
+      -0.1299864112687807,
+      0.6406968436998608,
+      0.2537030475174904
+    ],
+    "similar": [
+      {
+        "num": "009",
+        "title": "Lowest Common Ancestor of a Binary Tree",
+        "similarity": 0.8453966696108511
+      },
+      {
+        "num": "027",
+        "title": "Range Sum of BST",
+        "similarity": 0.8115379940072477
+      },
+      {
+        "num": "007",
+        "title": "Binary Tree Right Side View",
+        "similarity": 0.7092909762558497
+      },
+      {
+        "num": "066",
+        "title": "All Nodes Distance K in Binary Tree",
+        "similarity": 0.6956851762506032
+      },
+      {
+        "num": "061",
+        "title": "Vertical Order Traversal of a Binary Tree",
+        "similarity": 0.6913066179653418
+      },
+      {
+        "num": "003",
+        "title": "Binary Tree Vertical Order Traversal",
+        "similarity": 0.6826656864934338
+      },
+      {
+        "num": "060",
+        "title": "Closest Binary Search Tree Value",
+        "similarity": 0.6820104954286283
+      },
+      {
+        "num": "005",
+        "title": "Lowest Common Ancestor of a Binary Tree III",
+        "similarity": 0.6037390365188895
+      },
+      {
+        "num": "051",
+        "title": "Binary Search Tree Iterator",
+        "similarity": 0.556730349848808
+      },
+      {
+        "num": "076",
+        "title": "Binary Tree Maximum Path Sum",
+        "similarity": 0.4256454438720371
+      }
+    ]
+  },
+  {
+    "num": "093",
+    "title": "Decode String",
+    "category": "Stack",
+    "difficulty": "MEDIUM",
+    "tag": "Stack",
+    "frequency": 32.0,
+    "link": "LeetCode/Stack/093_decode_string.md",
+    "embedding": [
+      -0.3689787484167028,
+      -0.2862337071193751,
+      0.050128986884692354
+    ],
+    "similar": [
+      {
+        "num": "020",
+        "title": "Valid Parentheses",
+        "similarity": 0.6079165213700498
+      },
+      {
+        "num": "058",
+        "title": "Valid Number",
+        "similarity": 0.5480638275216386
+      },
+      {
+        "num": "056",
+        "title": "Remove Invalid Parentheses",
+        "similarity": 0.5272883463695928
+      },
+      {
+        "num": "001",
+        "title": "Minimum Remove to Make Valid Parentheses",
+        "similarity": 0.4956305163119813
+      },
+      {
+        "num": "096",
+        "title": "Longest Palindromic Substring",
+        "similarity": 0.4904421626801462
+      },
+      {
+        "num": "080",
+        "title": "Longest Substring Without Repeating Characters",
+        "similarity": 0.48572576396905986
+      },
+      {
+        "num": "098",
+        "title": "Remove All Adjacent Duplicates in String II",
+        "similarity": 0.4633050616403958
+      },
+      {
+        "num": "002",
+        "title": "Valid Word Abbreviation",
+        "similarity": 0.46171779904511934
+      },
+      {
+        "num": "052",
+        "title": "Minimum Add to Make Parentheses Valid",
+        "similarity": 0.45027107706091524
+      },
+      {
+        "num": "057",
+        "title": "Palindromic Substrings",
+        "similarity": 0.42808531415139406
+      }
+    ]
+  },
+  {
+    "num": "094",
+    "title": "Koko Eating Bananas",
+    "category": "Binary-Search",
+    "difficulty": "MEDIUM",
+    "tag": "Binary Search",
+    "frequency": 32.0,
+    "link": "LeetCode/Binary-Search/094_koko_eating_bananas.md",
+    "embedding": [
+      0.1075196901495126,
+      -0.14617490735460306,
+      -0.26278716853304696
+    ],
+    "similar": [
+      {
+        "num": "073",
+        "title": "Container With Most Water",
+        "similarity": 0.6080224981632634
+      },
+      {
+        "num": "018",
+        "title": "Best Time to Buy and Sell Stock",
+        "similarity": 0.5551034843230235
+      },
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.5470938526222523
+      },
+      {
+        "num": "016",
+        "title": "Merge Intervals",
+        "similarity": 0.5355319547167053
+      },
+      {
+        "num": "099",
+        "title": "Best Time to Buy and Sell Stock III",
+        "similarity": 0.4745468495775265
+      },
+      {
+        "num": "024",
+        "title": "K Closest Points to Origin",
+        "similarity": 0.4503511049972615
+      },
+      {
+        "num": "079",
+        "title": "Capacity To Ship Packages Within D Days",
+        "similarity": 0.4077559000909629
+      },
+      {
+        "num": "022",
+        "title": "Buildings With an Ocean View",
+        "similarity": 0.3912177152437969
+      },
+      {
+        "num": "037",
+        "title": "Minimum Window Substring",
+        "similarity": 0.365121830432973
+      },
+      {
+        "num": "017",
+        "title": "Two Sum",
+        "similarity": 0.35505149016856935
+      }
+    ]
+  },
+  {
+    "num": "095",
+    "title": "Goat Latin",
+    "category": "String",
+    "difficulty": "EASY",
+    "tag": "String",
+    "frequency": 32.0,
+    "link": "LeetCode/String/095_goat_latin.md",
+    "embedding": [
+      -0.2094571635861516,
+      -0.094324705338012,
+      -0.019914978538600817
+    ],
+    "similar": [
+      {
+        "num": "002",
+        "title": "Valid Word Abbreviation",
+        "similarity": 0.6276095737277392
+      },
+      {
+        "num": "081",
+        "title": "Word Ladder",
+        "similarity": 0.3798958611355145
+      },
+      {
+        "num": "097",
+        "title": "Text Justification",
+        "similarity": 0.3697888314976883
+      },
+      {
+        "num": "075",
+        "title": "Word Break",
+        "similarity": 0.3639084786225221
+      },
+      {
+        "num": "004",
+        "title": "Valid Palindrome II",
+        "similarity": 0.15713456429069053
+      },
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.1542066828127482
+      },
+      {
+        "num": "080",
+        "title": "Longest Substring Without Repeating Characters",
+        "similarity": 0.1530078978685195
+      },
+      {
+        "num": "043",
+        "title": "Longest Common Prefix",
+        "similarity": 0.1505466707354335
+      },
+      {
+        "num": "098",
+        "title": "Remove All Adjacent Duplicates in String II",
+        "similarity": 0.14771730151490314
+      },
+      {
+        "num": "057",
+        "title": "Palindromic Substrings",
+        "similarity": 0.14749688391871643
+      }
+    ]
+  },
+  {
+    "num": "096",
+    "title": "Longest Palindromic Substring",
+    "category": "Palindrome",
+    "difficulty": "MEDIUM",
+    "tag": "Two Pointers",
+    "frequency": 32.0,
+    "link": "LeetCode/Palindrome/096_longest_palindromic_substring.md",
+    "embedding": [
+      -0.4490892099102912,
+      -0.3686884187924736,
+      0.18556464305631837
+    ],
+    "similar": [
+      {
+        "num": "080",
+        "title": "Longest Substring Without Repeating Characters",
+        "similarity": 0.7678607145724391
+      },
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.6879429052396043
+      },
+      {
+        "num": "057",
+        "title": "Palindromic Substrings",
+        "similarity": 0.6677173345090232
+      },
+      {
+        "num": "004",
+        "title": "Valid Palindrome II",
+        "similarity": 0.5779775004195459
+      },
+      {
+        "num": "098",
+        "title": "Remove All Adjacent Duplicates in String II",
+        "similarity": 0.5480535476641696
+      },
+      {
+        "num": "058",
+        "title": "Valid Number",
+        "similarity": 0.5155285357199624
+      },
+      {
+        "num": "075",
+        "title": "Word Break",
+        "similarity": 0.5150720516901526
+      },
+      {
+        "num": "056",
+        "title": "Remove Invalid Parentheses",
+        "similarity": 0.4992076987043207
+      },
+      {
+        "num": "093",
+        "title": "Decode String",
+        "similarity": 0.4904421626801462
+      },
+      {
+        "num": "037",
+        "title": "Minimum Window Substring",
+        "similarity": 0.4835615015260214
+      }
+    ]
+  },
+  {
+    "num": "097",
+    "title": "Text Justification",
+    "category": "String",
+    "difficulty": "HARD",
+    "tag": "Greedy",
+    "frequency": 32.0,
+    "link": "LeetCode/String/097_text_justification.md",
+    "embedding": [
+      -0.14783094047490186,
+      -0.08259377982528153,
+      -0.07186735105577906
+    ],
+    "similar": [
+      {
+        "num": "081",
+        "title": "Word Ladder",
+        "similarity": 0.8193867124132139
+      },
+      {
+        "num": "075",
+        "title": "Word Break",
+        "similarity": 0.4362936727417795
+      },
+      {
+        "num": "095",
+        "title": "Goat Latin",
+        "similarity": 0.3697888314976883
+      },
+      {
+        "num": "002",
+        "title": "Valid Word Abbreviation",
+        "similarity": 0.21723030362191786
+      },
+      {
+        "num": "029",
+        "title": "Valid Palindrome",
+        "similarity": 0.19564180795063144
+      },
+      {
+        "num": "080",
+        "title": "Longest Substring Without Repeating Characters",
+        "similarity": 0.17168720189177974
+      },
+      {
+        "num": "098",
+        "title": "Remove All Adjacent Duplicates in String II",
+        "similarity": 0.1560384570055315
+      },
+      {
+        "num": "089",
+        "title": "Range Sum Query - Immutable",
+        "similarity": 0.15445859195092762
+      },
+      {
+        "num": "010",
+        "title": "Find Peak Element",
+        "similarity": 0.15341911640031028
+      },
+      {
+        "num": "016",
+        "title": "Merge Intervals",
+        "similarity": 0.14906168827231273
+      }
+    ]
+  },
+  {
+    "num": "098",
+    "title": "Remove All Adjacent Duplicates in String II",
+    "category": "Stack",
+    "difficulty": "MEDIUM",
+    "tag": "Two Pointers",
+    "frequency": 32.0,
+    "link": "LeetCode/Stack/098_remove_all_adjacent_duplicates_in_string_ii.md",
+    "embedding": [
+      -0.34169581535308025,
+      -0.3876472176932566,
+      0.21968428769337783
+    ],
+    "similar": [
+      {
+        "num": "037",
+        "title": "Minimum Window Substring",
+        "similarity": 0.684132262579393
+      },
+      {
+        "num": "004",
+        "title": "Valid Palindrome II",
+        "similarity": 0.6791666676222048
+      },
+      {
+        "num": "083",
+        "title": "Valid Palindrome III",
+        "similarity": 0.6663607023197674
+      },
+      {
+        "num": "057",
+        "title": "Palindromic Substrings",
+        "similarity": 0.6436934754904485
+      },
+      {
+        "num": "056",
+        "title": "Remove Invalid Parentheses",
+        "similarity": 0.6373716950670197
+      },
+      {
+        "num": "080",
+        "title": "Longest Substring Without Repeating Characters",
+        "similarity": 0.602831466363309
+      },
+      {
+        "num": "043",
+        "title": "Longest Common Prefix",
+        "similarity": 0.5820002361053582
+      },
+      {
+        "num": "002",
+        "title": "Valid Word Abbreviation",
+        "similarity": 0.5658265413922613
+      },
+      {
+        "num": "096",
+        "title": "Longest Palindromic Substring",
+        "similarity": 0.5480535476641696
+      },
+      {
+        "num": "001",
+        "title": "Minimum Remove to Make Valid Parentheses",
+        "similarity": 0.5101349699535833
+      }
+    ]
+  },
+  {
+    "num": "099",
+    "title": "Best Time to Buy and Sell Stock III",
+    "category": "Dynamic-Programming",
+    "difficulty": "HARD",
+    "tag": "DP",
+    "frequency": 32.0,
+    "link": "LeetCode/Dynamic-Programming/099_best_time_to_buy_and_sell_stock_iii.md",
+    "embedding": [
+      0.13920804820717902,
+      -0.11678472766866829,
+      -0.37966943675859066
+    ],
+    "similar": [
+      {
+        "num": "018",
+        "title": "Best Time to Buy and Sell Stock",
+        "similarity": 0.7833144664434003
+      },
+      {
+        "num": "073",
+        "title": "Container With Most Water",
+        "similarity": 0.7199051464442491
+      },
+      {
+        "num": "079",
+        "title": "Capacity To Ship Packages Within D Days",
+        "similarity": 0.6748289660999122
+      },
+      {
+        "num": "016",
+        "title": "Merge Intervals",
+        "similarity": 0.623724113265961
+      },
+      {
+        "num": "094",
+        "title": "Koko Eating Bananas",
+        "similarity": 0.4745468495775265
+      },
+      {
+        "num": "046",
+        "title": "Diagonal Traverse",
+        "similarity": 0.43855431420148283
+      },
+      {
+        "num": "072",
+        "title": "Maximum Swap",
+        "similarity": 0.4240567889616426
+      },
+      {
+        "num": "024",
+        "title": "K Closest Points to Origin",
+        "similarity": 0.3855529072044227
+      },
+      {
+        "num": "063",
+        "title": "Course Schedule",
+        "similarity": 0.3764211734032395
+      },
+      {
+        "num": "042",
+        "title": "Find First and Last Position of Element in Sorted Array",
+        "similarity": 0.33372029470168957
+      }
+    ]
+  },
+  {
+    "num": "100",
+    "title": "Median of Two Sorted Arrays",
+    "category": "Binary-Search",
+    "difficulty": "HARD",
+    "tag": "Binary Search",
+    "frequency": 32.0,
+    "link": "LeetCode/Binary-Search/100_median_of_two_sorted_arrays.md",
+    "embedding": [
+      -0.0087702631952816,
+      0.0074010374597735145,
+      -0.29189338726179015
+    ],
+    "similar": [
+      {
+        "num": "033",
+        "title": "Merge Sorted Array",
+        "similarity": 0.8628806681549389
+      },
+      {
+        "num": "028",
+        "title": "Dot Product of Two Sparse Vectors",
+        "similarity": 0.7625979483847674
+      },
+      {
+        "num": "041",
+        "title": "Kth Missing Positive Number",
+        "similarity": 0.30086695711581807
+      },
+      {
+        "num": "077",
+        "title": "Car Pooling",
+        "similarity": 0.2476918694186022
+      },
+      {
+        "num": "088",
+        "title": "Interval List Intersections",
+        "similarity": 0.20669718771026815
+      },
+      {
+        "num": "048",
+        "title": "Moving Average from Data Stream",
+        "similarity": 0.18191875030965432
+      },
+      {
+        "num": "022",
+        "title": "Buildings With an Ocean View",
+        "similarity": 0.17745211970824748
+      },
+      {
+        "num": "094",
+        "title": "Koko Eating Bananas",
+        "similarity": 0.15576088522065473
+      },
+      {
+        "num": "044",
+        "title": "Squares of a Sorted Array",
+        "similarity": 0.15250444227061957
+      },
+      {
+        "num": "096",
+        "title": "Longest Palindromic Substring",
+        "similarity": 0.13922465479239696
+      }
+    ]
+  }
+]
