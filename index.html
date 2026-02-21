@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LeetCode 100 Questions - Modern Search Platform</title>
+    <title>LeetCode 100 - Pinterest Style</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -13,360 +13,196 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: #f5f7fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fff5f5;
             color: #333;
-            line-height: 1.6;
         }
 
-        /* Header */
+        /* Compact Header */
         .header {
             background: white;
             border-bottom: 1px solid #e0e0e0;
-            padding: 15px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 12px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
         .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 20px;
+            max-width: 100%;
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.4em;
-            font-weight: 700;
-            color: #2c3e50;
-        }
-
-        .logo i {
-            color: #667eea;
-            font-size: 1.2em;
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 15px;
-        }
-
-        .btn {
-            padding: 10px 24px;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-login {
-            background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
-        }
-
-        .btn-login:hover {
-            background: #f8f9ff;
-        }
-
-        .btn-signup {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: 2px solid transparent;
-        }
-
-        .btn-signup:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-        }
-
-        /* Search Section */
-        .search-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 40px 20px;
-            color: white;
-        }
-
-        .search-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .search-title {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .search-title h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        .search-title p {
-            font-size: 1.1em;
-            opacity: 0.95;
-        }
-
-        .search-boxes {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .search-box-wrapper {
-            position: relative;
+            font-size: 1.3em;
+            font-weight: 800;
+            color: #e74c3c;
+            white-space: nowrap;
         }
 
         .search-box {
-            width: 100%;
-            padding: 16px 50px 16px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
+            flex: 1;
+            max-width: 600px;
+            padding: 10px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 24px;
+            font-size: 14px;
             outline: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             transition: all 0.3s;
         }
 
         .search-box:focus {
-            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-            transform: translateY(-2px);
+            border-color: #e74c3c;
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
         }
 
-        .search-icon {
-            position: absolute;
-            right: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #999;
-            pointer-events: none;
+        .view-toggle {
+            display: flex;
+            gap: 8px;
         }
 
-        .search-stats {
-            text-align: center;
-            font-size: 1.05em;
-            margin-top: 20px;
-            opacity: 0.95;
-        }
-
-        /* Main Content */
-        .main-content {
-            max-width: 1400px;
-            margin: 30px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 30px;
-        }
-
-        /* Sidebar Filters */
-        .sidebar {
+        .toggle-btn {
+            padding: 8px 16px;
             background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            height: fit-content;
-            position: sticky;
-            top: 20px;
-        }
-
-        .filter-section {
-            margin-bottom: 30px;
-        }
-
-        .filter-section:last-child {
-            margin-bottom: 0;
-        }
-
-        .filter-title {
-            font-size: 1.1em;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: #2c3e50;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .clear-filter {
-            font-size: 0.85em;
-            color: #667eea;
+            border: 2px solid #e0e0e0;
+            border-radius: 20px;
             cursor: pointer;
+            font-size: 13px;
             font-weight: 600;
-        }
-
-        .clear-filter:hover {
-            text-decoration: underline;
-        }
-
-        .filter-option {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 0;
-            cursor: pointer;
             transition: all 0.2s;
         }
 
-        .filter-option:hover {
-            padding-left: 5px;
+        .toggle-btn.active {
+            background: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
         }
 
-        .filter-option input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: #667eea;
+        .toggle-btn:hover {
+            border-color: #e74c3c;
         }
 
-        .filter-option label {
-            cursor: pointer;
-            font-size: 0.95em;
-            flex: 1;
+        /* Masonry Layout - Pinterest Style */
+        .masonry-container {
+            padding: 20px;
+            column-count: 5;
+            column-gap: 20px;
         }
 
-        .filter-count {
-            font-size: 0.85em;
-            color: #999;
-            font-weight: 600;
+        @media (max-width: 1800px) {
+            .masonry-container { column-count: 4; }
         }
 
-        /* Content Area */
-        .content-area {
-            min-height: 80vh;
+        @media (max-width: 1400px) {
+            .masonry-container { column-count: 3; }
         }
 
-        .results-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            gap: 15px;
+        @media (max-width: 1000px) {
+            .masonry-container { column-count: 2; }
         }
 
-        .results-count {
-            font-size: 1.3em;
-            font-weight: 700;
-            color: #2c3e50;
+        @media (max-width: 600px) {
+            .masonry-container { column-count: 1; }
         }
 
-        .sort-dropdown {
-            padding: 10px 16px;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
-            font-size: 14px;
-            cursor: pointer;
-            background: white;
-            outline: none;
-        }
-
-        /* Problem Cards Grid */
-        .problems-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-        }
-
-        .problem-card {
+        /* Category Column */
+        .category-column {
+            break-inside: avoid;
+            margin-bottom: 20px;
             background: white;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: all 0.3s;
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #e74c3c 0%, #f39c12 100%);
+            color: white;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             cursor: pointer;
-            border: 2px solid transparent;
-            position: relative;
+            transition: all 0.3s;
+        }
+
+        .category-header:hover {
+            background: linear-gradient(135deg, #f39c12 0%, #e74c3c 100%);
+        }
+
+        .category-name {
+            font-size: 0.95em;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .category-count {
+            background: rgba(255,255,255,0.3);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 700;
+        }
+
+        /* Compact Problem Card */
+        .problem-card {
+            padding: 10px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .problem-card:last-child {
+            border-bottom: none;
         }
 
         .problem-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-            border-color: #667eea;
+            background: #ffe5e5;
+            transform: translateX(4px);
         }
 
-        .problem-card.hidden {
-            display: none;
+        .problem-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 6px;
         }
 
-        .card-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
-            color: white;
-            position: relative;
-        }
-
-        .category-badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.25);
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 12px;
+        .problem-num {
+            font-size: 0.75em;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 10px;
+            color: #e74c3c;
+            background: #ffe5e5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            min-width: 32px;
+            text-align: center;
         }
 
-        .problem-number {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 2em;
-            font-weight: 700;
-            opacity: 0.3;
-        }
-
-        .card-title {
-            font-size: 1.2em;
-            font-weight: 700;
-            margin-bottom: 8px;
+        .problem-title {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #333;
             line-height: 1.3;
+            flex: 1;
         }
 
-        .card-tag {
-            font-size: 0.9em;
-            opacity: 0.95;
-        }
-
-        .card-body {
-            padding: 20px;
-        }
-
-        .card-meta {
+        .problem-meta {
             display: flex;
-            gap: 20px;
-            margin-bottom: 15px;
-        }
-
-        .meta-item {
-            display: flex;
+            gap: 8px;
             align-items: center;
-            gap: 6px;
-            font-size: 0.9em;
-            color: #666;
+            font-size: 0.75em;
+            margin-left: 40px;
         }
 
-        .meta-item i {
-            color: #667eea;
-        }
-
-        .difficulty-badge {
-            display: inline-block;
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 12px;
+        .difficulty {
+            padding: 2px 8px;
+            border-radius: 4px;
             font-weight: 700;
-            text-transform: uppercase;
+            font-size: 0.9em;
         }
 
         .difficulty-EASY {
@@ -384,259 +220,133 @@
             color: #721c24;
         }
 
-        .card-footer {
-            padding: 15px 20px;
-            border-top: 1px solid #f0f0f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .view-btn {
-            padding: 8px 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
+        .tag {
+            color: #666;
             font-size: 0.9em;
         }
 
-        .view-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        .frequency {
+            color: #999;
+            margin-left: auto;
         }
 
-        .category-btn {
-            padding: 8px 16px;
-            background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.85em;
-            text-decoration: none;
-            display: inline-block;
+        .problem-actions {
+            display: none;
+            gap: 6px;
+            margin-top: 8px;
+            margin-left: 40px;
         }
 
-        .category-btn:hover {
-            background: #f8f9ff;
-            transform: scale(1.05);
-        }
-
-        .card-actions {
+        .problem-card:hover .problem-actions {
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            flex: 1;
         }
 
-        .favorite-btn {
-            background: none;
-            border: none;
-            font-size: 1.3em;
-            color: #ddd;
-            cursor: pointer;
-            transition: all 0.3s;
+        .action-btn {
+            padding: 4px 10px;
+            font-size: 0.75em;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
         }
 
-        .favorite-btn:hover,
-        .favorite-btn.active {
-            color: #ff6b6b;
-            transform: scale(1.2);
+        .btn-problem {
+            background: #e74c3c;
+            color: white;
         }
 
-        /* No Results */
-        .no-results {
+        .btn-problem:hover {
+            background: #c0392b;
+        }
+
+        .btn-category {
+            background: #e0e0e0;
+            color: #666;
+        }
+
+        .btn-category:hover {
+            background: #ccc;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: white;
+            padding: 12px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            font-size: 0.9em;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stat-number {
+            font-weight: 700;
+            color: #e74c3c;
+            font-size: 1.2em;
+        }
+
+        /* Loading State */
+        .loading {
             text-align: center;
             padding: 60px 20px;
             color: #999;
         }
 
-        .no-results i {
-            font-size: 4em;
-            margin-bottom: 20px;
-            opacity: 0.3;
-        }
-
-        .no-results h3 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-            color: #666;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-
-            .sidebar {
-                position: static;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .search-boxes {
-                grid-template-columns: 1fr;
-            }
-
-            .problems-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .header-actions {
-                display: none;
-            }
-        }
-
-        /* Loading Animation */
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .loading {
-            animation: pulse 1.5s ease-in-out infinite;
+        /* Hidden */
+        .hidden {
+            display: none !important;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- Compact Header -->
     <header class="header">
         <div class="header-content">
             <div class="logo">
-                <i class="fas fa-code"></i>
-                <span>LEETCODE QUESTIONS</span>
+                <i class="fas fa-code"></i> LEETCODE 100
             </div>
-            <div class="header-actions">
-                <button class="btn btn-login">Login</button>
-                <button class="btn btn-signup">Sign Up</button>
+            <input type="text" id="searchBox" class="search-box" placeholder="Search by problem title, number, or category...">
+            <div class="view-toggle">
+                <button class="toggle-btn active" onclick="setView('all')">All</button>
+                <button class="toggle-btn" onclick="setView('easy')">Easy</button>
+                <button class="toggle-btn" onclick="setView('medium')">Medium</button>
+                <button class="toggle-btn" onclick="setView('hard')">Hard</button>
             </div>
         </div>
     </header>
 
-    <!-- Search Section -->
-    <section class="search-section">
-        <div class="search-container">
-            <div class="search-title">
-                <h1>Find Your Perfect Problem</h1>
-                <p>Search from 100 curated LeetCode problems across all categories</p>
-            </div>
-
-            <div class="search-boxes">
-                <div class="search-box-wrapper">
-                    <input type="text" id="searchTitle" class="search-box" placeholder="Search by problem title...">
-                    <i class="fas fa-search search-icon"></i>
-                </div>
-                <div class="search-box-wrapper">
-                    <input type="text" id="searchCategory" class="search-box" placeholder="Search by category...">
-                    <i class="fas fa-folder search-icon"></i>
-                </div>
-                <div class="search-box-wrapper">
-                    <input type="text" id="searchTag" class="search-box" placeholder="Search by tag...">
-                    <i class="fas fa-tag search-icon"></i>
-                </div>
-            </div>
-
-            <div class="search-stats">
-                <span id="visibleCount">100</span> problems found
-            </div>
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat">
+            <span class="stat-number" id="totalCount">100</span>
+            <span>Problems</span>
         </div>
-    </section>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Sidebar Filters -->
-        <aside class="sidebar">
-            <div class="filter-section">
-                <div class="filter-title">
-                    <span>Difficulty</span>
-                    <span class="clear-filter" onclick="clearFilter('difficulty')">Clear</span>
-                </div>
-                <div class="filter-option">
-                    <input type="checkbox" id="diff-easy" value="EASY" onchange="applyFilters()">
-                    <label for="diff-easy">Easy</label>
-                    <span class="filter-count" id="count-easy">0</span>
-                </div>
-                <div class="filter-option">
-                    <input type="checkbox" id="diff-medium" value="MEDIUM" onchange="applyFilters()">
-                    <label for="diff-medium">Medium</label>
-                    <span class="filter-count" id="count-medium">0</span>
-                </div>
-                <div class="filter-option">
-                    <input type="checkbox" id="diff-hard" value="HARD" onchange="applyFilters()">
-                    <label for="diff-hard">Hard</label>
-                    <span class="filter-count" id="count-hard">0</span>
-                </div>
-            </div>
-
-            <div class="filter-section">
-                <div class="filter-title">
-                    <span>Category</span>
-                    <span class="clear-filter" onclick="clearFilter('category')">Clear</span>
-                </div>
-                <div id="categoryFilters"></div>
-            </div>
-
-            <div class="filter-section">
-                <div class="filter-title">
-                    <span>Frequency</span>
-                    <span class="clear-filter" onclick="clearFilter('frequency')">Clear</span>
-                </div>
-                <div class="filter-option">
-                    <input type="checkbox" id="freq-high" value="high" onchange="applyFilters()">
-                    <label for="freq-high">High (≥70%)</label>
-                    <span class="filter-count" id="count-freq-high">0</span>
-                </div>
-                <div class="filter-option">
-                    <input type="checkbox" id="freq-medium" value="medium" onchange="applyFilters()">
-                    <label for="freq-medium">Medium (40-70%)</label>
-                    <span class="filter-count" id="count-freq-medium">0</span>
-                </div>
-                <div class="filter-option">
-                    <input type="checkbox" id="freq-low" value="low" onchange="applyFilters()">
-                    <label for="freq-low">Low (<40%)</label>
-                    <span class="filter-count" id="count-freq-low">0</span>
-                </div>
-            </div>
-        </aside>
-
-        <!-- Content Area -->
-        <div class="content-area">
-            <div class="results-header">
-                <h2 class="results-count"><span id="resultCount">100</span> Problems</h2>
-                <select class="sort-dropdown" id="sortBy" onchange="sortProblems()">
-                    <option value="number">Sort by: Number</option>
-                    <option value="title">Sort by: Title</option>
-                    <option value="difficulty">Sort by: Difficulty</option>
-                    <option value="frequency">Sort by: Frequency</option>
-                </select>
-            </div>
-
-            <!-- Problems Grid -->
-            <div class="problems-grid" id="problemsGrid">
-                <!-- Problem cards will be dynamically inserted here -->
-            </div>
-
-            <!-- No Results Message -->
-            <div class="no-results" id="noResults" style="display: none;">
-                <i class="fas fa-search"></i>
-                <h3>No problems found</h3>
-                <p>Try adjusting your search or filters</p>
-            </div>
+        <div class="stat">
+            <span class="stat-number">16</span>
+            <span>Categories</span>
         </div>
-    </main>
+        <div class="stat">
+            <span class="stat-number" id="visibleCount">100</span>
+            <span>Showing</span>
+        </div>
+    </div>
+
+    <!-- Masonry Container -->
+    <div class="masonry-container" id="masonryContainer">
+        <!-- Category columns will be inserted here -->
+    </div>
 
     <script>
-        // Problem data structure
-        const problems = [{"num": "001", "title": "Minimum Remove to Make Valid Parentheses", "category": "Parentheses", "tag": "Stack", "difficulty": "MEDIUM", "frequency": 100.0, "link": "LeetCode/Parentheses/001_minimum_remove_to_make_valid_parentheses.md"}, {"num": "002", "title": "Valid Word Abbreviation", "category": "Two-Pointers", "tag": "Two Pointers", "difficulty": "EASY", "frequency": 95.4, "link": "LeetCode/Two-Pointers/002_valid_word_abbreviation.md"}, {"num": "003", "title": "Binary Tree Vertical Order Traversal", "category": "Tree", "tag": "DFS", "difficulty": "MEDIUM", "frequency": 93.4, "link": "LeetCode/Tree/003_binary_tree_vertical_order_traversal.md"}, {"num": "004", "title": "Valid Palindrome II", "category": "Palindrome", "tag": "Two Pointers", "difficulty": "EASY", "frequency": 92.7, "link": "LeetCode/Palindrome/004_valid_palindrome_ii.md"}, {"num": "005", "title": "Lowest Common Ancestor of a Binary Tree III", "category": "Tree", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 89.6, "link": "LeetCode/Tree/005_lowest_common_ancestor_of_a_binary_tree_iii.md"}, {"num": "006", "title": "Kth Largest Element in an Array", "category": "Heap-Priority-Queue", "tag": "Heap", "difficulty": "MEDIUM", "frequency": 86.9, "link": "LeetCode/Heap-Priority-Queue/006_kth_largest_element_in_an_array.md"}, {"num": "007", "title": "Binary Tree Right Side View", "category": "Tree", "tag": "DFS", "difficulty": "MEDIUM", "frequency": 86.0, "link": "LeetCode/Tree/007_binary_tree_right_side_view.md"}, {"num": "008", "title": "Basic Calculator II", "category": "Stack", "tag": "Stack", "difficulty": "MEDIUM", "frequency": 84.0, "link": "LeetCode/Stack/008_basic_calculator_ii.md"}, {"num": "009", "title": "Lowest Common Ancestor of a Binary Tree", "category": "Tree", "tag": "DFS", "difficulty": "MEDIUM", "frequency": 82.9, "link": "LeetCode/Tree/009_lowest_common_ancestor_of_a_binary_tree.md"}, {"num": "010", "title": "Find Peak Element", "category": "Binary-Search", "tag": "Binary Search", "difficulty": "MEDIUM", "frequency": 82.9, "link": "LeetCode/Binary-Search/010_find_peak_element.md"}, {"num": "011", "title": "Nested List Weight Sum", "category": "Tree", "tag": "DFS", "difficulty": "MEDIUM", "frequency": 81.7, "link": "LeetCode/Tree/011_nested_list_weight_sum.md"}, {"num": "012", "title": "Random Pick with Weight", "category": "Heap-Priority-Queue", "tag": "Binary Search", "difficulty": "MEDIUM", "frequency": 80.5, "link": "LeetCode/Heap-Priority-Queue/012_random_pick_with_weight.md"}, {"num": "013", "title": "Sum Root to Leaf Numbers", "category": "Tree", "tag": "DFS", "difficulty": "MEDIUM", "frequency": 80.5, "link": "LeetCode/Tree/013_sum_root_to_leaf_numbers.md"}, {"num": "014", "title": "Diameter of Binary Tree", "category": "Tree", "tag": "DFS", "difficulty": "EASY", "frequency": 79.2, "link": "LeetCode/Tree/014_diameter_of_binary_tree.md"}, {"num": "015", "title": "Top K Frequent Elements", "category": "Heap-Priority-Queue", "tag": "Heap", "difficulty": "MEDIUM", "frequency": 77.9, "link": "LeetCode/Heap-Priority-Queue/015_top_k_frequent_elements.md"}, {"num": "016", "title": "Merge Intervals", "category": "Array-Hashing", "tag": "Array Hashing", "difficulty": "MEDIUM", "frequency": 77.9, "link": "LeetCode/Array-Hashing/016_merge_intervals.md"}, {"num": "017", "title": "Two Sum", "category": "Array-Hashing", "tag": "HashMap", "difficulty": "EASY", "frequency": 76.4, "link": "LeetCode/Array-Hashing/017_two_sum.md"}, {"num": "018", "title": "Best Time to Buy and Sell Stock", "category": "Dynamic-Programming", "tag": "DP", "difficulty": "EASY", "frequency": 76.4, "link": "LeetCode/Dynamic-Programming/018_best_time_to_buy_and_sell_stock.md"}, {"num": "019", "title": "Merge k Sorted Lists", "category": "Heap-Priority-Queue", "tag": "Heap", "difficulty": "HARD", "frequency": 76.4, "link": "LeetCode/Heap-Priority-Queue/019_merge_k_sorted_lists.md"}, {"num": "020", "title": "Valid Parentheses", "category": "Parentheses", "tag": "Stack", "difficulty": "EASY", "frequency": 74.9, "link": "LeetCode/Parentheses/020_valid_parentheses.md"}, {"num": "021", "title": "Pow(x, n)", "category": "Math-Compute", "tag": "Math Compute", "difficulty": "MEDIUM", "frequency": 74.9, "link": "LeetCode/Math-Compute/021_pow_x_n.md"}, {"num": "022", "title": "Buildings With an Ocean View", "category": "Array-Hashing", "tag": "Stack", "difficulty": "MEDIUM", "frequency": 74.9, "link": "LeetCode/Array-Hashing/022_buildings_with_an_ocean_view.md"}, {"num": "023", "title": "Custom Sort String", "category": "Array-Hashing", "tag": "HashMap", "difficulty": "MEDIUM", "frequency": 73.2, "link": "LeetCode/Array-Hashing/023_custom_sort_string.md"}, {"num": "024", "title": "K Closest Points to Origin", "category": "Array-Hashing", "tag": "Heap", "difficulty": "MEDIUM", "frequency": 71.4, "link": "LeetCode/Array-Hashing/024_k_closest_points_to_origin.md"}, {"num": "025", "title": "Clone Graph", "category": "Graph-DFS-BFS", "tag": "DFS", "difficulty": "MEDIUM", "frequency": 71.4, "link": "LeetCode/Graph-DFS-BFS/025_clone_graph.md"}, {"num": "026", "title": "Subarray Sum Equals K", "category": "Array-Hashing", "tag": "HashMap", "difficulty": "MEDIUM", "frequency": 71.4, "link": "LeetCode/Array-Hashing/026_subarray_sum_equals_k.md"}, {"num": "027", "title": "Range Sum of BST", "category": "BST-Binary-Search-Tree", "tag": "Binary Search", "difficulty": "EASY", "frequency": 69.5, "link": "LeetCode/BST-Binary-Search-Tree/027_range_sum_of_bst.md"}, {"num": "028", "title": "Dot Product of Two Sparse Vectors", "category": "Two-Pointers", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 69.5, "link": "LeetCode/Two-Pointers/028_dot_product_of_two_sparse_vectors.md"}, {"num": "029", "title": "Valid Palindrome", "category": "Palindrome", "tag": "Two Pointers", "difficulty": "EASY", "frequency": 69.5, "link": "LeetCode/Palindrome/029_valid_palindrome.md"}, {"num": "030", "title": "Next Permutation", "category": "Two-Pointers", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 67.4, "link": "LeetCode/Two-Pointers/030_next_permutation.md"}, {"num": "031", "title": "Shortest Path in Binary Matrix", "category": "Graph-DFS-BFS", "tag": "BFS", "difficulty": "MEDIUM", "frequency": 67.4, "link": "LeetCode/Graph-DFS-BFS/031_shortest_path_in_binary_matrix.md"}, {"num": "032", "title": "Copy List with Random Pointer", "category": "Linked-List", "tag": "HashMap", "difficulty": "MEDIUM", "frequency": 67.4, "link": "LeetCode/Linked-List/032_copy_list_with_random_pointer.md"}, {"num": "033", "title": "Merge Sorted Array", "category": "Two-Pointers", "tag": "Two Pointers", "difficulty": "EASY", "frequency": 67.4, "link": "LeetCode/Two-Pointers/033_merge_sorted_array.md"}, {"num": "034", "title": "Sliding Window Median", "category": "Heap-Priority-Queue", "tag": "Heap", "difficulty": "HARD", "frequency": 65.0, "link": "LeetCode/Heap-Priority-Queue/034_sliding_window_median.md"}, {"num": "035", "title": "Simplify Path", "category": "Stack", "tag": "Stack", "difficulty": "MEDIUM", "frequency": 65.0, "link": "LeetCode/Stack/035_simplify_path.md"}, {"num": "036", "title": "Making A Large Island", "category": "Graph-DFS-BFS", "tag": "DFS", "difficulty": "HARD", "frequency": 65.0, "link": "LeetCode/Graph-DFS-BFS/036_making_a_large_island.md"}, {"num": "037", "title": "Minimum Window Substring", "category": "Sliding-Window", "tag": "HashMap", "difficulty": "HARD", "frequency": 62.4, "link": "LeetCode/Sliding-Window/037_minimum_window_substring.md"}, {"num": "038", "title": "Accounts Merge", "category": "Graph-DFS-BFS", "tag": "DFS", "difficulty": "MEDIUM", "frequency": 62.4, "link": "LeetCode/Graph-DFS-BFS/038_accounts_merge.md"}, {"num": "039", "title": "LRU Cache", "category": "Design", "tag": "HashMap", "difficulty": "MEDIUM", "frequency": 62.4, "link": "LeetCode/Design/039_lru_cache.md"}, {"num": "040", "title": "Max Consecutive Ones III", "category": "Sliding-Window", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 62.4, "link": "LeetCode/Sliding-Window/040_max_consecutive_ones_iii.md"}, {"num": "041", "title": "Kth Missing Positive Number", "category": "Binary-Search", "tag": "Binary Search", "difficulty": "EASY", "frequency": 59.4, "link": "LeetCode/Binary-Search/041_kth_missing_positive_number.md"}, {"num": "042", "title": "Find First and Last Position of Element in Sorted Array", "category": "Binary-Search", "tag": "Binary Search", "difficulty": "MEDIUM", "frequency": 59.4, "link": "LeetCode/Binary-Search/042_find_first_and_last_position_of_element_in_sorted_array.md"}, {"num": "043", "title": "Longest Common Prefix", "category": "String", "tag": "Trie", "difficulty": "EASY", "frequency": 59.4, "link": "LeetCode/String/043_longest_common_prefix.md"}, {"num": "044", "title": "Squares of a Sorted Array", "category": "Two-Pointers", "tag": "Two Pointers", "difficulty": "EASY", "frequency": 59.4, "link": "LeetCode/Two-Pointers/044_squares_of_a_sorted_array.md"}, {"num": "045", "title": "Remove Nth Node From End of List", "category": "Linked-List", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 56.0, "link": "LeetCode/Linked-List/045_remove_nth_node_from_end_of_list.md"}, {"num": "046", "title": "Diagonal Traverse", "category": "String", "tag": "String", "difficulty": "MEDIUM", "frequency": 56.0, "link": "LeetCode/String/046_diagonal_traverse.md"}, {"num": "047", "title": "Missing Ranges", "category": "String", "tag": "String", "difficulty": "EASY", "frequency": 56.0, "link": "LeetCode/String/047_missing_ranges.md"}, {"num": "048", "title": "Moving Average from Data Stream", "category": "Design", "tag": "Design", "difficulty": "EASY", "frequency": 56.0, "link": "LeetCode/Design/048_moving_average_from_data_stream.md"}, {"num": "049", "title": "Exclusive Time of Functions", "category": "Stack", "tag": "Stack", "difficulty": "MEDIUM", "frequency": 56.0, "link": "LeetCode/Stack/049_exclusive_time_of_functions.md"}, {"num": "050", "title": "Add Strings", "category": "Math-Compute", "tag": "Math Compute", "difficulty": "EASY", "frequency": 51.9, "link": "LeetCode/Math-Compute/050_add_strings.md"}, {"num": "051", "title": "Binary Search Tree Iterator", "category": "BST-Binary-Search-Tree", "tag": "Binary Search", "difficulty": "MEDIUM", "frequency": 51.9, "link": "LeetCode/BST-Binary-Search-Tree/051_binary_search_tree_iterator.md"}, {"num": "052", "title": "Minimum Add to Make Parentheses Valid", "category": "Parentheses", "tag": "Stack", "difficulty": "MEDIUM", "frequency": 51.9, "link": "LeetCode/Parentheses/052_minimum_add_to_make_parentheses_valid.md"}, {"num": "053", "title": "Robot Room Cleaner", "category": "Graph-DFS-BFS", "tag": "DFS", "difficulty": "HARD", "frequency": 51.9, "link": "LeetCode/Graph-DFS-BFS/053_robot_room_cleaner.md"}, {"num": "054", "title": "Add Two Numbers", "category": "Linked-List", "tag": "Linked List", "difficulty": "MEDIUM", "frequency": 47.0, "link": "LeetCode/Linked-List/054_add_two_numbers.md"}, {"num": "055", "title": "Subsets", "category": "Dynamic-Programming", "tag": "Backtracking", "difficulty": "MEDIUM", "frequency": 47.0, "link": "LeetCode/Dynamic-Programming/055_subsets.md"}, {"num": "056", "title": "Remove Invalid Parentheses", "category": "Parentheses", "tag": "DFS", "difficulty": "HARD", "frequency": 47.0, "link": "LeetCode/Parentheses/056_remove_invalid_parentheses.md"}, {"num": "057", "title": "Palindromic Substrings", "category": "Palindrome", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 47.0, "link": "LeetCode/Palindrome/057_palindromic_substrings.md"}, {"num": "058", "title": "Valid Number", "category": "String", "tag": "String", "difficulty": "HARD", "frequency": 47.0, "link": "LeetCode/String/058_valid_number.md"}, {"num": "059", "title": "Continuous Subarray Sum", "category": "Sliding-Window", "tag": "HashMap", "difficulty": "MEDIUM", "frequency": 47.0, "link": "LeetCode/Sliding-Window/059_continuous_subarray_sum.md"}, {"num": "060", "title": "Closest Binary Search Tree Value", "category": "BST-Binary-Search-Tree", "tag": "Binary Search", "difficulty": "EASY", "frequency": 47.0, "link": "LeetCode/BST-Binary-Search-Tree/060_closest_binary_search_tree_value.md"}, {"num": "061", "title": "Vertical Order Traversal of a Binary Tree", "category": "Tree", "tag": "DFS", "difficulty": "HARD", "frequency": 47.0, "link": "LeetCode/Tree/061_vertical_order_traversal_of_a_binary_tree.md"}, {"num": "062", "title": "Group Shifted Strings", "category": "Array-Hashing", "tag": "HashMap", "difficulty": "MEDIUM", "frequency": 47.0, "link": "LeetCode/Array-Hashing/062_group_shifted_strings.md"}, {"num": "063", "title": "Course Schedule", "category": "Graph-DFS-BFS", "tag": "DFS", "difficulty": "MEDIUM", "frequency": 47.0, "link": "LeetCode/Graph-DFS-BFS/063_course_schedule.md"}, {"num": "064", "title": "Insert into a Sorted Circular Linked List", "category": "Linked-List", "tag": "Linked List", "difficulty": "MEDIUM", "frequency": 47.0, "link": "LeetCode/Linked-List/064_insert_into_a_sorted_circular_linked_list.md"}, {"num": "065", "title": "3Sum", "category": "Two-Pointers", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 47.0, "link": "LeetCode/Two-Pointers/065_3sum.md"}, {"num": "066", "title": "All Nodes Distance K in Binary Tree", "category": "Tree", "tag": "DFS", "difficulty": "MEDIUM", "frequency": 47.0, "link": "LeetCode/Tree/066_all_nodes_distance_k_in_binary_tree.md"}, {"num": "067", "title": "String to Integer (atoi)", "category": "String", "tag": "String", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/String/067_string_to_integer_atoi.md"}, {"num": "068", "title": "Contains Duplicate II", "category": "Sliding-Window", "tag": "HashMap", "difficulty": "EASY", "frequency": 40.7, "link": "LeetCode/Sliding-Window/068_contains_duplicate_ii.md"}, {"num": "069", "title": "Zero Array Transformation III", "category": "Array-Hashing", "tag": "Heap", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/Array-Hashing/069_zero_array_transformation_iii.md"}, {"num": "070", "title": "Swim in Rising Water", "category": "Graph-DFS-BFS", "tag": "Binary Search", "difficulty": "HARD", "frequency": 40.7, "link": "LeetCode/Graph-DFS-BFS/070_swim_in_rising_water.md"}, {"num": "071", "title": "Managers with at Least 5 Direct Reports", "category": "Array-Hashing", "tag": "Array Hashing", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/Array-Hashing/071_managers_with_at_least_5_direct_reports.md"}, {"num": "072", "title": "Maximum Swap", "category": "Math-Compute", "tag": "Greedy", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/Math-Compute/072_maximum_swap.md"}, {"num": "073", "title": "Container With Most Water", "category": "Two-Pointers", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/Two-Pointers/073_container_with_most_water.md"}, {"num": "074", "title": "Cutting Ribbons", "category": "Binary-Search", "tag": "Binary Search", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/Binary-Search/074_cutting_ribbons.md"}, {"num": "075", "title": "Word Break", "category": "Dynamic-Programming", "tag": "DP", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/Dynamic-Programming/075_word_break.md"}, {"num": "076", "title": "Binary Tree Maximum Path Sum", "category": "Tree", "tag": "DFS", "difficulty": "HARD", "frequency": 40.7, "link": "LeetCode/Tree/076_binary_tree_maximum_path_sum.md"}, {"num": "077", "title": "Car Pooling", "category": "Array-Hashing", "tag": "Heap", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/Array-Hashing/077_car_pooling.md"}, {"num": "078", "title": "Strobogrammatic Number", "category": "Two-Pointers", "tag": "Two Pointers", "difficulty": "EASY", "frequency": 40.7, "link": "LeetCode/Two-Pointers/078_strobogrammatic_number.md"}, {"num": "079", "title": "Capacity To Ship Packages Within D Days", "category": "Binary-Search", "tag": "Binary Search", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/Binary-Search/079_capacity_to_ship_packages_within_d_days.md"}, {"num": "080", "title": "Longest Substring Without Repeating Characters", "category": "Sliding-Window", "tag": "HashMap", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/Sliding-Window/080_longest_substring_without_repeating_characters.md"}, {"num": "081", "title": "Word Ladder", "category": "Graph-DFS-BFS", "tag": "BFS", "difficulty": "HARD", "frequency": 40.7, "link": "LeetCode/Graph-DFS-BFS/081_word_ladder.md"}, {"num": "082", "title": "Find Median from Data Stream", "category": "Heap-Priority-Queue", "tag": "Two Pointers", "difficulty": "HARD", "frequency": 40.7, "link": "LeetCode/Heap-Priority-Queue/082_find_median_from_data_stream.md"}, {"num": "083", "title": "Valid Palindrome III", "category": "Palindrome", "tag": "DP", "difficulty": "HARD", "frequency": 40.7, "link": "LeetCode/Palindrome/083_valid_palindrome_iii.md"}, {"num": "084", "title": "Kth Smallest Element in a Sorted Matrix", "category": "Binary-Search", "tag": "Binary Search", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/Binary-Search/084_kth_smallest_element_in_a_sorted_matrix.md"}, {"num": "085", "title": "Add Two Integers", "category": "Math-Compute", "tag": "Math Compute", "difficulty": "EASY", "frequency": 32.0, "link": "LeetCode/Math-Compute/085_add_two_integers.md"}, {"num": "086", "title": "Shortest Path in a Hidden Grid", "category": "Graph-DFS-BFS", "tag": "DFS", "difficulty": "MEDIUM", "frequency": 32.0, "link": "LeetCode/Graph-DFS-BFS/086_shortest_path_in_a_hidden_grid.md"}, {"num": "087", "title": "Maximum Subarray", "category": "Array-Hashing", "tag": "DP", "difficulty": "MEDIUM", "frequency": 32.0, "link": "LeetCode/Array-Hashing/087_maximum_subarray.md"}, {"num": "088", "title": "Interval List Intersections", "category": "Two-Pointers", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 32.0, "link": "LeetCode/Two-Pointers/088_interval_list_intersections.md"}, {"num": "089", "title": "Range Sum Query - Immutable", "category": "Array-Hashing", "tag": "Array Hashing", "difficulty": "EASY", "frequency": 32.0, "link": "LeetCode/Array-Hashing/089_range_sum_query_immutable.md"}, {"num": "090", "title": "Frequency of the Most Frequent Element", "category": "Sliding-Window", "tag": "Binary Search", "difficulty": "MEDIUM", "frequency": 32.0, "link": "LeetCode/Sliding-Window/090_frequency_of_the_most_frequent_element.md"}, {"num": "091", "title": "Random Pick Index", "category": "Heap-Priority-Queue", "tag": "HashMap", "difficulty": "MEDIUM", "frequency": 32.0, "link": "LeetCode/Heap-Priority-Queue/091_random_pick_index.md"}, {"num": "092", "title": "Kth Smallest Element in a BST", "category": "BST-Binary-Search-Tree", "tag": "Binary Search", "difficulty": "MEDIUM", "frequency": 32.0, "link": "LeetCode/BST-Binary-Search-Tree/092_kth_smallest_element_in_a_bst.md"}, {"num": "093", "title": "Decode String", "category": "Stack", "tag": "Stack", "difficulty": "MEDIUM", "frequency": 32.0, "link": "LeetCode/Stack/093_decode_string.md"}, {"num": "094", "title": "Koko Eating Bananas", "category": "Binary-Search", "tag": "Binary Search", "difficulty": "MEDIUM", "frequency": 32.0, "link": "LeetCode/Binary-Search/094_koko_eating_bananas.md"}, {"num": "095", "title": "Goat Latin", "category": "String", "tag": "String", "difficulty": "EASY", "frequency": 32.0, "link": "LeetCode/String/095_goat_latin.md"}, {"num": "096", "title": "Longest Palindromic Substring", "category": "Palindrome", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 32.0, "link": "LeetCode/Palindrome/096_longest_palindromic_substring.md"}, {"num": "097", "title": "Text Justification", "category": "String", "tag": "Greedy", "difficulty": "HARD", "frequency": 32.0, "link": "LeetCode/String/097_text_justification.md"}, {"num": "098", "title": "Remove All Adjacent Duplicates in String II", "category": "Stack", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 32.0, "link": "LeetCode/Stack/098_remove_all_adjacent_duplicates_in_string_ii.md"}, {"num": "099", "title": "Best Time to Buy and Sell Stock III", "category": "Dynamic-Programming", "tag": "DP", "difficulty": "HARD", "frequency": 32.0, "link": "LeetCode/Dynamic-Programming/099_best_time_to_buy_and_sell_stock_iii.md"}, {"num": "100", "title": "Median of Two Sorted Arrays", "category": "Binary-Search", "tag": "Binary Search", "difficulty": "HARD", "frequency": 32.0, "link": "LeetCode/Binary-Search/100_median_of_two_sorted_arrays.md"}];
+        // Real problem data organized by category
+        const problemsByCategory = {"Array-Hashing": [{"num": "017", "title": "Two Sum", "category": "Array-Hashing", "tag": "HashMap", "difficulty": "EASY", "frequency": 76.4, "link": "LeetCode/Array-Hashing/017_two_sum.md"}, {"num": "089", "title": "Range Sum Query - Immutable", "category": "Array-Hashing", "tag": "Array Hashing", "difficulty": "EASY", "frequency": 32.0, "link": "LeetCode/Array-Hashing/089_range_sum_query_immutable.md"}, {"num": "016", "title": "Merge Intervals", "category": "Array-Hashing", "tag": "Array Hashing", "difficulty": "MEDIUM", "frequency": 77.9, "link": "LeetCode/Array-Hashing/016_merge_intervals.md"}, {"num": "022", "title": "Buildings With an Ocean View", "category": "Array-Hashing", "tag": "Stack", "difficulty": "MEDIUM", "frequency": 74.9, "link": "LeetCode/Array-Hashing/022_buildings_with_an_ocean_view.md"}, {"num": "023", "title": "Custom Sort String", "category": "Array-Hashing", "tag": "HashMap", "difficulty": "MEDIUM", "frequency": 73.2, "link": "LeetCode/Array-Hashing/023_custom_sort_string.md"}, {"num": "024", "title": "K Closest Points to Origin", "category": "Array-Hashing", "tag": "Heap", "difficulty": "MEDIUM", "frequency": 71.4, "link": "LeetCode/Array-Hashing/024_k_closest_points_to_origin.md"}, {"num": "026", "title": "Subarray Sum Equals K", "category": "Array-Hashing", "tag": "HashMap", "difficulty": "MEDIUM", "frequency": 71.4, "link": "LeetCode/Array-Hashing/026_subarray_sum_equals_k.md"}, {"num": "062", "title": "Group Shifted Strings", "category": "Array-Hashing", "tag": "HashMap", "difficulty": "MEDIUM", "frequency": 47.0, "link": "LeetCode/Array-Hashing/062_group_shifted_strings.md"}, {"num": "069", "title": "Zero Array Transformation III", "category": "Array-Hashing", "tag": "Heap", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/Array-Hashing/069_zero_array_transformation_iii.md"}, {"num": "071", "title": "Managers with at Least 5 Direct Reports", "category": "Array-Hashing", "tag": "Array Hashing", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/Array-Hashing/071_managers_with_at_least_5_direct_reports.md"}, {"num": "077", "title": "Car Pooling", "category": "Array-Hashing", "tag": "Heap", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/Array-Hashing/077_car_pooling.md"}, {"num": "087", "title": "Maximum Subarray", "category": "Array-Hashing", "tag": "DP", "difficulty": "MEDIUM", "frequency": 32.0, "link": "LeetCode/Array-Hashing/087_maximum_subarray.md"}], "BST-Binary-Search-Tree": [{"num": "027", "title": "Range Sum of BST", "category": "BST-Binary-Search-Tree", "tag": "Binary Search", "difficulty": "EASY", "frequency": 69.5, "link": "LeetCode/BST-Binary-Search-Tree/027_range_sum_of_bst.md"}, {"num": "060", "title": "Closest Binary Search Tree Value", "category": "BST-Binary-Search-Tree", "tag": "Binary Search", "difficulty": "EASY", "frequency": 47.0, "link": "LeetCode/BST-Binary-Search-Tree/060_closest_binary_search_tree_value.md"}, {"num": "051", "title": "Binary Search Tree Iterator", "category": "BST-Binary-Search-Tree", "tag": "Binary Search", "difficulty": "MEDIUM", "frequency": 51.9, "link": "LeetCode/BST-Binary-Search-Tree/051_binary_search_tree_iterator.md"}, {"num": "092", "title": "Kth Smallest Element in a BST", "category": "BST-Binary-Search-Tree", "tag": "Binary Search", "difficulty": "MEDIUM", "frequency": 32.0, "link": "LeetCode/BST-Binary-Search-Tree/092_kth_smallest_element_in_a_bst.md"}], "Binary-Search": [{"num": "041", "title": "Kth Missing Positive Number", "category": "Binary-Search", "tag": "Binary Search", "difficulty": "EASY", "frequency": 59.4, "link": "LeetCode/Binary-Search/041_kth_missing_positive_number.md"}, {"num": "010", "title": "Find Peak Element", "category": "Binary-Search", "tag": "Binary Search", "difficulty": "MEDIUM", "frequency": 82.9, "link": "LeetCode/Binary-Search/010_find_peak_element.md"}, {"num": "042", "title": "Find First and Last Position of Element in Sorted Array", "category": "Binary-Search", "tag": "Binary Search", "difficulty": "MEDIUM", "frequency": 59.4, "link": "LeetCode/Binary-Search/042_find_first_and_last_position_of_element_in_sorted_array.md"}, {"num": "074", "title": "Cutting Ribbons", "category": "Binary-Search", "tag": "Binary Search", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/Binary-Search/074_cutting_ribbons.md"}, {"num": "079", "title": "Capacity To Ship Packages Within D Days", "category": "Binary-Search", "tag": "Binary Search", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/Binary-Search/079_capacity_to_ship_packages_within_d_days.md"}, {"num": "084", "title": "Kth Smallest Element in a Sorted Matrix", "category": "Binary-Search", "tag": "Binary Search", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/Binary-Search/084_kth_smallest_element_in_a_sorted_matrix.md"}, {"num": "094", "title": "Koko Eating Bananas", "category": "Binary-Search", "tag": "Binary Search", "difficulty": "MEDIUM", "frequency": 32.0, "link": "LeetCode/Binary-Search/094_koko_eating_bananas.md"}, {"num": "100", "title": "Median of Two Sorted Arrays", "category": "Binary-Search", "tag": "Binary Search", "difficulty": "HARD", "frequency": 32.0, "link": "LeetCode/Binary-Search/100_median_of_two_sorted_arrays.md"}], "Design": [{"num": "048", "title": "Moving Average from Data Stream", "category": "Design", "tag": "Design", "difficulty": "EASY", "frequency": 56.0, "link": "LeetCode/Design/048_moving_average_from_data_stream.md"}, {"num": "039", "title": "LRU Cache", "category": "Design", "tag": "HashMap", "difficulty": "MEDIUM", "frequency": 62.4, "link": "LeetCode/Design/039_lru_cache.md"}], "Dynamic-Programming": [{"num": "018", "title": "Best Time to Buy and Sell Stock", "category": "Dynamic-Programming", "tag": "DP", "difficulty": "EASY", "frequency": 76.4, "link": "LeetCode/Dynamic-Programming/018_best_time_to_buy_and_sell_stock.md"}, {"num": "055", "title": "Subsets", "category": "Dynamic-Programming", "tag": "Backtracking", "difficulty": "MEDIUM", "frequency": 47.0, "link": "LeetCode/Dynamic-Programming/055_subsets.md"}, {"num": "075", "title": "Word Break", "category": "Dynamic-Programming", "tag": "DP", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/Dynamic-Programming/075_word_break.md"}, {"num": "099", "title": "Best Time to Buy and Sell Stock III", "category": "Dynamic-Programming", "tag": "DP", "difficulty": "HARD", "frequency": 32.0, "link": "LeetCode/Dynamic-Programming/099_best_time_to_buy_and_sell_stock_iii.md"}], "Graph-DFS-BFS": [{"num": "025", "title": "Clone Graph", "category": "Graph-DFS-BFS", "tag": "DFS", "difficulty": "MEDIUM", "frequency": 71.4, "link": "LeetCode/Graph-DFS-BFS/025_clone_graph.md"}, {"num": "031", "title": "Shortest Path in Binary Matrix", "category": "Graph-DFS-BFS", "tag": "BFS", "difficulty": "MEDIUM", "frequency": 67.4, "link": "LeetCode/Graph-DFS-BFS/031_shortest_path_in_binary_matrix.md"}, {"num": "038", "title": "Accounts Merge", "category": "Graph-DFS-BFS", "tag": "DFS", "difficulty": "MEDIUM", "frequency": 62.4, "link": "LeetCode/Graph-DFS-BFS/038_accounts_merge.md"}, {"num": "063", "title": "Course Schedule", "category": "Graph-DFS-BFS", "tag": "DFS", "difficulty": "MEDIUM", "frequency": 47.0, "link": "LeetCode/Graph-DFS-BFS/063_course_schedule.md"}, {"num": "086", "title": "Shortest Path in a Hidden Grid", "category": "Graph-DFS-BFS", "tag": "DFS", "difficulty": "MEDIUM", "frequency": 32.0, "link": "LeetCode/Graph-DFS-BFS/086_shortest_path_in_a_hidden_grid.md"}, {"num": "036", "title": "Making A Large Island", "category": "Graph-DFS-BFS", "tag": "DFS", "difficulty": "HARD", "frequency": 65.0, "link": "LeetCode/Graph-DFS-BFS/036_making_a_large_island.md"}, {"num": "053", "title": "Robot Room Cleaner", "category": "Graph-DFS-BFS", "tag": "DFS", "difficulty": "HARD", "frequency": 51.9, "link": "LeetCode/Graph-DFS-BFS/053_robot_room_cleaner.md"}, {"num": "070", "title": "Swim in Rising Water", "category": "Graph-DFS-BFS", "tag": "Binary Search", "difficulty": "HARD", "frequency": 40.7, "link": "LeetCode/Graph-DFS-BFS/070_swim_in_rising_water.md"}, {"num": "081", "title": "Word Ladder", "category": "Graph-DFS-BFS", "tag": "BFS", "difficulty": "HARD", "frequency": 40.7, "link": "LeetCode/Graph-DFS-BFS/081_word_ladder.md"}], "Heap-Priority-Queue": [{"num": "006", "title": "Kth Largest Element in an Array", "category": "Heap-Priority-Queue", "tag": "Heap", "difficulty": "MEDIUM", "frequency": 86.9, "link": "LeetCode/Heap-Priority-Queue/006_kth_largest_element_in_an_array.md"}, {"num": "012", "title": "Random Pick with Weight", "category": "Heap-Priority-Queue", "tag": "Binary Search", "difficulty": "MEDIUM", "frequency": 80.5, "link": "LeetCode/Heap-Priority-Queue/012_random_pick_with_weight.md"}, {"num": "015", "title": "Top K Frequent Elements", "category": "Heap-Priority-Queue", "tag": "Heap", "difficulty": "MEDIUM", "frequency": 77.9, "link": "LeetCode/Heap-Priority-Queue/015_top_k_frequent_elements.md"}, {"num": "091", "title": "Random Pick Index", "category": "Heap-Priority-Queue", "tag": "HashMap", "difficulty": "MEDIUM", "frequency": 32.0, "link": "LeetCode/Heap-Priority-Queue/091_random_pick_index.md"}, {"num": "019", "title": "Merge k Sorted Lists", "category": "Heap-Priority-Queue", "tag": "Heap", "difficulty": "HARD", "frequency": 76.4, "link": "LeetCode/Heap-Priority-Queue/019_merge_k_sorted_lists.md"}, {"num": "034", "title": "Sliding Window Median", "category": "Heap-Priority-Queue", "tag": "Heap", "difficulty": "HARD", "frequency": 65.0, "link": "LeetCode/Heap-Priority-Queue/034_sliding_window_median.md"}, {"num": "082", "title": "Find Median from Data Stream", "category": "Heap-Priority-Queue", "tag": "Two Pointers", "difficulty": "HARD", "frequency": 40.7, "link": "LeetCode/Heap-Priority-Queue/082_find_median_from_data_stream.md"}], "Linked-List": [{"num": "032", "title": "Copy List with Random Pointer", "category": "Linked-List", "tag": "HashMap", "difficulty": "MEDIUM", "frequency": 67.4, "link": "LeetCode/Linked-List/032_copy_list_with_random_pointer.md"}, {"num": "045", "title": "Remove Nth Node From End of List", "category": "Linked-List", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 56.0, "link": "LeetCode/Linked-List/045_remove_nth_node_from_end_of_list.md"}, {"num": "054", "title": "Add Two Numbers", "category": "Linked-List", "tag": "Linked List", "difficulty": "MEDIUM", "frequency": 47.0, "link": "LeetCode/Linked-List/054_add_two_numbers.md"}, {"num": "064", "title": "Insert into a Sorted Circular Linked List", "category": "Linked-List", "tag": "Linked List", "difficulty": "MEDIUM", "frequency": 47.0, "link": "LeetCode/Linked-List/064_insert_into_a_sorted_circular_linked_list.md"}], "Math-Compute": [{"num": "050", "title": "Add Strings", "category": "Math-Compute", "tag": "Math Compute", "difficulty": "EASY", "frequency": 51.9, "link": "LeetCode/Math-Compute/050_add_strings.md"}, {"num": "085", "title": "Add Two Integers", "category": "Math-Compute", "tag": "Math Compute", "difficulty": "EASY", "frequency": 32.0, "link": "LeetCode/Math-Compute/085_add_two_integers.md"}, {"num": "021", "title": "Pow(x, n)", "category": "Math-Compute", "tag": "Math Compute", "difficulty": "MEDIUM", "frequency": 74.9, "link": "LeetCode/Math-Compute/021_pow_x_n.md"}, {"num": "072", "title": "Maximum Swap", "category": "Math-Compute", "tag": "Greedy", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/Math-Compute/072_maximum_swap.md"}], "Palindrome": [{"num": "004", "title": "Valid Palindrome II", "category": "Palindrome", "tag": "Two Pointers", "difficulty": "EASY", "frequency": 92.7, "link": "LeetCode/Palindrome/004_valid_palindrome_ii.md"}, {"num": "029", "title": "Valid Palindrome", "category": "Palindrome", "tag": "Two Pointers", "difficulty": "EASY", "frequency": 69.5, "link": "LeetCode/Palindrome/029_valid_palindrome.md"}, {"num": "057", "title": "Palindromic Substrings", "category": "Palindrome", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 47.0, "link": "LeetCode/Palindrome/057_palindromic_substrings.md"}, {"num": "096", "title": "Longest Palindromic Substring", "category": "Palindrome", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 32.0, "link": "LeetCode/Palindrome/096_longest_palindromic_substring.md"}, {"num": "083", "title": "Valid Palindrome III", "category": "Palindrome", "tag": "DP", "difficulty": "HARD", "frequency": 40.7, "link": "LeetCode/Palindrome/083_valid_palindrome_iii.md"}], "Parentheses": [{"num": "020", "title": "Valid Parentheses", "category": "Parentheses", "tag": "Stack", "difficulty": "EASY", "frequency": 74.9, "link": "LeetCode/Parentheses/020_valid_parentheses.md"}, {"num": "001", "title": "Minimum Remove to Make Valid Parentheses", "category": "Parentheses", "tag": "Stack", "difficulty": "MEDIUM", "frequency": 100.0, "link": "LeetCode/Parentheses/001_minimum_remove_to_make_valid_parentheses.md"}, {"num": "052", "title": "Minimum Add to Make Parentheses Valid", "category": "Parentheses", "tag": "Stack", "difficulty": "MEDIUM", "frequency": 51.9, "link": "LeetCode/Parentheses/052_minimum_add_to_make_parentheses_valid.md"}, {"num": "056", "title": "Remove Invalid Parentheses", "category": "Parentheses", "tag": "DFS", "difficulty": "HARD", "frequency": 47.0, "link": "LeetCode/Parentheses/056_remove_invalid_parentheses.md"}], "Sliding-Window": [{"num": "068", "title": "Contains Duplicate II", "category": "Sliding-Window", "tag": "HashMap", "difficulty": "EASY", "frequency": 40.7, "link": "LeetCode/Sliding-Window/068_contains_duplicate_ii.md"}, {"num": "040", "title": "Max Consecutive Ones III", "category": "Sliding-Window", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 62.4, "link": "LeetCode/Sliding-Window/040_max_consecutive_ones_iii.md"}, {"num": "059", "title": "Continuous Subarray Sum", "category": "Sliding-Window", "tag": "HashMap", "difficulty": "MEDIUM", "frequency": 47.0, "link": "LeetCode/Sliding-Window/059_continuous_subarray_sum.md"}, {"num": "080", "title": "Longest Substring Without Repeating Characters", "category": "Sliding-Window", "tag": "HashMap", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/Sliding-Window/080_longest_substring_without_repeating_characters.md"}, {"num": "090", "title": "Frequency of the Most Frequent Element", "category": "Sliding-Window", "tag": "Binary Search", "difficulty": "MEDIUM", "frequency": 32.0, "link": "LeetCode/Sliding-Window/090_frequency_of_the_most_frequent_element.md"}, {"num": "037", "title": "Minimum Window Substring", "category": "Sliding-Window", "tag": "HashMap", "difficulty": "HARD", "frequency": 62.4, "link": "LeetCode/Sliding-Window/037_minimum_window_substring.md"}], "Stack": [{"num": "008", "title": "Basic Calculator II", "category": "Stack", "tag": "Stack", "difficulty": "MEDIUM", "frequency": 84.0, "link": "LeetCode/Stack/008_basic_calculator_ii.md"}, {"num": "035", "title": "Simplify Path", "category": "Stack", "tag": "Stack", "difficulty": "MEDIUM", "frequency": 65.0, "link": "LeetCode/Stack/035_simplify_path.md"}, {"num": "049", "title": "Exclusive Time of Functions", "category": "Stack", "tag": "Stack", "difficulty": "MEDIUM", "frequency": 56.0, "link": "LeetCode/Stack/049_exclusive_time_of_functions.md"}, {"num": "093", "title": "Decode String", "category": "Stack", "tag": "Stack", "difficulty": "MEDIUM", "frequency": 32.0, "link": "LeetCode/Stack/093_decode_string.md"}, {"num": "098", "title": "Remove All Adjacent Duplicates in String II", "category": "Stack", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 32.0, "link": "LeetCode/Stack/098_remove_all_adjacent_duplicates_in_string_ii.md"}], "String": [{"num": "043", "title": "Longest Common Prefix", "category": "String", "tag": "Trie", "difficulty": "EASY", "frequency": 59.4, "link": "LeetCode/String/043_longest_common_prefix.md"}, {"num": "047", "title": "Missing Ranges", "category": "String", "tag": "String", "difficulty": "EASY", "frequency": 56.0, "link": "LeetCode/String/047_missing_ranges.md"}, {"num": "095", "title": "Goat Latin", "category": "String", "tag": "String", "difficulty": "EASY", "frequency": 32.0, "link": "LeetCode/String/095_goat_latin.md"}, {"num": "046", "title": "Diagonal Traverse", "category": "String", "tag": "String", "difficulty": "MEDIUM", "frequency": 56.0, "link": "LeetCode/String/046_diagonal_traverse.md"}, {"num": "067", "title": "String to Integer (atoi)", "category": "String", "tag": "String", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/String/067_string_to_integer_atoi.md"}, {"num": "058", "title": "Valid Number", "category": "String", "tag": "String", "difficulty": "HARD", "frequency": 47.0, "link": "LeetCode/String/058_valid_number.md"}, {"num": "097", "title": "Text Justification", "category": "String", "tag": "Greedy", "difficulty": "HARD", "frequency": 32.0, "link": "LeetCode/String/097_text_justification.md"}], "Tree": [{"num": "014", "title": "Diameter of Binary Tree", "category": "Tree", "tag": "DFS", "difficulty": "EASY", "frequency": 79.2, "link": "LeetCode/Tree/014_diameter_of_binary_tree.md"}, {"num": "003", "title": "Binary Tree Vertical Order Traversal", "category": "Tree", "tag": "DFS", "difficulty": "MEDIUM", "frequency": 93.4, "link": "LeetCode/Tree/003_binary_tree_vertical_order_traversal.md"}, {"num": "005", "title": "Lowest Common Ancestor of a Binary Tree III", "category": "Tree", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 89.6, "link": "LeetCode/Tree/005_lowest_common_ancestor_of_a_binary_tree_iii.md"}, {"num": "007", "title": "Binary Tree Right Side View", "category": "Tree", "tag": "DFS", "difficulty": "MEDIUM", "frequency": 86.0, "link": "LeetCode/Tree/007_binary_tree_right_side_view.md"}, {"num": "009", "title": "Lowest Common Ancestor of a Binary Tree", "category": "Tree", "tag": "DFS", "difficulty": "MEDIUM", "frequency": 82.9, "link": "LeetCode/Tree/009_lowest_common_ancestor_of_a_binary_tree.md"}, {"num": "011", "title": "Nested List Weight Sum", "category": "Tree", "tag": "DFS", "difficulty": "MEDIUM", "frequency": 81.7, "link": "LeetCode/Tree/011_nested_list_weight_sum.md"}, {"num": "013", "title": "Sum Root to Leaf Numbers", "category": "Tree", "tag": "DFS", "difficulty": "MEDIUM", "frequency": 80.5, "link": "LeetCode/Tree/013_sum_root_to_leaf_numbers.md"}, {"num": "066", "title": "All Nodes Distance K in Binary Tree", "category": "Tree", "tag": "DFS", "difficulty": "MEDIUM", "frequency": 47.0, "link": "LeetCode/Tree/066_all_nodes_distance_k_in_binary_tree.md"}, {"num": "061", "title": "Vertical Order Traversal of a Binary Tree", "category": "Tree", "tag": "DFS", "difficulty": "HARD", "frequency": 47.0, "link": "LeetCode/Tree/061_vertical_order_traversal_of_a_binary_tree.md"}, {"num": "076", "title": "Binary Tree Maximum Path Sum", "category": "Tree", "tag": "DFS", "difficulty": "HARD", "frequency": 40.7, "link": "LeetCode/Tree/076_binary_tree_maximum_path_sum.md"}], "Two-Pointers": [{"num": "002", "title": "Valid Word Abbreviation", "category": "Two-Pointers", "tag": "Two Pointers", "difficulty": "EASY", "frequency": 95.4, "link": "LeetCode/Two-Pointers/002_valid_word_abbreviation.md"}, {"num": "033", "title": "Merge Sorted Array", "category": "Two-Pointers", "tag": "Two Pointers", "difficulty": "EASY", "frequency": 67.4, "link": "LeetCode/Two-Pointers/033_merge_sorted_array.md"}, {"num": "044", "title": "Squares of a Sorted Array", "category": "Two-Pointers", "tag": "Two Pointers", "difficulty": "EASY", "frequency": 59.4, "link": "LeetCode/Two-Pointers/044_squares_of_a_sorted_array.md"}, {"num": "078", "title": "Strobogrammatic Number", "category": "Two-Pointers", "tag": "Two Pointers", "difficulty": "EASY", "frequency": 40.7, "link": "LeetCode/Two-Pointers/078_strobogrammatic_number.md"}, {"num": "028", "title": "Dot Product of Two Sparse Vectors", "category": "Two-Pointers", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 69.5, "link": "LeetCode/Two-Pointers/028_dot_product_of_two_sparse_vectors.md"}, {"num": "030", "title": "Next Permutation", "category": "Two-Pointers", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 67.4, "link": "LeetCode/Two-Pointers/030_next_permutation.md"}, {"num": "065", "title": "3Sum", "category": "Two-Pointers", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 47.0, "link": "LeetCode/Two-Pointers/065_3sum.md"}, {"num": "073", "title": "Container With Most Water", "category": "Two-Pointers", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 40.7, "link": "LeetCode/Two-Pointers/073_container_with_most_water.md"}, {"num": "088", "title": "Interval List Intersections", "category": "Two-Pointers", "tag": "Two Pointers", "difficulty": "MEDIUM", "frequency": 32.0, "link": "LeetCode/Two-Pointers/088_interval_list_intersections.md"}]};
 
-        // Category summary file mapping
+        // Category summary mapping
         const categorySummaries = {
             'Array-Hashing': 'LeetCode/Array-Hashing/array_hashing_summary.md',
             'BST-Binary-Search-Tree': 'LeetCode/BST-Binary-Search-Tree/bst_binary_search_tree_summary.md',
@@ -656,221 +366,141 @@
             'Two-Pointers': 'LeetCode/Two-Pointers/two_pointers_summary.md'
         };
 
-        // Get category summary link
-        function getCategorySummaryLink(category) {
-            return categorySummaries[category] || '#';
-        }
-
-        let allProblems = [...problems];
+        let currentFilter = 'all';
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            renderProblems(allProblems);
-            populateCategoryFilters();
-            updateCounts();
-            setupSearchListeners();
+            renderMasonry();
+            setupSearch();
         });
 
-        // Render problem cards
-        function renderProblems(problemsList) {
-            const grid = document.getElementById('problemsGrid');
-            const noResults = document.getElementById('noResults');
+        // Render masonry layout
+        function renderMasonry() {
+            const container = document.getElementById('masonryContainer');
+            container.innerHTML = '';
 
-            if (problemsList.length === 0) {
-                grid.innerHTML = '';
-                noResults.style.display = 'block';
-                return;
+            for (const [category, problems] of Object.entries(problemsByCategory)) {
+                const column = createCategoryColumn(category, problems);
+                container.appendChild(column);
             }
 
-            noResults.style.display = 'none';
-            grid.innerHTML = problemsList.map(p => `
-                <div class="problem-card" data-problem='${JSON.stringify(p)}'>
-                    <div class="card-header">
-                        <div class="category-badge">${p.category}</div>
-                        <div class="problem-number">${p.num}</div>
-                        <h3 class="card-title">${p.title}</h3>
-                        <div class="card-tag"><i class="fas fa-tag"></i> ${p.tag}</div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-meta">
-                            <div class="meta-item">
-                                <i class="fas fa-chart-line"></i>
-                                <span>${p.frequency}% frequency</span>
-                            </div>
-                        </div>
-                        <div class="difficulty-badge difficulty-${p.difficulty}">
-                            ${p.difficulty}
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-actions">
-                            <a href="${p.link}" class="view-btn" target="_blank">
-                                <i class="fas fa-file-alt"></i> Problem
-                            </a>
-                            <a href="${getCategorySummaryLink(p.category)}" class="category-btn" target="_blank">
-                                <i class="fas fa-folder-open"></i> Category
-                            </a>
-                        </div>
-                        <button class="favorite-btn" onclick="toggleFavorite(this, event)">
-                            <i class="far fa-heart"></i>
-                        </button>
-                    </div>
+            updateVisibleCount();
+        }
+
+        // Create category column
+        function createCategoryColumn(category, problems) {
+            const column = document.createElement('div');
+            column.className = 'category-column';
+            column.dataset.category = category;
+
+            // Header
+            const header = document.createElement('div');
+            header.className = 'category-header';
+            header.onclick = () => window.open(categorySummaries[category], '_blank');
+            header.innerHTML = `
+                <span class="category-name">${category}</span>
+                <span class="category-count">${problems.length}</span>
+            `;
+
+            column.appendChild(header);
+
+            // Problems
+            problems.forEach(problem => {
+                const card = createProblemCard(problem);
+                column.appendChild(card);
+            });
+
+            return column;
+        }
+
+        // Create problem card
+        function createProblemCard(problem) {
+            const card = document.createElement('div');
+            card.className = 'problem-card';
+            card.dataset.difficulty = problem.difficulty;
+            card.dataset.num = problem.num;
+            card.dataset.title = problem.title.toLowerCase();
+            card.dataset.category = problem.category.toLowerCase();
+
+            card.innerHTML = `
+                <div class="problem-header">
+                    <div class="problem-num">${problem.num}</div>
+                    <div class="problem-title">${problem.title}</div>
                 </div>
-            `).join('');
+                <div class="problem-meta">
+                    <span class="difficulty difficulty-${problem.difficulty}">${problem.difficulty}</span>
+                    <span class="tag">${problem.tag}</span>
+                    <span class="frequency">${problem.frequency.toFixed(1)}%</span>
+                </div>
+                <div class="problem-actions">
+                    <a href="${problem.link}" class="action-btn btn-problem" target="_blank">View</a>
+                    <a href="${categorySummaries[problem.category]}" class="action-btn btn-category" target="_blank">Summary</a>
+                </div>
+            `;
 
-            updateResultCount(problemsList.length);
+            return card;
         }
 
-        // Toggle favorite
-        function toggleFavorite(btn, event) {
-            event.stopPropagation();
-            btn.classList.toggle('active');
-            const icon = btn.querySelector('i');
-            icon.className = btn.classList.contains('active') ? 'fas fa-heart' : 'far fa-heart';
-        }
+        // Set view filter
+        function setView(filter) {
+            currentFilter = filter;
 
-        // Populate category filters
-        function populateCategoryFilters() {
-            const categories = [...new Set(allProblems.map(p => p.category))].sort();
-            const container = document.getElementById('categoryFilters');
-
-            container.innerHTML = categories.map((cat, idx) => {
-                const count = allProblems.filter(p => p.category === cat).length;
-                const id = `cat-${idx}`;
-                return `
-                    <div class="filter-option">
-                        <input type="checkbox" id="${id}" value="${cat}" onchange="applyFilters()">
-                        <label for="${id}">${cat}</label>
-                        <span class="filter-count">${count}</span>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // Update counts
-        function updateCounts() {
-            // Difficulty counts
-            document.getElementById('count-easy').textContent =
-                allProblems.filter(p => p.difficulty === 'EASY').length;
-            document.getElementById('count-medium').textContent =
-                allProblems.filter(p => p.difficulty === 'MEDIUM').length;
-            document.getElementById('count-hard').textContent =
-                allProblems.filter(p => p.difficulty === 'HARD').length;
-
-            // Frequency counts
-            document.getElementById('count-freq-high').textContent =
-                allProblems.filter(p => p.frequency >= 70).length;
-            document.getElementById('count-freq-medium').textContent =
-                allProblems.filter(p => p.frequency >= 40 && p.frequency < 70).length;
-            document.getElementById('count-freq-low').textContent =
-                allProblems.filter(p => p.frequency < 40).length;
-        }
-
-        // Apply all filters
-        function applyFilters() {
-            let filtered = [...allProblems];
-
-            // Difficulty filter
-            const difficultyChecked = Array.from(document.querySelectorAll('input[id^="diff-"]:checked'))
-                .map(cb => cb.value);
-            if (difficultyChecked.length > 0) {
-                filtered = filtered.filter(p => difficultyChecked.includes(p.difficulty));
-            }
-
-            // Category filter
-            const categoryChecked = Array.from(document.querySelectorAll('input[id^="cat-"]:checked'))
-                .map(cb => cb.value);
-            if (categoryChecked.length > 0) {
-                filtered = filtered.filter(p => categoryChecked.includes(p.category));
-            }
-
-            // Frequency filter
-            const freqChecked = Array.from(document.querySelectorAll('input[id^="freq-"]:checked'))
-                .map(cb => cb.value);
-            if (freqChecked.length > 0) {
-                filtered = filtered.filter(p => {
-                    if (freqChecked.includes('high') && p.frequency >= 70) return true;
-                    if (freqChecked.includes('medium') && p.frequency >= 40 && p.frequency < 70) return true;
-                    if (freqChecked.includes('low') && p.frequency < 40) return true;
-                    return false;
-                });
-            }
-
-            // Apply search
-            applySearch(filtered);
-        }
-
-        // Clear specific filter
-        function clearFilter(filterType) {
-            if (filterType === 'difficulty') {
-                document.querySelectorAll('input[id^="diff-"]').forEach(cb => cb.checked = false);
-            } else if (filterType === 'category') {
-                document.querySelectorAll('input[id^="cat-"]').forEach(cb => cb.checked = false);
-            } else if (filterType === 'frequency') {
-                document.querySelectorAll('input[id^="freq-"]').forEach(cb => cb.checked = false);
-            }
-            applyFilters();
-        }
-
-        // Setup search listeners
-        function setupSearchListeners() {
-            ['searchTitle', 'searchCategory', 'searchTag'].forEach(id => {
-                document.getElementById(id).addEventListener('input', () => applyFilters());
+            // Update toggle buttons
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
             });
-        }
+            event.target.classList.add('active');
 
-        // Apply search on filtered results
-        function applySearch(filtered) {
-            const titleSearch = document.getElementById('searchTitle').value.toLowerCase();
-            const categorySearch = document.getElementById('searchCategory').value.toLowerCase();
-            const tagSearch = document.getElementById('searchTag').value.toLowerCase();
+            // Filter cards
+            document.querySelectorAll('.problem-card').forEach(card => {
+                const difficulty = card.dataset.difficulty;
 
-            filtered = filtered.filter(p => {
-                const matchTitle = !titleSearch || p.title.toLowerCase().includes(titleSearch);
-                const matchCategory = !categorySearch || p.category.toLowerCase().includes(categorySearch);
-                const matchTag = !tagSearch || p.tag.toLowerCase().includes(tagSearch);
-                return matchTitle && matchCategory && matchTag;
-            });
-
-            renderProblems(filtered);
-            updateVisibleCount(filtered.length);
-        }
-
-        // Sort problems
-        function sortProblems() {
-            const sortBy = document.getElementById('sortBy').value;
-            const cards = document.querySelectorAll('.problem-card');
-            const problemsArray = Array.from(cards).map(card =>
-                JSON.parse(card.getAttribute('data-problem'))
-            );
-
-            problemsArray.sort((a, b) => {
-                switch(sortBy) {
-                    case 'number':
-                        return parseInt(a.num) - parseInt(b.num);
-                    case 'title':
-                        return a.title.localeCompare(b.title);
-                    case 'difficulty':
-                        const diffOrder = {EASY: 1, MEDIUM: 2, HARD: 3};
-                        return diffOrder[a.difficulty] - diffOrder[b.difficulty];
-                    case 'frequency':
-                        return b.frequency - a.frequency;
-                    default:
-                        return 0;
+                if (filter === 'all') {
+                    card.classList.remove('hidden');
+                } else if (filter === 'easy' && difficulty === 'EASY') {
+                    card.classList.remove('hidden');
+                } else if (filter === 'medium' && difficulty === 'MEDIUM') {
+                    card.classList.remove('hidden');
+                } else if (filter === 'hard' && difficulty === 'HARD') {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
                 }
             });
 
-            renderProblems(problemsArray);
+            updateVisibleCount();
+        }
+
+        // Setup search
+        function setupSearch() {
+            const searchBox = document.getElementById('searchBox');
+            searchBox.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+
+                document.querySelectorAll('.problem-card').forEach(card => {
+                    const title = card.dataset.title;
+                    const num = card.dataset.num;
+                    const category = card.dataset.category;
+
+                    const matches = title.includes(query) ||
+                                  num.includes(query) ||
+                                  category.includes(query);
+
+                    if (query === '' || matches) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+
+                updateVisibleCount();
+            });
         }
 
         // Update visible count
-        function updateVisibleCount(count) {
-            document.getElementById('visibleCount').textContent = count;
-        }
-
-        // Update result count
-        function updateResultCount(count) {
-            document.getElementById('resultCount').textContent = count;
+        function updateVisibleCount() {
+            const visible = document.querySelectorAll('.problem-card:not(.hidden)').length;
+            document.getElementById('visibleCount').textContent = visible;
         }
     </script>
 </body>
