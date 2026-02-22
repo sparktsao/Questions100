@@ -397,10 +397,10 @@
             </div>
             <input type="text" id="searchBox" class="search-box" placeholder="Search by problem title, number, or category...">
             <div class="view-toggle">
-                <button class="toggle-btn active" onclick="setView('all')">All</button>
-                <button class="toggle-btn" onclick="setView('easy')">Easy</button>
-                <button class="toggle-btn" onclick="setView('medium')">Medium</button>
-                <button class="toggle-btn" onclick="setView('hard')">Hard</button>
+                <button class="toggle-btn active" onclick="setView('all', this)">All</button>
+                <button class="toggle-btn" onclick="setView('easy', this)">Easy</button>
+                <button class="toggle-btn" onclick="setView('medium', this)">Medium</button>
+                <button class="toggle-btn" onclick="setView('hard', this)">Hard</button>
             </div>
             <a href="graph.html" class="graph-btn">
                 <i class="fas fa-project-diagram"></i> 3D Graph
@@ -546,14 +546,14 @@
         }
 
         // Set view filter
-        function setView(filter) {
+        function setView(filter, clickedButton) {
             currentFilter = filter;
 
             // Update toggle buttons
             document.querySelectorAll('.toggle-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            clickedButton.classList.add('active');
 
             // Filter cards
             document.querySelectorAll('.problem-card').forEach(card => {
