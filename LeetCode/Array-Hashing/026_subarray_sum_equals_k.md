@@ -50,24 +50,18 @@ Utilize hash tables for O(1) average case lookups.
 ### Implementation
 
 ```python
-def hash_solution(items: List) -> [ReturnType]:
-    """
-    Hash table solution for O(1) lookups.
-
-    Time: O(n), Space: O(n)
-    """
-    hash_map = {}
-    result = []
-
-    for item in items:
-        # Check hash table
-        if [condition] in hash_map:
-            result.append([found_value])
-
-        # Update hash table
-        hash_map[item] = [value]
-
-    return result
+class Solution:
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        hashm = {0:-1}
+        accsum = 0
+        for i, e in enumerate(nums):
+            accsum = accsum + e
+            if accsum%k in hashm:
+                if i-hashm[accsum%k]>=2:
+                    return True
+            else:
+                hashm[accsum%k] = i
+        return False
 ```
 
 ### Complexity Analysis
