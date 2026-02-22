@@ -34,6 +34,7 @@
             align-items: center;
             gap: 20px;
             max-width: 100%;
+            flex-wrap: wrap;
         }
 
         .logo {
@@ -106,6 +107,52 @@
             box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
         }
 
+        /* Audio Player */
+        .audio-player {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.2s;
+        }
+
+        .audio-player:hover {
+            border-color: #e74c3c;
+            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.2);
+        }
+
+        .audio-player audio {
+            height: 32px;
+            outline: none;
+        }
+
+        .audio-player audio::-webkit-media-controls-panel {
+            background: white;
+        }
+
+        .audio-player audio::-webkit-media-controls-play-button,
+        .audio-player audio::-webkit-media-controls-current-time-display,
+        .audio-player audio::-webkit-media-controls-time-remaining-display {
+            color: #e74c3c;
+        }
+
+        .podcast-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .podcast-label i {
+            color: #e74c3c;
+        }
+
         /* Masonry Layout - Pinterest Style */
         .masonry-container {
             padding: 20px;
@@ -127,6 +174,22 @@
 
         @media (max-width: 600px) {
             .masonry-container { column-count: 1; }
+        }
+
+        @media (max-width: 900px) {
+            .podcast-label {
+                display: none;
+            }
+
+            .audio-player {
+                padding: 6px 12px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .audio-player audio {
+                width: 180px;
+            }
         }
 
         /* Category Column */
@@ -342,6 +405,15 @@
             <a href="graph.html" class="graph-btn">
                 <i class="fas fa-project-diagram"></i> 3D Graph
             </a>
+            <div class="audio-player">
+                <span class="podcast-label">
+                    <i class="fas fa-podcast"></i> 16 Patterns
+                </span>
+                <audio controls preload="metadata">
+                    <source src="pod-case-2-Solve_LeetCode_With_Just_16_Patterns.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
         </div>
     </header>
 
