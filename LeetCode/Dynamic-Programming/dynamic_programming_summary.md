@@ -1,15 +1,11 @@
 # Dynamic Programming - Comprehensive Mastery Guide
 
-
-
-
 ## 📋 Problems in This Category
 
-- [018. Best Time to Buy and Sell Stock](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Dynamic-Programming/018_best_time_to_buy_and_sell_stock.md) - `1D DP`
-- [055. Subsets](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Dynamic-Programming/055_subsets.md) - `Backtrack`
-- [075. Word Break](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Dynamic-Programming/075_word_break.md) - `1D DP`
-- [083. Valid Palindrome III](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Dynamic-Programming/083_valid_palindrome_iii.md) - `2D DP`
-- [099. Best Time to Buy and Sell Stock III](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Dynamic-Programming/099_best_time_to_buy_and_sell_stock_iii.md) - `State Machine DP`
+- [018. Best Time to Buy and Sell Stock](./018_best_time_to_buy_and_sell_stock.md) - `Greedy/DP Hybrid` (EASY, 76.4%)
+- [075. Word Break](./075_word_break.md) - `1D DP on Strings` (MEDIUM, 40.7%)
+- [087. Maximum Subarray](./087_maximum_subarray.md) - `Kadane's Algorithm` (MEDIUM, 32.0%)
+- [099. Best Time to Buy and Sell Stock III](./099_best_time_to_buy_and_sell_stock_iii.md) - `State Machine DP` (HARD, 32.0%)
 
 ---
 
@@ -31,994 +27,771 @@ In algorithms: Those who don't memoize are condemned to O(2ⁿ).
 
 ---
 
-## 📊 Problem Progression Map
+## 🔍 Critical Insight: Problem Pattern Comparison
+
+### The Four Patterns
+
+| # | Problem | Pattern Type | Core DP Property | Time | Space |
+|---|---------|--------------|------------------|------|-------|
+| 018 | Buy/Sell Stock I | Greedy (DP mindset) | Track single state (min price) | O(n) | O(1) |
+| 087 | Maximum Subarray | 1D DP (Kadane's) | dp[i] = max ending at i | O(n) | O(1) optimized |
+| 075 | Word Break | 1D DP on Strings | dp[i] = can segment s[0:i]? | O(n²) | O(n) |
+| 099 | Buy/Sell Stock III | State Machine DP | Multiple states with transitions | O(n) | O(1) |
+
+**Key Observation:** All 4 are linear scan problems, but use fundamentally different DP approaches!
+
+---
+
+## 📊 Pattern Comparison Matrix
+
+### Similarity Analysis
 
 ```
-Foundation (Greedy Disguised as DP)
-├─ #018 Best Time to Buy/Sell Stock ⭐ START HERE
-│  └─ Pattern: Track running minimum, update max profit
-│  └─ Actually greedy, but teaches DP thinking
-│
-String DP (Classic 1D DP)
-├─ #075 Word Break ⭐ CORE DP PROBLEM
-│  └─ Pattern: dp[i] = can segment s[0:i]?
-│  └─ Recurrence: dp[i] = any(dp[j] && s[j:i] in dict)
-│
-State Machine DP (Multi-Dimensional States)
-├─ #099 Buy/Sell Stock III ⭐ ADVANCED
-│  └─ Pattern: Track states (buy1, sell1, buy2, sell2)
-│  └─ State transitions with constraints
-│
-Backtracking (Misclassified as DP)
-└─ #055 Subsets
-   └─ Pattern: Generate all 2ⁿ subsets
-   └─ Not really DP - it's exhaustive search!
+                    Single    Multiple   Decision    Dependency
+                    Pass      Decisions  At Each     On Previous
+                                         Step        Choices
+─────────────────────────────────────────────────────────────────
+Stock I (#018)      ✓         ✗          Simple      Min price so far
+Max Subarray (#087) ✓         ✓          Reset/Cont  Previous sum
+Word Break (#075)   ✗         ✓          Try splits  All previous dp[j]
+Stock III (#099)    ✓         ✓          4 states    State machine
+```
 
-Difficulty: ⭐ = Must Master
+### What Makes Each Unique?
+
+#### 1. Stock I: Simplest - Pure Greedy
+**Why it's easy:** Only ONE decision variable (minimum price seen).
+
+**No actual DP recurrence:** Just track running minimum.
+
+```python
+min_price = min(min_price, price)  # Update minimum
+max_profit = max(max_profit, price - min_price)  # Calculate profit
+```
+
+**Could be written as DP (but overkill):**
+```python
+# dp[i] = max profit selling at or before day i
+# dp[i] = max(dp[i-1], prices[i] - min_price_so_far)
+# But we don't need the array!
+```
+
+**Pattern:** Running aggregation (min/max tracking)
+
+---
+
+#### 2. Maximum Subarray: Classic 1D DP
+**Why it's intermediate:** Decision at each element - extend subarray or start new?
+
+**Actual DP recurrence:**
+```python
+# dp[i] = maximum sum ending at index i
+dp[i] = max(nums[i], dp[i-1] + nums[i])
+       ↑             ↑
+    Start new    Extend existing
+```
+
+**Key insight:** dp[i] **must include nums[i]** (ending at i, not "up to i").
+
+**Space optimization:**
+```python
+# Only need previous value, not entire array
+max_ending_here = max(num, max_ending_here + num)
+max_so_far = max(max_so_far, max_ending_here)
+```
+
+**Pattern:** Local vs global optimization
+
+---
+
+#### 3. Word Break: Most "DP-Like"
+**Why it's complex:** Must check ALL previous positions for valid splits.
+
+**True DP recurrence:**
+```python
+# dp[i] = can we segment s[0:i]?
+for j in range(i):
+    if dp[j] and s[j:i] in wordDict:
+        dp[i] = True
+        break
+```
+
+**Key insight:** dp[i] depends on **any** dp[j] where j < i, not just dp[i-1].
+
+**Overlapping subproblems:** Checking if s[0:5] valid requires knowing if s[0:2], s[0:3], s[0:4] are valid.
+
+**Pattern:** Partition point search (try all split positions)
+
+---
+
+#### 4. Stock III: State Machine DP
+**Why it's hard:** Multiple interdependent states, complex transitions.
+
+**State machine recurrence:**
+```python
+# Four states: buy1, sell1, buy2, sell2
+buy1 = max(buy1, -price)           # First purchase
+sell1 = max(sell1, buy1 + price)   # First sale
+buy2 = max(buy2, sell1 - price)    # Second purchase
+sell2 = max(sell2, buy2 + price)   # Second sale
+```
+
+**Key insight:** States depend on each other **in order**. Update sequence matters!
+
+**Why not array DP:** Fixed number of states (4), not variable with input size.
+
+**Pattern:** Finite state machine with value tracking
+
+---
+
+## 🔬 Deep Dive: Why These Look Similar But Aren't
+
+### Stock I vs Maximum Subarray
+
+**Both:**
+- Linear scan
+- O(n) time, O(1) space
+- Track running values
+
+**Different:**
+
+| Aspect | Stock I | Maximum Subarray |
+|--------|---------|------------------|
+| **Decision** | Buy at min, sell at current | Extend subarray or start new |
+| **DP Nature** | Not really DP (greedy) | True DP (Kadane's) |
+| **Recurrence** | None (just track min) | dp[i] = max(nums[i], dp[i-1] + nums[i]) |
+| **Can reset?** | No (once bought, stuck) | Yes (can start fresh subarray) |
+
+**Visual Comparison:**
+
+```
+Stock I:
+prices = [7, 1, 5, 3, 6, 4]
+          ↓  ↓  ↑     ↑
+       Min found   Sell here
+
+Just track: What's the cheapest I've seen?
+
+Maximum Subarray:
+nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+            ↑       ↑←─────────┘
+         Reset    Extend subarray
+
+Decision each step: Continue or restart?
 ```
 
 ---
 
-## 🧬 Three Core Patterns
+### Word Break vs Maximum Subarray
 
-### Pattern 1: 1D DP (Linear Dependency)
+**Both:**
+- Build solution incrementally
+- dp[i] represents "solution up to index i"
 
-**When to Use:** "Maximum/minimum over linear sequence", "can we reach position i?"
+**Different:**
 
-**Key Insight:** dp[i] depends only on dp[j] where j < i.
+| Aspect | Word Break | Maximum Subarray |
+|--------|------------|------------------|
+| **dp[i] depends on** | ANY dp[j] < i | Only dp[i-1] |
+| **Inner loop** | Must try all j | No inner loop |
+| **Time complexity** | O(n²) | O(n) |
+| **Space required** | Array dp[0..n] | Can use single variable |
 
-**Structure:**
-1. **Define state:** What does dp[i] represent?
-2. **Base case:** dp[0] = ?
-3. **Recurrence:** dp[i] = f(dp[0], ..., dp[i-1])
-4. **Answer:** dp[n] or max(dp)
+**Why Word Break needs O(n²):**
+```python
+# Word Break: Must check ALL split points
+for i in range(n):          # O(n)
+    for j in range(i):      # O(i) average = O(n)
+        if dp[j] and s[j:i] in dict:
+            dp[i] = True
+
+# Max Subarray: Only depends on previous
+max_ending_here = max(num, max_ending_here + num)  # O(1)
+```
+
+---
+
+### Stock I vs Stock III
+
+**Both:**
+- Process prices left to right
+- Track state across iterations
+
+**Different:**
+
+| Aspect | Stock I (Greedy) | Stock III (State Machine) |
+|--------|------------------|---------------------------|
+| **Transactions** | 1 | 2 |
+| **States** | 2 (min_price, max_profit) | 4 (buy1, sell1, buy2, sell2) |
+| **Complexity** | Trivial (2 variables) | Complex (state dependencies) |
+| **Approach** | Track minimum | Track all states |
+
+**How Stock III generalizes Stock I:**
+```python
+# Stock I (1 transaction):
+min_price = min(min_price, price)
+max_profit = max(max_profit, price - min_price)
+
+# Stock III (2 transactions):
+buy1 = max(buy1, -price)           # Same as -min_price
+sell1 = max(sell1, buy1 + price)   # Same as max_profit
+buy2 = max(buy2, sell1 - price)    # Second transaction start
+sell2 = max(sell2, buy2 + price)   # Second transaction end
+
+# Stock I is just the first two lines of Stock III!
+```
+
+---
+
+## 📚 Four Core Patterns Explained
+
+### Pattern 1: Greedy with DP Mindset (Stock I)
+
+**Recognition:**
+- "Maximize/minimize with single pass"
+- Only need to track aggregate (min/max/sum)
+- No actual overlapping subproblems
 
 **Template:**
 ```python
-def solve(arr):
-    n = len(arr)
-    dp = [0] * (n + 1)
-    dp[0] = base_value
+def greedy_optimize(arr):
+    tracker = initial_value
+    result = initial_result
+
+    for val in arr:
+        tracker = update_tracker(tracker, val)
+        result = optimize(result, compute(tracker, val))
+
+    return result
+```
+
+**When to use:** Problem seems like DP but only needs running min/max/sum.
+
+---
+
+### Pattern 2: Linear DP (Kadane's Algorithm)
+
+**Recognition:**
+- "Maximum/minimum subarray/subsequence"
+- Decision: extend current or start new
+- dp[i] depends only on dp[i-1]
+
+**Template:**
+```python
+def kadane_pattern(arr):
+    # dp[i] = max value ending at i
+    max_ending_here = arr[0]
+    max_so_far = arr[0]
+
+    for i in range(1, len(arr)):
+        # Extend or restart
+        max_ending_here = max(arr[i], max_ending_here + arr[i])
+        # Update global max
+        max_so_far = max(max_so_far, max_ending_here)
+
+    return max_so_far
+```
+
+**Key insight:** "Ending at i" vs "up to i" - crucial distinction!
+
+**When to use:** Contiguous subarray problems with extend/restart decision.
+
+---
+
+### Pattern 3: Partition DP (Word Break)
+
+**Recognition:**
+- "Can we partition/segment sequence?"
+- "Does there exist a way to split?"
+- dp[i] depends on checking ALL dp[j] < i
+
+**Template:**
+```python
+def partition_dp(s, options):
+    n = len(s)
+    dp = [False] * (n + 1)
+    dp[0] = True  # Empty is valid
 
     for i in range(1, n + 1):
-        for j in range(i):  # Check all previous positions
-            dp[i] = max(dp[i], dp[j] + transition(j, i))
+        # Try all partition points
+        for j in range(i):
+            if dp[j] and s[j:i] in options:
+                dp[i] = True
+                break  # Early exit when found
 
     return dp[n]
 ```
 
-**Problems:** #018 (sort of), #075
+**Optimization:** Use max option length to limit inner loop.
+
+**When to use:** String/array segmentation, partition problems.
 
 ---
 
-### Pattern 2: State Machine DP (Discrete States)
+### Pattern 4: State Machine DP (Stock III)
 
-**When to Use:** "Transitions between states with constraints", "at most K transactions"
-
-**Key Insight:** Model problem as finite state machine. Each state has a value (max profit, min cost). Transitions update states based on current input.
-
-**Structure:**
-1. **Define states:** What states can we be in?
-2. **Initial values:** What's the initial value for each state?
-3. **Transitions:** How do we move between states?
-4. **Answer:** Final state value
+**Recognition:**
+- "At most K transactions/operations"
+- Explicit states with transitions
+- States depend on each other
 
 **Template:**
 ```python
-def solve(arr):
+def state_machine_dp(arr):
     # Define states
-    state1 = initial_value1
-    state2 = initial_value2
+    state1 = initial1
+    state2 = initial2
+    # ... more states
 
     for val in arr:
-        # Update states (order matters!)
-        new_state1 = max(state1, transition1(val))
-        new_state2 = max(state2, transition2(state1, val))
+        # Update in dependency order!
+        new_state1 = transition1(state1, val)
+        new_state2 = transition2(state1, state2, val)
+        # ... update remaining states
 
+        # Apply updates
         state1, state2 = new_state1, new_state2
 
     return final_state
 ```
 
-**Problems:** #099
+**Critical:** Update order matters! States must be updated in dependency order.
+
+**When to use:** Limited operations, state transitions, constraints like "cooldown" or "at most K".
 
 ---
 
-### Pattern 3: Backtracking / Exhaustive Search
+## 🎓 Learning Progression Path
 
-**When to Use:** "Generate all...", "find all subsets/permutations/combinations"
+### Stage 1: Foundation (Week 1)
+**Problem:** #018 Best Time to Buy/Sell Stock
 
-**Key Insight:** Not actually DP! Exhaustive search with O(2ⁿ) or O(n!) time. No overlapping subproblems.
+**Goal:** Understand greedy → DP connection
 
-**Template:**
-```python
-def generate_all(arr):
-    result = []
+**What to learn:**
+- How to track running minimum/maximum
+- Why greedy works (optimal substructure)
+- Difference between "true DP" and "DP thinking"
 
-    def backtrack(start, current):
-        result.append(current[:])  # Add current state
-
-        for i in range(start, len(arr)):
-            current.append(arr[i])       # Choose
-            backtrack(i + 1, current)    # Explore
-            current.pop()                # Unchoose
-
-    backtrack(0, [])
-    return result
-```
-
-**Problems:** #055
+**Practice:** Can solve in < 10 minutes
 
 ---
 
-## 🔍 Problem Deep Dive
+### Stage 2: Classic DP (Week 2)
+**Problem:** #087 Maximum Subarray
 
-### #018 Best Time to Buy and Sell Stock ⭐
+**Goal:** Master Kadane's algorithm and local/global optimization
 
-**Difficulty:** Easy | **Frequency:** 76.4%
+**What to learn:**
+- "Ending at i" vs "up to i" distinction
+- When to reset vs extend
+- Space optimization (array → variable)
 
-**Task:** Given stock prices array, find maximum profit from one buy-sell transaction.
+**Key drill:** Implement 3 versions:
+1. Brute force O(n²)
+2. DP with array O(n) space
+3. Optimized O(1) space
 
-**Input:** `prices = [7,1,5,3,6,4]`
-**Output:** `5`
-**Explanation:** Buy at 1, sell at 6 → profit = 5
-
-**What Makes This Special:**
-
-This is **not really DP** - it's a greedy algorithm! But it teaches DP thinking: "At each position, what's the best decision given past information?"
-
-**The Greedy Insight:**
-
-To maximize profit when selling at day i, we must have bought at the **minimum price before day i**.
-
-**Three Approaches:**
-
-1. **Brute Force:** O(n²) - try all pairs
-   ```python
-   max_profit = 0
-   for i in range(len(prices)):
-       for j in range(i+1, len(prices)):
-           profit = prices[j] - prices[i]
-           max_profit = max(max_profit, profit)
-   return max_profit
-   ```
-
-2. **Greedy (Optimal):** O(n) ⭐
-   ```python
-   min_price = float('inf')
-   max_profit = 0
-
-   for price in prices:
-       min_price = min(min_price, price)
-       profit = price - min_price
-       max_profit = max(max_profit, profit)
-
-   return max_profit
-   ```
-
-3. **DP Formulation (Same as Greedy):**
-   ```python
-   # dp[i] = max profit selling at or before day i
-   # But we don't need array - just track max_profit!
-   ```
-
-**Step-by-Step Example:**
-
-```
-prices = [7, 1, 5, 3, 6, 4]
-
-Day 0 (price=7):
-  min_price = 7
-  profit = 7 - 7 = 0
-  max_profit = 0
-
-Day 1 (price=1):
-  min_price = min(7, 1) = 1  ← New minimum!
-  profit = 1 - 1 = 0
-  max_profit = 0
-
-Day 2 (price=5):
-  min_price = 1
-  profit = 5 - 1 = 4  ← Profit if we sell today
-  max_profit = max(0, 4) = 4
-
-Day 3 (price=3):
-  min_price = 1
-  profit = 3 - 1 = 2
-  max_profit = max(4, 2) = 4  (no update)
-
-Day 4 (price=6):
-  min_price = 1
-  profit = 6 - 1 = 5  ← Best profit!
-  max_profit = max(4, 5) = 5
-
-Day 5 (price=4):
-  min_price = 1
-  profit = 4 - 1 = 3
-  max_profit = max(5, 3) = 5  (no update)
-
-Final: 5 ✓
-```
-
-**Visual Understanding:**
-
-```
-Prices: 7  1  5  3  6  4
-        │  └─ min (buy here)
-        │     │
-        └─────┼─────┘
-              │     └── max profit = 6-1 = 5
-              └──────── also good: 5-1 = 4
-```
-
-**Common Bugs:**
-
-❌ **Wrong:** Calculate profit before updating min_price
-```python
-profit = price - min_price  # Using old min_price
-min_price = min(min_price, price)  # Update after
-# Bug: if price is new minimum, profit is negative!
-```
-
-✅ **Correct:** Update min_price first, then calculate profit
-```python
-min_price = min(min_price, price)
-profit = price - min_price  # Now profit >= 0 always
-```
-
-**Key Insights:**
-1. **Greedy choice is optimal** - always buy at historical minimum
-2. **Single pass sufficient** - O(n) time, O(1) space
-3. **Foundation for Stock II, III, IV** - understanding this is crucial
-4. **Can't go negative** - profit is always >= 0 (option not to trade)
-
-**Complexity:**
-- **Time:** O(n) - single pass
-- **Space:** O(1) - two variables
+**Practice:** Can explain all 3 approaches in < 15 minutes
 
 ---
 
-### #075 Word Break ⭐
+### Stage 3: String DP (Week 3)
+**Problem:** #075 Word Break
 
-**Difficulty:** Medium | **Frequency:** 40.7%
+**Goal:** Understand partition DP and O(n²) necessity
 
-**Task:** Given string `s` and dictionary `wordDict`, can `s` be segmented into dictionary words?
+**What to learn:**
+- Why we need O(n²) (checking all split points)
+- Set vs list for O(1) lookups
+- Max word length optimization
+- Top-down vs bottom-up
 
-**Input:** `s = "leetcode", wordDict = ["leet", "code"]`
-**Output:** `true`
-**Explanation:** "leetcode" = "leet" + "code"
+**Key drill:** Implement both memoization and tabulation
 
-**What Makes This Special:**
-
-This is **textbook 1D DP**. Teaches the classic pattern: dp[i] represents "can we solve problem for s[0:i]?", and we check all ways to reach i from previous positions.
-
-**The DP Insight:**
-
-```
-To know if s[0:i] is valid:
-  Try all positions j < i
-  Check if s[0:j] is valid AND s[j:i] is in dictionary
-  If any j works, then dp[i] = true
-```
-
-**Two Approaches:**
-
-1. **Top-Down (Memoization):**
-   ```python
-   def wordBreak(s, wordDict):
-       word_set = set(wordDict)
-       memo = {}
-
-       def can_break(start):
-           if start == len(s):
-               return True
-           if start in memo:
-               return memo[start]
-
-           for end in range(start + 1, len(s) + 1):
-               if s[start:end] in word_set and can_break(end):
-                   memo[start] = True
-                   return True
-
-           memo[start] = False
-           return False
-
-       return can_break(0)
-   ```
-
-2. **Bottom-Up (Tabulation) ⭐ Preferred:**
-   ```python
-   def wordBreak(s, wordDict):
-       word_set = set(wordDict)
-       n = len(s)
-
-       # dp[i] = True if s[0:i] can be segmented
-       dp = [False] * (n + 1)
-       dp[0] = True  # Empty string is valid
-
-       for i in range(1, n + 1):
-           for j in range(i):
-               # s[0:j] valid? AND s[j:i] in dictionary?
-               if dp[j] and s[j:i] in word_set:
-                   dp[i] = True
-                   break  # Found one valid segmentation
-
-       return dp[n]
-   ```
-
-**Step-by-Step Example:**
-
-```
-s = "leetcode"
-wordDict = ["leet", "code"]
-
-Build dp array:
-dp[0] = True  (empty string)
-
-i=1: s[0:1] = "l"
-  j=0: dp[0]=True, "l" in dict? No
-  dp[1] = False
-
-i=2: s[0:2] = "le"
-  j=0: dp[0]=True, "le" in dict? No
-  j=1: dp[1]=False (skip)
-  dp[2] = False
-
-i=3: s[0:3] = "lee"
-  j=0: dp[0]=True, "lee" in dict? No
-  j=1: dp[1]=False (skip)
-  j=2: dp[2]=False (skip)
-  dp[3] = False
-
-i=4: s[0:4] = "leet"
-  j=0: dp[0]=True, "leet" in dict? YES! ✓
-  dp[4] = True
-
-i=5: s[0:5] = "leetc"
-  j=0: dp[0]=True, "leetc" in dict? No
-  j=4: dp[4]=True, "c" in dict? No
-  dp[5] = False
-
-i=6: s[0:6] = "leetco"
-  j=4: dp[4]=True, "co" in dict? No
-  dp[6] = False
-
-i=7: s[0:7] = "leetcod"
-  j=4: dp[4]=True, "cod" in dict? No
-  dp[7] = False
-
-i=8: s[0:8] = "leetcode"
-  j=4: dp[4]=True, "code" in dict? YES! ✓
-  dp[8] = True
-
-Final: dp[8] = True ✓
-```
-
-**Visual Understanding:**
-
-```
-s = "leetcode"
-     ┌───┐     ┌────┐
-     │leet│     │code│
-     └───┘     └────┘
-     0   4     4    8
-
-dp: [T, F, F, F, T, F, F, F, T]
-     0  1  2  3  4  5  6  7  8
-
-     ↑           ↑           ↑
-   empty       "leet"    "leetcode"
-```
-
-**Optimization - Use Max Word Length:**
-
-```python
-def wordBreak(s, wordDict):
-    word_set = set(wordDict)
-    max_len = max(len(w) for w in wordDict)  # Optimization
-    n = len(s)
-
-    dp = [False] * (n + 1)
-    dp[0] = True
-
-    for i in range(1, n + 1):
-        # Only check last max_len characters
-        for j in range(max(0, i - max_len), i):
-            if dp[j] and s[j:i] in word_set:
-                dp[i] = True
-                break
-
-    return dp[n]
-```
-
-**Why This Works:**
-
-If max word length is 10, no need to check j < i-10. This reduces inner loop from O(i) to O(max_len), making overall complexity O(n × max_len × m) instead of O(n² × m).
-
-**Common Bugs:**
-
-❌ **Wrong:** Forget to convert wordDict to set
-```python
-# Linear search O(k) for each check
-if s[j:i] in wordDict:  # List lookup is O(k)!
-```
-
-✅ **Correct:** Use set for O(1) lookup
-```python
-word_set = set(wordDict)  # O(1) average lookup
-if s[j:i] in word_set:
-```
-
-❌ **Wrong:** Off-by-one on dp array size
-```python
-dp = [False] * n  # Wrong! Need n+1 for dp[0]
-```
-
-✅ **Correct:** Size n+1 for positions 0 to n
-```python
-dp = [False] * (n + 1)  # dp[0] represents empty string
-```
-
-**Key Insights:**
-1. **dp[i] means s[0:i]** - represents prefix of length i
-2. **dp[0] = True** - empty string base case is crucial
-3. **Break early** - once dp[i] = True, no need to check more j
-4. **Set for dictionary** - O(1) lookup vs O(k) for list
-5. **Max word length optimization** - significant speedup in practice
-
-**Complexity:**
-- **Time:** O(n² × m) where m = average word length (substring operation)
-- **Optimized:** O(n × k × m) where k = max word length
-- **Space:** O(n) for dp array + O(total dict size) for set
+**Practice:** Can solve in < 20 minutes
 
 ---
 
-### #099 Best Time to Buy and Sell Stock III ⭐
+### Stage 4: Advanced State Machine (Week 4)
+**Problem:** #099 Best Time to Buy/Sell Stock III
 
-**Difficulty:** Hard | **Frequency:** 32.0%
+**Goal:** Master state machine DP with complex transitions
 
-**Task:** Find max profit with **at most 2 transactions**.
+**What to learn:**
+- How to identify states
+- State transition rules
+- Update order importance
+- Alternative: two-pass DP approach
 
-**Input:** `prices = [3,3,5,0,0,3,1,4]`
-**Output:** `6`
-**Explanation:** Buy at 0, sell at 3 (+3), buy at 1, sell at 4 (+3) → total 6
+**Key drill:**
+1. Draw state diagram first
+2. Implement state machine
+3. Implement two-pass alternative
+4. Compare approaches
 
-**What Makes This Special:**
+**Practice:** Can solve in < 30 minutes
 
-This is **state machine DP** at its finest. You're not just tracking "what's the max profit at position i" - you're tracking **which state you're in** and how to transition between states.
+---
 
-**The States:**
+## 🔄 Problem Relationships & Progression
 
 ```
-Initial (no transactions)
-    ↓ buy
-[Buy 1] ← After first purchase (negative profit)
-    ↓ sell
-[Sell 1] ← After first sale (positive profit)
-    ↓ buy
-[Buy 2] ← After second purchase (profit minus new cost)
-    ↓ sell
-[Sell 2] ← After second sale (final profit)
+Level 1: Greedy Foundation
+  └─ #018 Buy/Sell Stock I
+     ↓ [Add decision: reset or extend]
+Level 2: Linear DP
+  └─ #087 Maximum Subarray (Kadane's)
+     ↓ [Add: check all previous positions]
+Level 3: Partition DP
+  └─ #075 Word Break
+     ↓ [Add: multiple constrained operations]
+Level 4: State Machine
+  └─ #099 Buy/Sell Stock III
 ```
 
-**The State Machine:**
+**Skill Building:**
+- Stock I → Stock III: See how to generalize simple to complex
+- Max Subarray → Word Break: Understand when O(n²) is needed
+- Word Break → Stock III: Both need careful state management
 
+---
+
+## 🔍 Deep Comparison: All Four Side-by-Side
+
+### Example Input Walkthrough
+
+Let's trace how each algorithm processes similar-length arrays:
+
+#### Stock I: prices = [7, 1, 5, 3, 6, 4]
+
+```
+i=0: min=7, profit=0
+i=1: min=1, profit=0
+i=2: min=1, profit=4  ← price(5) - min(1)
+i=3: min=1, profit=4
+i=4: min=1, profit=5  ← price(6) - min(1) ✓
+i=5: min=1, profit=5
+
+Result: 5 (buy at 1, sell at 6)
+```
+
+---
+
+#### Maximum Subarray: nums = [-2, 1, -3, 4, -1, 2, 1]
+
+```
+i=0: max_end=-2, max_so_far=-2
+i=1: max_end=1 (restart!), max_so_far=1
+i=2: max_end=-2 (extend 1-3), max_so_far=1
+i=3: max_end=4 (restart!), max_so_far=4
+i=4: max_end=3 (extend 4-1), max_so_far=4
+i=5: max_end=5 (extend 3+2), max_so_far=5
+i=6: max_end=6 (extend 5+1), max_so_far=6 ✓
+
+Result: 6 (subarray [4,-1,2,1])
+```
+
+---
+
+#### Word Break: s = "leetcode", dict = ["leet", "code"]
+
+```
+dp[0] = True (empty)
+dp[1] = False ("l" not in dict)
+dp[2] = False ("le" not in dict)
+dp[3] = False ("lee" not in dict)
+dp[4] = True  ("leet" in dict, dp[0]=True) ✓
+dp[5] = False ("c" not in dict from position 4)
+dp[6] = False ("co" not in dict from position 4)
+dp[7] = False ("cod" not in dict from position 4)
+dp[8] = True  ("code" in dict, dp[4]=True) ✓
+
+Result: True (can segment as "leet" + "code")
+```
+
+---
+
+#### Stock III: prices = [3, 3, 5, 0, 0, 3, 1, 4]
+
+```
+Init: buy1=-∞, sell1=0, buy2=-∞, sell2=0
+
+i=0 (p=3): buy1=-3, sell1=0, buy2=-3, sell2=0
+i=1 (p=3): buy1=-3, sell1=0, buy2=-3, sell2=0
+i=2 (p=5): buy1=-3, sell1=2, buy2=-3, sell2=2
+i=3 (p=0): buy1=0, sell1=2, buy2=2, sell2=2  ← buy at 0!
+i=4 (p=0): buy1=0, sell1=2, buy2=2, sell2=2
+i=5 (p=3): buy1=0, sell1=3, buy2=2, sell2=5
+i=6 (p=1): buy1=0, sell1=3, buy2=2, sell2=5
+i=7 (p=4): buy1=0, sell1=4, buy2=2, sell2=6 ✓
+
+Result: 6 (two transactions: profit 3 + profit 3)
+```
+
+---
+
+### Complexity Breakdown
+
+| Problem | Time | Why | Space | Why |
+|---------|------|-----|-------|-----|
+| Stock I | O(n) | Single pass, O(1) per element | O(1) | Two variables |
+| Max Subarray | O(n) | Single pass, O(1) per element | O(1) | Two variables |
+| Word Break | O(n²×m) | Nested loops + substring check | O(n) | DP array |
+| Stock III | O(n) | Single pass, O(1) per element | O(1) | Four states |
+
+**Why Word Break is slower:**
+```
+Stock I/Max/Stock III: for i in range(n):    # O(n)
+                           O(1) work
+
+Word Break:            for i in range(n):    # O(n)
+                           for j in range(i): # O(n)
+                               O(m) work      # substring
+                       Total: O(n² × m)
+```
+
+---
+
+## ⚠️ Common Pitfalls & How to Avoid
+
+### Mistake 1: Confusing "ending at i" with "up to i"
+
+**Wrong (Max Subarray):**
 ```python
-buy1 = -inf   # Max profit after buying first stock
-sell1 = 0     # Max profit after selling first stock
-buy2 = -inf   # Max profit after buying second stock
-sell2 = 0     # Max profit after selling second stock
-
-For each price:
-    buy1 = max(buy1, -price)           # Buy first stock
-    sell1 = max(sell1, buy1 + price)   # Sell first stock
-    buy2 = max(buy2, sell1 - price)    # Buy second stock
-    sell2 = max(sell2, buy2 + price)   # Sell second stock
+# dp[i] = max sum in nums[0:i+1]  ← WRONG!
+dp[i] = max(dp[i-1], nums[i], nums[i] + dp[i-1])
 ```
 
-**Why This Works:**
-
-- `buy1 = max(buy1, -price)`: Either keep previous buy1, or buy today at cost -price
-- `sell1 = max(sell1, buy1 + price)`: Either keep previous sell1, or sell today (profit = buy1 + price)
-- `buy2 = max(buy2, sell1 - price)`: Buy second stock using profit from sell1
-- `sell2 = max(sell2, buy2 + price)`: Sell second stock for final profit
-
-**Step-by-Step Example:**
-
-```
-prices = [3, 3, 5, 0, 0, 3, 1, 4]
-
-Initial:
-  buy1 = -∞, sell1 = 0, buy2 = -∞, sell2 = 0
-
-Day 0 (price=3):
-  buy1 = max(-∞, -3) = -3      ← Buy at 3
-  sell1 = max(0, -3+3) = 0     ← Sell immediately (no profit)
-  buy2 = max(-∞, 0-3) = -3     ← Buy second at 3
-  sell2 = max(0, -3+3) = 0     ← Sell second immediately
-
-Day 1 (price=3):
-  buy1 = max(-3, -3) = -3      ← No change
-  sell1 = max(0, -3+3) = 0     ← No change
-  buy2 = max(-3, 0-3) = -3     ← No change
-  sell2 = max(0, -3+3) = 0     ← No change
-
-Day 2 (price=5):
-  buy1 = max(-3, -5) = -3      ← Keep previous buy
-  sell1 = max(0, -3+5) = 2     ← Sell for profit 2!
-  buy2 = max(-3, 2-5) = -3     ← Keep previous buy2
-  sell2 = max(0, -3+5) = 2     ← Could sell for 2
-
-Day 3 (price=0):
-  buy1 = max(-3, -0) = 0       ← Buy at 0! (profit 0)
-  sell1 = max(2, 0+0) = 2      ← Keep previous sell1
-  buy2 = max(-3, 2-0) = 2      ← Buy second at 0 (profit 2)!
-  sell2 = max(2, 2+0) = 2      ← Keep
-
-Day 4 (price=0):
-  buy1 = max(0, -0) = 0        ← No change
-  sell1 = max(2, 0+0) = 2      ← No change
-  buy2 = max(2, 2-0) = 2       ← No change
-  sell2 = max(2, 2+0) = 2      ← No change
-
-Day 5 (price=3):
-  buy1 = max(0, -3) = 0        ← Keep previous
-  sell1 = max(2, 0+3) = 3      ← Sell for profit 3!
-  buy2 = max(2, 3-3) = 2       ← Keep previous
-  sell2 = max(2, 2+3) = 5      ← Sell second for 5!
-
-Day 6 (price=1):
-  buy1 = max(0, -1) = 0        ← Keep
-  sell1 = max(3, 0+1) = 3      ← Keep
-  buy2 = max(2, 3-1) = 2       ← Buy at 1 with profit 2
-  sell2 = max(5, 2+1) = 5      ← Keep
-
-Day 7 (price=4):
-  buy1 = max(0, -4) = 0        ← Keep
-  sell1 = max(3, 0+4) = 4      ← Sell for 4!
-  buy2 = max(2, 4-4) = 2       ← Keep
-  sell2 = max(5, 2+4) = 6      ← Sell second for 6! ✓
-
-Final: sell2 = 6 ✓
-```
-
-**Visual Understanding:**
-
-```
-Prices:  3   3   5   0   0   3   1   4
-             └───┘       └───────────┘
-             Txn 1       Txn 2
-           Buy at 0   Buy at 0/1
-           Sell at 5  Sell at 4
-           Profit: ?  Total: 6
-
-Actually optimal:
-Prices:  3   3   5   0   0   3   1   4
-                 └───┘       └───────┘
-                 Buy at 0    Buy at 1
-                 Sell at 3   Sell at 4
-                 Profit: 3   Profit: 3
-```
-
-**Alternative: Two-Pass Approach**
-
+**Correct:**
 ```python
-def maxProfit(prices):
-    n = len(prices)
-
-    # Pass 1: Max profit with 1 transaction ending at or before i
-    left = [0] * n
-    min_price = prices[0]
-    for i in range(1, n):
-        min_price = min(min_price, prices[i])
-        left[i] = max(left[i-1], prices[i] - min_price)
-
-    # Pass 2: Max profit with 1 transaction starting at or after i
-    right = [0] * n
-    max_price = prices[-1]
-    for i in range(n-2, -1, -1):
-        max_price = max(max_price, prices[i])
-        right[i] = max(right[i+1], max_price - prices[i])
-
-    # Combine: partition at position i
-    max_profit = 0
-    for i in range(n):
-        max_profit = max(max_profit, left[i] + right[i])
-
-    return max_profit
+# dp[i] = max sum ENDING at i  ← CORRECT!
+dp[i] = max(nums[i], nums[i] + dp[i-1])
 ```
 
-**Why Two-Pass Works:**
+**Why it matters:** If dp[i] can skip nums[i], you lose the local/global optimization structure.
 
-- `left[i]` = max profit from one transaction in `prices[0:i+1]`
-- `right[i]` = max profit from one transaction in `prices[i:]`
-- At partition i: total profit = left[i] + right[i]
-- Try all partitions, take maximum
+---
 
-**Common Bugs:**
+### Mistake 2: Updating state machine in wrong order
 
-❌ **Wrong:** Update states in wrong order
+**Wrong (Stock III):**
 ```python
+# Updates sell1 before buy1 is updated!
+sell1 = max(sell1, buy1 + price)  # Uses OLD buy1
+buy1 = max(buy1, -price)          # Updates after
+```
+
+**Correct:**
+```python
+# Update in dependency order
 buy1 = max(buy1, -price)
-buy2 = max(buy2, sell1 - price)  # Using OLD sell1!
-sell1 = max(sell1, buy1 + price) # Should update before buy2
+sell1 = max(sell1, buy1 + price)  # Uses NEW buy1
+buy2 = max(buy2, sell1 - price)
+sell2 = max(sell2, buy2 + price)
 ```
 
-✅ **Correct:** Update in order: buy1 → sell1 → buy2 → sell2
-```python
-buy1 = max(buy1, -price)
-sell1 = max(sell1, buy1 + price)   # Use updated buy1
-buy2 = max(buy2, sell1 - price)    # Use updated sell1
-sell2 = max(sell2, buy2 + price)   # Use updated buy2
-```
-
-Or update simultaneously:
+**Alternative: Simultaneous update:**
 ```python
 new_buy1 = max(buy1, -price)
-new_sell1 = max(sell1, buy1 + price)
+new_sell1 = max(sell1, buy1 + price)  # Uses OLD buy1
 new_buy2 = max(buy2, sell1 - price)
 new_sell2 = max(sell2, buy2 + price)
 buy1, sell1, buy2, sell2 = new_buy1, new_sell1, new_buy2, new_sell2
 ```
 
-❌ **Wrong:** Initialize buy states to 0
+---
+
+### Mistake 3: Using list instead of set for Word Break
+
+**Wrong:**
 ```python
-buy1 = buy2 = 0  # Wrong! Can't have positive profit after buying
+if s[j:i] in wordDict:  # O(k) lookup if list!
 ```
 
-✅ **Correct:** Initialize to -∞ (or very negative)
+**Impact:** O(n² × m × k) instead of O(n² × m)
+
+**Correct:**
 ```python
-buy1 = buy2 = float('-inf')  # Buying costs money!
+word_set = set(wordDict)  # One-time conversion
+if s[j:i] in word_set:    # O(1) average lookup
 ```
-
-**Key Insights:**
-1. **State machine models transactions** - explicit states for each action
-2. **Order matters** - update states in dependency order
-3. **buy states are negative** - represent cost of holding stock
-4. **sell states are positive** - represent profit realized
-5. **Generalizes to k transactions** - just add more states!
-
-**Complexity:**
-- **State Machine:** Time O(n), Space O(1)
-- **Two-Pass:** Time O(n), Space O(n)
 
 ---
 
-### #055 Subsets
+### Mistake 4: Forgetting dp[0] base case
 
-**Difficulty:** Medium | **Frequency:** 47.0%
-
-**Task:** Generate all possible subsets of array (power set).
-
-**Input:** `nums = [1,2,3]`
-**Output:** `[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]`
-
-**What Makes This Special:**
-
-This is **NOT a DP problem** - it's combinatorics/backtracking! No overlapping subproblems, no optimal substructure. We must generate all 2ⁿ subsets explicitly.
-
-**Three Approaches:**
-
-1. **Backtracking (Most Intuitive):**
-   ```python
-   def subsets(nums):
-       result = []
-
-       def backtrack(start, current):
-           result.append(current[:])  # Add current subset
-
-           for i in range(start, len(nums)):
-               current.append(nums[i])       # Choose
-               backtrack(i + 1, current)     # Explore
-               current.pop()                 # Unchoose
-
-       backtrack(0, [])
-       return result
-   ```
-
-2. **Iterative (Clever):**
-   ```python
-   def subsets(nums):
-       result = [[]]  # Start with empty set
-
-       for num in nums:
-           # For each existing subset, create new subset with num
-           result += [curr + [num] for curr in result]
-
-       return result
-   ```
-
-3. **Bit Manipulation (Mathematical):**
-   ```python
-   def subsets(nums):
-       n = len(nums)
-       result = []
-
-       # 2^n possible subsets
-       for mask in range(1 << n):
-           subset = []
-           for i in range(n):
-               # Check if ith bit is set
-               if mask & (1 << i):
-                   subset.append(nums[i])
-           result.append(subset)
-
-       return result
-   ```
-
-**Step-by-Step (Iterative):**
-
-```
-nums = [1, 2, 3]
-
-Initial: result = [[]]
-
-Add 1:
-  For each existing subset, add version with 1:
-  [] → [1]
-  result = [[], [1]]
-
-Add 2:
-  [] → [2]
-  [1] → [1, 2]
-  result = [[], [1], [2], [1, 2]]
-
-Add 3:
-  [] → [3]
-  [1] → [1, 3]
-  [2] → [2, 3]
-  [1, 2] → [1, 2, 3]
-  result = [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
-
-Done! 2³ = 8 subsets ✓
-```
-
-**Bit Manipulation Explanation:**
-
-```
-nums = [1, 2, 3]
-
-Binary representation of 0 to 7:
-000 → include nothing      → []
-001 → include nums[0]      → [1]
-010 → include nums[1]      → [2]
-011 → include nums[0,1]    → [1,2]
-100 → include nums[2]      → [3]
-101 → include nums[0,2]    → [1,3]
-110 → include nums[1,2]    → [2,3]
-111 → include nums[0,1,2]  → [1,2,3]
-
-Each bit position corresponds to whether to include that element!
-```
-
-**Key Insights:**
-1. **Not DP** - exhaustive search required
-2. **2ⁿ subsets always** - cannot be optimized below this
-3. **Three equivalent approaches** - pick whichever is clearest
-4. **Backtracking pattern** - useful for permutations, combinations too
-
-**Complexity:**
-- **Time:** O(2ⁿ × n) - generate 2ⁿ subsets, each takes O(n) to copy
-- **Space:** O(2ⁿ × n) - output size dominates
-
----
-
-## 🔗 Algorithm Relationships
-
-| If You Can Solve... | Then You Can Solve... | By Adding... |
-|---------------------|----------------------|--------------|
-| #018 Stock I | #099 Stock III | State machine with 2 transactions |
-| #075 Word Break | Palindrome Partitioning | Similar DP structure |
-| #099 Stock III | Stock IV (k transactions) | Generalize to k states |
-| #055 Subsets | Permutations | Change backtracking to use visited array |
-
----
-
-## ⚠️ Universal Common Pitfalls
-
-### 1. Wrong DP Array Size
-
-❌ **Wrong:**
+**Wrong:**
 ```python
-dp = [0] * n  # Missing dp[0] for base case!
+dp = [False] * n  # Missing dp[0]!
 ```
 
-✅ **Correct:**
+**Correct:**
 ```python
-dp = [0] * (n + 1)  # dp[0] represents empty/base case
+dp = [False] * (n + 1)  # dp[0] = empty string
+dp[0] = True
 ```
 
-### 2. Forget Base Case
-
-❌ **Wrong:**
-```python
-dp = [False] * (n + 1)
-# Forgot dp[0] = True!
-```
-
-✅ **Correct:**
-```python
-dp = [False] * (n + 1)
-dp[0] = True  # Empty string/zero elements base case
-```
-
-### 3. Using List Instead of Set for Lookup
-
-❌ **Wrong:**
-```python
-if word in wordDict:  # O(k) lookup if list!
-```
-
-✅ **Correct:**
-```python
-word_set = set(wordDict)
-if word in word_set:  # O(1) average lookup
-```
-
-### 4. State Machine Update Order
-
-❌ **Wrong:**
-```python
-sell1 = max(sell1, buy1 + price)  # Uses new buy1!
-buy1 = max(buy1, -price)          # Updated after
-```
-
-✅ **Correct:**
-```python
-buy1 = max(buy1, -price)          # Update first
-sell1 = max(sell1, buy1 + price)  # Use updated buy1
-```
+**Why it matters:** dp[i] checks dp[j] for j < i, needs dp[0] for first word.
 
 ---
 
 ## ✅ Testing Strategy
 
-### Test Categories:
+### Test Matrix
 
-1. **Size Edge Cases:**
-   - Empty: `arr = []`
-   - Single element: `arr = [x]`
-   - Two elements: `arr = [x, y]`
+| Test Type | Stock I | Max Subarray | Word Break | Stock III |
+|-----------|---------|--------------|------------|-----------|
+| **Empty/Single** | [5] → 0 | [5] → 5 | "" → true | [5] → 0 |
+| **All negative** | N/A | [-1,-2,-3] → -1 | N/A | [5,4,3,2,1] → 0 |
+| **All positive** | [1,2,3,4,5] → 4 | [1,2,3] → 6 | "aaa", ["a"] → true | [1,2,3,4,5] → 4 |
+| **Descending** | [5,4,3,2,1] → 0 | [-1,-2,-3] → -1 | N/A | [5,4,3,2,1] → 0 |
+| **No solution** | N/A | N/A | "aaab", ["aa"] → false | N/A |
+| **Multiple solutions** | N/A | [1,-1,1,-1,1] | "aaa", ["a","aa"] | [1,2,3,4,5] |
 
-2. **Value Edge Cases:**
-   - All same: `arr = [5,5,5,5]`
-   - Monotonic increasing: `arr = [1,2,3,4]`
-   - Monotonic decreasing: `arr = [4,3,2,1]`
+### Edge Cases Checklist
 
-3. **DP-Specific:**
-   - Base case: Does dp[0] work correctly?
-   - No solution: e.g., prices only decrease
-   - Optimal solution requires all elements
+**All problems:**
+- [ ] Empty array/string
+- [ ] Single element
+- [ ] Two elements
+
+**Stock problems:**
+- [ ] Prices only increase
+- [ ] Prices only decrease
+- [ ] All same price
+
+**Max Subarray:**
+- [ ] All negative
+- [ ] All positive
+- [ ] Single negative
+
+**Word Break:**
+- [ ] Empty string (should be true)
+- [ ] String not in any word
+- [ ] Word can be reused
+- [ ] Multiple valid segmentations
 
 ---
 
 ## 💎 Mastery Insights
 
-### The DP Recipe:
+### The DP Decision Tree
 
-1. **Define subproblem**: What does dp[i] or dp[i][j] represent?
-2. **Find recurrence**: How does dp[i] relate to smaller subproblems?
-3. **Identify base cases**: What are the trivial cases?
-4. **Determine computation order**: Bottom-up or top-down?
-5. **Optimize space**: Can you reduce dimensions?
+```
+Can problem be solved in single pass?
+│
+├─ YES → Is decision at each step simple (min/max tracking)?
+│  │
+│  ├─ YES → Probably GREEDY (Stock I)
+│  │
+│  └─ NO → Does current decision depend on ALL previous?
+│     │
+│     ├─ NO → LINEAR DP (Max Subarray)
+│     │
+│     └─ YES → PARTITION DP (Word Break)
+│           or STATE MACHINE (Stock III)
+│
+└─ NO → Likely need 2D DP or different approach
+```
 
-### When is it DP?
+### When It's NOT DP
 
-✅ **Yes:**
-- "Maximum/minimum value"
-- "Number of ways"
-- "Is it possible"
-- Overlapping subproblems
-- Optimal substructure
+| Pattern | Actual Technique | Example |
+|---------|------------------|---------|
+| "Generate all" | Backtracking | Subsets, Permutations |
+| "Find shortest path" | BFS/Dijkstra | Grid shortest path |
+| "Is valid structure?" | Stack | Valid Parentheses |
+| Single pass tracking | Greedy | Stock I (technically) |
 
-❌ **No:**
-- "Generate all" (unless counting)
-- No overlapping subproblems
-- Greedy works
+### DP vs Greedy: The Definitive Guide
 
-### DP vs Greedy:
+**Greedy works when:**
+- Local optimal choice → global optimal
+- No need to reconsider past decisions
+- Example: Stock I (always buy at minimum)
 
-| DP | Greedy |
-|----|--------|
-| Considers all options at each step | Makes locally optimal choice |
-| O(n²) or higher typical | O(n) typical |
-| Word Break, Stock III | Stock I, Activity Selection |
+**DP needed when:**
+- Must consider multiple options at each step
+- Past decisions affect future choices
+- Example: Max Subarray (extend or restart?)
 
----
-
-## 📚 Study Order & Practice Progression
-
-### Week 1: Foundation
-1. **#018 Stock I** - Understand greedy → DP connection (< 10 min)
-2. Practice similar: Climbing Stairs, Min Cost Climbing Stairs
-
-### Week 2: Classic DP
-3. **#075 Word Break** - Master 1D DP pattern (< 20 min)
-4. Practice similar: Coin Change, House Robber
-
-### Week 3: Advanced
-5. **#099 Stock III** - State machine DP (< 30 min)
-6. Practice similar: Stock IV, Best Time to Buy/Sell with Cooldown
-
-### Week 4: Mastery
-7. **#055 Subsets** - Recognize non-DP patterns
-8. Practice: Combination Sum, Permutations
-
-### Mastery Criteria:
-- ✅ Can identify DP pattern in problem statement
-- ✅ Can derive recurrence relation from problem description
-- ✅ Can implement both top-down and bottom-up
-- ✅ Can optimize space complexity
-- ✅ Know when NOT to use DP
+**Test:** Can you make choice without knowing future? If yes, try greedy first!
 
 ---
 
-## 🎯 Interview Tips
+## 📈 Interview Communication Template
 
-### Communication Template:
+### For Linear DP (Kadane's):
+> "I'll use Kadane's algorithm. I'll maintain two values: max_ending_here (max sum ending at current position) and max_so_far (global maximum). At each element, I decide whether to extend the current subarray or start fresh. If current sum becomes negative, I reset since any positive future elements would be better off starting fresh."
 
-**For 1D DP:**
-> "I'll use dynamic programming. I'll define dp[i] as [meaning]. The base case is dp[0] = [value] because [reason]. The recurrence relation is dp[i] = [formula] because [reasoning]. The answer will be dp[n]."
+### For Partition DP (Word Break):
+> "I'll use dynamic programming with dp[i] representing whether s[0:i] can be segmented. The base case is dp[0] = true for empty string. For each position i, I check all positions j < i to see if s[0:j] is valid AND s[j:i] is in the dictionary. I'll convert the dictionary to a set for O(1) lookups."
 
-**For State Machine:**
-> "I'll model this as a state machine with states [list states]. Each state represents [meaning]. Transitions occur when [action], updating state values according to [rules]. The final answer is [final state]."
-
-### Common Follow-Ups:
-
-1. **"Can you optimize space?"**
-   - Check if dp[i] only depends on recent values
-   - If dp[i] depends only on dp[i-1], dp[i-2], use variables instead of array
-
-2. **"What if constraints change?"**
-   - Stock I → Stock II: Unlimited transactions
-   - Stock II → Stock III: Limit to 2 transactions
-   - Stock III → Stock IV: Generalize to k transactions
-
-3. **"Can you do it recursively?"**
-   - Show top-down with memoization
-   - Explain bottom-up avoids recursion overhead
-
-### Time Budgets (45-min interview):
-
-- Easy (#018): 10-15 min
-- Medium (#075): 15-25 min
-- Hard (#099): 25-35 min
+### For State Machine (Stock III):
+> "I'll model this as a state machine with four states: buy1, sell1, buy2, sell2. Each represents the maximum profit after that action. I'll update them in order for each price, where buy1 represents buying first stock, sell1 represents selling it, buy2 represents buying second stock with profit from first, and sell2 is the final profit."
 
 ---
 
-## 📈 Complexity Summary
+## 🎯 Quick Reference: Problem Selection Guide
 
-| Problem | Time | Space | Pattern |
-|---------|------|-------|---------|
-| #018 Stock I | O(n) | O(1) | Greedy (DP mindset) |
-| #075 Word Break | O(n² × m) | O(n) | 1D DP on strings |
-| #099 Stock III | O(n) | O(1) | State machine DP |
-| #055 Subsets | O(2ⁿ × n) | O(2ⁿ × n) | Backtracking (not DP) |
+**Need confidence builder?** → Start with Stock I (#018)
+- Easiest, teaches DP thinking
+- 10 minutes max
+
+**Want to learn classic DP?** → Do Max Subarray (#087)
+- Textbook Kadane's algorithm
+- Teaches local vs global optimization
+- 15 minutes
+
+**Ready for real DP?** → Tackle Word Break (#075)
+- True O(n²) DP
+- Teaches partition pattern
+- 25 minutes
+
+**Want advanced challenge?** → Attempt Stock III (#099)
+- State machine DP
+- Multiple states, complex transitions
+- 35 minutes
 
 ---
 
-## 🏆 From Good to Great
+## 🏆 Mastery Checklist
 
-### Good: Implement the DP solution
-### Great: Understand why DP works
+### Foundation Level (Can solve Stock I, Max Subarray)
+- [ ] Recognize when problem needs DP vs greedy
+- [ ] Understand space optimization (array → variables)
+- [ ] Can explain Kadane's algorithm intuitively
+- [ ] Know difference between "ending at i" and "up to i"
 
-**Master these insights:**
+### Intermediate Level (Can solve Word Break)
+- [ ] Can write recurrence relation from problem description
+- [ ] Understand when O(n²) is necessary
+- [ ] Can implement both top-down and bottom-up
+- [ ] Know common optimizations (max length, early break)
 
-1. **Optimal substructure**: Global optimum contains local optima
-2. **Overlapping subproblems**: Same problems solved repeatedly
-3. **Memoization = top-down**: Cache recursive results
-4. **Tabulation = bottom-up**: Build table iteratively
-5. **State machine**: Model problem as transitions between states
+### Advanced Level (Can solve Stock III)
+- [ ] Can identify states in state machine problems
+- [ ] Understand state transition dependencies
+- [ ] Can draw state diagram before coding
+- [ ] Know alternative approaches (two-pass DP)
 
-### DP Patterns Cheat Sheet:
+### Expert Level (Teaches others)
+- [ ] Can compare different DP patterns
+- [ ] Explains why certain approaches work/fail
+- [ ] Recognizes DP variants in new problems
+- [ ] Derives space optimizations independently
 
-| Pattern | Keywords | Example |
-|---------|----------|---------|
-| 1D Linear | "Maximum/minimum in sequence" | Stock I, Climbing Stairs |
-| 1D on Strings | "Can segment/match string" | Word Break, Palindrome |
-| 2D Grid | "Paths in grid" | Unique Paths, Min Path Sum |
-| State Machine | "Transitions with constraints" | Stock III, Best Time with Cooldown |
-| Interval DP | "Subproblems on contiguous intervals" | Burst Balloons, MCM |
+---
+
+## 📋 Complete Problem Reference
+
+| # | Problem | Difficulty | Frequency | Pattern | Time | Space | File |
+|---|---------|------------|-----------|---------|------|-------|------|
+| 018 | Buy/Sell Stock I | EASY | 76.4% | Greedy/DP Hybrid | O(n) | O(1) | [018_best_time_to_buy_and_sell_stock.md](./018_best_time_to_buy_and_sell_stock.md) |
+| 075 | Word Break | MEDIUM | 40.7% | Partition DP | O(n²) | O(n) | [075_word_break.md](./075_word_break.md) |
+| 087 | Maximum Subarray | MEDIUM | 32.0% | Kadane's (Linear DP) | O(n) | O(1) | [087_maximum_subarray.md](./087_maximum_subarray.md) |
+| 099 | Buy/Sell Stock III | HARD | 32.0% | State Machine DP | O(n) | O(1) | [099_best_time_to_buy_and_sell_stock_iii.md](./099_best_time_to_buy_and_sell_stock_iii.md) |
 
 ---
 
