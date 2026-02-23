@@ -1,17 +1,14 @@
 # Binary Search Mastery
 
-
-
-
 ## 📋 Problems in This Category
 
 - [010. Find Peak Element](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/010_find_peak_element.md) - `Search Peak`
 - [041. Kth Missing Positive Number](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/041_kth_missing_positive_number.md) - `Search Answer`
 - [042. Find First and Last Position](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/042_find_first_and_last_position_of_element_in_sorted_array.md) - `Dual Binary Search`
-- [074. Cutting Ribbons](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/074_cutting_ribbons.md) - `Search Answer`
-- [079. Capacity To Ship Packages](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/079_capacity_to_ship_packages_within_d_days.md) - `Search Capacity`
+- [074. Cutting Ribbons](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/074_cutting_ribbons.md) - `Search Answer (MAX)`
+- [079. Capacity To Ship Packages](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/079_capacity_to_ship_packages_within_d_days.md) - `Search Capacity (MIN)`
 - [084. Kth Smallest Element in Matrix](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/084_kth_smallest_element_in_a_sorted_matrix.md) - `Search Value Range`
-- [094. Koko Eating Bananas](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/094_koko_eating_bananas.md) - `Search Speed`
+- [094. Koko Eating Bananas](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/094_koko_eating_bananas.md) - `Search Speed (MIN)`
 - [100. Median of Two Sorted Arrays](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Binary-Search/100_median_of_two_sorted_arrays.md) - `Search Partition`
 
 ---
@@ -29,7 +26,405 @@ The fundamental insight of binary search is MONOTONICITY - if we can check a con
 and know which half of the search space to eliminate, we can solve in O(log n) time. This applies to:
 1. Sorted arrays (traditional)
 2. Unsorted arrays with monotonic properties
-3. Answer spaces where "if X works, all values > X work"
+3. Answer spaces where "if X works, all values > X work" (or vice versa)
+
+---
+
+## 🔍 Critical Insight: Minimize vs Maximize - Different Code Strategies!
+
+### The Problem Classification
+
+Binary search on answer space divides into TWO fundamentally different patterns:
+
+| Type | Goal | Monotonicity | Examples | Loop Condition | Mid Update |
+|------|------|--------------|----------|----------------|------------|
+| **MINIMIZE** | Find smallest value that satisfies condition | If X works, all Y > X work | Koko (#094), Ship Capacity (#079) | `while left < right` | `right = mid` |
+| **MAXIMIZE** | Find largest value that satisfies condition | If X works, all Y < X work | Cutting Ribbons (#074) | `while left <= right` | `left = mid + 1` |
+
+**Why this matters:** Using the wrong template causes infinite loops or wrong answers!
+
+---
+
+## 📊 Side-by-Side Comparison: Minimize vs Maximize
+
+### Template Comparison
+
+```python
+# ============================================
+# MINIMIZE TEMPLATE (Find SMALLEST valid value)
+# ============================================
+def binary_search_minimize(constraints):
+    """
+    Find minimum value where is_valid(value) = True
+
+    Monotonicity: If X works → all Y > X work
+    Example: Minimum speed to finish in time
+    """
+    def is_valid(candidate):
+        # Returns True if candidate satisfies constraints
+        pass
+
+    left = minimum_possible_value
+    right = maximum_possible_value
+
+    while left < right:  # NOTE: < not <=
+        mid = left + (right - left) // 2
+
+        if is_valid(mid):
+            # mid works, but search for smaller
+            right = mid  # KEEP mid as candidate
+        else:
+            # mid doesn't work, need larger
+            left = mid + 1
+
+    return left  # left == right at termination
+
+
+# ============================================
+# MAXIMIZE TEMPLATE (Find LARGEST valid value)
+# ============================================
+def binary_search_maximize(constraints):
+    """
+    Find maximum value where is_valid(value) = True
+
+    Monotonicity: If X works → all Y < X work
+    Example: Maximum length that yields k pieces
+    """
+    def is_valid(candidate):
+        # Returns True if candidate satisfies constraints
+        pass
+
+    left = minimum_possible_value
+    right = maximum_possible_value
+    result = 0  # Track best answer found
+
+    while left <= right:  # NOTE: <= not <
+        mid = left + (right - left) // 2
+
+        if is_valid(mid):
+            # mid works, save it and search for larger
+            result = mid  # SAVE current answer
+            left = mid + 1  # EXCLUDE mid
+        else:
+            # mid doesn't work, need smaller
+            right = mid - 1
+
+    return result
+```
+
+---
+
+### Key Differences Table
+
+| Aspect | MINIMIZE Template | MAXIMIZE Template |
+|--------|-------------------|-------------------|
+| **Loop Condition** | `while left < right` | `while left <= right` |
+| **Mid Calculation** | `(left + right) // 2` | `(left + right) // 2` |
+| **When Valid** | `right = mid` | `result = mid; left = mid + 1` |
+| **When Invalid** | `left = mid + 1` | `right = mid - 1` |
+| **Return Value** | `left` (or `right`, same value) | `result` |
+| **Needs Result Variable** | ❌ No | ✅ Yes |
+| **Mid Included in Search** | ✅ Yes (`right = mid`) | ❌ No (saved in result, then excluded) |
+
+---
+
+### Why These Differences?
+
+#### MINIMIZE: Keep Mid Inclusive (`right = mid`)
+
+```python
+# Example: Find minimum speed
+speeds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+#         ❌ ❌ ❌ ✅ ✅ ✅ ✅ ✅ ✅ ✅
+#                 ↑ Answer is 4 (first valid)
+
+# If mid = 6 works, answer could be 4, 5, or 6
+# Must keep mid=6 in search space → right = mid
+# If we used right = mid - 1, we might skip the answer!
+```
+
+**Infinite loop prevention:** Using `right = mid` requires `while left < right`
+- When `left + 1 == right`, mid = left, then `right = mid = left` → loop terminates
+- If we used `left <= right`, infinite loop when left == right == mid
+
+---
+
+#### MAXIMIZE: Exclude Mid (`left = mid + 1`)
+
+```python
+# Example: Find maximum length
+lengths = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+#          ✅ ✅ ✅ ✅ ✅ ✅ ❌ ❌ ❌ ❌
+#                         ↑ Answer is 6 (last valid)
+
+# If mid = 4 works, answer could be 4, 5, or 6
+# Save 4 as current best, then EXCLUDE it → left = mid + 1
+# Search [5, 6, ...] for potentially better answer
+```
+
+**Why save result separately?**
+- We exclude mid from search space (`left = mid + 1`)
+- But mid might be the final answer if nothing larger works
+- Must save it before moving on
+
+**Why use `left <= right`?**
+- We're excluding mid on both sides (`left = mid + 1`, `right = mid - 1`)
+- Need `<=` to check the final remaining element
+- With `<`, we'd miss the last element
+
+---
+
+## 🔬 Deep Dive: Problem-Specific Analysis
+
+### MINIMIZE Problems
+
+#### #094 Koko Eating Bananas - Minimize Speed
+
+**Question:** What's the **minimum** speed to finish in h hours?
+
+**Monotonicity:** If speed k works → all speeds > k work (faster = always ok)
+
+**Search Direction:** Find leftmost valid speed
+
+```python
+def minEatingSpeed(piles, h):
+    def can_finish(speed):
+        hours = sum((pile + speed - 1) // speed for pile in piles)
+        return hours <= h
+
+    left, right = 1, max(piles)
+
+    while left < right:  # Minimize template
+        mid = (left + right) // 2
+        if can_finish(mid):
+            right = mid  # Works, try slower
+        else:
+            left = mid + 1  # Too slow, need faster
+
+    return left
+
+# Trace: piles = [3,6,7,11], h = 8
+# Search space: [1, 11]
+# mid=6: can_finish(6)=True → right=6, search [1,6]
+# mid=3: can_finish(3)=False → left=4, search [4,6]
+# mid=5: can_finish(5)=True → right=5, search [4,5]
+# mid=4: can_finish(4)=True → right=4, search [4,4]
+# Return 4 ✓
+```
+
+---
+
+#### #079 Capacity To Ship Packages - Minimize Capacity
+
+**Question:** What's the **minimum** capacity to ship in days?
+
+**Monotonicity:** If capacity c works → all capacities > c work (larger = always ok)
+
+**Search Direction:** Find leftmost valid capacity
+
+```python
+def shipWithinDays(weights, days):
+    def can_ship(capacity):
+        days_needed, current_load = 1, 0
+        for w in weights:
+            if current_load + w > capacity:
+                days_needed += 1
+                current_load = w
+                if days_needed > days:
+                    return False
+            else:
+                current_load += w
+        return True
+
+    left, right = max(weights), sum(weights)
+
+    while left < right:  # Minimize template
+        mid = (left + right) // 2
+        if can_ship(mid):
+            right = mid  # Works, try smaller
+        else:
+            left = mid + 1  # Too small, need larger
+
+    return left
+```
+
+**Key Insight:** Both minimize problems use identical template structure!
+
+---
+
+### MAXIMIZE Problems
+
+#### #074 Cutting Ribbons - Maximize Length
+
+**Question:** What's the **maximum** length to get k pieces?
+
+**Monotonicity:** If length L works → all lengths < L work (shorter = easier to achieve k pieces)
+
+**Search Direction:** Find rightmost valid length
+
+```python
+def maxLength(ribbons, k):
+    def can_cut(length):
+        count = sum(r // length for r in ribbons)
+        return count >= k
+
+    left, right = 1, max(ribbons)
+    result = 0  # MUST track result!
+
+    while left <= right:  # Maximize template
+        mid = (left + right) // 2
+        if can_cut(mid):
+            result = mid  # Save answer
+            left = mid + 1  # Try longer
+        else:
+            right = mid - 1  # Too long, try shorter
+
+    return result
+
+# Trace: ribbons = [9,7,5], k = 3
+# Search space: [1, 9]
+# mid=5: can_cut(5)=True → result=5, left=6, search [6,9]
+# mid=7: can_cut(7)=True → result=7, left=8, search [8,9]
+# mid=8: can_cut(8)=False → right=7, search [8,7] (invalid)
+# Return result=7
+#
+# Wait, let me recalculate: [9,7,5] with length 5
+# 9//5=1, 7//5=1, 5//5=1 → count=3 ✓
+# With length 7: 9//7=1, 7//7=1, 5//7=0 → count=2 ✗
+# So answer should be 5, not 7
+```
+
+---
+
+## ⚠️ Common Mistakes When Mixing Templates
+
+### Mistake 1: Using MINIMIZE template for MAXIMIZE problem
+
+```python
+# WRONG: Using minimize template for cutting ribbons
+def maxLength(ribbons, k):
+    def can_cut(length):
+        return sum(r // length for r in ribbons) >= k
+
+    left, right = 1, max(ribbons)
+
+    while left < right:  # ← Minimize template
+        mid = (left + right) // 2
+        if can_cut(mid):
+            right = mid  # ← WRONG! Should try larger, not smaller
+        else:
+            left = mid + 1
+
+    return left  # Returns MINIMUM valid length, not maximum!
+```
+
+**Result:** Returns smallest valid length instead of largest. Correct answer: 5, Wrong answer: 1
+
+---
+
+### Mistake 2: Using MAXIMIZE template for MINIMIZE problem
+
+```python
+# WRONG: Using maximize template for Koko
+def minEatingSpeed(piles, h):
+    def can_finish(speed):
+        return sum((p + speed - 1) // speed for p in piles) <= h
+
+    left, right = 1, max(piles)
+    result = 0
+
+    while left <= right:  # ← Maximize template
+        mid = (left + right) // 2
+        if can_finish(mid):
+            result = mid
+            left = mid + 1  # ← WRONG! Should try smaller, not larger
+        else:
+            right = mid - 1
+
+    return result  # Returns MAXIMUM valid speed, not minimum!
+```
+
+**Result:** Returns max(piles) when we want minimum speed. Correct: 4, Wrong: 11
+
+---
+
+### Mistake 3: Forgetting result variable in MAXIMIZE
+
+```python
+# WRONG: No result variable for maximize
+def maxLength(ribbons, k):
+    def can_cut(length):
+        return sum(r // length for r in ribbons) >= k
+
+    left, right = 1, max(ribbons)
+
+    while left <= right:
+        mid = (left + right) // 2
+        if can_cut(mid):
+            left = mid + 1  # mid is excluded!
+        else:
+            right = mid - 1
+
+    return left  # ← WRONG! left points past last valid value
+```
+
+**Result:** Returns value that's too large. Must save result when found.
+
+---
+
+## 🎯 Decision Tree: Which Template?
+
+```
+Question asks for minimum/maximum value?
+│
+├─ MINIMIZE (smallest value where condition is true)
+│  │
+│  ├─ Keywords: "minimum capacity", "minimum speed", "minimum time"
+│  ├─ Monotonicity: if X works → all Y > X work
+│  ├─ Template:
+│  │   while left < right:
+│  │       if is_valid(mid): right = mid
+│  │       else: left = mid + 1
+│  └─ Examples: Koko (#094), Ship Capacity (#079)
+│
+└─ MAXIMIZE (largest value where condition is true)
+   │
+   ├─ Keywords: "maximum length", "maximum distance", "maximum value"
+   ├─ Monotonicity: if X works → all Y < X work
+   ├─ Template:
+   │   result = 0
+   │   while left <= right:
+   │       if is_valid(mid): result = mid; left = mid + 1
+   │       else: right = mid - 1
+   │   return result
+   └─ Examples: Cutting Ribbons (#074)
+```
+
+---
+
+## 📋 Problem Classification by Template Type
+
+### Minimize Template (Find Minimum)
+
+| # | Problem | What We Minimize | Bounds | Monotonicity |
+|---|---------|------------------|--------|--------------|
+| 094 | Koko Eating Bananas | Speed | [1, max(piles)] | If speed k works → k+1 works |
+| 079 | Ship Packages | Capacity | [max(w), sum(w)] | If cap c works → c+1 works |
+
+### Maximize Template (Find Maximum)
+
+| # | Problem | What We Maximize | Bounds | Monotonicity |
+|---|---------|------------------|--------|--------------|
+| 074 | Cutting Ribbons | Length | [1, max(ribbons)] | If length L works → L-1 works |
+
+### Other Templates (Not Min/Max)
+
+| # | Problem | Pattern | Template Used |
+|---|---------|---------|---------------|
+| 010 | Find Peak | Find ANY peak | Custom (compare neighbors) |
+| 042 | First/Last Position | Find boundaries | Boundary search |
+| 084 | Kth Smallest in Matrix | Find kth value | Value range search |
+| 100 | Median of Two Arrays | Partition arrays | Partition search |
 
 ---
 
@@ -186,64 +581,14 @@ Key signal: Not searching IN array, but for a VALUE that satisfies conditions.
 
 **Examples in This Set:** #079 Capacity To Ship Packages, #094 Koko Eating Bananas, #074 Cutting Ribbons
 
-**Code Template:**
-
-```python
-def binary_search_on_answer(problem_constraints):
-    """
-    Core pattern: Find minimum value that satisfies condition
-    OR: Find maximum value that satisfies condition
-    """
-    def is_valid(candidate_value):
-        """
-        Check if candidate_value satisfies problem constraints.
-        This is O(n) typically - must check all elements.
-        """
-        # Problem-specific validation logic
-        pass
-
-    # Define search space based on problem
-    left = minimum_possible_answer
-    right = maximum_possible_answer
-
-    while left < right:  # Use < for "minimize" problems
-        mid = left + (right - left) // 2
-
-        if is_valid(mid):
-            # mid works, try smaller (for minimize problems)
-            right = mid
-        else:
-            # mid doesn't work, need larger value
-            left = mid + 1
-
-    return left  # Final answer
-
-# For "maximize" problems, flip the logic:
-def binary_search_maximize(problem_constraints):
-    def is_valid(candidate_value):
-        pass
-
-    left, right = min_val, max_val
-
-    while left < right:
-        mid = left + (right - left + 1) // 2  # NOTE: +1 for maximize!
-
-        if is_valid(mid):
-            # mid works, try larger
-            left = mid  # Use left = mid for maximize
-        else:
-            # mid doesn't work, need smaller
-            right = mid - 1
-
-    return left
-```
+**Code Template:** See detailed minimize/maximize templates above in the "Critical Insight" section.
 
 **Common Bugs:**
 
 - ❌ Wrong search space bounds (must be [min_possible, max_possible])
 - ❌ Inefficient is_valid() function (should short-circuit)
-- ❌ Not using +1 in mid calculation for maximize (infinite loop)
-- ❌ Confusing minimize vs maximize templates
+- ❌ Using wrong template (minimize vs maximize)
+- ❌ Not using result variable for maximize problems
 - ❌ Forgetting that is_valid() must be MONOTONIC
 
 **💡 Key Insight:**
@@ -297,21 +642,21 @@ This is why we can binary search - the condition splits space in half!
 
 ### Level 4: Answer Space: Minimize Problems
 
-**Problems:** #094 Koko Eating Bananas
+**Problems:** #094 Koko Eating Bananas, #079 Ship Packages
 
-**Goal:** Mental shift from "search in array" to "search for value"
+**Goal:** Mental shift from "search in array" to "search for value". Master minimize template.
 
-**Practice:** Identify: What are we searching for? What is search space? What is is_valid()?
+**Practice:** Identify: What are we searching for? What is search space? What is is_valid()? Why does minimize template work here?
 
 ---
 
-### Level 5: Answer Space: Capacity Problems
+### Level 5: Answer Space: Maximize Problems
 
-**Problems:** #079 Capacity To Ship Packages, #074 Cutting Ribbons
+**Problems:** #074 Cutting Ribbons
 
-**Goal:** Apply pattern to capacity/resource allocation problems
+**Goal:** Understand maximize template and why it differs from minimize
 
-**Practice:** Before coding, write down: [min, max] bounds and is_valid() logic
+**Practice:** Compare minimize vs maximize templates side-by-side. Explain why result variable is needed. Test what happens if you use wrong template.
 
 ---
 
@@ -411,7 +756,6 @@ if mid < len(arr) - 1 and arr[mid] > arr[mid+1]
 
 ## ✅ Testing & Verification
 
-
 ## Unit Testing Strategy for Binary Search
 
 ### 1. Edge Cases (ALWAYS test these first)
@@ -438,6 +782,7 @@ if mid < len(arr) - 1 and arr[mid] > arr[mid+1]
 - Maximum possible answer
 - Answer in middle of range
 - Impossible case (if applicable)
+- Test both MIN and MAX problem types
 
 ### 5. Property Testing
 Write a test that:
@@ -478,7 +823,6 @@ def binary_search_with_invariants(arr, target):
         # ... rest of logic
 ```
 
-
 ---
 
 ## 💎 Mastery Insights
@@ -495,10 +839,9 @@ Binary search has TWO distinct use cases that require different thinking:
 2. SEARCH ON ANSWER: Find optimal value
    - Input: Problem constraints (array defines constraints, not search space)
    - Output: Optimal value (not an index!)
-   - Template: Binary search on answer
+   - Template: Binary search on answer (minimize or maximize)
 
-Many students confuse these. #042 is type 1. #079 and #094 are type 2.
-
+Many students confuse these. #042 is type 1. #079, #094, and #074 are type 2.
 
 ---
 
@@ -514,7 +857,6 @@ If this property doesn't hold, binary search fails!
 Example where it FAILS:
 Array: [3, 1, 4, 1, 5, 9, 2, 6]  ← Not monotonic!
 Cannot eliminate half based on arr[mid] comparison.
-
 
 ---
 
@@ -550,7 +892,6 @@ Boundary update: Can include mid (right = mid)
 
 Mixing these causes infinite loops! If using right = mid, MUST use left < right.
 
-
 ---
 
 ### Answer Space Problems: Identifying the Pattern
@@ -565,33 +906,34 @@ How to recognize "binary search on answer" problems:
 
 STEPS TO SOLVE:
 1. Identify what you're minimizing/maximizing (this is your "answer")
-2. Find bounds: [minimum_possible, maximum_possible]
-3. Write is_valid(candidate): checks if candidate satisfies constraints
-4. Verify monotonicity: if X works, does X+1 work? (or vice versa)
-5. Apply binary search template on [min, max]
+2. Determine if it's MINIMIZE or MAXIMIZE (this chooses your template!)
+3. Find bounds: [minimum_possible, maximum_possible]
+4. Write is_valid(candidate): checks if candidate satisfies constraints
+5. Verify monotonicity: if X works, does X+1 work? (or vice versa)
+6. Apply correct binary search template on [min, max]
 
 Example: "Minimum speed to eat all bananas in H hours"
 - Answer: speed (integer from 1 to max(piles))
+- Type: MINIMIZE (find smallest speed that works)
 - is_valid(speed): returns true if can finish with this speed
 - Monotonic: if speed K works, speed K+1 also works
 - Binary search for smallest K where is_valid(K) = true
-
+- Use MINIMIZE template (while left < right, right = mid)
 
 ---
 
 ## 📋 Complete Problem Reference
 
-| # | Problem | Difficulty | Frequency | File |
-|---|---------|------------|-----------|------|
-| 010 | Find Peak Element | MEDIUM | 82.9% | [010_find_peak_element.md](./010_find_peak_element.md) |
-| 041 | Kth Missing Positive Number | EASY | 59.4% | [041_kth_missing_positive_number.md](./041_kth_missing_positive_number.md) |
-| 042 | Find First and Last Position of Element in Sorted Array | MEDIUM | 59.4% | [042_find_first_and_last_position_of_element_in_sorted_array.md](./042_find_first_and_last_position_of_element_in_sorted_array.md) |
-| 074 | Cutting Ribbons | MEDIUM | 40.7% | [074_cutting_ribbons.md](./074_cutting_ribbons.md) |
-| 079 | Capacity To Ship Packages Within D Days | MEDIUM | 40.7% | [079_capacity_to_ship_packages_within_d_days.md](./079_capacity_to_ship_packages_within_d_days.md) |
-| 084 | Kth Smallest Element in a Sorted Matrix | MEDIUM | 40.7% | [084_kth_smallest_element_in_a_sorted_matrix.md](./084_kth_smallest_element_in_a_sorted_matrix.md) |
-| 094 | Koko Eating Bananas | MEDIUM | 32.0% | [094_koko_eating_bananas.md](./094_koko_eating_bananas.md) |
-| 100 | Median of Two Sorted Arrays | HARD | 32.0% | [100_median_of_two_sorted_arrays.md](./100_median_of_two_sorted_arrays.md) |
-
+| # | Problem | Difficulty | Frequency | Type | Template | File |
+|---|---------|------------|-----------|------|----------|------|
+| 010 | Find Peak Element | MEDIUM | 82.9% | Implicit Array | Custom | [010_find_peak_element.md](./010_find_peak_element.md) |
+| 041 | Kth Missing Positive Number | EASY | 59.4% | Answer Space | Custom | [041_kth_missing_positive_number.md](./041_kth_missing_positive_number.md) |
+| 042 | Find First and Last Position | MEDIUM | 59.4% | Boundary | Boundary Search | [042_find_first_and_last_position_of_element_in_sorted_array.md](./042_find_first_and_last_position_of_element_in_sorted_array.md) |
+| 074 | Cutting Ribbons | MEDIUM | 40.7% | Answer Space | **MAXIMIZE** | [074_cutting_ribbons.md](./074_cutting_ribbons.md) |
+| 079 | Capacity To Ship Packages | MEDIUM | 40.7% | Answer Space | **MINIMIZE** | [079_capacity_to_ship_packages_within_d_days.md](./079_capacity_to_ship_packages_within_d_days.md) |
+| 084 | Kth Smallest Element in Matrix | MEDIUM | 40.7% | Value Range | Custom | [084_kth_smallest_element_in_a_sorted_matrix.md](./084_kth_smallest_element_in_a_sorted_matrix.md) |
+| 094 | Koko Eating Bananas | MEDIUM | 32.0% | Answer Space | **MINIMIZE** | [094_koko_eating_bananas.md](./094_koko_eating_bananas.md) |
+| 100 | Median of Two Sorted Arrays | HARD | 32.0% | Partition | Partition Search | [100_median_of_two_sorted_arrays.md](./100_median_of_two_sorted_arrays.md) |
 
 ---
 
