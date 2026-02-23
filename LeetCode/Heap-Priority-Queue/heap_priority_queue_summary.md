@@ -62,6 +62,445 @@ Difficulty: ⭐ = Must Master | 🔥 = Interview Favorite
 
 ---
 
+## 🔥 Critical Insight: Python's Min Heap Limitation & Negation Strategy
+
+### The Python Heap Problem
+
+**Python's `heapq` only supports MIN heap** - there's no built-in max heap. This creates confusion for problems that conceptually need max heaps.
+
+**The Solution:** Negate values to simulate max heap behavior.
+
+```python
+# Min heap (natural)
+import heapq
+min_heap = []
+heapq.heappush(min_heap, 5)
+heapq.heappush(min_heap, 3)
+heapq.heappush(min_heap, 8)
+print(min_heap[0])  # 3 ← smallest value at root
+
+# Max heap (via negation)
+max_heap = []
+heapq.heappush(max_heap, -5)
+heapq.heappush(max_heap, -3)
+heapq.heappush(max_heap, -8)
+print(-max_heap[0])  # 8 ← largest value (negated)
+```
+
+---
+
+## 🎯 Decision Framework: When to Negate?
+
+### The Golden Rule
+
+**Ask yourself: "What do I want at the root of the heap?"**
+
+| Want at Root | Heap Type | Python Implementation |
+|--------------|-----------|----------------------|
+| **Smallest** value | Min heap | Use heapq **directly** (no negation) |
+| **Largest** value | Max heap | **Negate** values: `-num` |
+
+### Problem Pattern Analysis
+
+| Problem Type | What You Want | Heap Type | Negate? | Why |
+|--------------|---------------|-----------|---------|-----|
+| **K Largest** elements | Kth largest (boundary) | Min heap | ❌ NO | Root = smallest of top K = Kth largest |
+| **K Smallest** elements | Kth smallest (boundary) | Max heap | ✅ YES | Root = largest of bottom K = Kth smallest |
+| **Find Maximum** repeatedly | Maximum value | Max heap | ✅ YES | Root = largest overall |
+| **Find Minimum** repeatedly | Minimum value | Min heap | ❌ NO | Root = smallest overall |
+| **Median** (lower half) | Max of lower half | Max heap | ✅ YES | Root = boundary between halves |
+| **Median** (upper half) | Min of upper half | Min heap | ❌ NO | Root = boundary between halves |
+| **Merge K sorted** (ascending) | Minimum across K sources | Min heap | ❌ NO | Root = next smallest to add |
+
+---
+
+## 📊 Side-by-Side: When to Negate
+
+### Case 1: Kth Largest Element (NO Negation)
+
+**Problem:** Find Kth largest from [3,2,1,5,6,4], k=2
+
+**Intuition:** Want **2nd largest** → Need **boundary** between top 2 and rest
+
+**Solution:** Min heap of size k
+
+```python
+def findKthLargest(nums, k):
+    import heapq
+    heap = []
+
+    for num in nums:
+        heapq.heappush(heap, num)  # ← NO negation!
+        if len(heap) > k:
+            heapq.heappop(heap)  # Remove smallest
+
+    return heap[0]  # Min of top k = kth largest
+
+# Trace: nums = [3,2,1,5,6,4], k=2
+# After 3: heap = [3]
+# After 2: heap = [2,3]         ← size = k, stop growing
+# After 1: heap = [2,3] → [2,3] ← 1 < heap[0], not added
+# Actually: heap = [1,2,3] → pop 1 → [2,3]
+# After 5: heap = [2,3,5] → pop 2 → [3,5]
+# After 6: heap = [3,5,6] → pop 3 → [5,6]
+# After 4: heap = [4,5,6] → pop 4 → [5,6]
+# Result: heap[0] = 5 ✓
+```
+
+**Why no negation?**
+- Want min heap root = Kth largest
+- Min heap naturally keeps smallest at root
+- Root = "weakest survivor" of top K
+
+---
+
+### Case 2: Kth Smallest Element (YES Negation)
+
+**Problem:** Find Kth smallest from [3,2,1,5,6,4], k=2
+
+**Intuition:** Want **2nd smallest** → Need **boundary** between bottom 2 and rest
+
+**Solution:** Max heap of size k (negate!)
+
+```python
+def findKthSmallest(nums, k):
+    import heapq
+    heap = []
+
+    for num in nums:
+        heapq.heappush(heap, -num)  # ← Negate for max heap!
+        if len(heap) > k:
+            heapq.heappop(heap)  # Remove largest (most negative)
+
+    return -heap[0]  # ← Negate back!
+
+# Trace: nums = [3,2,1,5,6,4], k=2
+# After 3: heap = [-3]
+# After 2: heap = [-3,-2]       ← size = k
+# After 1: heap = [-3,-2,-1] → pop -3 → [-2,-1]
+# After 5: heap = [-2,-1] (5 > -(-2), don't add)
+# After 6: heap = [-2,-1] (6 > -(-2), don't add)
+# After 4: heap = [-2,-1] (4 > -(-2), don't add)
+# Result: -heap[0] = -(-2) = 2 ✓
+```
+
+**Why negate?**
+- Want max heap root = Kth smallest
+- Python only has min heap
+- Negating values inverts order: `min(-a, -b) = -max(a, b)`
+
+---
+
+### Case 3: Two Heaps for Median (BOTH!)
+
+**Problem:** Find median of streaming data
+
+**Intuition:**
+- Lower half: Want max (largest of lower half)
+- Upper half: Want min (smallest of upper half)
+
+**Solution:** Max heap (negate) + Min heap (no negate)
+
+```python
+class MedianFinder:
+    def __init__(self):
+        self.small = []  # Max heap (NEGATE) - lower half
+        self.large = []  # Min heap (NO NEGATE) - upper half
+
+    def addNum(self, num):
+        # Add to max heap (small) - NEGATE!
+        heapq.heappush(self.small, -num)
+
+        # Balance: ensure all small ≤ all large
+        if self.small and self.large and (-self.small[0] > self.large[0]):
+            val = -heapq.heappop(self.small)  # NEGATE back
+            heapq.heappush(self.large, val)
+
+        # Balance sizes
+        if len(self.small) > len(self.large) + 1:
+            val = -heapq.heappop(self.small)  # NEGATE back
+            heapq.heappush(self.large, val)
+        if len(self.large) > len(self.small):
+            val = heapq.heappop(self.large)
+            heapq.heappush(self.small, -val)  # NEGATE
+
+    def findMedian(self):
+        if len(self.small) > len(self.large):
+            return -self.small[0]  # NEGATE back
+        return (-self.small[0] + self.large[0]) / 2.0  # NEGATE small
+
+# Why this works:
+# small (max heap): [-3, -1]  → actual values: [3, 1] → max = 3
+# large (min heap): [5, 7]    → actual values: [5, 7] → min = 5
+# All in small (1,3) ≤ All in large (5,7) ✓
+# Median boundary: between 3 and 5
+```
+
+**Why both?**
+- `small` needs max heap (negate) → track largest of lower half
+- `large` needs min heap (direct) → track smallest of upper half
+- Roots are the two median candidates!
+
+---
+
+## 🔍 How to Identify if Negation is Needed
+
+### Step-by-Step Decision Process
+
+```
+1. Read problem requirements
+   ↓
+2. Identify what operation you need repeatedly
+   │
+   ├─ "Find/remove LARGEST repeatedly"
+   │  → Need MAX heap → NEGATE
+   │
+   ├─ "Find/remove SMALLEST repeatedly"
+   │  → Need MIN heap → NO NEGATION
+   │
+   ├─ "Find Kth LARGEST"
+   │  → Counter-intuitive: MIN heap of size K → NO NEGATION
+   │  → Because min heap root = Kth largest (boundary)
+   │
+   ├─ "Find Kth SMALLEST"
+   │  → Counter-intuitive: MAX heap of size K → NEGATE
+   │  → Because max heap root = Kth smallest (boundary)
+   │
+   └─ "Find MEDIAN"
+      → Need BOTH max (lower) and min (upper)
+      → NEGATE for lower, NO NEGATE for upper
+```
+
+### Quick Reference Table
+
+| Problem Keyword | Heap Configuration | Negation Needed? |
+|-----------------|-------------------|------------------|
+| "K largest" | Min heap size K | ❌ No |
+| "K smallest" | Max heap size K | ✅ Yes (negate) |
+| "Top K frequent" | Min heap size K (on frequencies) | ❌ No |
+| "Merge K sorted lists" (ascending) | Min heap | ❌ No |
+| "Merge K sorted lists" (descending) | Max heap | ✅ Yes |
+| "Find maximum repeatedly" | Max heap | ✅ Yes |
+| "Find minimum repeatedly" | Min heap | ❌ No |
+| "Median lower half" | Max heap | ✅ Yes |
+| "Median upper half" | Min heap | ❌ No |
+
+---
+
+## ⚠️ Common Negation Mistakes
+
+### Mistake 1: Negating for "K Largest"
+
+**❌ WRONG:**
+```python
+# "Find K largest" - WRONG approach!
+def findKLargest(nums, k):
+    max_heap = []
+    for num in nums:
+        heapq.heappush(max_heap, -num)  # ❌ Creating max heap!
+        if len(max_heap) > k:
+            heapq.heappop(max_heap)
+    # Returns K smallest, not K largest!
+    return [-x for x in max_heap]
+```
+
+**Why wrong?** Max heap of size K keeps **K smallest** elements, not K largest!
+
+**✅ CORRECT:**
+```python
+def findKLargest(nums, k):
+    min_heap = []
+    for num in nums:
+        heapq.heappush(min_heap, num)  # ✅ Min heap!
+        if len(min_heap) > k:
+            heapq.heappop(min_heap)
+    return list(min_heap)  # K largest elements
+```
+
+---
+
+### Mistake 2: Forgetting to Negate Back
+
+**❌ WRONG:**
+```python
+# Max heap for largest element
+max_heap = []
+heapq.heappush(max_heap, -5)
+heapq.heappush(max_heap, -3)
+heapq.heappush(max_heap, -8)
+largest = max_heap[0]  # ❌ Returns -8, not 8!
+```
+
+**✅ CORRECT:**
+```python
+# Max heap for largest element
+max_heap = []
+heapq.heappush(max_heap, -5)
+heapq.heappush(max_heap, -3)
+heapq.heappush(max_heap, -8)
+largest = -max_heap[0]  # ✅ Negate back! Returns 8
+```
+
+**Rule:** If you negate on push, you MUST negate on access/pop!
+
+---
+
+### Mistake 3: Inconsistent Negation in Two Heaps
+
+**❌ WRONG:**
+```python
+class MedianFinder:
+    def __init__(self):
+        self.small = []  # Should be max heap
+        self.large = []  # Should be min heap
+
+    def addNum(self, num):
+        heapq.heappush(self.small, num)  # ❌ Forgot to negate!
+        # ... rest of logic
+
+    def findMedian(self):
+        return (self.small[0] + self.large[0]) / 2  # ❌ Wrong!
+```
+
+**✅ CORRECT:**
+```python
+class MedianFinder:
+    def __init__(self):
+        self.small = []  # Max heap (negate)
+        self.large = []  # Min heap (no negate)
+
+    def addNum(self, num):
+        heapq.heappush(self.small, -num)  # ✅ Negate!
+        # ... rest of logic
+
+    def findMedian(self):
+        return (-self.small[0] + self.large[0]) / 2  # ✅ Negate small!
+```
+
+---
+
+### Mistake 4: Negating When Not Needed
+
+**❌ WRONG:**
+```python
+# Merge K sorted lists (ascending order)
+def mergeKLists(lists):
+    heap = []
+    for i, lst in enumerate(lists):
+        if lst:
+            heapq.heappush(heap, (-lst[0], i, 0))  # ❌ Why negate?
+    # Want MINIMUM across K lists → Use min heap directly!
+```
+
+**✅ CORRECT:**
+```python
+def mergeKLists(lists):
+    heap = []
+    for i, lst in enumerate(lists):
+        if lst:
+            heapq.heappush(heap, (lst[0], i, 0))  # ✅ No negation!
+    # Min heap naturally gives smallest value
+```
+
+---
+
+## 💡 Mental Model: The "Root Purpose" Test
+
+**Before writing any heap code, ask:**
+
+> "What do I need to ACCESS at the heap root?"
+
+- **Need SMALLEST?** → Min heap → **No negation**
+- **Need LARGEST?** → Max heap → **Negate**
+
+**Then ask:**
+
+> "Do I need all top K, or just the Kth?"
+
+- **Just Kth largest** → Min heap of size K (root = Kth largest) → **No negation**
+- **Just Kth smallest** → Max heap of size K (root = Kth smallest) → **Negate**
+
+**Examples:**
+
+```python
+# Example 1: Keep removing largest element
+# Root purpose: Access LARGEST → Max heap → NEGATE
+max_heap = []
+heapq.heappush(max_heap, -num)
+largest = -heapq.heappop(max_heap)  # ✅
+
+# Example 2: Keep removing smallest element
+# Root purpose: Access SMALLEST → Min heap → NO NEGATE
+min_heap = []
+heapq.heappush(min_heap, num)
+smallest = heapq.heappop(min_heap)  # ✅
+
+# Example 3: Find 3rd largest
+# Root purpose: Access boundary (3rd largest) → Min heap size 3 → NO NEGATE
+heap = []
+for num in nums:
+    heapq.heappush(heap, num)
+    if len(heap) > 3:
+        heapq.heappop(heap)
+third_largest = heap[0]  # ✅
+
+# Example 4: Find 3rd smallest
+# Root purpose: Access boundary (3rd smallest) → Max heap size 3 → NEGATE
+heap = []
+for num in nums:
+    heapq.heappush(heap, -num)
+    if len(heap) > 3:
+        heapq.heappop(heap)
+third_smallest = -heap[0]  # ✅
+```
+
+---
+
+## 📋 Problem-Specific Negation Map
+
+| # | Problem | Heap Type | Negate? | Why |
+|---|---------|-----------|---------|-----|
+| 006 | Kth Largest Element | Min heap (size K) | ❌ No | Root = Kth largest (boundary) |
+| 015 | Top K Frequent | Min heap (size K on freq) | ❌ No | Root = Kth most frequent (boundary) |
+| 019 | Merge K Sorted Lists | Min heap (K sources) | ❌ No | Root = next minimum to merge |
+| 082 | Find Median | Max (lower) + Min (upper) | ✅ Yes (lower only) | Lower half needs max heap |
+| 034 | Sliding Window Median | Max (lower) + Min (upper) | ✅ Yes (lower only) | Same as #082 |
+
+**Pattern observed:**
+- **Single heap problems:** Usually **no negation** (min heap is enough)
+- **Two heap problems:** Lower half **needs negation** (max heap)
+- **Top-K problems:** Counter-intuitive! Use **opposite** heap type
+
+---
+
+## 🧪 Testing Your Understanding
+
+### Quiz: Do You Need Negation?
+
+For each problem, decide: Negate or not?
+
+1. **Find the maximum element from a stream**
+   - Need: Max at root
+   - Answer: **Negate** (max heap)
+
+2. **Find 5th largest element**
+   - Need: Min heap size 5, root = 5th largest
+   - Answer: **No negation** (min heap)
+
+3. **Find 10th smallest element**
+   - Need: Max heap size 10, root = 10th smallest
+   - Answer: **Negate** (max heap)
+
+4. **Merge K sorted arrays (ascending)**
+   - Need: Min across K arrays at root
+   - Answer: **No negation** (min heap)
+
+5. **Track median (lower half)**
+   - Need: Max of lower half at root
+   - Answer: **Negate** (max heap)
+
+---
+
 ## 🧬 Four Core Patterns
 
 ### Pattern 1: Top-K Elements (Maintain K Best)
