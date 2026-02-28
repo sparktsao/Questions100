@@ -68,95 +68,158 @@ Return the maximum number of elements that can be removed from `queries`, such t
 
 ### Key Insight
 
-The key insight is we don't need to track which specific queries we use - we only need to know the **maximum number of queries needed simultaneously** at any position. This maximum represents the minimum queries we must use. Therefore, maximum removals = total queries - maximum simultaneously needed.
+At each position, we need exactly `nums[position]` queries actively covering it. We greedily **commit** queries only when forced, always picking the one with the furthest end — it stays useful for future positions longest. The total committed queries is the minimum we must keep, so:
 
-### Algorithm Logic
+```
+max removals = len(queries) - total_selected
+```
 
-For each position `idx` in `nums`:
-1. **Add queries to active pool**: Include all queries starting at or before `idx`
-2. **Remove expired queries**: Remove queries that end before `idx`
-3. **Check if coverage is possible**: If active queries < `nums[idx]`, impossible → return -1
-4. **Track maximum usage**: Record the maximum number of queries needed at any single position
-5. **Return result**: `len(queries) - max_used`
+### Two Heaps
+
+| Heap | Type | Stores | Meaning |
+|------|------|--------|---------|
+| `available` | max-heap (negated) | query end positions | Candidates not yet committed |
+| `active` | min-heap | query end positions | Committed queries still covering current position |
+
+### Algorithm
+
+For each `position` in `nums`:
+1. **Enqueue** all queries whose `start == position` into `available`
+2. **Expire** committed queries from `active` whose `end < position`
+3. **Commit** greedily from `available` until `len(active) == nums[position]`
+   - If `available` is empty before coverage is met → return `-1`
+   - Skip any available query already expired (`end < position`)
+4. After all positions: return `len(queries) - total_selected`
+
+### Why Greedy (Pick Furthest End) is Correct
+
+When forced to commit a new query at position `p`, picking the one with the largest `r` is optimal because:
+- All candidates in `available` share `l <= p`, so they all cover the current position equally
+- A larger `r` means the query remains in `active` longer, reducing how many new commits future positions need
+- Picking a shorter `r` wastes a slot — it expires sooner and forces an extra commit later
 
 ### Implementation
 
 ```python
 import heapq
+from typing import List
 
-def maxRemoval(nums, queries):
-    """
-    Cleaner approach: track maximum simultaneous query usage.
+class Solution:
+    def maxRemoval(self, nums: List[int], queries: List[List[int]]) -> int:
 
-    Time: O(n log q + q log q), Space: O(q)
-    """
-    n = len(nums)
-    queries.sort()  # Sort by start position
+        # Sort queries by start index
+        queries.sort()
 
-    active = []  # Max heap of query end positions (store negative for max heap)
-    used = 0     # Maximum queries used simultaneously
-    i = 0        # Query index
+        n = len(nums)
 
-    for idx in range(n):
-        # Step 1: Add all queries starting at or before idx
-        while i < len(queries) and queries[i][0] <= idx:
-            heapq.heappush(active, -queries[i][1])  # Negative for max heap
-            i += 1
+        # available: max-heap (store -end)
+        # Meaning: queries we CAN choose but haven't chosen yet
+        available = []
 
-        # Step 2: Remove expired queries (those ending before idx)
-        while active and -active[0] < idx:
-            heapq.heappop(active)
+        # active: min-heap (store end)
+        # Meaning: queries we HAVE chosen and still cover current position
+        active = []
 
-        # Step 3: Check if we have enough active queries
-        if len(active) < nums[idx]:
-            return -1  # Not enough queries to cover position idx
+        total_selected = 0  # total number of queries we permanently select
+        q_index = 0         # pointer for queries
 
-        # Step 4: Track maximum simultaneous usage
-        used = max(used, nums[idx])
+        for position in range(n):
 
-    # Step 5: Maximum removals = total - minimum we must use
-    return len(queries) - used
+            # --------------------------------------------------
+            # 1. Add newly available queries into candidate pool
+            # --------------------------------------------------
+            while q_index < len(queries) and queries[q_index][0] == position:
+                end = queries[q_index][1]
+                heapq.heappush(available, -end)  # max-heap via negation
+                q_index += 1
+
+            # --------------------------------------------------
+            # 2. Remove expired active queries
+            # These queries were selected before,
+            # but no longer cover this position.
+            # NOTE: removing from active does NOT unselect them —
+            # they are still counted in total_selected.
+            # --------------------------------------------------
+            while active and active[0] < position:
+                heapq.heappop(active)
+
+            # --------------------------------------------------
+            # 3. Ensure coverage is enough
+            # If current coverage < nums[position],
+            # we are FORCED to commit more queries.
+            # --------------------------------------------------
+            while len(active) < nums[position]:
+
+                # No available query left to save us
+                if not available:
+                    return -1
+
+                # Greedy: pick the query that ends furthest —
+                # it helps future positions most
+                furthest_end = -heapq.heappop(available)
+
+                # If it already expired, skip it
+                if furthest_end < position:
+                    continue
+
+                # Commit this query permanently
+                heapq.heappush(active, furthest_end)
+                total_selected += 1  # never decreased
+
+        # Maximum removable = total queries - minimum selected
+        return len(queries) - total_selected
 ```
 
 ### Complexity Analysis
 
 **Time: O(n log q + q log q)**
 - Sorting queries: O(q log q)
-- Processing each position: O(n)
-- Heap operations: Each query pushed/popped at most once: O(q log q)
-- Total: O(n log q + q log q)
+- Each query pushed/popped from `available` at most once: O(q log q)
+- Each query pushed/popped from `active` at most once: O(q log q)
 
-**Space: O(q)** - Max heap of queries
+**Space: O(q)** — both heaps hold at most all queries
 
-### Why This Approach Works
+### Walkthrough
 
-**Greedy Insight:** At each position, we only care about having enough queries available, not which specific queries we use.
+```
+nums = [1, 1, 1], queries = [[0,0], [1,1], [2,2]]
 
-**Key Observations:**
-1. If at any position we don't have enough active queries → impossible
-2. The position requiring the most simultaneous queries determines minimum usage
-3. Maximum removals = Total queries - Minimum required usage
+position=0: available=[0], active=[]
+  need 1, commit end=0 → active=[0], total_selected=1
 
-**Example Walkthrough:**
+position=1: available=[1], active=[] (0 expired)
+  need 1, commit end=1 → active=[1], total_selected=2
+
+position=2: available=[2], active=[] (1 expired)
+  need 1, commit end=2 → active=[2], total_selected=3
+
+Result: 3 - 3 = 0  ✓ (each query covers exactly one unique index)
+```
+
 ```
 nums = [2, 0, 2], queries = [[0,2], [0,2], [1,1]]
+Sorted: [[0,2], [0,2], [1,1]]
 
-idx=0: active=[[0,2], [0,2]], need=2, used=max(0,2)=2
-idx=1: active=[[0,2], [0,2], [1,1]], need=0, used=max(2,0)=2
-idx=2: active=[[0,2], [0,2]], need=2, used=max(2,2)=2
+position=0: available=[-2,-2], active=[]
+  need 2, commit end=2 → active=[2], total_selected=1
+         commit end=2 → active=[2,2], total_selected=2
 
-Result: 3 - 2 = 1 (can remove 1 query)
+position=1: available=[-1], active=[2,2]
+  need 0, no commits needed
+
+position=2: available=[-1], active=[2,2]  ([1] expired from available but never committed)
+  need 2, len(active)=2 already ✓
+
+Result: 3 - 2 = 1  ✓
 ```
 
 ---
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Greedy, Sorting, Heap (Priority Queue), Prefix Sum
+**Primary Topics:** Array, Greedy, Sorting, Heap (Priority Queue)
 
 **Difficulty Level:** MEDIUM
-
----
 
 ---
 

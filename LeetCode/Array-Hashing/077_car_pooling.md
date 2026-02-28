@@ -86,24 +86,36 @@ def carPooling(trips: List[List[int]], capacity: int) -> bool:
 
     Time: O(n log n), Space: O(n)
     """
-    events = []
+    changes = []
 
-    # Create events for each pickup and dropoff
-    for num_passengers, start, end in trips:
-        events.append((start, num_passengers))    # Pickup
-        events.append((end, -num_passengers))     # Dropoff
+    for p, t1, t2 in trips:
+        changes.append((t1, p))    # pickup:  positive
+        changes.append((t2, -p))   # dropoff: negative
 
-    # Sort by location (pickups before dropoffs at same location)
-    events.sort()
+    # Sort by location first, then by change value.
+    # At the same location, negative (dropoff) sorts before positive (pickup) —
+    # passengers exit before new ones board, preventing false overflow.
+    changes.sort(key=lambda x: (x[0], x[1]))
 
     current_passengers = 0
-    for location, change in events:
-        current_passengers += change
+    for t, p in changes:
+        current_passengers += p
         if current_passengers > capacity:
             return False
 
     return True
 ```
+
+**Why the secondary sort key (`x[1]`) matters:**
+
+Consider `trips = [[3,5,7],[2,5,9]], capacity = 3` with a dropoff and pickup both at location 5:
+
+| Sort order at loc 5 | Sequence | Peak seen |
+|---|---|---|
+| Dropoff first `(5,-3)` then pickup `(5,+2)` | 3 → 0 → 2 | 3 ✓ (within capacity) |
+| Pickup first `(5,+2)` then dropoff `(5,-3)` | 3 → 5 → 2 | 5 ✗ (false overflow) |
+
+Without the secondary key, Python's default tuple sort on `(loc, change)` already puts negatives first — but making it explicit avoids subtle bugs if the tuple structure ever changes.
 
 ### Complexity Analysis
 
