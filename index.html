@@ -589,7 +589,6 @@
             <div class="modal-label">Your next challenge</div>
             <div class="modal-num" id="modalNum"></div>
             <div class="modal-title" id="modalTitle"></div>
-            <div class="modal-meta" id="modalMeta"></div>
             <div class="modal-actions">
                 <a id="modalGoBtn" href="#" class="modal-go-btn" target="_blank">
                     <i class="fas fa-external-link-alt"></i> Go to LeetCode
@@ -803,11 +802,6 @@
 
             document.getElementById('modalNum').textContent = `#${problem.num}`;
             document.getElementById('modalTitle').textContent = problem.title;
-            document.getElementById('modalMeta').innerHTML = `
-                ${difficultyBadge(problem.difficulty)}
-                <span class="tag">${problem.tag}</span>
-                <span class="frequency">${problem.frequency.toFixed(1)}%</span>
-            `;
             document.getElementById('modalGoBtn').href = toLeetCodeUrl(problem.title);
         }
 
