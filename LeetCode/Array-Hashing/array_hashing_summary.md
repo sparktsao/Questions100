@@ -15,7 +15,7 @@
 - [069. Zero Array Transformation](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Array-Hashing/069_zero_array_transformation_iii.md) - `Heap+Greedy`
 - [071. Managers with 5+ Reports](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Array-Hashing/071_managers_with_at_least_5_direct_reports.md) - `SQL Aggregate`
 - [077. Car Pooling](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Array-Hashing/077_car_pooling.md) - `Difference Array`
-- [087. Maximum Subarray](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Array-Hashing/087_maximum_subarray.md) - `Kadane DP`
+- [087. Maximum Subarray](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Dynamic-Programming/087_maximum_subarray.md) - `Kadane DP`
 - [089. Range Sum Query](https://github.com/sparktsao/Questions100/blob/main/LeetCode/Array-Hashing/089_range_sum_query_immutable.md) - `Prefix Sum`
 
 ---
