@@ -386,6 +386,153 @@
         .hidden {
             display: none !important;
         }
+
+        /* Random Button */
+        .random-btn {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #8e44ad 0%, #3498db 100%);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .random-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(142, 68, 173, 0.4);
+        }
+
+        /* Random Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .random-modal {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            animation: popIn 0.2s ease;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.85); opacity: 0; }
+            to   { transform: scale(1);    opacity: 1; }
+        }
+
+        .modal-label {
+            font-size: 0.8em;
+            font-weight: 700;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .modal-num {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: #e74c3c;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .modal-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .modal-meta {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .modal-go-btn {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #e74c3c 0%, #f39c12 100%);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .modal-go-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+        }
+
+        .modal-again-btn {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #8e44ad 0%, #3498db 100%);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .modal-again-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(142, 68, 173, 0.4);
+        }
+
+        .modal-close-btn {
+            padding: 10px 20px;
+            background: #f0f0f0;
+            color: #666;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-close-btn:hover {
+            background: #e0e0e0;
+        }
     </style>
 </head>
 <body>
@@ -402,6 +549,9 @@
                 <button class="toggle-btn" onclick="setView('medium', this)">Medium</button>
                 <button class="toggle-btn" onclick="setView('hard', this)">Hard</button>
             </div>
+            <button class="random-btn" onclick="openRandomModal()">
+                <i class="fas fa-dice"></i> Random
+            </button>
             <a href="graph.html" class="graph-btn">
                 <i class="fas fa-project-diagram"></i> 3D Graph
             </a>
@@ -430,6 +580,25 @@
         <div class="stat">
             <span class="stat-number" id="visibleCount">100</span>
             <span>Showing</span>
+        </div>
+    </div>
+
+    <!-- Random Problem Modal -->
+    <div class="modal-overlay" id="randomModal" onclick="handleModalClick(event)">
+        <div class="random-modal">
+            <div class="modal-label">Your next challenge</div>
+            <div class="modal-num" id="modalNum"></div>
+            <div class="modal-title" id="modalTitle"></div>
+            <div class="modal-meta" id="modalMeta"></div>
+            <div class="modal-actions">
+                <a id="modalGoBtn" href="#" class="modal-go-btn" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Go to LeetCode
+                </a>
+                <button class="modal-again-btn" onclick="pickRandom()">
+                    <i class="fas fa-dice"></i> Again
+                </button>
+                <button class="modal-close-btn" onclick="closeRandomModal()">Close</button>
+            </div>
         </div>
     </div>
 
@@ -606,6 +775,62 @@
             const visible = document.querySelectorAll('.problem-card:not(.hidden)').length;
             document.getElementById('visibleCount').textContent = visible;
         }
+
+        // Flatten all problems into a single array
+        function getAllProblems() {
+            return Object.values(problemsByCategory).flat();
+        }
+
+        // Convert problem title to LeetCode slug
+        function toLeetCodeUrl(title) {
+            const slug = title
+                .toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')   // strip special chars
+                .trim()
+                .replace(/\s+/g, '-');           // spaces → hyphens
+            return `https://leetcode.com/problems/${slug}/`;
+        }
+
+        // Difficulty badge HTML
+        function difficultyBadge(difficulty) {
+            return `<span class="difficulty difficulty-${difficulty}">${difficulty}</span>`;
+        }
+
+        // Pick and display a random problem
+        function pickRandom() {
+            const all = getAllProblems();
+            const problem = all[Math.floor(Math.random() * all.length)];
+
+            document.getElementById('modalNum').textContent = `#${problem.num}`;
+            document.getElementById('modalTitle').textContent = problem.title;
+            document.getElementById('modalMeta').innerHTML = `
+                ${difficultyBadge(problem.difficulty)}
+                <span class="tag">${problem.tag}</span>
+                <span class="frequency">${problem.frequency.toFixed(1)}%</span>
+            `;
+            document.getElementById('modalGoBtn').href = toLeetCodeUrl(problem.title);
+        }
+
+        function openRandomModal() {
+            pickRandom();
+            document.getElementById('randomModal').classList.add('active');
+        }
+
+        function closeRandomModal() {
+            document.getElementById('randomModal').classList.remove('active');
+        }
+
+        // Close modal when clicking the dark overlay (not the card itself)
+        function handleModalClick(event) {
+            if (event.target === document.getElementById('randomModal')) {
+                closeRandomModal();
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeRandomModal();
+        });
     </script>
 </body>
 </html>

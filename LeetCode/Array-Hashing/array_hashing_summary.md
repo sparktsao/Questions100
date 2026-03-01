@@ -37,6 +37,72 @@
 
 ---
 
+## 🧠 The Core Mental Model: Time–Space Tradeoff
+
+### Why Hash Problems Reduce O(n²) → O(n)
+
+Most brute-force array problems have this shape:
+
+```
+for i in range(n):
+    for j in range(n):
+        check something about nums[i] and nums[j]
+```
+
+The inner loop is just **searching** — and search can be replaced by hash lookup:
+
+```
+O(n) × O(n search) = O(n²)   →   O(n) × O(1 hash lookup) = O(n)
+```
+
+We pay O(n) space to eliminate the inner loop. That is the trade.
+
+### Three Compression Tools
+
+| Tool | What it compresses | From → To |
+|---|---|---|
+| **Hash Map** | search / membership / count | O(n) inner loop → O(1) lookup |
+| **Prefix Sum** | range computation | O(n) per query → O(1) per query |
+| **Difference Array** | range update | O(n) per update → O(1) per update |
+
+### When the Reduction Does NOT Work
+
+Hash cannot always reduce to O(n). The inner loop must be a pure **search**. If the inner loop does something more structural, you need a different approach:
+
+| Problem type | Best complexity | Why |
+|---|---|---|
+| Find pair summing to target | O(n) | Inner loop = search → hash it |
+| Find triplet summing to target (3Sum) | O(n²) | Need two pointers after sort; inherently 2D |
+| Subarray sum equals k | O(n) | Inner loop = prefix lookup → hash it |
+| Merge overlapping intervals | O(n log n) | Requires sort; no hash shortcut |
+
+### Decision: Which Tool to Reach For
+
+When you see the problem trigger, ask the corresponding question:
+
+| Trigger | Ask yourself | Tool |
+|---|---|---|
+| "find pair / complement" | Can I store what I've seen? | Hash Map |
+| "count subarrays with sum k" | Can I turn sum into prefix difference? | Prefix Sum + Hash |
+| "subarray sum divisible by k" | Can I use modulo on prefix? | Prefix Sum + Modulo Hash |
+| "range update, then query" | Can I record +/- at endpoints? | Difference Array |
+| "group by pattern / form" | What is the canonical key? | Hash Map (grouping) |
+| "top-k / closest" | Do I need partial sort? | Heap |
+| "all pairs interact" | Sorting first? Two pointers? | Sort + Two Pointer |
+
+### Hash vs BST: When Order Matters
+
+Both give fast lookup, but:
+
+| Structure | Lookup | Ordered? | Use when |
+|---|---|---|---|
+| Hash Map | O(1) avg | No | Just need existence / count / group |
+| BST / SortedList | O(log n) | Yes | Need rank, range, predecessor, successor |
+
+If you need "how many elements less than X" or "find kth smallest" — hash cannot help. BST or sorted structure is required.
+
+---
+
 ## 🧠 Array + Hashing: Technique Pattern Recognition
 
 **Important:** We're grouping problems by **technique pattern**, not by topic name — that's very good interview prep thinking! 👍
@@ -100,6 +166,17 @@ def subarraySum(nums, k):
 **Key idea:**
 - If `prefix[i] - prefix[j] = k`, then subarray `j+1 → i` sums to k
 - Store: `prefix_sum → how many times it appeared`
+
+**Why `{0: 1}` and not `{0: -1}`:**
+
+Both use key `0` to represent the empty prefix, but the value means different things:
+
+| Problem | Init | Value type | Why |
+|---|---|---|---|
+| 560 Subarray Sum Equals K | `{0: 1}` | **frequency** | `+1` to result when found; empty prefix seen once |
+| 523 Continuous Subarray Sum | `{0: -1}` | **first index** | check `i - index >= 2`; virtual index before array starts |
+
+When `cursum == k` in 560, we look up `cursum - k = 0` and add its frequency (1). Without `{0: 1}`, subarrays starting from index 0 are missed entirely. In 523, `{0: -1}` anchors the length check — `i - (-1) = i + 1 >= 2` validates the subarray is long enough.
 
 ---
 
@@ -798,6 +875,19 @@ prefix=2, check (2-2)=0 in seen? YES → COUNT subarray [2] ✓
 ```
 
 **Meaning:** `seen[0]=1` represents "empty prefix" (before array starts)
+
+#### `{0: 1}` vs `{0: -1}` — Know Which to Use
+
+Both initialize key `0` for the empty prefix, but the value serves a completely different purpose:
+
+| Problem | Init | Value | Used for |
+|---|---|---|---|
+| **560** Subarray Sum Equals K | `{0: 1}` | frequency | `result += seen[cursum - k]` |
+| **523** Continuous Subarray Sum | `{0: -1}` | first index | `if i - seen[remainder] >= 2` |
+
+**560 needs frequency** because the same prefix sum can appear many times (especially with negatives), and each occurrence is a distinct valid subarray start.
+
+**523 needs first index** because it only asks "does a valid subarray exist?" — storing the earliest index maximizes the chance of meeting the length-2 requirement.
 
 #### Why Store Counts, Not Just Bool?
 
