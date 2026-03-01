@@ -102,18 +102,69 @@ def wordBreak(s: str, wordDict: List[str]) -> bool:
     return dp[n]
 ```
 
+### Why `dp` Has Length `len(s) + 1`
+
+`dp[i]` represents **"can the first `i` characters of `s` be segmented?"** — not the character at index `i`.
+
+```
+s:    l  e  e  t  c  o  d  e
+idx:  0  1  2  3  4  5  6  7
+
+dp:  [T  ?  ?  ?  ?  ?  ?  ?  ?]
+      0  1  2  3  4  5  6  7  8
+      ↑                         ↑
+    dp[0]=""               dp[8]="leetcode"
+```
+
+`dp[i]` corresponds to the prefix `s[0:i]` (Python left-closed, right-open). So for a string of length 8 we need indices 0 through 8 — **9 slots total = `len(s) + 1`**.
+
+### Why `dp[0] = True` (The Base Case)
+
+`dp[0]` represents the empty string `""`. An empty string is trivially segmentable — this is the anchor the whole DP depends on.
+
+Without `dp[0] = True`, the transition can never fire at all:
+
+```python
+if dp[j] and s[j:i] in word_set:   # dp[0] must be True for j=0 to ever trigger
+    dp[i] = True
+```
+
+When `j=0`, `s[0:i]` is the whole prefix from the start. If that word is in the dictionary, `dp[i]` becomes `True` — but only if `dp[0]` is `True`.
+
+### Transition Logic
+
+```
+if dp[j] is True  →  s[0:j] is a valid segmentation
+and s[j:i] is in wordDict
+then dp[i] = True  →  s[0:i] is a valid segmentation
+```
+
+Visually for `s = "leetcode"`, `wordDict = ["leet", "code"]`:
+
+```
+i=4: j=0, dp[0]=T, s[0:4]="leet" ✓  →  dp[4]=True
+i=8: j=4, dp[4]=T, s[4:8]="code" ✓  →  dp[8]=True  ← answer
+```
+
+### This Pattern Appears Everywhere in DP
+
+Any DP that defines `dp[i]` as "the first `i` elements" needs `n+1` size and a `dp[0]` base case:
+
+| Problem | `dp[i]` means | Base case |
+|---|---|---|
+| Word Break | first `i` chars segmentable | `dp[0]=True` (empty string) |
+| Decode Ways | first `i` digits decodable | `dp[0]=1` (empty = 1 way) |
+| Coin Change | min coins for amount `i` | `dp[0]=0` (0 coins for 0) |
+| Climbing Stairs | ways to reach step `i` | `dp[0]=1` |
+| Partition Equal Subset | sum `i` achievable | `dp[0]=True` |
+
 ### Complexity Analysis
 
-**Time: O(n² × m) - nested loops with substring operations. Space: O(n) - DP array plus set storage**
+**Time: O(n²)** — for each `i` (n positions), inner loop checks all `j < i`; substring check is O(n) via set lookup after hashing
 
-**Optimized Time: O(n × k × m) - where k is max word length, typically much better in practice**
+**Optimized Time: O(n × maxWordLen)** — inner loop only goes back `maxWordLen` steps instead of all the way to 0
 
-**Why This is Optimal:**
-- DP approach avoids redundant computation by memoizing subproblem solutions
-- Converting wordDict to set provides O(1) average lookup time
-- Early termination (break) once valid segmentation found for position i
-- Bottom-up DP eliminates recursion overhead
-- Optimization using max word length significantly reduces inner loop iterations
+**Space: O(n)** — DP array; set storage is O(total chars in wordDict)
 
 ---
 
