@@ -185,7 +185,10 @@ def largestIsland(grid: List[List[int]]) -> int:
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Depth-First Search, Breadth-First Search, Union Find, Matrix
+**Primary Topics:** DFS | Connected Components + Label (2-pass)
+
+**DFS vs Backtrack:** Plain DFS — label each island with unique ID, record its size. No undo needed; each cell belongs to exactly one island permanently.
+**Key:** Pass 1: DFS to label islands + sizes. Pass 2: For each 0-cell, sum sizes of distinct neighboring island IDs → track max.
 
 **Difficulty Level:** HARD
 

@@ -107,7 +107,10 @@ def shortestPathBinaryMatrix(grid: List[List[int]]) -> int:
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Breadth-First Search, Matrix
+**Primary Topics:** BFS | Shortest Path (level-by-level expansion)
+
+**Why BFS not DFS:** BFS guarantees shortest path — first time you reach target is minimum steps. DFS would find A path, not necessarily shortest.
+**Key:** Queue holds `(row, col, dist)`. Mark visited on enqueue (not dequeue) to avoid re-processing.
 
 **Difficulty Level:** MEDIUM
 

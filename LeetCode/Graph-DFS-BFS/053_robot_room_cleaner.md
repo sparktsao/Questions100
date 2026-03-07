@@ -122,7 +122,10 @@ def cleanRoom(robot):
 
 ## Categories & Tags
 
-**Primary Topics:** Backtracking, Interactive
+**Primary Topics:** Backtracking | Physical State Undo (DFS on implicit grid)
+
+**DFS vs Backtrack:** Robot's physical position IS the state — it's hardware, not a variable. After exploring a direction fully, must `go_back()` to restore position for sibling directions.
+**Key:** `move()` → `backtrack()` → `go_back()`. The undo is a physical 180° turn + move, not just a pop.
 
 **Difficulty Level:** HARD
 

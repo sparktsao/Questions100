@@ -238,7 +238,10 @@ def swimInWater(grid: List[List[int]]) -> int:
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Binary Search, Depth-First Search, Breadth-First Search, Union Find, Heap (Priority Queue), Matrix
+**Primary Topics:** BFS | Dijkstra / Min-Heap (minimize bottleneck)
+
+**Why not plain BFS:** Edge weights differ (water levels), so standard BFS doesn't work. Need priority queue — always expand the cell with lowest elevation first.
+**Key:** Min-heap `(elevation, r, c)`. Answer = elevation of cell (n-1,n-1) when first popped. This is Dijkstra where cost = max elevation on path.
 
 **Difficulty Level:** HARD
 

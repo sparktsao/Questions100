@@ -169,7 +169,10 @@ class Solution:
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Depth-First Search, Breadth-First Search, Matrix, Interactive
+**Primary Topics:** DFS + BFS | Explore then Shortest Path (2-phase)
+
+**Why both:** DFS first to map the hidden grid (like Robot Room Cleaner but simpler — no physical undo needed, robot API lets you move freely). Then BFS on discovered grid for shortest path.
+**Key:** Phase 1 DFS builds the map. Phase 2 BFS finds shortest path. Don't confuse with Robot Cleaner — here you can revisit cells freely.
 
 **Difficulty Level:** MEDIUM
 

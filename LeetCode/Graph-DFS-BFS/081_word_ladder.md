@@ -105,7 +105,10 @@ def ladderLength(beginWord: str, endWord: str, wordList: List[str]) -> int:
 
 ## Categories & Tags
 
-**Primary Topics:** Hash Table, String, Breadth-First Search
+**Primary Topics:** BFS | Shortest Transformation Path (word graph)
+
+**Why BFS not DFS:** Need minimum number of transformations = shortest path in unweighted graph. BFS guarantees this.
+**Key:** Each word is a node. Two words are neighbors if they differ by exactly 1 letter. Build neighbors lazily with wildcard patterns (`h*t`, `ho*`) via HashMap for O(26*L) per word instead of O(N*L) comparisons.
 
 **Difficulty Level:** HARD
 

@@ -138,7 +138,10 @@ def subsets(nums: List[int]) -> List[List[int]]:
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Backtracking, Bit Manipulation
+**Primary Topics:** Backtracking | Enumerate All (choose/unchoose)
+
+**DFS vs Backtrack:** This is Backtracking, not plain DFS. Same element can appear in multiple subsets, so you must `current.pop()` after recursing to restore state for sibling branches.
+**Key:** `current.append(x)` → recurse → `current.pop()`. Without pop, shared list corrupts all results.
 
 **Difficulty Level:** MEDIUM
 

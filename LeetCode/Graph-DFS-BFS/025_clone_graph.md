@@ -103,7 +103,10 @@ def cloneGraph(node: 'Node') -> 'Node':
 
 ## Categories & Tags
 
-**Primary Topics:** Hash Table, Depth-First Search, Breadth-First Search, Graph
+**Primary Topics:** DFS | Graph Clone (visited = old→new map)
+
+**DFS vs Backtrack:** Plain DFS — visited map is permanent. `visited[node]` maps original → clone; once set, never undone.
+**Key:** `if node in visited: return visited[node]` prevents infinite loops on cycles. Build clone node first, then recurse neighbors.
 
 **Difficulty Level:** MEDIUM
 

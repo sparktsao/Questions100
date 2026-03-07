@@ -168,7 +168,10 @@ def accountsMerge(accounts: List[List[str]]) -> List[List[str]]:
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Hash Table, String, Depth-First Search, Breadth-First Search, Union Find, Sorting
+**Primary Topics:** DFS | Connected Components (email graph) or Union-Find
+
+**DFS vs Backtrack:** Plain DFS — find all emails in a connected component. visited set is permanent; no undo.
+**Key:** Build email↔email graph. DFS from each unvisited email collects one person's full email set. Union-Find is cleaner: union all emails in same account, then group by root.
 
 **Difficulty Level:** MEDIUM
 

@@ -109,7 +109,10 @@ def canFinish(numCourses: int, prerequisites: List[List[int]]) -> bool:
 
 ## Categories & Tags
 
-**Primary Topics:** Depth-First Search, Breadth-First Search, Graph, Topological Sort
+**Primary Topics:** DFS | Cycle Detection (3-state coloring)
+
+**DFS vs Backtrack:** Plain DFS — no undo needed. State transitions are permanent: unvisited(0) → visiting(1) → done(2). Once done, never revisited.
+**Key:** If you hit state=1 (currently in stack), there's a cycle → return False. State=2 means safe, skip.
 
 **Difficulty Level:** MEDIUM
 
