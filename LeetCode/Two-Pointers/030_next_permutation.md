@@ -181,7 +181,10 @@ def nextPermutation(nums: List[int]) -> None:
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Two Pointers
+**Primary Topics:** Two Pointers | Multi-phase (find descent + reverse suffix)
+
+**Sorted?** No — works on any permutation. Phase 1: scan right-to-left to find pivot (first descent). Phase 2: scan right-to-left to find swap target. Phase 3: left+right reverse the suffix.
+**Key:** Three distinct pointer operations, none requiring sorted input. The suffix reverse uses standard left+right closing-in.
 
 **Difficulty Level:** MEDIUM
 

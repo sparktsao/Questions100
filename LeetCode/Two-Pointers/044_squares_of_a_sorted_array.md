@@ -145,7 +145,10 @@ def sortedSquares(nums: List[int]) -> List[int]:
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Two Pointers, Sorting
+**Primary Topics:** Two Pointers | Left+Right Closing In (sorted, fill from back)
+
+**Sorted?** Yes — absolute values are U-shaped (largest at both ends). Left+right converge inward, placing the larger square at the back of result.
+**Key:** Sorted input gives the U-shape property. Without sort, you can't know which end has the larger square.
 
 **Difficulty Level:** EASY
 

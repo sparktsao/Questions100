@@ -136,7 +136,10 @@ def intervalIntersection(firstList: List[List[int]], secondList: List[List[int]]
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Two Pointers, Line Sweep
+**Primary Topics:** Two Arrays | Advance by end time (both sorted)
+
+**Sorted?** Yes — both interval lists are sorted by start time. Two pointers i and j advance independently: always advance the pointer whose interval ends first.
+**Key:** The interval that ends first cannot intersect any future interval from the other list → safe to advance it. Classic two-sorted-list merge pattern.
 
 **Difficulty Level:** MEDIUM
 

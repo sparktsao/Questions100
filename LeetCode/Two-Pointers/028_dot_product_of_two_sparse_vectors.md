@@ -194,7 +194,10 @@ class SparseVector:
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Hash Table, Two Pointers, Design
+**Primary Topics:** Two Arrays | Advance by index (sorted index lists)
+
+**Sorted?** Yes — non-zero (index, value) pairs stored in index order. Two pointers advance by comparing indices: equal → multiply and both advance; smaller index advances alone.
+**Key:** Not sorted by value — sorted by position. The pointer moves on the side with the smaller index, mirroring merge of two sorted lists.
 
 **Difficulty Level:** MEDIUM
 

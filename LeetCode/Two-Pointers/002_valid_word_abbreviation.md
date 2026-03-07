@@ -99,7 +99,10 @@ def validWordAbbreviation(word: str, abbr: str) -> bool:
 
 ## Categories & Tags
 
-**Primary Topics:** Two Pointers, String
+**Primary Topics:** Two Strings | Advance independently (no sort needed)
+
+**Sorted?** No. Two pointers advance through word and abbr independently based on content rules, not order.
+**Key:** Not elimination-based — just synchronized traversal. The constraint is character match or digit-skip, not sorted order.
 
 **Difficulty Level:** EASY
 

@@ -95,7 +95,10 @@ def maxArea(height: List[int]) -> int:
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Two Pointers, Greedy
+**Primary Topics:** Two Pointers | Left+Right Closing In (greedy elimination, no sort)
+
+**Sorted?** No. Elimination is greedy: always move the shorter-height pointer inward. Moving the taller one can only decrease area; moving the shorter one might increase it.
+**Key:** Sorted order not needed — the elimination property comes from the area formula (width × min height), not from value ordering.
 
 **Difficulty Level:** MEDIUM
 

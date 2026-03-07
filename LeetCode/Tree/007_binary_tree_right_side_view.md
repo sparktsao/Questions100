@@ -89,7 +89,9 @@ def rightSideView(root: TreeNode) -> List[int]:
 
 ## Categories & Tags
 
-**Primary Topics:** Tree, Depth-First Search, Breadth-First Search, Binary Tree
+**Primary Topics:** BFS | Level Order, last node per level
+
+**Why BFS not DFS:** Need the rightmost node at each depth level. BFS processes level-by-level naturally — take the last node of each level batch. DFS can work but requires tracking depth and overwriting per depth, which is less direct.
 
 **Difficulty Level:** MEDIUM
 

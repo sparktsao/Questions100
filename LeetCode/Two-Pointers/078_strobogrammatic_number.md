@@ -83,7 +83,10 @@ def isStrobogrammatic(num: str) -> bool:
 
 ## Categories & Tags
 
-**Primary Topics:** Hash Table, Two Pointers, String
+**Primary Topics:** Two Pointers | Left+Right Closing In (palindrome-style, no sort)
+
+**Sorted?** No. Converge from both ends checking strobogrammatic pairs (0↔0, 1↔1, 6↔9, 8↔8).
+**Key:** Not sorted — uses symmetric structure. Same pointer pattern as palindrome check but with a rotation pair lookup instead of equality.
 
 **Difficulty Level:** EASY
 
