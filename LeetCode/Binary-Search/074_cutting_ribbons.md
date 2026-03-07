@@ -107,7 +107,10 @@ def maxLength(ribbons: List[int], k: int) -> int:
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Binary Search
+**Primary Topics:** BS on Answer | Maximize Minimum Length
+
+**Search type:** Answer space — search over possible ribbon lengths `[1, max(ribbons)]`, NOT the array.
+**Key:** feasibility check `can_cut(length)` = `sum(r // length for r in ribbons) >= k`. Monotonic: if length L works, all L' < L also work → find rightmost valid L.
 
 **Difficulty Level:** MEDIUM
 

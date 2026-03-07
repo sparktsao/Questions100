@@ -140,7 +140,10 @@ def kthSmallest(matrix: List[List[int]], k: int) -> int:
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Binary Search, Sorting, Heap (Priority Queue), Matrix
+**Primary Topics:** BS on Value Range | Count ≤ mid (Matrix)
+
+**Search type:** Value space — search over `[matrix[0][0], matrix[n-1][n-1]]`, NOT indices.
+**Key:** count elements `<= mid` using bottom-left staircase walk O(n). Find leftmost value where `count >= k`. NOT the same as "find a value in array" — the mid may not even exist in the matrix.
 
 **Difficulty Level:** MEDIUM
 

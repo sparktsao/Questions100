@@ -106,7 +106,10 @@ def findKthPositive(arr: List[int], k: int) -> int:
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Binary Search
+**Primary Topics:** BS on Array | Lower Bound (missing count)
+
+**Search type:** Data space — binary search on array indices. Count missing before `arr[mid]` = `arr[mid] - (mid+1)`.
+**Key:** find leftmost index where `missing_count >= k`, then answer = `left + k`.
 
 **Difficulty Level:** EASY
 

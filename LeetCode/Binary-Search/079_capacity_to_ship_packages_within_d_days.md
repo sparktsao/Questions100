@@ -120,7 +120,10 @@ def shipWithinDays(weights: List[int], days: int) -> int:
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Binary Search
+**Primary Topics:** BS on Answer | Minimize Maximum Capacity
+
+**Search type:** Answer space — search over possible capacities `[max(weights), sum(weights)]`, NOT the array.
+**Key:** feasibility check `can_ship(capacity)` simulates greedy day-filling. Monotonic: if capacity C works, all C' > C also work → find leftmost valid C.
 
 **Difficulty Level:** MEDIUM
 

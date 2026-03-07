@@ -144,7 +144,10 @@ def findMedianSortedArrays(nums1: List[int], nums2: List[int]) -> float:
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Binary Search, Divide and Conquer
+**Primary Topics:** BS on Partition | Find Correct Split
+
+**Search type:** Partition space — binary search on how many elements to take from nums1 `[0, m]`.
+**Key:** partition nums1 at i, nums2 at j=(m+n+1)/2-i. Valid when `maxLeft1 <= minRight2 AND maxLeft2 <= minRight1`. Hardest BS variant — not searching for a value, searching for a valid cut point across two arrays.
 
 **Difficulty Level:** HARD
 

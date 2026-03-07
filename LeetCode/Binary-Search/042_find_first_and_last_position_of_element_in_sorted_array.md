@@ -124,7 +124,10 @@ def searchRange(nums: List[int], target: int) -> List[int]:
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Binary Search
+**Primary Topics:** BS on Array | Left Bound + Right Bound
+
+**Search type:** Data space — two separate binary searches on sorted array.
+**Key:** Left bound: when `nums[mid]==target`, record and go left (`right=mid-1`). Right bound: record and go right (`left=mid+1`). Classic `bisect_left` / `bisect_right` pattern.
 
 **Difficulty Level:** MEDIUM
 

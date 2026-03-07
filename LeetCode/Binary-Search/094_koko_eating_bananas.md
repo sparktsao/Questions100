@@ -136,7 +136,10 @@ def minEatingSpeed(piles: List[int], h: int) -> int:
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Binary Search
+**Primary Topics:** BS on Answer | Minimize Maximum Speed
+
+**Search type:** Answer space — search over possible speeds `[1, max(piles)]`, NOT the array.
+**Key:** feasibility check `can_finish(speed)` = `sum(ceil(p/speed)) <= h`. Monotonic: if speed k works, all k' > k also work → find leftmost valid k. Same template as Ship Capacity.
 
 **Difficulty Level:** MEDIUM
 

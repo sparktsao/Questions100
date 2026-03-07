@@ -88,7 +88,10 @@ def findPeakElement(nums: List[int]) -> int:
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Binary Search
+**Primary Topics:** BS on Array | Find Any Peak
+
+**Search type:** Data space — array IS the search space. No sorted order required; use slope direction to eliminate half.
+**Key:** if `nums[mid] > nums[mid+1]`, peak is left (or IS mid) → `right = mid`. Else peak is right → `left = mid+1`.
 
 **Difficulty Level:** MEDIUM
 
