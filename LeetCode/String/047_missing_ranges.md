@@ -9,21 +9,21 @@
 
 ## Problem Description
 
-You are given an inclusive range `[lower, upper]` and a sorted unique integer array `nums`, where all elements are in the inclusive range.
+You are given an inclusive range `[lower, upper]` and a sorted unique integer array `nums`, where all elements are within `[lower, upper]`.
 
-A number `x` is considered missing if `x` is in the range `[lower, upper]` and `x` is not in `nums`.
+Return the smallest sorted list of ranges that cover every missing number exactly.
 
-Return the smallest sorted list of ranges that cover every missing number exactly. That is, no element of `nums` is in any of the ranges, and each missing number is in one of the ranges.
+**Note:** LeetCode has two versions of this problem:
+- **Old version** (LC 163): return `List[str]`, format as `"a->b"` or `"a"`
+- **New version** (LC 2200): return `List[List[int]]`, format as `[a, b]`
 
-Each range `[a,b]` in the list should be output as:
-- "a->b" if a != b
-- "a" if a == b
+The logic is identical — only the output format differs.
 
 **Constraints:**
 - -10^9 <= lower <= upper <= 10^9
 - 0 <= nums.length <= 100
 - lower <= nums[i] <= upper
-- All the values of nums are unique
+- All values of nums are unique
 
 ---
 
@@ -31,113 +31,160 @@ Each range `[a,b]` in the list should be output as:
 
 ### Example 1
 **Input:** `nums = [0,1,3,50,75], lower = 0, upper = 99`
-**Output:** `["2","4->49","51->74","76->99"]`
-**Explanation:** The ranges are: [2,2] -> "2", [4,49] -> "4->49", [51,74] -> "51->74", [76,99] -> "76->99"
+**Output:** `[[2,2],[4,49],[51,74],[76,99]]`
 
 ### Example 2
 **Input:** `nums = [], lower = 1, upper = 1`
-**Output:** `["1"]`
-**Explanation:** The only missing range is [1,1], which becomes "1"
+**Output:** `[[1,1]]`
 
 ### Example 3
-**Input:** `nums = [], lower = -3, upper = -1`
-**Output:** `["-3->-1"]`
-**Explanation:** The only missing range is [-3,-1], which becomes "-3->-1"
-
-### Example 4
 **Input:** `nums = [-1], lower = -1, upper = -1`
-**Output:** `[]`
-**Explanation:** There are no missing ranges since there are no missing numbers
+**Output:** `[]` — no missing numbers
 
 ---
 
-## Optimal Solution
+## Core Insight: 3 Structural Cases
 
-### Implementation
+The number line looks like:
 
-```python
-def findMissingRanges(nums: List[int], lower: int, upper: int) -> List[str]:
-    """
-    Find missing ranges by checking gaps between consecutive numbers.
-
-    Time: O(n), Space: O(1) excluding output
-    """
-    def formatRange(start: int, end: int) -> str:
-        """Format range as string"""
-        if start == end:
-            return str(start)
-        return f"{start}->{end}"
-
-    result = []
-    prev = lower - 1  # Start one before lower bound
-
-    # Process each number and the final gap
-    for num in nums + [upper + 1]:
-        # Check if there's a gap between prev and current num
-        if num - prev >= 2:
-            result.append(formatRange(prev + 1, num - 1))
-        prev = num
-
-    return result
+```
+lower ... [nums[0] nums[1] ... nums[n-1]] ... upper
 ```
 
-### Alternative Implementation
+There are exactly **3 regions** where gaps can appear:
+
+```
+Case 0: nums is empty → entire [lower, upper] is missing
+Case 1: left gap  → between lower and nums[0]
+Case 2: middle gaps → between consecutive nums[i] and nums[i+1]
+Case 3: right gap → between nums[-1] and upper
+```
+
+Handle each case explicitly. This is more code than the sentinel trick, but it maps directly to the structure of the problem — easier to reason about correctness.
+
+---
+
+## Solution: Explicit 3-Case
 
 ```python
-def findMissingRanges(nums: List[int], lower: int, upper: int) -> List[str]:
-    """
-    Explicit gap checking approach.
+class Solution:
+    def findMissingRanges(self, nums: List[int], lower: int, upper: int) -> List[List[int]]:
 
-    Time: O(n), Space: O(1)
-    """
-    def addRange(result: List[str], start: int, end: int):
-        if start == end:
-            result.append(str(start))
-        else:
-            result.append(f"{start}->{end}")
+        # Case 0: empty array
+        if len(nums) == 0:
+            return [[lower, upper]]
 
-    result = []
+        result = []
 
-    # Check gap before first element
-    if not nums:
-        addRange(result, lower, upper)
+        # Case 1: left gap — between lower and nums[0]
+        if lower < nums[0]:
+            result.append([lower, nums[0] - 1])
+
+        # Case 2: middle gaps — between consecutive elements
+        prev = nums[0] + 1
+        for e in nums[1:]:
+            if prev < e:
+                result.append([prev, e - 1])
+            prev = e + 1          # always advance past e
+
+        # Case 3: right gap — between nums[-1] and upper
+        if prev <= upper:
+            result.append([prev, upper])
+
         return result
-
-    # Gap before first element
-    if nums[0] > lower:
-        addRange(result, lower, nums[0] - 1)
-
-    # Gaps between consecutive elements
-    for i in range(len(nums) - 1):
-        if nums[i + 1] - nums[i] > 1:
-            addRange(result, nums[i] + 1, nums[i + 1] - 1)
-
-    # Gap after last element
-    if nums[-1] < upper:
-        addRange(result, nums[-1] + 1, upper)
-
-    return result
 ```
 
-### Complexity Analysis
+**Time: O(n) — single pass. Space: O(1) excluding output.**
 
-**Time: O(n) - single pass through array. Space: O(1) - constant extra space**
+### Trace on Example 1: `nums=[0,1,3,50,75], lower=0, upper=99`
 
-**Why This is Optimal:**
-- Must examine all elements to find gaps, so O(n) is optimal
-- Clever trick: append upper+1 to handle final gap uniformly
-- No extra space needed beyond output list
-- Handles edge cases elegantly (empty array, no gaps, negative numbers)
+```
+Case 1: lower(0) == nums[0](0) → no left gap
+Case 2:
+  prev=1, e=1: prev==e → prev=2
+  prev=2, e=3: prev<e  → append [2,2], prev=4
+  prev=4, e=50: prev<e → append [4,49], prev=51
+  prev=51, e=75: prev<e → append [51,74], prev=76
+Case 3: prev(76) <= upper(99) → append [76,99]
+
+Output: [[2,2],[4,49],[51,74],[76,99]] ✓
+```
+
+---
+
+## Alternative: Sentinel Trick (Compact)
+
+Append `upper+1` as a fake sentinel so all three cases collapse into one uniform loop:
+
+```python
+class Solution:
+    def findMissingRanges(self, nums: List[int], lower: int, upper: int) -> List[List[int]]:
+        result = []
+        prev = lower - 1    # sentinel before lower
+
+        for num in nums + [upper + 1]:   # sentinel after upper
+            if num - prev >= 2:          # gap of 1 means no missing numbers
+                result.append([prev + 1, num - 1])
+            prev = num
+
+        return result
+```
+
+### Why `num - prev >= 2`?
+
+- `prev` tracks the last seen number
+- If `num == prev + 1`, they are adjacent — no gap
+- If `num >= prev + 2`, there's at least one missing number between them
+
+### Trace on Example 1 with sentinels:
+
+```
+prev = -1 (lower-1 = 0-1)
+nums + [100] = [0, 1, 3, 50, 75, 100]
+
+num=0:   0-(-1)=1  < 2 → no gap. prev=0
+num=1:   1-0=1     < 2 → no gap. prev=1
+num=3:   3-1=2    >= 2 → append [2,2].   prev=3
+num=50:  50-3=47  >= 2 → append [4,49].  prev=50
+num=75:  75-50=25 >= 2 → append [51,74]. prev=75
+num=100: 100-75=25>= 2 → append [76,99]. prev=100
+
+Output: [[2,2],[4,49],[51,74],[76,99]] ✓
+```
+
+---
+
+## Comparison
+
+| | Explicit 3-case | Sentinel trick |
+|---|---|---|
+| Code length | longer | 6 lines |
+| Readability | mirrors problem structure | requires understanding `prev=lower-1` and `upper+1` |
+| Bug risk | more branches to get right | fewer branches, easier to verify |
+| Interview preference | shows structured thinking | shows cleverness |
+
+**Which to choose:** The sentinel trick is compact and elegant once you see it, but requires explaining *why* `lower-1` and `upper+1` are valid sentinels. The explicit 3-case version is self-documenting.
+
+---
+
+## Edge Cases
+
+| Input | Expected | Trap |
+|---|---|---|
+| `nums=[]` | `[[lower, upper]]` | explicit empty check needed in 3-case version |
+| `nums=[-1], lower=-1, upper=-1` | `[]` | no gap anywhere |
+| `nums=[lower], upper=lower` | `[]` | nums covers the entire range |
+| `lower=upper` and nums is empty | `[[lower,lower]]` | single-element range |
 
 ---
 
 ## Categories & Tags
 
-**Primary Topics:** Array
+**Primary Topics:** Array | Linear Scan (3-case gap detection)
 
 **Difficulty Level:** EASY
 
----
+**Why tricky despite EASY label:** 34% acceptance rate — the 3 structural cases (left gap, middle gaps, right gap) are easy to miss or conflate, especially the empty-array edge case. The sentinel trick hides this but requires understanding why the sentinels are valid.
 
 ---
 
