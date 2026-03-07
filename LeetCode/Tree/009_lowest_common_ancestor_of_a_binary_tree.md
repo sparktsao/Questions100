@@ -78,6 +78,39 @@ def lowestCommonAncestor(root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
 
 ---
 
+## Why the DFS logic works
+
+Three cases at each node:
+
+```
+1. root == p or root == q  → return root immediately (ancestor-of-itself rule)
+2. left and right both non-null → root is the split point → return root
+3. only one side non-null → p and q are both in that subtree → return that side
+```
+
+The key insight for case 2: if left subtree contains one target and right contains the other, the current node is the lowest point where they share an ancestor.
+
+## Comparison with 005 (LCA with parent pointer)
+
+See `005_lowest_common_ancestor_of_a_binary_tree_iii.md` for the parent-pointer version.
+
+| | **009 (this problem)** | **005 (parent pointer)** |
+|---|---|---|
+| Given | `root`, `p`, `q` | `p`, `q` with `.parent` |
+| Direction | search **downward** | climb **upward** |
+| Algorithm | recursive DFS | linked list intersection |
+| Time | O(n) | O(h) |
+| Space | O(h) recursion stack | O(1) |
+
+**Why 009 is O(n):** you only have `root`. Cannot go upward. Must explore the whole tree to determine which subtrees contain `p` and `q`.
+
+**Why 005 is O(h):** `.parent` turns the tree into two linked lists sharing a tail. Just find the merge point — no full-tree search needed.
+
+```
+009 → only root → DFS downward → O(n)
+005 → has parent → climb upward → O(h)
+```
+
 ## Categories & Tags
 
 **Primary Topics:** Tree, Depth-First Search, Binary Tree

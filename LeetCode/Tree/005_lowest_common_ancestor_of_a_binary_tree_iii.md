@@ -179,6 +179,68 @@ The connection: both patterns exploit the structure of pointer chains to make tw
 
 ---
 
+## Comparison: 005 (parent pointer) vs 009 (root only)
+
+Same problem definition. Completely different algorithm because the available information differs.
+
+| | 005 (this problem) | 009 (LCA classic) |
+|---|---|---|
+| Given | `p`, `q` with `.parent` | `root`, `p`, `q` |
+| Direction | climb **upward** (child → root) | search **downward** (root → leaf) |
+| Algorithm | linked list intersection trick | recursive DFS |
+| Time | O(h) | O(n) |
+| Space | O(1) | O(h) recursion stack |
+| Key insight | parent pointers = linked lists | both sides return non-null = LCA |
+
+### Why 009 must visit O(n) nodes
+
+In 009 you have only `root` — you cannot go upward. You must search the whole tree.
+
+```
+        3
+       / \
+      5   1          ← must explore both sides
+     / \   \
+    6   2   ...
+```
+
+The recursion returns a node when it finds `p` or `q`, and the first node where **both left and right return non-null** is the LCA. Worst case: visit every node.
+
+### Why 005 is O(h)
+
+In 005 every node has `.parent`. The tree behaves as two linked lists sharing a tail:
+
+```
+p path:  5 → 3
+q path:  1 → 3
+              ↑ intersection = LCA
+```
+
+No need to search the whole tree — just walk upward and find the merge point.
+
+### Example 3 edge case: one node is ancestor of the other
+
+```
+    1
+   /
+  2
+```
+`p = 1`, `q = 2`
+
+- **009:** `dfs(1)` immediately returns `1` because `root == p`. LCA = 1.
+- **005:** pointer `a` starts at `1` (which is already the root), pointer `b` starts at `2`. After one step `b` reaches `1`. They meet at `1`. LCA = 1.
+
+Both handle this correctly via the "node can be ancestor of itself" rule.
+
+### One-line memory rule
+
+```
+009 → only root → DFS downward → O(n)
+005 → has parent → climb upward → O(h)
+```
+
+---
+
 ## Categories & Tags
 
 **Primary Topics:** Two Pointers | Linked List Intersection (parent pointer chain)
