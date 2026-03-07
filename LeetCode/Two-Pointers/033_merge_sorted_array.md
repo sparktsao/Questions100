@@ -96,7 +96,12 @@ def merge(nums1: List[int], m: int, nums2: List[int], n: int) -> None:
             p2 -= 1
         p -= 1
 
-    # Copy remaining elements from nums2 if any
+    # Spark: MUST copy remaining nums2 elements if p2 >= 0.
+    # When loop exits, p1 exhausted means nums1's remaining elements are already in place.
+    # But if p2 exhausted first, we're done. If p1 exhausted first, nums2 still has
+    # smaller elements that haven't been placed yet — they go to the front of nums1.
+    # nums1's own leftovers need NO copy (they're already in the right positions).
+    # nums2's leftovers ALWAYS need copy — this line must not be forgotten.
     nums1[:p2 + 1] = nums2[:p2 + 1]
 ```
 

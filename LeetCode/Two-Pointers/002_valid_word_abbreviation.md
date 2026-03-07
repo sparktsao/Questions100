@@ -79,6 +79,10 @@ def validWordAbbreviation(word: str, abbr: str) -> bool:
             j += 1
 
     return i == len(word) and j == len(abbr)
+    # Spark: BOTH i and j must reach the end simultaneously.
+    # Checking only i == len(word) misses abbr with leftover chars (e.g. word="a", abbr="1b").
+    # Checking only j == len(abbr) misses abbr that skips too few chars (e.g. word="ab", abbr="1").
+    # The loop exits early if EITHER pointer hits its end, so both checks are required.
 ```
 
 ### Complexity Analysis
