@@ -86,7 +86,11 @@ def merge(intervals: List[List[int]]) -> List[List[int]]:
 
 ## Categories & Tags
 
-**Primary Topics:** Array, Sorting
+**Primary Topics:** Intervals, Sorting, Greedy
+
+**Why NOT Array-Hashing:** No hashmap or frequency counting is used. The solution is sort + linear scan — a greedy merge on sorted intervals.
+
+**Key insight:** Sort by start time → then one pass: if `current.start <= last.end`, merge by extending `last.end = max(last.end, current.end)`. Otherwise append.
 
 **Difficulty Level:** MEDIUM
 
