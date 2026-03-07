@@ -47,80 +47,75 @@ Find the maximum profit you can achieve. You may complete **at most two transact
 
 ## Optimal Solution
 
-### Implementation (State Machine DP)
+### Key Insight: Four Decisions Chained as Profit States
+
+At most 2 transactions = exactly 4 decisions in order: **buy1 → sell1 → buy2 → sell2**.
+
+Instead of tracking prices, track **best profit achievable after each decision**:
+
+| Variable | Meaning | Update rule |
+|---|---|---|
+| `a` | best profit after buy1 | `max(a, -p)` — pay price p |
+| `b` | best profit after sell1 | `max(b, a + p)` — gain price p on top of a |
+| `c` | best profit after buy2 | `max(c, b - p)` — pay price p, offset by b |
+| `d` | best profit after sell2 | `max(d, c + p)` — gain price p on top of c |
+
+Each variable builds on the previous one. `d` is the answer.
+
+### Implementation
 
 ```python
-def maxProfit(prices: List[int]) -> int:
-    """
-    Dynamic Programming with O(1) space using state tracking.
+from typing import List
 
-    Time: O(n), Space: O(1)
-    """
-    # Track the maximum profit for each state
-    # buy1: max profit after first buy
-    # sell1: max profit after first sell
-    # buy2: max profit after second buy
-    # sell2: max profit after second sell
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        a = b = c = d = float('-inf')
 
-    buy1 = buy2 = float('-inf')
-    sell1 = sell2 = 0
+        for p in prices:
+            a = max(a, -p)      # best profit after 1st buy  (pay p)
+            b = max(b, a + p)   # best profit after 1st sell (gain p)
+            c = max(c, b - p)   # best profit after 2nd buy  (pay p, already have b)
+            d = max(d, c + p)   # best profit after 2nd sell (gain p)
 
-    for price in prices:
-        # Update in reverse order to avoid using updated values
-        buy1 = max(buy1, -price)          # Best profit after buying first time
-        sell1 = max(sell1, buy1 + price)  # Best profit after selling first time
-        buy2 = max(buy2, sell1 - price)   # Best profit after buying second time
-        sell2 = max(sell2, buy2 + price)  # Best profit after selling second time
-
-    return sell2
+        return d
 ```
 
-### Alternative Implementation (Two-Pass DP)
+### Why Initialize with `-inf`?
 
-```python
-def maxProfit(prices: List[int]) -> int:
-    """
-    Two-pass approach: calculate max profit for one transaction from left and right.
+All four states start as "not yet reached". Using `-inf` ensures that until a real price is processed, no state can be mistakenly used in the chain.
 
-    Time: O(n), Space: O(n)
-    """
-    if not prices:
-        return 0
+Once the first `p` is seen:
+- `a = max(-inf, -p)` → becomes `-p` (we've made one buy)
+- `b`, `c`, `d` remain `-inf` until `a` is valid
 
-    n = len(prices)
+### Why Updating In-Order Within the Same Loop Is Safe
 
-    # First pass: calculate max profit for one transaction ending at or before each day
-    left_profits = [0] * n
-    min_price = prices[0]
-    for i in range(1, n):
-        min_price = min(min_price, prices[i])
-        left_profits[i] = max(left_profits[i-1], prices[i] - min_price)
+You might worry that updating `a` first and then using `a` to update `b` in the same iteration means we're using today's buy to fund today's sell — a same-day buy+sell.
 
-    # Second pass: calculate max profit for one transaction starting at or after each day
-    right_profits = [0] * n
-    max_price = prices[-1]
-    for i in range(n-2, -1, -1):
-        max_price = max(max_price, prices[i])
-        right_profits[i] = max(right_profits[i+1], max_price - prices[i])
+It's actually fine: same-day buy+sell yields zero profit. The `max` keeps the previous best anyway. No state degrades.
 
-    # Combine: find maximum profit from two transactions
-    max_profit = 0
-    for i in range(n):
-        max_profit = max(max_profit, left_profits[i] + right_profits[i])
+### Walkthrough: `prices = [3,3,5,0,0,3,1,4]`
 
-    return max_profit
+```
+       p    a         b         c         d
+start  -  -inf      -inf      -inf      -inf
+  3    3   -3        -inf      -inf      -inf
+  3    3   -3         0        -inf      -inf
+  5    5   -3         2        -inf      -inf
+  0    0    0         2         2        -inf
+  0    0    0         2         2         2
+  3    3    0         3         2         5
+  1    1    0         3         2         5
+  4    4    0         4         2         6   ← answer
+
+Output: 6  ✓  (buy@0, sell@3, profit=3) + (buy@1, sell@4, profit=3)
 ```
 
 ### Complexity Analysis
 
-**Time: O(n) - single pass through prices. Space: O(1) - constant space for state variables**
+**Time: O(n)** — single pass
 
-**Why This is Optimal:**
-- Achieves best possible time complexity - must examine each price at least once
-- State machine approach elegantly tracks all possible states
-- O(1) space is optimal - no need for additional arrays
-- Handles all edge cases: no transactions, one transaction, two transactions
-- Generalizable to k transactions with similar state machine pattern
+**Space: O(1)** — four scalar variables
 
 ---
 
