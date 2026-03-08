@@ -52,30 +52,27 @@
             border-color: #e74c3c;
         }
 
-        .main { max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
+        .main { max-width: 1200px; margin: 0 auto; padding: 24px 20px; }
 
         .section { display: none; }
         .section.active { display: block; }
 
-        /* PRINCIPLE BOX */
         .principle-box {
             background: #fff3cd;
             border-left: 5px solid #f0a500;
             border-radius: 8px;
             padding: 16px 20px;
             margin-bottom: 24px;
-            font-size: 0.95em;
+            font-size: 0.9em;
             line-height: 1.7;
         }
+        .principle-box h2 { font-size: 1.05em; margin-bottom: 6px; color: #7a5000; }
 
-        .principle-box h2 { font-size: 1.1em; margin-bottom: 8px; color: #7a5000; }
-
-        /* PATTERN CARD */
         .card {
             background: white;
             border-radius: 10px;
             box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             overflow: hidden;
         }
 
@@ -83,7 +80,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 14px 18px;
+            padding: 13px 18px;
             border-bottom: 1px solid #f0f0f0;
         }
 
@@ -100,127 +97,35 @@
         .card-title { font-size: 1em; font-weight: 700; }
         .card-subtitle { font-size: 0.82em; color: #888; margin-top: 1px; }
 
-        .card-body { padding: 16px 18px; }
+        .card-body { padding: 18px 20px; }
 
-        /* COMPARISON TABLE */
-        .cmp-table {
-            width: 100%;
-            border-collapse: collapse;
+        /* DIAGRAM BLOCK — monospace, dark bg, big and readable */
+        .diagram {
+            background: #1a1a2e;
+            color: #e0e0e0;
+            border-radius: 10px;
+            padding: 20px 24px;
+            font-family: 'Courier New', Consolas, monospace;
             font-size: 0.88em;
-            margin-bottom: 12px;
-        }
-
-        .cmp-table th {
-            background: #f8f8f8;
-            padding: 8px 12px;
-            text-align: left;
-            font-weight: 700;
-            border-bottom: 2px solid #e0e0e0;
-        }
-
-        .cmp-table td {
-            padding: 8px 12px;
-            border-bottom: 1px solid #f0f0f0;
-            vertical-align: top;
-        }
-
-        .cmp-table tr:last-child td { border-bottom: none; }
-
-        .correct { color: #27ae60; font-weight: 700; }
-        .wrong   { color: #e74c3c; font-weight: 700; }
-
-        /* CODE BLOCK */
-        pre {
-            background: #1e1e2e;
-            color: #cdd6f4;
-            border-radius: 8px;
-            padding: 14px 16px;
-            font-size: 0.82em;
-            line-height: 1.6;
+            line-height: 1.75;
             overflow-x: auto;
-            margin: 10px 0;
+            margin: 12px 0;
+            white-space: pre;
         }
 
-        .hl-green  { color: #a6e3a1; font-weight: bold; }
-        .hl-red    { color: #f38ba8; font-weight: bold; }
-        .hl-yellow { color: #f9e2af; font-weight: bold; }
-        .hl-blue   { color: #89b4fa; font-weight: bold; }
-        .hl-comment{ color: #6c7086; }
+        .g  { color: #a6e3a1; font-weight: bold; }   /* green  = correct/ok */
+        .r  { color: #f38ba8; font-weight: bold; }   /* red    = wrong/danger */
+        .y  { color: #f9e2af; font-weight: bold; }   /* yellow = key value */
+        .b  { color: #89dceb; font-weight: bold; }   /* blue   = pointer/index */
+        .p  { color: #cba6f7; font-weight: bold; }   /* purple = label */
+        .d  { color: #6c7086; }                       /* dim    = comment */
 
-        /* TEST CASES */
-        .tests {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .test-case {
-            background: #f8f8ff;
-            border: 1px solid #dde;
-            border-radius: 7px;
-            padding: 10px 12px;
+        .diagram-caption {
             font-size: 0.82em;
-        }
-
-        .test-case .label {
-            font-weight: 700;
-            font-size: 0.78em;
-            text-transform: uppercase;
             color: #888;
-            margin-bottom: 4px;
-        }
-
-        .test-case .input  { font-family: monospace; color: #2c3e50; }
-        .test-case .expect { color: #27ae60; font-weight: 600; margin-top: 3px; }
-        .test-case .trap   { color: #e74c3c; font-size: 0.78em; margin-top: 3px; }
-
-        /* DECISION TREE */
-        .decision-tree {
-            background: #f0f7ff;
-            border: 1px solid #c5daf7;
-            border-radius: 8px;
-            padding: 14px 18px;
-            font-size: 0.88em;
-            line-height: 1.9;
-            margin-top: 10px;
-        }
-
-        .decision-tree .q  { font-weight: 700; color: #1a5fa8; }
-        .decision-tree .a  { margin-left: 20px; }
-        .decision-tree .arrow { color: #888; }
-
-        /* MASTER CHECKLIST */
-        .checklist { list-style: none; margin-top: 8px; }
-        .checklist li {
-            padding: 7px 0;
-            border-bottom: 1px solid #f0f0f0;
-            display: flex;
-            gap: 10px;
-            font-size: 0.9em;
-            line-height: 1.5;
-        }
-        .checklist li:last-child { border-bottom: none; }
-        .checklist .icon { font-size: 1.1em; flex-shrink: 0; }
-
-        /* GRID LAYOUT FOR OVERVIEW */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        @media (max-width: 700px) { .grid-2 { grid-template-columns: 1fr; } }
-
-        .tag {
-            display: inline-block;
-            background: #eef;
-            border: 1px solid #c5cdf7;
-            border-radius: 4px;
-            font-size: 0.78em;
-            padding: 1px 7px;
-            margin: 2px;
-            font-family: monospace;
+            margin-top: 4px;
+            margin-bottom: 14px;
+            font-style: italic;
         }
 
         .spark-note {
@@ -229,31 +134,59 @@
             padding: 10px 14px;
             border-radius: 0 6px 6px 0;
             font-size: 0.87em;
-            margin-top: 10px;
+            margin-top: 12px;
             line-height: 1.6;
         }
-
         .spark-note strong { color: #c0392b; }
+
+        .diagram-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 12px 0;
+        }
+        @media (max-width: 800px) { .diagram-grid { grid-template-columns: 1fr; } }
+
+        .cmp-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85em;
+            margin: 12px 0;
+        }
+        .cmp-table th {
+            background: #f8f8f8;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        .cmp-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: top;
+        }
+        .cmp-table tr:last-child td { border-bottom: none; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h1>Boundary Condition Master Guide</h1>
-    <p>Systematic checklist for loop bounds, pointer conditions, and termination across all 17 problem categories</p>
+    <h1>Boundary Condition Visual Guide</h1>
+    <p>Diagrams showing WHERE boundary checks sit — for each classic problem pattern</p>
 </div>
 
 <div class="nav-tabs">
-    <button class="tab-btn active" onclick="showSection('philosophy')">Philosophy</button>
-    <button class="tab-btn" onclick="showSection('binary-search')">Binary Search</button>
-    <button class="tab-btn" onclick="showSection('two-pointers')">Two Pointers</button>
-    <button class="tab-btn" onclick="showSection('sliding-window')">Sliding Window</button>
-    <button class="tab-btn" onclick="showSection('graph')">Graph / DFS / BFS</button>
-    <button class="tab-btn" onclick="showSection('dp')">Dynamic Programming</button>
-    <button class="tab-btn" onclick="showSection('heap')">Heap</button>
-    <button class="tab-btn" onclick="showSection('stack')">Stack</button>
-    <button class="tab-btn" onclick="showSection('intervals')">Intervals</button>
-    <button class="tab-btn" onclick="showSection('checklist')">Master Checklist</button>
+    <button class="tab-btn active" onclick="showSection('philosophy', this)">Philosophy</button>
+    <button class="tab-btn" onclick="showSection('binary-search', this)">Binary Search</button>
+    <button class="tab-btn" onclick="showSection('two-pointers', this)">Two Pointers</button>
+    <button class="tab-btn" onclick="showSection('sliding-window', this)">Sliding Window</button>
+    <button class="tab-btn" onclick="showSection('graph', this)">Graph / DFS / BFS</button>
+    <button class="tab-btn" onclick="showSection('dp', this)">Dynamic Programming</button>
+    <button class="tab-btn" onclick="showSection('heap', this)">Heap</button>
+    <button class="tab-btn" onclick="showSection('stack', this)">Stack</button>
+    <button class="tab-btn" onclick="showSection('intervals', this)">Intervals</button>
+    <button class="tab-btn" onclick="showSection('checklist', this)">Checklist</button>
+    <button class="tab-btn" onclick="showSection('test-strategy', this)">🧪 Test Strategy</button>
 </div>
 
 <div class="main">
@@ -264,108 +197,74 @@
 <div id="philosophy" class="section active">
 
     <div class="principle-box">
-        <h2>The Core Mental Model</h2>
-        <p>You don't need to memorize conditions. You need to answer <strong>three questions</strong> before writing a single line:</p>
-        <p>1. <strong>What does the loop invariant guarantee?</strong> (What is always true at the start of each iteration?)</p>
-        <p>2. <strong>What does the return/termination check verify?</strong> (Both sides of the boundary — not just one)</p>
-        <p>3. <strong>What are the 4 edge cases?</strong> (empty, single element, all-left, all-right)</p>
-        <p style="margin-top:10px">Boundary bugs are not logic bugs. They are <em>invariant violations</em> — the code is correct in principle but wrong at the edges.</p>
+        <h2>The Core Principle</h2>
+        <p>Boundary bugs are not logic bugs — they are <strong>off-by-one violations</strong> at the edges of data structures. The fix is to draw the diagram first, then place the check.</p>
+        <p>Every bug falls into one of 4 positions: <strong>loop entry</strong> (&lt; vs &lt;=), <strong>loop exit</strong> (which side has leftovers), <strong>index math</strong> (+1/-1), or <strong>return check</strong> (one side vs both).</p>
     </div>
 
     <div class="card">
         <div class="card-header">
-            <div class="category-badge">PRINCIPLE</div>
-            <div><div class="card-title">Unit Test IS the Boundary Condition Strategy</div>
-            <div class="card-subtitle">The spirit of testing is exactly this: define what correct means at the boundary, then verify it</div></div>
+            <div class="category-badge">OVERVIEW</div>
+            <div><div class="card-title">Where Boundary Checks Live — Big Picture</div>
+            <div class="card-subtitle">Every category has checks at the same 4 positions</div></div>
         </div>
         <div class="card-body">
-            <p style="margin-bottom:12px;font-size:0.9em;line-height:1.7">Every boundary condition bug can be caught by one of these 4 canonical test cases. Before writing code, write these tests mentally:</p>
-            <div class="tests">
-                <div class="test-case">
-                    <div class="label">Test 1: Empty Input</div>
-                    <div class="input">nums = [], word = ""</div>
-                    <div class="expect">→ Don't crash, return base case</div>
-                    <div class="trap">Catches: index out of bounds, len-1 on empty</div>
-                </div>
-                <div class="test-case">
-                    <div class="label">Test 2: Single Element</div>
-                    <div class="input">nums = [x], n = 1</div>
-                    <div class="expect">→ Correct answer with 1 item</div>
-                    <div class="trap">Catches: loop that skips or double-counts</div>
-                </div>
-                <div class="test-case">
-                    <div class="label">Test 3: All-Left Extreme</div>
-                    <div class="input">answer at index 0 or start</div>
-                    <div class="expect">→ Pointer never needs to go right</div>
-                    <div class="trap">Catches: off-by-one that misses index 0</div>
-                </div>
-                <div class="test-case">
-                    <div class="label">Test 4: All-Right Extreme</div>
-                    <div class="input">answer at last index</div>
-                    <div class="expect">→ Loop must reach n-1 or n</div>
-                    <div class="trap">Catches: < vs <= that stops one early</div>
-                </div>
-            </div>
+<div class="diagram">  <span class="p">ARRAY / NUMBER LINE</span>
 
-            <div class="decision-tree" style="margin-top:16px">
-                <div class="q">When to use &lt; vs &lt;= in a while loop?</div>
-                <div class="a">→ Ask: can left == right ever be a valid state to process?</div>
-                <div class="a"><span class="correct">YES</span> → use <code>while left <strong>&lt;=</strong> right</code> (closed interval, mid is a candidate)</div>
-                <div class="a"><span class="correct">NO</span>  → use <code>while left <strong>&lt;</strong> right</code> (open right, converges to single answer)</div>
-                <br>
-                <div class="q">When does a return need TWO conditions vs ONE?</div>
-                <div class="a">→ When TWO independent things must both be exhausted (two pointers, two arrays)</div>
-                <div class="a"><span class="correct">One array, one pointer</span>: one condition sufficient</div>
-                <div class="a"><span class="correct">Two arrays/pointers</span>: <code>return i == len(A) <strong>and</strong> j == len(B)</code> — BOTH must end</div>
-            </div>
+  index:   0    1    2    3    4   ...   n-1    n
+           │    │    │    │    │         │      │
+           ▼    ▼    ▼    ▼    ▼         ▼      ▼
+         [ a    b    c    d    e   ...   z  ] (end)
+           ↑                             ↑      ↑
+     <span class="g">left=0</span>                       <span class="g">right=n-1</span>  <span class="b">n (past end)</span>
+
+  <span class="p">POSITION 1: LOOP ENTRY</span>        <span class="p">POSITION 2: LOOP EXIT</span>
+  ┌─────────────────────────┐    ┌─────────────────────────┐
+  │  while left <span class="r">&lt;</span>  right   │    │  Exits when left &gt;= right │
+  │  → left==right SKIPPED  │    │  left==right = answer   │
+  ├─────────────────────────┤    ├─────────────────────────┤
+  │  while left <span class="g">&lt;=</span> right   │    │  Exits when left &gt;  right │
+  │  → left==right checked  │    │  use recorded bound     │
+  └─────────────────────────┘    └─────────────────────────┘
+
+  <span class="p">POSITION 3: INDEX MATH</span>        <span class="p">POSITION 4: RETURN CHECK</span>
+  ┌─────────────────────────┐    ┌─────────────────────────┐
+  │  dp needs n+1 slots     │    │  One pointer:           │
+  │  dp[0..n] → size = n+1  │    │    return i == len(A)   │
+  │  return dp[n] not dp[n-1│    ├─────────────────────────┤
+  │  slice [p2+1] is len, not│   │  Two independent ptrs:  │
+  │  last index             │    │    return i==len(A)     │
+  └─────────────────────────┘    │      <span class="g">and</span> j==len(B)      │
+                                 └─────────────────────────┘</div>
         </div>
     </div>
 
     <div class="card">
         <div class="card-header">
-            <div class="category-badge">TAXONOMY</div>
-            <div><div class="card-title">The 5 Boundary Condition Types</div>
-            <div class="card-subtitle">Every bug in these 100 problems falls into one of these 5 categories</div></div>
+            <div class="category-badge">DECISION</div>
+            <div><div class="card-title">&lt; vs &lt;= Decision Diagram</div></div>
         </div>
         <div class="card-body">
-            <table class="cmp-table">
-                <tr>
-                    <th>Type</th>
-                    <th>Symptom</th>
-                    <th>Fix</th>
-                    <th>Problems</th>
-                </tr>
-                <tr>
-                    <td><strong>1. Loop bound</strong><br><span class="wrong">&lt; vs &lt;=</span></td>
-                    <td>Misses last element or processes one extra</td>
-                    <td>Ask: is left==right valid to process?</td>
-                    <td>Binary Search (all), BST Iterator</td>
-                </tr>
-                <tr>
-                    <td><strong>2. Termination check</strong><br><span class="wrong">one side vs both</span></td>
-                    <td>Returns true when one pointer done, other still has items</td>
-                    <td>Check ALL pointers reached their end</td>
-                    <td>Valid Word Abbr, Merge Sorted Array</td>
-                </tr>
-                <tr>
-                    <td><strong>3. Index math</strong><br><span class="wrong">+1 / -1 error</span></td>
-                    <td>dp array wrong size, slice misses last element</td>
-                    <td>Draw index 0..n on paper, verify dp[n] exists</td>
-                    <td>Word Break (dp[n+1]), Merge Array (p2+1)</td>
-                </tr>
-                <tr>
-                    <td><strong>4. Search space shrink</strong><br><span class="wrong">mid vs mid±1</span></td>
-                    <td>Infinite loop or skips valid answer</td>
-                    <td>When condition met: right=mid (keep). When not: left=mid+1 (discard)</td>
-                    <td>All BS Answer problems (Koko, Ship, Ribbons)</td>
-                </tr>
-                <tr>
-                    <td><strong>5. Remainder after loop</strong><br><span class="wrong">forgetting leftovers</span></td>
-                    <td>Loop exits but one side still has elements</td>
-                    <td>After two-pointer loop, always handle remaining side</td>
-                    <td>Merge Sorted Array (nums2 tail), Word Ladder</td>
-                </tr>
-            </table>
+<div class="diagram">  Can left==right be a <span class="y">valid state to process</span>?
+
+         ┌─────────────┐
+         │ left==right │
+         └──────┬──────┘
+                │
+        ┌───────┴────────┐
+        │                │
+       <span class="g">YES</span>              <span class="r">NO</span>
+        │                │
+        ▼                ▼
+  while left<span class="g">&lt;=</span>right   while left<span class="r">&lt;</span>right
+  ─────────────────   ───────────────────
+  Template B          Template A
+  Exact match /       Answer space /
+  Left+Right bound    Peak / Minimize
+
+  Example:            Example:
+  Find [3,3] in       Koko / Ship /
+  sorted array        Cut Ribbons</div>
         </div>
     </div>
 </div>
@@ -376,12 +275,11 @@
 <div id="binary-search" class="section">
 
     <div class="principle-box">
-        <h2>Binary Search Master Rule</h2>
-        <p>There are exactly <strong>two templates</strong>. The choice depends on whether you want to converge to a single index or search a closed interval.</p>
-        <p><strong>Template A</strong> (<code>while left &lt; right</code>, return left): Use when searching answer space or finding leftmost valid. Loop converges — left==right is the answer.</p>
-        <p><strong>Template B</strong> (<code>while left &lt;= right</code>, return bound): Use when searching for exact match or recording boundaries. Loop exits with left > right.</p>
+        <h2>Binary Search — 4 Search Space Types</h2>
+        <p>The search space determines the template. The boundary check differs depending on <em>what mid represents</em>.</p>
     </div>
 
+    <!-- Diagram 1: Template A — Answer Space -->
     <div class="card">
         <div class="card-header">
             <div class="category-badge">BS ANSWER</div>
@@ -389,116 +287,148 @@
             <div class="card-subtitle">Koko Eating Bananas · Ship Capacity · Cutting Ribbons</div></div>
         </div>
         <div class="card-body">
-<pre><span class="hl-blue">while left &lt; right</span>:           <span class="hl-comment"># NOT <=  — left==right IS the answer, don't process it again</span>
-    mid = (left + right) <span class="hl-yellow">// 2</span>
-    if feasible(mid):
-        <span class="hl-green">right = mid</span>           <span class="hl-comment"># mid might be answer, keep it</span>
-    else:
-        <span class="hl-red">left = mid + 1</span>        <span class="hl-comment"># mid definitely not answer, discard it</span>
-<span class="hl-green">return left</span>                   <span class="hl-comment"># left == right, both point to answer</span></pre>
+<div class="diagram">  ANSWER SPACE (not the array — a range of possible answers)
 
-            <div class="tests">
-                <div class="test-case">
-                    <div class="label">Koko: All same pile</div>
-                    <div class="input">piles=[3,3,3], h=3</div>
-                    <div class="expect">→ 3 (eat one pile/hour)</div>
-                    <div class="trap">left=1, right=3. Check mid=2: 6hrs > 3. left=3. Done.</div>
-                </div>
-                <div class="test-case">
-                    <div class="label">Ship: Single package</div>
-                    <div class="input">weights=[10], days=1</div>
-                    <div class="expect">→ 10</div>
-                    <div class="trap">left=max=10, right=sum=10. Loop never enters. Return 10.</div>
-                </div>
-                <div class="test-case">
-                    <div class="label">Ribbons: k > total</div>
-                    <div class="input">ribbons=[1], k=5</div>
-                    <div class="expect">→ 0</div>
-                    <div class="trap">can_cut(1)=1 &lt; 5 → result stays 0. Return 0.</div>
-                </div>
-            </div>
+  speed:   1    2    3   ...  mid  ...  max
+           │         │         │         │
+           ▼         ▼         ▼         ▼
+         [<span class="r">✗</span>   <span class="r">✗</span>   <span class="r">✗</span>   ...   <span class="g">✓</span>   <span class="g">✓</span>  <span class="g">✓</span>  <span class="g">✓</span>]
+                               ↑
+                         <span class="y">first valid</span> = answer
 
-            <div class="spark-note">
-                <strong>Spark:</strong> The trap is using <code>right = mid - 1</code> when feasible — this SKIPS mid itself even though mid could be the answer. Only discard mid when you're certain it's wrong (i.e., <code>left = mid + 1</code> side).
-            </div>
+  left=1                mid               right=max
+  ──────────────────────────────────────────────────
+  while <span class="g">left &lt; right</span>:         ← left==right IS the answer, don't reprocess
+      mid = (left+right) // 2
+      if feasible(mid):
+          <span class="g">right = mid</span>          ← mid might BE the answer, keep it
+      else:
+          <span class="r">left = mid + 1</span>       ← mid definitely wrong, discard it
+  return left                  ← left == right at convergence
+
+  KEY TRAP:
+  ┌──────────────────────────────────────────────────┐
+  │  feasible(mid) → <span class="r">right = mid - 1</span>   ← WRONG!     │
+  │  This skips mid itself even if mid is the answer │
+  │  Only use mid-1 on the INFEASIBLE side           │
+  └──────────────────────────────────────────────────┘</div>
         </div>
     </div>
 
+    <!-- Diagram 2: Template B — Array Exact / Bound -->
     <div class="card">
         <div class="card-header">
             <div class="category-badge">BS ARRAY</div>
-            <div><div class="card-title">Template B: Find Exact / Left+Right Bound</div>
-            <div class="card-subtitle">First & Last Position · Kth Missing Positive</div></div>
+            <div><div class="card-title">Template B: Exact Match / Left+Right Bound</div>
+            <div class="card-subtitle">First &amp; Last Position of Element · Kth Missing Positive</div></div>
         </div>
         <div class="card-body">
-<pre><span class="hl-comment"># Left bound (bisect_left)</span>
-<span class="hl-blue">while left &lt;= right</span>:         <span class="hl-comment"># <= because left==right must be checked</span>
-    mid = (left + right) // 2
-    if nums[mid] == target:
-        bound = mid
-        <span class="hl-green">right = mid - 1</span>       <span class="hl-comment"># keep searching LEFT for earlier occurrence</span>
-    elif nums[mid] &lt; target:
-        left = mid + 1
-    else:
-        right = mid - 1
-<span class="hl-green">return bound</span>                  <span class="hl-comment"># -1 if never found</span></pre>
+<div class="diagram">  ARRAY SEARCH (find leftmost occurrence of target=3)
 
-            <div class="tests">
-                <div class="test-case">
-                    <div class="label">Target not in array</div>
-                    <div class="input">nums=[1,3,5], target=2</div>
-                    <div class="expect">→ [-1, -1]</div>
-                    <div class="trap">first=-1 early return, skip second search</div>
-                </div>
-                <div class="test-case">
-                    <div class="label">Single element match</div>
-                    <div class="input">nums=[5], target=5</div>
-                    <div class="expect">→ [0, 0]</div>
-                    <div class="trap">left=0,right=0. mid=0. Match. bound=0. right=-1. Loop exits.</div>
-                </div>
-                <div class="test-case">
-                    <div class="label">All same elements</div>
-                    <div class="input">nums=[2,2,2], target=2</div>
-                    <div class="expect">→ [0, 2]</div>
-                    <div class="trap">Left search: keeps going left. Right search: keeps going right.</div>
-                </div>
-            </div>
+  index:  0    1    2    3    4    5    6
+  array: [1    2    3    3    3    4    5]
+                    ↑              ↑
+              <span class="y">leftmost=2</span>       <span class="y">rightmost=4</span>
+
+  LEFT BOUND search:
+  ──────────────────────────────────────────────────────
+  while <span class="g">left &lt;= right</span>:        ← left==right must be checked (may be the only match)
+      mid = (left+right) // 2
+      if nums[mid] == target:
+          <span class="g">bound = mid</span>          ← record answer
+          <span class="g">right = mid - 1</span>      ← keep searching LEFT for earlier one
+      elif nums[mid] &lt; target:
+          left = mid + 1
+      else:
+          right = mid - 1
+  return bound                 ← -1 if never found
+
+  RIGHT BOUND search: same, but record bound and left = mid + 1 on match
+
+  LOOP EXIT STATE:
+  ┌─────────────────────────────┐
+  │  left                       │
+  │   │                         │
+  │   ▼   right                 │
+  │  [1    2   <span class="g">3</span>   3   3   4   5]│
+  │         ↑                   │
+  │       left &gt; right          │
+  │       loop exits            │
+  └─────────────────────────────┘</div>
         </div>
     </div>
 
+    <!-- Diagram 3: Find Peak -->
     <div class="card">
         <div class="card-header">
             <div class="category-badge">BS ARRAY</div>
-            <div><div class="card-title">Find Peak Element — Slope-based Elimination</div>
-            <div class="card-subtitle">Array not sorted — use neighbor comparison instead</div></div>
+            <div><div class="card-title">Find Peak Element — Slope Direction Elimination</div>
+            <div class="card-subtitle">Array unsorted — eliminate half by slope, not value comparison</div></div>
         </div>
         <div class="card-body">
-<pre><span class="hl-blue">while left &lt; right</span>:
-    mid = (left + right) // 2
-    if nums[mid] <span class="hl-green">&gt;</span> nums[mid + 1]:  <span class="hl-comment"># going downhill → peak is LEFT (could be mid)</span>
-        <span class="hl-green">right = mid</span>               <span class="hl-comment"># NOT mid-1, mid itself is a candidate</span>
-    else:                           <span class="hl-comment"># going uphill → peak is strictly RIGHT</span>
-        <span class="hl-red">left = mid + 1</span>
-<span class="hl-green">return left</span></pre>
+<div class="diagram">  SLOPE-BASED ELIMINATION (not value comparison)
 
-            <div class="spark-note">
-                <strong>Spark:</strong> <code>right = mid</code> not <code>right = mid - 1</code> because mid might itself be the peak (it's greater than mid+1). Using <code>mid-1</code> would lose the answer.
-            </div>
+  index:  0    1    2    3    4    5    6
+  array: [1    3    5    4    2    6    7]
+                    ↑              ↑
+              <span class="y">local peak</span>         <span class="y">local peak</span>
 
-            <div class="tests">
-                <div class="test-case">
-                    <div class="label">Peak at index 0</div>
-                    <div class="input">nums=[3,1]</div>
-                    <div class="expect">→ 0</div>
-                    <div class="trap">mid=0, nums[0]=3 > nums[1]=1. right=0. left==right=0. Return 0.</div>
-                </div>
-                <div class="test-case">
-                    <div class="label">Peak at last index</div>
-                    <div class="input">nums=[1,2]</div>
-                    <div class="expect">→ 1</div>
-                    <div class="trap">mid=0, nums[0]=1 &lt; nums[1]=2. left=1. Return 1.</div>
-                </div>
-            </div>
+  At mid=3 (value=4):
+  nums[3]=4  vs  nums[4]=2
+
+  <span class="p">Going DOWNHILL</span> (nums[mid] &gt; nums[mid+1]):         <span class="p">Going UPHILL</span> (nums[mid] &lt; nums[mid+1]):
+  ─────────────────────────────────────────────   ──────────────────────────────────────────────
+  Peak exists in LEFT half (includes mid)         Peak exists in RIGHT half (excludes mid)
+
+  [... ↗ <span class="g">peak</span> ↘ mid ↘ ...]                          [... mid ↗ ...]
+
+  right = <span class="g">mid</span>      ← NOT mid-1                      left = <span class="r">mid + 1</span>    ← discard mid
+  (mid could BE peak)
+
+  KEY TRAP:
+  ┌──────────────────────────────────────────────────┐
+  │  Going downhill → <span class="r">right = mid - 1</span>  ← WRONG!     │
+  │  If mid is the peak itself, this skips it        │
+  │  Use right = mid to keep mid as a candidate      │
+  └──────────────────────────────────────────────────┘</div>
+        </div>
+    </div>
+
+    <!-- Diagram 4: BS Value Range (Matrix) -->
+    <div class="card">
+        <div class="card-header">
+            <div class="category-badge">BS VALUE</div>
+            <div><div class="card-title">BS on Value Range — Count ≤ mid</div>
+            <div class="card-subtitle">Kth Smallest in Sorted Matrix</div></div>
+        </div>
+        <div class="card-body">
+<div class="diagram">  VALUE RANGE SEARCH (mid is a value, not an index)
+
+  Matrix:          Search space:
+  [ 1   5   9 ]   lo=1 ──────────────── hi=13
+  [ 10  11  13]        │                  │
+  [ 12  13  15]        ▼                  ▼
+                    [1  2  3 ... <span class="y">mid</span> ... 13]
+
+  count_leq(mid) = how many matrix values ≤ mid
+
+  while lo &lt; hi:
+      mid = (lo + hi) // 2
+      if count_leq(mid) &gt;= k:
+          hi = mid              ← mid might be the kth value
+      else:
+          lo = mid + 1          ← too few values ≤ mid, go higher
+
+  IMPORTANT: mid may NOT exist in the matrix!
+  ┌────────────────────────────────────────────────────────┐
+  │  Matrix: [[1,2],[3,4]]  k=2                            │
+  │  mid=2 → count_leq(2)=2 ≥ 2 → hi=2                    │
+  │  mid=1 → count_leq(1)=1 &lt; 2 → lo=2                    │
+  │  lo==hi=2 → return 2  (value 2 EXISTS in matrix ✓)     │
+  │                                                        │
+  │  But mid values tried include 2,3 which may not exist  │
+  │  → lo always converges to an ACTUAL matrix value       │
+  └────────────────────────────────────────────────────────┘</div>
         </div>
     </div>
 </div>
@@ -509,91 +439,127 @@
 <div id="two-pointers" class="section">
 
     <div class="principle-box">
-        <h2>Two Pointer Master Rule</h2>
-        <p><strong>The return condition must check ALL pointers</strong>, not just one. The loop exits when any ONE pointer is exhausted — but the RETURN must verify that all were exhausted correctly.</p>
-        <p>After the loop, always ask: <em>"Is there anything left on either side that I haven't handled?"</em></p>
+        <h2>Two Pointers — 4 Movement Patterns</h2>
+        <p>The boundary check depends on <strong>how pointers move</strong> and <strong>what exhaustion means</strong>. Draw the end state before writing the return.</p>
     </div>
 
+    <!-- Diagram 1: L+R Closing In -->
     <div class="card">
         <div class="card-header">
-            <div class="category-badge">TWO PTR</div>
-            <div><div class="card-title">Valid Word Abbreviation — Dual Termination Check</div>
-            <div class="card-subtitle">Loop exits when either pointer hits end; return must verify BOTH</div></div>
+            <div class="category-badge">L+R CLOSE</div>
+            <div><div class="card-title">Left+Right Closing In — Container / 3Sum / Squares</div>
+            <div class="card-subtitle">Loop condition: while left &lt; right (they must not cross)</div></div>
         </div>
         <div class="card-body">
-<pre><span class="hl-blue">while i &lt; len(word) and j &lt; len(abbr)</span>:
-    <span class="hl-comment"># process...</span>
+<div class="diagram">  START STATE:                     END STATE:
+  index: 0  1  2  3  4  5  6      index: 0  1  2  3  4  5  6
+        [1  2  3  4  5  6  7]            [1  2  3  4  5  6  7]
+         ↑                 ↑                         ↑↑
+       <span class="b">left</span>             <span class="b">right</span>                  left==right
+                                                (loop stopped)
 
-<span class="hl-comment"># WRONG: return i == len(word)   ← abbr="1b", word="a" → i done but j still has 'b'</span>
-<span class="hl-comment"># WRONG: return j == len(abbr)   ← abbr="1", word="ab" → j done but word still has 'b'</span>
-<span class="hl-green">return i == len(word) and j == len(abbr)</span>  <span class="hl-comment"># BOTH must be exhausted</span></pre>
+  while <span class="g">left &lt; right</span>:               ← left==right: window is empty, stop
+      current = compute(left, right)
+      if condition: left++
+      else:        right--
 
-            <div class="tests">
-                <div class="test-case">
-                    <div class="label">Abbr has leftover chars</div>
-                    <div class="input">word="a", abbr="1b"</div>
-                    <div class="expect">→ False</div>
-                    <div class="trap">i reaches end at '1', j still at 'b'. Only checking i fails.</div>
-                </div>
-                <div class="test-case">
-                    <div class="label">Word has leftover chars</div>
-                    <div class="input">word="ab", abbr="1"</div>
-                    <div class="expect">→ False</div>
-                    <div class="trap">j reaches end after '1', i only advanced 1. Only checking j fails.</div>
-                </div>
-                <div class="test-case">
-                    <div class="label">Leading zero</div>
-                    <div class="input">word="hi", abbr="01"</div>
-                    <div class="expect">→ False</div>
-                    <div class="trap">abbr[j]=='0' must be checked before parsing number.</div>
-                </div>
-                <div class="test-case">
-                    <div class="label">Exact match</div>
-                    <div class="input">word="hi", abbr="2"</div>
-                    <div class="expect">→ True</div>
-                    <div class="trap">i+=2 → i=2=len(word). j+=1 → j=1=len(abbr). Both done.</div>
-                </div>
-            </div>
+  RETURN: max/answer accumulated inside loop (no special return check)
+
+  ─────────────────────────────────────────────────────────────────
+  PATTERN: Container With Most Water (no sort, greedy elimination)
+
+  [1  8  6  2  5  4  8  3  7]
+   ↑                       ↑
+  left                   right
+  height=min(1,7)=1 → move LEFT (shorter side)
+  height=min(8,7)=7 → move RIGHT
+
+  ─────────────────────────────────────────────────────────────────
+  PATTERN: Squares of Sorted Array (sorted, fill from back)
+
+  [-4 -1  0  3  10]    result: [_ _ _ _ _]
+   ↑            ↑               fill pos ↑ (right-to-left)
+  left        right
+  16 vs 100 → place 100, right--</div>
         </div>
     </div>
 
+    <!-- Diagram 2: Two Arrays Advancing -->
     <div class="card">
         <div class="card-header">
-            <div class="category-badge">TWO PTR</div>
-            <div><div class="card-title">Merge Sorted Array — Remainder After Loop</div>
-            <div class="card-subtitle">Nums2 remainder MUST be copied; nums1 remainder is already in place</div></div>
+            <div class="category-badge">TWO ARRAYS</div>
+            <div><div class="card-title">Two Arrays — Merge from Back / Advance by End</div>
+            <div class="card-subtitle">Merge Sorted Array · Interval List Intersections</div></div>
         </div>
         <div class="card-body">
-<pre><span class="hl-blue">while p1 &gt;= 0 and p2 &gt;= 0</span>:   <span class="hl-comment"># exits when EITHER is exhausted</span>
-    if nums1[p1] > nums2[p2]:
-        nums1[p] = nums1[p1]; p1 -= 1
-    else:
-        nums1[p] = nums2[p2]; p2 -= 1
-    p -= 1
+<div class="diagram">  MERGE SORTED ARRAY (fill from back to avoid overwrite)
 
-<span class="hl-comment"># After loop:</span>
-<span class="hl-comment"># p1 leftover → SAFE: already in nums1 at correct positions, no action needed</span>
-<span class="hl-comment"># p2 leftover → MUST COPY: smaller values not yet placed</span>
-<span class="hl-green">nums1[:p2 + 1] = nums2[:p2 + 1]</span>   <span class="hl-comment"># p2+1 = slice end (exclusive)</span></pre>
+  nums1: [1  3  5  _  _  _]    nums2: [2  4  6]
+          ↑        ↑                    ↑
+         p1     write pos p            p2
 
-            <div class="spark-note">
-                <strong>Spark:</strong> The asymmetry is the key insight. nums1's remaining elements are already sitting in nums1 at positions 0..p1 — they're already correct. nums2's remaining elements are smaller than everything placed so far and must be explicitly written to the front.
-            </div>
+  LOOP:  while p1 &gt;= 0 and p2 &gt;= 0
 
-            <div class="tests">
-                <div class="test-case">
-                    <div class="label">nums2 all smaller</div>
-                    <div class="input">nums1=[4,5,6,0,0,0], nums2=[1,2,3]</div>
-                    <div class="expect">→ [1,2,3,4,5,6]</div>
-                    <div class="trap">p1 exhausts first. nums2=[1,2,3] still fully remaining. Must copy.</div>
-                </div>
-                <div class="test-case">
-                    <div class="label">nums2 empty</div>
-                    <div class="input">nums1=[1], m=1, nums2=[], n=0</div>
-                    <div class="expect">→ [1]</div>
-                    <div class="trap">p2=-1. Loop never enters. Copy: nums1[:0]=nums2[:0] → no-op. Correct.</div>
-                </div>
-            </div>
+  EXIT STATES — two cases:
+  ┌─────────────────────────────┐   ┌──────────────────────────────────┐
+  │  p1 exhausted (p1 &lt; 0)     │   │  p2 exhausted (p2 &lt; 0)          │
+  │  nums2 still has elements   │   │  nums1 left elements are already │
+  │                             │   │  in place at front of nums1      │
+  │  MUST COPY:                 │   │                                  │
+  │  nums1[:p2+1]=nums2[:p2+1]  │   │  DO NOTHING — already correct   │
+  └─────────────────────────────┘   └──────────────────────────────────┘
+              ↑                                    ↑
+          <span class="r">forget this → wrong answer</span>       <span class="g">asymmetry is the insight</span>
+
+  ─────────────────────────────────────────────────────────────────
+  INTERVAL LIST INTERSECTIONS (advance by who ends first)
+
+  A: [──]      [────]      [──────]
+  B:    [────]     [──]  [───]
+
+  i→  i→       i→         i→        (advance A's pointer)
+  j→      j→       j→  j→           (advance B's pointer)
+
+  Rule: advance the pointer whose interval <span class="y">ends first</span>
+  if A[i].end &lt; B[j].end: i++
+  else:                   j++
+  (the one ending first can't intersect any future interval)</div>
+        </div>
+    </div>
+
+    <!-- Diagram 3: Two Strings -->
+    <div class="card">
+        <div class="card-header">
+            <div class="category-badge">TWO STRINGS</div>
+            <div><div class="card-title">Valid Word Abbreviation — Dual Termination</div>
+            <div class="card-subtitle">Both pointers must reach their END simultaneously</div></div>
+        </div>
+        <div class="card-body">
+<div class="diagram">  word:  i n t e r n a t i o n a l
+         ↑                           ↑
+         i=0                      len=13
+
+  abbr:  i 6 l
+         ↑     ↑
+         j=0  len=3
+
+  Loop: while i &lt; len(word) AND j &lt; len(abbr)
+
+  RETURN CHECK — 4 cases at loop exit:
+  ┌────────────────────────────────────────────────────────────────┐
+  │                                                                │
+  │  Case 1: i==13, j==3  → <span class="g">both done → True</span>                     │
+  │                                                                │
+  │  Case 2: i==13, j=1   → <span class="r">abbr still has "l" → False</span>           │
+  │          word: i n t e r n a t i o n a l                      │
+  │          abbr: i 6 <span class="r">l</span>  ← j didn't reach end                    │
+  │                                                                │
+  │  Case 3: i=12,  j==3  → <span class="r">word still has "l" → False</span>           │
+  │          word: i n t e r n a t i o n a <span class="r">l</span>  ← i didn't reach end│
+  │          abbr: i 6                                             │
+  │                                                                │
+  │  CORRECT: return i == len(word) <span class="g">and</span> j == len(abbr)             │
+  └────────────────────────────────────────────────────────────────┘</div>
         </div>
     </div>
 </div>
@@ -604,47 +570,94 @@
 <div id="sliding-window" class="section">
 
     <div class="principle-box">
-        <h2>Sliding Window Master Rule</h2>
-        <p>The window is defined by <code>[left, right]</code> inclusive. Window size = <code>right - left + 1</code> (the +1 is the most common off-by-one).</p>
-        <p>Use <strong>while</strong> (not if) to shrink the window — there may be multiple violations to resolve before the window is valid again.</p>
+        <h2>Sliding Window — Window Size and Shrink Condition</h2>
+        <p>The window is <code>[left, right]</code> inclusive. Two traps: the <strong>+1 in size formula</strong>, and using <strong>while not if</strong> when shrinking.</p>
     </div>
 
+    <!-- Diagram 1: Window anatomy -->
     <div class="card">
         <div class="card-header">
-            <div class="category-badge">SLIDING WIN</div>
-            <div><div class="card-title">Max Consecutive Ones III — Window Shrink</div>
-            <div class="card-subtitle">while vs if for shrinking; window size formula</div></div>
+            <div class="category-badge">WINDOW</div>
+            <div><div class="card-title">Window Anatomy — Size, Expand, Shrink</div>
+            <div class="card-subtitle">Max Consecutive Ones III · Minimum Window Substring</div></div>
         </div>
         <div class="card-body">
-<pre>for right in range(len(nums)):
-    if nums[right] == 0: zeros_count += 1
+<div class="diagram">  index:  0    1    2    3    4    5    6    7    8
+  array: [1    1    0    1    1    0    1    1    1]
+                    ↑              ↑
+                  <span class="b">left</span>           <span class="b">right</span>
 
-    <span class="hl-blue">while zeros_count &gt; k</span>:    <span class="hl-comment"># while, not if — may need multiple shrinks</span>
-        if nums[left] == 0: zeros_count -= 1
-        left += 1
+  Window = [left .. right]  (both inclusive)
+  Window size = <span class="g">right - left + 1</span>    ← the +1 is the most common mistake
 
-    max_len = max(max_len, <span class="hl-green">right - left + 1</span>)  <span class="hl-comment"># +1: both endpoints are inclusive</span></pre>
+  EXPAND: right moves right every iteration (for loop)
+  SHRINK: left moves right when window is invalid
 
-            <div class="tests">
-                <div class="test-case">
-                    <div class="label">k=0, no zeros</div>
-                    <div class="input">nums=[1,1,1], k=0</div>
-                    <div class="expect">→ 3</div>
-                    <div class="trap">zeros_count never > 0. Window grows freely.</div>
-                </div>
-                <div class="test-case">
-                    <div class="label">k=0, all zeros</div>
-                    <div class="input">nums=[0,0,0], k=0</div>
-                    <div class="expect">→ 0</div>
-                    <div class="trap">Every right causes shrink. Window stays size 0. max_len=0.</div>
-                </div>
-                <div class="test-case">
-                    <div class="label">Consecutive zeros</div>
-                    <div class="input">nums=[0,0,1,1,0], k=1</div>
-                    <div class="expect">→ 3</div>
-                    <div class="trap">Window [2..4] = "1,1,0". Using 'if' instead of 'while' fails when two zeros enter.</div>
-                </div>
-            </div>
+  ─────────────────────────────────────────────────────────────────
+  for right in range(len(nums)):
+      <span class="d"># 1. Include nums[right] into window</span>
+      if nums[right] == 0: zeros++
+
+      <span class="d"># 2. Shrink from left while invalid</span>
+      <span class="g">while</span> zeros &gt; k:           ← while NOT if: may need multiple shrinks
+          if nums[left] == 0: zeros--
+          left++
+
+      <span class="d"># 3. Record answer (window is now valid)</span>
+      max_len = max(max_len, right - left + 1)
+
+  ─────────────────────────────────────────────────────────────────
+  WHY while NOT if:
+
+  Before right=5:    After right=5 (k=1):
+  [1 1 <span class="r">0</span> 1 1 | <span class="r">0</span> 1]    zeros=2 &gt; k=1
+   ↑         ↑       Need to shrink PAST the first 0:
+  left      right    shrink 1: left→1, zeros still 2
+                     shrink 2: left→2, zeros still 2
+                     shrink 3: left→3, zeros=1 ≤ k  ✓
+                     Using 'if' only shrinks once → still invalid</div>
+        </div>
+    </div>
+
+    <!-- Diagram 2: Minimum Window Substring -->
+    <div class="card">
+        <div class="card-header">
+            <div class="category-badge">HARD WIN</div>
+            <div><div class="card-title">Minimum Window Substring — Two Counters</div>
+            <div class="card-subtitle">need=len(t_count), have=matched chars; shrink when have==need</div></div>
+        </div>
+        <div class="card-body">
+<div class="diagram">  s = "ADOBECODEBANC"   t = "ABC"
+  need = 3   (unique chars in t)
+  have = 0   (chars in window meeting t's count)
+
+  EXPAND right until have == need:
+  ─────────────────────────────────────────────────
+  A D O B E C O D E B A  N  C
+  ↑                 ↑
+  left            right
+  window "ADOBEC" → have=3==need → VALID
+
+  SHRINK left while have == need (record min window each time):
+  ─────────────────────────────────────────────────
+  A D O B E C O D E B A  N  C
+  ↑                 ↑
+  record len=6, then left++
+
+  D O B E C O D E B A  N  C
+  ↑                 ↑
+  'A' count drops → have=2 &lt; need → stop shrink, expand again
+
+  BOUNDARY CHECK for have:
+  ┌─────────────────────────────────────────────────┐
+  │  have increments only when:                     │
+  │    window[char] == t_count[char]                │
+  │    (exactly meets requirement, not over)        │
+  │                                                 │
+  │  have decrements only when:                     │
+  │    window[char] == t_count[char] - 1            │
+  │    (just dropped below requirement)             │
+  └─────────────────────────────────────────────────┘</div>
         </div>
     </div>
 </div>
@@ -655,120 +668,147 @@
 <div id="graph" class="section">
 
     <div class="principle-box">
-        <h2>Graph Traversal Master Rule</h2>
-        <p><strong>DFS:</strong> visited state is permanent (0→1→2 or added to set). Never undo. Loop condition: visit unvisited neighbors.</p>
-        <p><strong>BFS:</strong> Mark visited on <em>enqueue</em>, not dequeue. If you mark on dequeue, the same node can be enqueued multiple times → wrong distances or TLE.</p>
-        <p><strong>Backtracking:</strong> State must be undone after recursing. The undo (pop/go_back) is not optional — without it, sibling branches share corrupted state.</p>
+        <h2>Graph — 3 Traversal Patterns, 3 Different Boundary Rules</h2>
+        <p>DFS (no undo) / BFS (visited on enqueue) / Backtracking (undo mandatory) each have a different critical boundary.</p>
     </div>
 
+    <!-- Diagram 1: DFS 3-state -->
     <div class="card">
         <div class="card-header">
             <div class="category-badge">DFS</div>
-            <div><div class="card-title">Course Schedule — 3-State Cycle Detection</div>
-            <div class="card-subtitle">0=unvisited, 1=in-stack (visiting), 2=safe (done)</div></div>
+            <div><div class="card-title">DFS Cycle Detection — 3-State Coloring</div>
+            <div class="card-subtitle">Course Schedule · state transitions are permanent (no undo)</div></div>
         </div>
         <div class="card-body">
-<pre>def has_cycle(course):
-    <span class="hl-red">if state[course] == 1: return True</span>   <span class="hl-comment"># back edge → cycle</span>
-    <span class="hl-green">if state[course] == 2: return False</span>  <span class="hl-comment"># already fully explored → safe</span>
+<div class="diagram">  STATE MACHINE for each node:
 
-    state[course] = 1                    <span class="hl-comment"># mark: currently in recursion stack</span>
-    for prereq in graph[course]:
-        if has_cycle(prereq): return True
+  ┌──────────┐   enter DFS   ┌──────────┐   all neighbors done   ┌──────────┐
+  │  <span class="b">0=WHITE</span>  │ ────────────▶ │  <span class="y">1=GRAY</span>  │ ─────────────────────▶ │  <span class="g">2=BLACK</span> │
+  │ unvisited│               │in-stack  │                         │   safe   │
+  └──────────┘               └────┬─────┘                         └──────────┘
+                                  │
+                              see a GRAY
+                              neighbor?
+                                  │
+                                  ▼
+                            <span class="r">CYCLE DETECTED</span>
 
-    <span class="hl-green">state[course] = 2</span>                    <span class="hl-comment"># mark: all descendants safe</span>
-    return False</pre>
+  BOUNDARY RULE — state=2 must be set AFTER, not before, processing neighbors:
 
-            <div class="tests">
-                <div class="test-case">
-                    <div class="label">Direct cycle</div>
-                    <div class="input">prerequisites=[[0,1],[1,0]]</div>
-                    <div class="expect">→ False (cannot finish)</div>
-                    <div class="trap">DFS 0→1→0. state[0]==1 when revisited. Cycle detected.</div>
-                </div>
-                <div class="test-case">
-                    <div class="label">Diamond (shared prereq)</div>
-                    <div class="input">[[2,0],[2,1],[3,0],[3,1]]</div>
-                    <div class="expect">→ True (no cycle)</div>
-                    <div class="trap">0 visited from both 2 and 3. State=2 on second visit → skip. Without state=2, would re-explore.</div>
-                </div>
-            </div>
+  def dfs(node):
+      if state[node] == <span class="y">1</span>: return True    ← back edge = cycle
+      if state[node] == <span class="g">2</span>: return False   ← already safe
+      state[node] = <span class="y">1</span>                     ← mark: in stack
+      for neighbor in graph[node]:
+          if dfs(neighbor): return True
+      state[node] = <span class="g">2</span>                     ← mark safe AFTER all neighbors
+      return False
+
+  TRAP: setting state=2 BEFORE processing neighbors:
+  ┌──────────────────────────────────────────────────────────────┐
+  │  state[node] = 2  ← WRONG position                          │
+  │  for neighbor...                                             │
+  │  Now if a neighbor loops back, state==2 → returns False      │
+  │  Cycle is MISSED                                             │
+  └──────────────────────────────────────────────────────────────┘</div>
         </div>
     </div>
 
+    <!-- Diagram 2: BFS enqueue vs dequeue -->
     <div class="card">
         <div class="card-header">
             <div class="category-badge">BFS</div>
-            <div><div class="card-title">BFS: Mark Visited on ENQUEUE not DEQUEUE</div>
+            <div><div class="card-title">BFS — Mark Visited on ENQUEUE, Not Dequeue</div>
             <div class="card-subtitle">Shortest Path in Binary Matrix · Word Ladder</div></div>
         </div>
         <div class="card-body">
-<pre><span class="hl-comment"># WRONG: mark on dequeue</span>
-while queue:
-    node = queue.popleft()
-    <span class="hl-red">visited.add(node)</span>      <span class="hl-comment"># Too late — node may have been enqueued 4x already</span>
-    for nb in neighbors(node):
-        if nb not in visited: queue.append(nb)
+<div class="diagram">  GRID BFS — each cell can have up to 8 neighbors
 
-<span class="hl-comment"># CORRECT: mark on enqueue</span>
-<span class="hl-green">visited.add(start)</span>
-queue = deque([start])
-while queue:
-    node = queue.popleft()
-    for nb in neighbors(node):
-        if nb not in visited:
-            <span class="hl-green">visited.add(nb)</span>    <span class="hl-comment"># Mark immediately on enqueue</span>
-            queue.append(nb)</pre>
+  [ 0  0  0 ]
+  [ 0  <span class="y">X</span>  0 ]    X has 8 neighbors, all pointing to center neighbor
+  [ 0  0  0 ]
 
-            <div class="tests">
-                <div class="test-case">
-                    <div class="label">Grid with single path</div>
-                    <div class="input">grid=[[0,0],[0,0]]</div>
-                    <div class="expect">→ 3 steps (diagonal)</div>
-                    <div class="trap">Without visited-on-enqueue, cells are processed multiple times → wrong distance.</div>
-                </div>
-            </div>
+  WRONG — mark on DEQUEUE:
+  ──────────────────────────────────────────────────
+  queue: [start]
+  while queue:
+      node = queue.popleft()
+      <span class="r">visited.add(node)</span>          ← Too late!
+      for nb in neighbors(node):
+          if nb not in visited:
+              queue.append(nb)   ← same nb appended multiple times before visited
+
+  Result: queue bloats, distances wrong, TLE possible
+
+  CORRECT — mark on ENQUEUE:
+  ──────────────────────────────────────────────────
+  <span class="g">visited.add(start)</span>
+  queue = deque([(start, 0)])
+  while queue:
+      node, dist = queue.popleft()
+      for nb in neighbors(node):
+          if nb not in visited:
+              <span class="g">visited.add(nb)</span>    ← mark immediately, before it enters queue
+              queue.append((nb, dist+1))
+
+  VISUAL — why it matters:
+
+  Step 1: enqueue start, mark start visited
+          queue: [S]   visited: {S}
+
+  Step 2: dequeue S, enqueue A B C (all neighbors), mark all visited
+          queue: [A B C]   visited: {S,A,B,C}
+
+  Step 3: dequeue A — neighbors include S,B,C → all visited → SKIP
+          ← without marking on enqueue, S B C would be re-enqueued here</div>
         </div>
     </div>
 
+    <!-- Diagram 3: Backtracking -->
     <div class="card">
         <div class="card-header">
             <div class="category-badge">BACKTRACK</div>
-            <div><div class="card-title">Backtracking: The Undo is Mandatory</div>
-            <div class="card-subtitle">Subsets · Robot Room Cleaner</div></div>
+            <div><div class="card-title">Backtracking — The Undo is Mandatory</div>
+            <div class="card-subtitle">Subsets (list.pop) · Robot Room Cleaner (go_back)</div></div>
         </div>
         <div class="card-body">
-<pre><span class="hl-comment"># Subsets: undo is list.pop()</span>
-def backtrack(start, current):
-    result.append(current[:])        <span class="hl-comment"># snapshot — copy, not reference</span>
-    for i in range(start, len(nums)):
-        current.append(nums[i])      <span class="hl-comment"># choose</span>
-        backtrack(i + 1, current)
-        <span class="hl-green">current.pop()</span>                <span class="hl-comment"># UNDO — without this, all results share same list</span>
+<div class="diagram">  RECURSION TREE for Subsets([1,2,3]):
 
-<span class="hl-comment"># Robot Room Cleaner: undo is physical go_back()</span>
-def backtrack(cell, d):
-    visited.add(cell); robot.clean()
-    for i in range(4):
-        if robot.move():
-            backtrack(new_cell, new_d)
-            <span class="hl-green">go_back()</span>                <span class="hl-comment"># UNDO physical position — robot must return to parent cell</span>
-        robot.turnRight()</pre>
+                    []
+                 /  |  \
+               [1] [2] [3]       ← choose each element
+              / \    \
+          [1,2][1,3] [2,3]       ← choose next
+           |
+        [1,2,3]
 
-            <div class="tests">
-                <div class="test-case">
-                    <div class="label">Missing pop()</div>
-                    <div class="input">nums=[1,2,3]</div>
-                    <div class="expect">All 8 subsets</div>
-                    <div class="trap">Without pop: result contains same mutated list reference everywhere → all same.</div>
-                </div>
-                <div class="test-case">
-                    <div class="label">Missing go_back()</div>
-                    <div class="input">Room with multiple cells</div>
-                    <div class="expect">All cells cleaned</div>
-                    <div class="trap">Without go_back: robot stranded in subtree, can't explore siblings.</div>
-                </div>
-            </div>
+  At each node: snapshot current[] into result, then try adding each next element
+
+  def backtrack(start, current):
+      result.append(<span class="g">current[:]</span>)        ← COPY not reference (snapshot)
+      for i in range(start, n):
+          current.append(nums[i])   ← choose
+          backtrack(i+1, current)   ← recurse
+          <span class="g">current.pop()</span>             ← UNDO: restore for sibling branch
+                ↑
+    WITHOUT THIS: after backtrack([1,2]), current=[1,2]
+                  next iteration tries [1,2,3] but current ALREADY has [1,2]
+                  → all results are wrong references to same mutated list
+
+  ─────────────────────────────────────────────────────────────────
+  ROBOT ROOM CLEANER (physical state undo):
+
+  Parent cell                    After exploring child:
+  ┌─────────────────┐           ┌─────────────────┐
+  │                 │           │                 │
+  │   [PARENT] ──▶  [CHILD]    │   [PARENT] ◀──  [CHILD]
+  │                 │           │                 │
+  └─────────────────┘           └─────────────────┘
+  robot moves forward           robot must go_back()
+                                (turn 180°, move, turn 180°)
+
+  Without go_back: robot stranded in child subtree,
+                   cannot explore siblings of parent</div>
         </div>
     </div>
 </div>
@@ -779,52 +819,96 @@ def backtrack(cell, d):
 <div id="dp" class="section">
 
     <div class="principle-box">
-        <h2>Dynamic Programming Master Rule</h2>
-        <p><strong>Array size is n+1, not n.</strong> When dp[i] represents "first i characters/items", you need indices 0..n, which is n+1 slots.</p>
-        <p><strong>dp[0] is always the base case</strong> (empty prefix). It is never computed — it is declared as True/0.</p>
-        <p><strong>Return dp[n]</strong>, not dp[n-1]. The answer for the full input is at index n.</p>
+        <h2>Dynamic Programming — Index Offset Pattern</h2>
+        <p>When dp[i] means "first i items", you need indices 0 through n — that's <strong>n+1 slots</strong>. The boundary check is: array size, base case position, and return index.</p>
     </div>
 
+    <!-- Diagram 1: n+1 array -->
     <div class="card">
         <div class="card-header">
-            <div class="category-badge">DP</div>
-            <div><div class="card-title">Word Break — Index Offset Pattern</div>
-            <div class="card-subtitle">dp[i] = "can first i chars be segmented" → need dp[0..n]</div></div>
+            <div class="category-badge">DP ARRAY</div>
+            <div><div class="card-title">The n+1 Array Pattern — Word Break</div>
+            <div class="card-subtitle">dp[i] = "can first i chars be segmented"</div></div>
         </div>
         <div class="card-body">
-<pre>n = len(s)
-<span class="hl-green">dp = [False] * (n + 1)</span>      <span class="hl-comment"># n+1 slots: dp[0]..dp[n]</span>
-<span class="hl-green">dp[0] = True</span>                <span class="hl-comment"># base case: empty string is always valid</span>
+<div class="diagram">  s = "leetcode"   (n=8 chars)
 
-for i in range(<span class="hl-green">1, n + 1</span>):   <span class="hl-comment"># 1..n inclusive</span>
-    for j in range(i):
-        if dp[j] and s[j:i] in word_set:
-            dp[i] = True
-            break
+  STRING INDEX:   0    1    2    3    4    5    6    7
+                  l    e    e    t    c    o    d    e
 
-<span class="hl-green">return dp[n]</span>                <span class="hl-comment"># NOT dp[n-1]</span></pre>
+  DP INDEX:    0    1    2    3    4    5    6    7    8
+             [<span class="g">T</span>   ?    ?    ?    <span class="y">T</span>    ?    ?    ?   <span class="y">T</span>]
+               ↑                   ↑                  ↑
+           <span class="g">dp[0]=True</span>        dp[4]="leet"       <span class="g">dp[8]=answer</span>
+           (base: empty         can segment        return THIS
+            string always)
 
-            <table class="cmp-table" style="margin-top:12px">
-                <tr><th>i</th><th>dp[i] means</th><th>Common mistake</th></tr>
-                <tr><td>0</td><td>Empty string → True (base)</td><td>Forgetting dp[0]=True → dp[i] never becomes True</td></tr>
-                <tr><td>1</td><td>First 1 char can be segmented</td><td>Starting loop at 0 instead of 1</td></tr>
-                <tr><td>n</td><td>Full string can be segmented</td><td>Returning dp[n-1] → off by one char</td></tr>
-            </table>
+  dp[i] meaning: "can s[0:i] be segmented using wordDict?"
 
-            <div class="tests">
-                <div class="test-case">
-                    <div class="label">Single word</div>
-                    <div class="input">s="leet", words=["leet"]</div>
-                    <div class="expect">→ True</div>
-                    <div class="trap">dp[0]=T. j=0,i=4: dp[0] and "leet" in set → dp[4]=True. Return dp[4].</div>
-                </div>
-                <div class="test-case">
-                    <div class="label">Empty string</div>
-                    <div class="input">s="", words=["a"]</div>
-                    <div class="expect">→ True</div>
-                    <div class="trap">n=0. dp=[True]. Loop range(1,1) → empty. Return dp[0]=True.</div>
-                </div>
-            </div>
+  TRANSITIONS:
+  for i in range(1, <span class="g">n+1</span>):        ← NOT range(n), need to reach dp[n]
+      for j in range(i):
+          if dp[j] and s[j:i] in word_set:
+              dp[i] = True
+
+  BOUNDARY POSITIONS:
+  ┌──────────────────────────────────────────────────────┐
+  │  dp = [False] * (n+1)    ← size n+1, NOT n          │
+  │  dp[0] = True            ← base at index 0, NOT 1   │
+  │  range(1, n+1)           ← include n in loop        │
+  │  return dp[n]            ← index n, NOT n-1         │
+  └──────────────────────────────────────────────────────┘
+
+  COMMON MISTAKE — using size n:
+  dp = [False] * n    → dp[n] doesn't exist → IndexError
+  return dp[n-1]      → misses the last char of s</div>
+        </div>
+    </div>
+
+    <!-- Diagram 2: Stock III (4-variable DP) -->
+    <div class="card">
+        <div class="card-header">
+            <div class="category-badge">DP CHAIN</div>
+            <div><div class="card-title">Stock III — 4-Decision Chain (a→b→c→d)</div>
+            <div class="card-subtitle">At most 2 transactions = 4 ordered decisions</div></div>
+        </div>
+        <div class="card-body">
+<div class="diagram">  DECISION CHAIN (must happen in this order):
+
+  buy1 ──▶ sell1 ──▶ buy2 ──▶ sell2
+    a         b         c         d
+
+  STATE TRANSITIONS (for each price p):
+  ┌──────────────────────────────────────────────────────────┐
+  │  a = max(a, -p)        after 1st buy:  profit = -p       │
+  │  b = max(b, a + p)     after 1st sell: profit = a+p      │
+  │  c = max(c, b - p)     after 2nd buy:  profit = b-p      │
+  │  d = max(d, c + p)     after 2nd sell: profit = c+p      │
+  └──────────────────────────────────────────────────────────┘
+
+  INITIALIZATION — all start at -inf:
+
+  a=b=c=d = -inf
+       ↑
+  "not yet reached this state"
+  -inf ensures no state is accidentally used before it's valid
+
+  SAME-DAY UPDATE — why in-order update in one loop is safe:
+
+  prices = [3, 3, 5, 0, 0, 3, 1, 4]
+
+       p    a     b     c     d
+  start  -inf  -inf  -inf  -inf
+    3    -3   -inf  -inf  -inf   ← only a is reachable
+    3    -3     0   -inf  -inf   ← b can now use a
+    5    -3     2   -inf  -inf
+    0     0     2     2   -inf   ← c can now use b
+    0     0     2     2     2    ← d can now use c
+    3     0     3     2     5
+    1     0     3     2     5
+    4     0     4     2     <span class="g">6</span>   ← answer
+
+  Same-day buy+sell = 0 profit — max() keeps previous best anyway</div>
         </div>
     </div>
 </div>
@@ -835,44 +919,98 @@ for i in range(<span class="hl-green">1, n + 1</span>):   <span class="hl-commen
 <div id="heap" class="section">
 
     <div class="principle-box">
-        <h2>Heap / Priority Queue Master Rule</h2>
-        <p>Python's heapq is a <strong>min-heap only</strong>. For max-heap, negate values: push <code>-val</code>, pop gives <code>-heap[0]</code>.</p>
-        <p>For two-heap problems (median stream), maintain the <strong>size invariant</strong> after every insert. The boundary condition is the size difference check, not the value comparison.</p>
+        <h2>Heap — Size Invariant and Negate for Max-Heap</h2>
+        <p>Python heapq is min-heap only. Two-heap problems (median) live or die by the size invariant check.</p>
     </div>
 
+    <!-- Diagram 1: Two-heap anatomy -->
     <div class="card">
         <div class="card-header">
-            <div class="category-badge">HEAP</div>
+            <div class="category-badge">TWO HEAP</div>
             <div><div class="card-title">Find Median from Data Stream — Size Invariant</div>
-            <div class="card-subtitle">small (max-heap of lower half) size == large (min-heap) size OR small has 1 extra</div></div>
+            <div class="card-subtitle">small (max-heap, lower half) and large (min-heap, upper half)</div></div>
         </div>
         <div class="card-body">
-<pre><span class="hl-comment"># Invariant: len(small) == len(large) OR len(small) == len(large) + 1</span>
-def addNum(num):
-    heappush(small, -num)                    <span class="hl-comment"># always push to small first</span>
-    heappush(large, -heappop(small))         <span class="hl-comment"># rebalance: push small's max to large</span>
-    if <span class="hl-blue">len(small) &lt; len(large)</span>:             <span class="hl-comment"># invariant violated</span>
-        heappush(small, -heappop(large))
+<div class="diagram">  DATA: [1, 2, 3, 4, 5, 6, 7]  (sorted for clarity)
 
-def findMedian():
-    if <span class="hl-green">len(small) &gt; len(large)</span>:
-        return <span class="hl-green">-small[0]</span>                    <span class="hl-comment"># negate: small is max-heap</span>
-    return <span class="hl-green">(-small[0] + large[0]) / 2.0</span></pre>
+  SPLIT AT MEDIAN:
+  ┌─────────────────────────┐   ┌─────────────────────────┐
+  │   small (max-heap)      │   │   large (min-heap)      │
+  │   lower half            │   │   upper half            │
+  │                         │   │                         │
+  │   [1  2  3  <span class="y">4</span>]          │   │   [<span class="y">5</span>  6  7]            │
+  │           ↑             │   │    ↑                    │
+  │      small[0]=4         │   │  large[0]=5             │
+  │      (max of lower)     │   │  (min of upper)         │
+  └─────────────────────────┘   └─────────────────────────┘
+             median = (4+5)/2 = 4.5  (even count)
+             OR median = small[0]    (odd count, small has 1 extra)
 
-            <div class="tests">
-                <div class="test-case">
-                    <div class="label">Single element</div>
-                    <div class="input">add(1)</div>
-                    <div class="expect">→ 1.0</div>
-                    <div class="trap">small=[1], large=[]. len(small)>len(large). Return -small[0]=1.</div>
-                </div>
-                <div class="test-case">
-                    <div class="label">Two elements</div>
-                    <div class="input">add(1), add(2)</div>
-                    <div class="expect">→ 1.5</div>
-                    <div class="trap">small=[1], large=[2]. Equal size. Return (1+2)/2=1.5.</div>
-                </div>
-            </div>
+  SIZE INVARIANT:
+  ┌───────────────────────────────────────────────────────────────┐
+  │  len(small) == len(large)      → even count → avg of tops    │
+  │  len(small) == len(large) + 1  → odd count  → small[0]       │
+  │                                                               │
+  │  NEVER: len(large) &gt; len(small) or diff &gt; 1                  │
+  └───────────────────────────────────────────────────────────────┘
+
+  INSERT ALGORITHM (maintain invariant):
+
+  Step 1: push to small (always route through small first)
+          heappush(small, -num)
+
+  Step 2: rebalance — push small's max to large
+          heappush(large, -heappop(small))
+
+  Step 3: if large grew bigger than small, move back
+          if len(small) &lt; len(large):
+              heappush(small, -heappop(large))
+
+  NEGATE RULE (Python min-heap only):
+  ─────────────────────────────────────────────────
+  push to small:   heappush(small, <span class="r">-num</span>)
+  peek at small:   <span class="r">-small[0]</span>          (negate back)
+  pop from small:  <span class="r">-heappop(small)</span>    (negate back)</div>
+        </div>
+    </div>
+
+    <!-- Diagram 2: K-way merge -->
+    <div class="card">
+        <div class="card-header">
+            <div class="category-badge">K-WAY</div>
+            <div><div class="card-title">Merge K Sorted Lists — Heap as Priority Queue</div>
+            <div class="card-subtitle">Always pop the globally smallest, push its successor</div></div>
+        </div>
+        <div class="card-body">
+<div class="diagram">  K sorted lists:
+  List 0: 1 ──▶ 4 ──▶ 7
+  List 1: 2 ──▶ 5 ──▶ 8
+  List 2: 3 ──▶ 6 ──▶ 9
+
+  HEAP state (min-heap by value):
+  ┌───────────────────────────┐
+  │  (1, node→4)             │  ← smallest globally
+  │  (2, node→5)             │
+  │  (3, node→6)             │
+  └───────────────────────────┘
+
+  LOOP:
+  pop (1, node→4) → add 1 to result, push (4, node→7)
+  pop (2, node→5) → add 2 to result, push (5, node→8)
+  pop (3, node→6) → add 3 to result, push (6, node→9)
+  pop (4, node→7) → add 4 to result, push (7, None)
+  ...
+
+  BOUNDARY — heap entry must be (val, node) not just node:
+  ┌──────────────────────────────────────────────────┐
+  │  Python compares tuples element by element       │
+  │  (val, node): val is enough to order in practice │
+  │  But if two vals are equal, Python tries node    │
+  │  → Node objects aren't comparable → TypeError    │
+  │                                                  │
+  │  FIX: use (val, index, node) — index breaks ties │
+  │  heappush(heap, (node.val, i, node))             │
+  └──────────────────────────────────────────────────┘</div>
         </div>
     </div>
 </div>
@@ -883,47 +1021,93 @@ def findMedian():
 <div id="stack" class="section">
 
     <div class="principle-box">
-        <h2>Stack Master Rule</h2>
-        <p>Stack problems have two-phase logic: <strong>process during scan</strong>, then <strong>handle remainder after scan</strong>. Forgetting the second phase is the most common bug.</p>
-        <p>Always ask: "When the loop ends, what's left on the stack and what does it mean?"</p>
+        <h2>Stack — Two-Phase Logic: Process During Scan + Handle Remainder</h2>
+        <p>The scan loop handles matched pairs. After the loop, the stack holds the unmatched ones. Forgetting the second phase is the most common bug.</p>
     </div>
 
+    <!-- Diagram 1: Parentheses -->
     <div class="card">
         <div class="card-header">
-            <div class="category-badge">STACK</div>
-            <div><div class="card-title">Valid Parentheses / Min Remove — Remainder Handling</div>
-            <div class="card-subtitle">After the scan loop, unmatched items remain on stack</div></div>
+            <div class="category-badge">PARENS</div>
+            <div><div class="card-title">Min Remove to Make Valid Parentheses</div>
+            <div class="card-subtitle">Stack stores indices of unmatched '(' — must drain after loop</div></div>
         </div>
         <div class="card-body">
-<pre>stack = []
-to_remove = set()
+<div class="diagram">  s = "l(e(e)t(c)o)d)e"
+  index: 0 1 2 3 4 5 6 7 8 9 ...
 
-for i, char in enumerate(s):
-    if char == '(':
-        stack.append(i)        <span class="hl-comment"># store INDEX, not char</span>
-    elif char == ')':
-        if stack:
-            stack.pop()        <span class="hl-comment"># matched pair</span>
-        else:
-            to_remove.add(i)   <span class="hl-comment"># unmatched ')'</span>
+  SCAN PHASE — trace stack:
+  ────────────────────────────────────────────────────────────────
+  i=0  'l'  → skip
+  i=1  '('  → stack: [<span class="y">1</span>]               push index
+  i=2  'e'  → skip
+  i=3  '('  → stack: [<span class="y">1</span>, <span class="y">3</span>]            push index
+  i=4  'e'  → skip
+  i=5  ')'  → stack: [<span class="y">1</span>]  pop 3         matched pair (3,5)
+  i=6  't'  → skip
+  i=7  '('  → stack: [<span class="y">1</span>, <span class="y">7</span>]            push index
+  i=8  'c'  → skip
+  i=9  ')'  → stack: [<span class="y">1</span>]  pop 7         matched pair (7,9)
+  i=10 'o'  → skip
+  i=11 ')'  → stack: []   pop 1         matched pair (1,11)
+  i=12 'd'  → skip
+  i=13 ')'  → <span class="r">stack empty</span> → to_remove.add(13)   unmatched ')'
+  i=14 'e'  → skip
 
-<span class="hl-green">to_remove.update(stack)</span>        <span class="hl-comment"># unmatched '(' indices still on stack — MUST handle</span>
-return ''.join(c for i,c in enumerate(s) if i not in to_remove)</pre>
+  AFTER LOOP — stack = [] (empty here), to_remove = {13}
 
-            <div class="tests">
-                <div class="test-case">
-                    <div class="label">All unmatched open</div>
-                    <div class="input">s="((("</div>
-                    <div class="expect">→ ""</div>
-                    <div class="trap">Stack=[0,1,2] after loop. to_remove.update(stack) removes all.</div>
-                </div>
-                <div class="test-case">
-                    <div class="label">All unmatched close</div>
-                    <div class="input">s=")))"</div>
-                    <div class="expect">→ ""</div>
-                    <div class="trap">Stack empty throughout. to_remove={0,1,2} from else branch.</div>
-                </div>
-            </div>
+  SECOND PHASE (drain stack):
+  ┌───────────────────────────────────────────────────────────┐
+  │  to_remove.<span class="g">update(stack)</span>    ← unmatched '(' indices        │
+  │                                                           │
+  │  If stack = [2, 5]:                                       │
+  │  These '(' never got matched → must be removed           │
+  │  WITHOUT this line: invalid '(' remain in output         │
+  └───────────────────────────────────────────────────────────┘
+
+  s = "( ( ) )"
+       ↑ ↑
+       these stay if we forget to drain stack</div>
+        </div>
+    </div>
+
+    <!-- Diagram 2: Basic Calculator -->
+    <div class="card">
+        <div class="card-header">
+            <div class="category-badge">CALC</div>
+            <div><div class="card-title">Basic Calculator II — Stack for Sign and Value</div>
+            <div class="card-subtitle">Push current term on + and -, process * and / immediately</div></div>
+        </div>
+        <div class="card-body">
+<div class="diagram">  "3 + 2 * 2 - 1"
+
+  RULE: Process * and / immediately (higher precedence)
+        Push result of + and - onto stack (defer to sum at end)
+
+  Stack trace:
+  ─────────────────────────────────────────────────────────────
+  char='3'  num=3
+  char='+'  sign='+' → push <span class="g">+3</span> to stack       stack:[3]
+  char='2'  num=2
+  char='*'  sign='*' → NO push yet
+  char='2'  num=2
+  char='-'  sign='*' seen → pop 2, compute 2*2=4, push <span class="g">4</span>
+             then sign='-' → push <span class="g">-num</span> later    stack:[3,4]
+  char='1'  num=1
+  END        sign='-' → push <span class="g">-1</span>               stack:[3,4,-1]
+
+  return sum(stack) = 3+4-1 = 6
+
+  BOUNDARY — flush at END of string:
+  ┌──────────────────────────────────────────────────────────┐
+  │  The last number is processed by the "next operator"    │
+  │  Since there's no next operator, the loop ends          │
+  │  Must process the last num AFTER the loop               │
+  │                                                          │
+  │  for i, c in enumerate(s + <span class="g">"+"</span>):   ← sentinel trick    │
+  │  OR handle after loop:                                   │
+  │  stack.append(sign * num)         ← flush last term     │
+  └──────────────────────────────────────────────────────────┘</div>
         </div>
     </div>
 </div>
@@ -934,41 +1118,90 @@ return ''.join(c for i,c in enumerate(s) if i not in to_remove)</pre>
 <div id="intervals" class="section">
 
     <div class="principle-box">
-        <h2>Intervals Master Rule</h2>
-        <p><strong>Always sort by start time first.</strong> After sorting, the merge condition is: <code>current.start &lt;= last.end</code>. The boundary is <code>&lt;=</code> not <code>&lt;</code> — touching intervals [1,2],[2,3] DO merge.</p>
-        <p>When merging, extend by <code>max(last.end, current.end)</code> — don't assume current always extends further.</p>
+        <h2>Intervals — Overlap Condition and Extension Rule</h2>
+        <p>Sort by start. Merge if <code>current.start &lt;= last.end</code> (touching intervals merge). Extend using <code>max()</code>, not direct assignment.</p>
     </div>
 
+    <!-- Diagram 1: Merge Intervals -->
     <div class="card">
         <div class="card-header">
-            <div class="category-badge">INTERVALS</div>
-            <div><div class="card-title">Merge Intervals — Overlap Condition</div>
-            <div class="card-subtitle">&lt;= vs &lt; for touching intervals; max() for extension</div></div>
+            <div class="category-badge">MERGE</div>
+            <div><div class="card-title">Merge Intervals — 3 Relative Positions</div>
+            <div class="card-subtitle">&lt;= vs &lt; for overlap; max() for extension</div></div>
         </div>
         <div class="card-body">
-<pre>intervals.sort(key=lambda x: x[0])
-merged = [intervals[0]]
+<div class="diagram">  After sorting by start, 3 possible positions of [new] vs [last]:
 
-for start, end in intervals[1:]:
-    if start <span class="hl-green">&lt;=</span> merged[-1][1]:          <span class="hl-comment"># &lt;= includes touching: [1,2],[2,3] → [1,3]</span>
-        merged[-1][1] = <span class="hl-green">max(merged[-1][1], end)</span>  <span class="hl-comment"># max: current might be fully inside</span>
-    else:
-        merged.append([start, end])</pre>
+  Case A: SEPARATE (no overlap)
+  ─────────────────────────────────────────────────────────────
+  [last]
+         [new]
+  ─────────────────────────────────────────────────────────────
+  last.end &lt; new.start  →  append new as separate interval
 
-            <div class="tests">
-                <div class="test-case">
-                    <div class="label">Touching intervals</div>
-                    <div class="input">[[1,2],[2,3]]</div>
-                    <div class="expect">→ [[1,3]]</div>
-                    <div class="trap">Using &lt; instead of &lt;=: 2 &lt; 2 is False → stays separate. Wrong.</div>
-                </div>
-                <div class="test-case">
-                    <div class="label">Contained interval</div>
-                    <div class="input">[[1,10],[2,3]]</div>
-                    <div class="expect">→ [[1,10]]</div>
-                    <div class="trap">Without max(): end gets overwritten with 3. max(10,3)=10 is correct.</div>
-                </div>
-            </div>
+  Case B: TOUCHING (boundary overlap)
+  ─────────────────────────────────────────────────────────────
+  [last  ]
+          [new  ]       ← new.start == last.end
+  ─────────────────────────────────────────────────────────────
+  new.start <span class="g">&lt;=</span> last.end  →  merge: last.end = max(last.end, new.end)
+
+  KEY TRAP: using &lt; misses this case:
+  [1, 2] and [2, 3]:
+  new.start(2) < last.end(2) → <span class="r">False</span> → stays separate ← WRONG
+  new.start(2) ≤ last.end(2) → <span class="g">True</span>  → merge to [1,3] ← CORRECT
+
+  Case C: CONTAINED (new inside last)
+  ─────────────────────────────────────────────────────────────
+  [last         ]
+     [new ]        ← new fully inside last
+  ─────────────────────────────────────────────────────────────
+  new.start &lt;= last.end  →  last.end = <span class="g">max</span>(last.end, new.end)
+
+  KEY TRAP: using direct assign:
+  [1, 10] and [2, 3]:
+  last.end = new.end = <span class="r">3</span>    ← shrinks! [1,10] → [1,3] ← WRONG
+  last.end = max(10, 3) = <span class="g">10</span>  ← correct [1,10] stays</div>
+        </div>
+    </div>
+
+    <!-- Diagram 2: Interval List Intersections -->
+    <div class="card">
+        <div class="card-header">
+            <div class="category-badge">INTERSECT</div>
+            <div><div class="card-title">Interval List Intersections — Two Pointer on Two Lists</div>
+            <div class="card-subtitle">Advance the pointer whose interval ends first</div></div>
+        </div>
+        <div class="card-body">
+<div class="diagram">  A: [0──2]      [5─────10]      [13──────23] [24─25]
+  B:       [1──5]        [8───12]  [15───24]         [25─26]
+
+  i=0,j=0:  A[0]=[0,2]  B[0]=[1,5]
+             intersect = [max(0,1), min(2,5)] = [<span class="g">1,2</span>]  ✓
+             A ends first (2&lt;5) → advance i
+
+  i=1,j=0:  A[1]=[5,10]  B[0]=[1,5]
+             intersect = [max(5,1), min(10,5)] = [<span class="g">5,5</span>]  ✓
+             B ends first (5&lt;10) → advance j
+
+  i=1,j=1:  A[1]=[5,10]  B[1]=[8,12]
+             intersect = [max(5,8), min(10,12)] = [<span class="g">8,10</span>]  ✓
+             A ends first (10&lt;12) → advance i
+  ...
+
+  OVERLAP CHECK:
+  ┌────────────────────────────────────────────────────┐
+  │  [a_start, a_end]  vs  [b_start, b_end]           │
+  │                                                    │
+  │  overlap exists if:                                │
+  │    a_start &lt;= b_end  AND  b_start &lt;= a_end        │
+  │                                                    │
+  │  intersection = [max(a_start,b_start),             │
+  │                  min(a_end,  b_end  )]             │
+  │                                                    │
+  │  ADVANCE RULE: advance the one that ends FIRST     │
+  │  (it cannot overlap any future interval)           │
+  └────────────────────────────────────────────────────┘</div>
         </div>
     </div>
 </div>
@@ -979,119 +1212,584 @@ for start, end in intervals[1:]:
 <div id="checklist" class="section">
 
     <div class="principle-box">
-        <h2>Pre-Submit Checklist — Run This Before Every Problem</h2>
-        <p>Takes 60 seconds. Catches 95% of boundary bugs.</p>
+        <h2>Pre-Submit Visual Checklist — 4 Questions</h2>
+        <p>Before submitting, mentally draw the END STATE of your data structure and verify each position.</p>
     </div>
 
-    <div class="grid-2">
-        <div class="card">
-            <div class="card-header">
-                <div class="category-badge">STEP 1</div>
-                <div><div class="card-title">Loop Bound Check</div></div>
-            </div>
-            <div class="card-body">
-                <ul class="checklist">
-                    <li><span class="icon">❓</span><span>Is <code>left == right</code> a state that needs processing? → use <code>&lt;=</code>. Otherwise → use <code>&lt;</code>.</span></li>
-                    <li><span class="icon">❓</span><span>Binary Search answer space: always <code>while left &lt; right</code>, return left.</span></li>
-                    <li><span class="icon">❓</span><span>Two independent pointers: loop exits when EITHER hits end. That means one side may have leftovers.</span></li>
-                    <li><span class="icon">❓</span><span>Sliding window shrink: use <code>while</code> not <code>if</code> — multiple violations may need resolving.</span></li>
-                </ul>
-            </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="category-badge">CHECKLIST</div>
+            <div><div class="card-title">The 4-Position Check — Universal</div></div>
         </div>
+        <div class="card-body">
+<div class="diagram">  POSITION 1: LOOP ENTRY (< vs <=)
+  ─────────────────────────────────────────────────────────────
+  Draw the state when left==right. Is it valid to process?
 
-        <div class="card">
-            <div class="card-header">
-                <div class="category-badge">STEP 2</div>
-                <div><div class="card-title">Return Condition Check</div></div>
-            </div>
-            <div class="card-body">
-                <ul class="checklist">
-                    <li><span class="icon">❓</span><span>Two pointers: does return check ALL pointers? <code>return i == len(A) and j == len(B)</code></span></li>
-                    <li><span class="icon">❓</span><span>DP: return <code>dp[n]</code>, not <code>dp[n-1]</code>. Array size is <code>n+1</code>.</span></li>
-                    <li><span class="icon">❓</span><span>Binary search: return <code>left</code> (Template A) or recorded <code>bound</code> (Template B).</span></li>
-                    <li><span class="icon">❓</span><span>After loop: any stack/queue/array remainder to handle?</span></li>
-                </ul>
-            </div>
-        </div>
+  [a  b  c  d  e]        [a  b  c  d  e]
+   ↑           ↑              ↑
+  left       right          left==right
 
-        <div class="card">
-            <div class="card-header">
-                <div class="category-badge">STEP 3</div>
-                <div><div class="card-title">4 Boundary Test Cases</div></div>
-            </div>
-            <div class="card-body">
-                <ul class="checklist">
-                    <li><span class="icon">1️⃣</span><span><strong>Empty input</strong>: does code crash? does it return correct base case?</span></li>
-                    <li><span class="icon">2️⃣</span><span><strong>Single element</strong>: does the loop execute exactly once (or zero times correctly)?</span></li>
-                    <li><span class="icon">3️⃣</span><span><strong>Answer at index 0 / left extreme</strong>: does off-by-one cut it off?</span></li>
-                    <li><span class="icon">4️⃣</span><span><strong>Answer at last index / right extreme</strong>: does <code>&lt;</code> vs <code>&lt;=</code> miss it?</span></li>
-                </ul>
-            </div>
-        </div>
+  YES → while left <span class="g">&lt;=</span> right    NO → while left <span class="r">&lt;</span> right
 
-        <div class="card">
-            <div class="card-header">
-                <div class="category-badge">STEP 4</div>
-                <div><div class="card-title">Category-Specific Traps</div></div>
-            </div>
-            <div class="card-body">
-                <ul class="checklist">
-                    <li><span class="icon">🔍</span><span><strong>BS feasible→right=mid</strong>, infeasible→<code>left=mid+1</code>. Never <code>right=mid-1</code> when feasible.</span></li>
-                    <li><span class="icon">📋</span><span><strong>DP base case</strong>: <code>dp[0]=True</code>. Without it, nothing propagates.</span></li>
-                    <li><span class="icon">🔄</span><span><strong>Backtrack undo</strong>: every <code>append/move</code> must have matching <code>pop/go_back</code>.</span></li>
-                    <li><span class="icon">📤</span><span><strong>BFS visited</strong>: mark on enqueue, not dequeue.</span></li>
-                    <li><span class="icon">🔁</span><span><strong>DFS 3-state</strong>: state=2 (done) must be set AFTER all neighbors processed, not before.</span></li>
-                    <li><span class="icon">📦</span><span><strong>Stack remainder</strong>: after scan loop, unmatched items on stack must be handled.</span></li>
-                    <li><span class="icon">🎯</span><span><strong>Intervals overlap</strong>: use <code>&lt;=</code> for touching; extend with <code>max()</code> not direct assign.</span></li>
-                    <li><span class="icon">➗</span><span><strong>Merge array remainder</strong>: nums2 tail must be copied; nums1 tail is already in place.</span></li>
-                </ul>
-            </div>
+  ─────────────────────────────────────────────────────────────
+  POSITION 2: LOOP EXIT — what's left over?
+  ─────────────────────────────────────────────────────────────
+  Two-pointer exits when EITHER pointer hits end:
+
+  ArrayA: [1  2  3  4  5]     ArrayB: [6  7  8]
+                   ↑ p1 done           ↑ p2 still has items!
+                                         MUST handle remainder
+
+  Stack after scan: unmatched '(' still in stack → MUST drain
+
+  ─────────────────────────────────────────────────────────────
+  POSITION 3: INDEX MATH
+  ─────────────────────────────────────────────────────────────
+  DP: draw the dp array
+
+  s = "abc"  (n=3)
+  dp: [<span class="g">T</span>  ?  ?  <span class="y">?</span>]   ← needs 4 slots (n+1=4)
+       0  1  2  3         ← return dp[3] = dp[n]
+
+  Slice: nums1[:p2+1] — p2 is last index, +1 makes it slice end (exclusive)
+
+  ─────────────────────────────────────────────────────────────
+  POSITION 4: RETURN CHECK
+  ─────────────────────────────────────────────────────────────
+  One pointer:    i == len(A)
+  Two pointers:   i == len(A) AND j == len(B)
+  BS Template A:  return left   (== right at convergence)
+  BS Template B:  return bound  (recorded during search)
+  DP:             return dp[n]  (NOT dp[n-1])</div>
         </div>
     </div>
 
-    <div class="card" style="margin-top:4px">
+    <div class="card">
         <div class="card-header">
             <div class="category-badge">REFERENCE</div>
-            <div><div class="card-title">Quick Decision Table — All 17 Categories</div></div>
+            <div><div class="card-title">Quick Reference — All Categories</div></div>
         </div>
         <div class="card-body">
             <table class="cmp-table">
                 <tr>
                     <th>Category</th>
                     <th>Loop Condition</th>
-                    <th>Return / Termination</th>
-                    <th>Key Trap</th>
+                    <th>Key Boundary Position</th>
+                    <th>Return</th>
                 </tr>
-                <tr><td>BS Array (exact)</td><td><code>while left &lt;= right</code></td><td>recorded <code>bound</code></td><td>Record mid, then keep searching</td></tr>
-                <tr><td>BS Array (peak/any)</td><td><code>while left &lt; right</code></td><td><code>return left</code></td><td><code>right=mid</code> not <code>mid-1</code></td></tr>
-                <tr><td>BS Answer space</td><td><code>while left &lt; right</code></td><td><code>return left</code></td><td>feasible→<code>right=mid</code>, infeasible→<code>left=mid+1</code></td></tr>
-                <tr><td>BS Value range</td><td><code>while left &lt; right</code></td><td><code>return left</code></td><td>Count≤mid check; mid may not exist in data</td></tr>
-                <tr><td>BS Partition</td><td><code>while left &lt;= right</code></td><td>compute from partition</td><td>maxLeft ≤ minRight on BOTH sides</td></tr>
-                <tr><td>Two Pointers</td><td><code>while i &lt; A and j &lt; B</code></td><td><code>return i==len(A) and j==len(B)</code></td><td>Check BOTH pointers at end</td></tr>
-                <tr><td>Merge Array</td><td><code>while p2 &gt;= 0</code></td><td>loop covers all; or copy remainder</td><td>nums2 tail must be copied; nums1 tail safe</td></tr>
-                <tr><td>Sliding Window</td><td><code>for right</code> + <code>while violation</code></td><td><code>max(right-left+1)</code></td><td>+1 in window size; while not if for shrink</td></tr>
-                <tr><td>DFS (mark visited)</td><td><code>for neighbor if unvisited</code></td><td>reach target or exhaust</td><td>visited is permanent, no undo</td></tr>
-                <tr><td>DFS (cycle detect)</td><td>3-state: 0/1/2</td><td>state==1 → cycle</td><td>Set state=2 AFTER all neighbors done</td></tr>
-                <tr><td>BFS (shortest)</td><td><code>while queue</code></td><td>first time target dequeued</td><td>Mark visited on ENQUEUE</td></tr>
-                <tr><td>Backtracking</td><td><code>for choice → recurse → undo</code></td><td>snapshot at each node</td><td>Undo MUST follow every recurse</td></tr>
-                <tr><td>Dynamic Programming</td><td><code>for i in range(1, n+1)</code></td><td><code>return dp[n]</code></td><td>dp size n+1; dp[0]=base; return dp[n]</td></tr>
-                <tr><td>Heap (two-heap)</td><td>size invariant check</td><td>size equal → avg; unequal → small[0]</td><td>Negate for max-heap; size diff ≤ 1</td></tr>
-                <tr><td>Stack</td><td><code>for char in s</code></td><td>build result excluding to_remove</td><td>After loop: stack has unmatched '(' → add to remove</td></tr>
-                <tr><td>Intervals</td><td><code>for interval in sorted</code></td><td>append merged list</td><td><code>&lt;=</code> for overlap; <code>max()</code> for extension</td></tr>
-                <tr><td>BST Iterator</td><td><code>while node: push, go left</code></td><td><code>return len(stack)&gt;0</code></td><td>Push left-spine; after pop, push right subtree's left-spine</td></tr>
+                <tr><td>BS Answer space</td><td><code>left &lt; right</code></td><td>feasible→right=mid (keep); else→left=mid+1 (discard)</td><td><code>left</code></td></tr>
+                <tr><td>BS Array exact</td><td><code>left &lt;= right</code></td><td>on match: record bound, keep searching same direction</td><td><code>bound</code></td></tr>
+                <tr><td>BS Array peak</td><td><code>left &lt; right</code></td><td>downhill→right=mid (not mid-1!); uphill→left=mid+1</td><td><code>left</code></td></tr>
+                <tr><td>BS Value range</td><td><code>lo &lt; hi</code></td><td>count≥k→hi=mid; else→lo=mid+1; mid may not exist in data</td><td><code>lo</code></td></tr>
+                <tr><td>L+R Two Pointer</td><td><code>left &lt; right</code></td><td>answer accumulated inside loop; no special return check</td><td>max/result</td></tr>
+                <tr><td>Two Arrays</td><td><code>i&lt;m and j&lt;n</code></td><td>AFTER loop: handle remainder of whichever side is left</td><td>check both</td></tr>
+                <tr><td>Two Strings</td><td><code>i&lt;A and j&lt;B</code></td><td>return must check BOTH pointers reached end</td><td><code>i==len(A) and j==len(B)</code></td></tr>
+                <tr><td>Sliding Window</td><td>for right + while violation</td><td>shrink with while not if; size = right-left+1 (not right-left)</td><td>max recorded</td></tr>
+                <tr><td>DFS (mark visited)</td><td>unvisited neighbors</td><td>visited is permanent; set BEFORE recursing</td><td>reach target</td></tr>
+                <tr><td>DFS cycle detect</td><td>3-state 0/1/2</td><td>state=2 set AFTER all neighbors done (not before)</td><td>state==1 = cycle</td></tr>
+                <tr><td>BFS shortest</td><td>while queue</td><td>mark visited on ENQUEUE not dequeue</td><td>first dequeue of target</td></tr>
+                <tr><td>Backtracking</td><td>for choice→recurse→undo</td><td>undo (pop/go_back) must follow every recurse</td><td>snapshot at each node</td></tr>
+                <tr><td>DP (n+1 array)</td><td><code>range(1, n+1)</code></td><td>dp size=n+1; dp[0]=base; return dp[n] not dp[n-1]</td><td><code>dp[n]</code></td></tr>
+                <tr><td>Two-Heap median</td><td>size invariant after each insert</td><td>len(small)≥len(large); diff≤1; negate for max-heap</td><td>avg or -small[0]</td></tr>
+                <tr><td>Stack (parens)</td><td>scan chars</td><td>AFTER loop: drain stack into to_remove (unmatched '(')</td><td>filter by to_remove</td></tr>
+                <tr><td>Intervals merge</td><td>sorted by start</td><td>overlap: &lt;= not &lt; (touching merges); extend: max() not assign</td><td>merged list</td></tr>
+                <tr><td>Intervals intersect</td><td><code>i&lt;m and j&lt;n</code></td><td>advance pointer whose end is smaller (can't intersect future)</td><td>result list</td></tr>
             </table>
         </div>
     </div>
 </div>
 
+<!-- ============================================================ -->
+<!-- TEST STRATEGY                                                 -->
+<!-- ============================================================ -->
+<div id="test-strategy" class="section">
+
+    <div class="principle-box">
+        <h2>The Core Strategy: Design Tests BEFORE Code</h2>
+        <p>Boundary bugs aren't logic errors — they're <strong>off-by-one violations at predictable positions</strong>. If you pick test cases that exercise each position, the bug reveals itself before you write a single loop. This is boundary-condition-driven development.</p>
+        <p><strong>Rule:</strong> For every boundary position (entry, exit, index math, return), write one test that passes only with the correct fence-post. If your test passes with both <code>&lt;</code> and <code>&lt;=</code>, it's not exposing the boundary.</p>
+    </div>
+
+    <!-- Universal Test Design Framework -->
+    <div class="card">
+        <div class="card-header">
+            <div class="category-badge">FRAMEWORK</div>
+            <div><div class="card-title">The 4-Test Minimum — Universal Template</div>
+            <div class="card-subtitle">One test per boundary position. If all 4 pass, the boundary is correct.</div></div>
+        </div>
+        <div class="card-body">
+<div class="diagram">  Every algorithm has 4 boundary positions. Design one failing test per position.
+
+  <span class="p">TEST 1 — Loop Entry (< vs <=)</span>
+  ┌────────────────────────────────────────────────────────────────────┐
+  │  Design: input where left==right IS the valid answer              │
+  │                                                                    │
+  │  Example (Binary Search in [3], target=3):                        │
+  │    left=0, right=0 → left==right must be processed               │
+  │    If while left < right: skips single-element → <span class="r">WRONG</span>          │
+  │    If while left <= right: processes it → <span class="g">CORRECT</span>               │
+  │                                                                    │
+  │  Signature: array with ONE element that is the answer            │
+  └────────────────────────────────────────────────────────────────────┘
+
+  <span class="p">TEST 2 — Loop Exit (leftovers)</span>
+  ┌────────────────────────────────────────────────────────────────────┐
+  │  Design: input where one side exhausts FIRST, remainder matters   │
+  │                                                                    │
+  │  Example (Merge Sorted Array, nums1=[1], nums2=[2,3]):            │
+  │    p2 still has [3] after loop — must copy it                    │
+  │    If no remainder handling: [1,2,?] → <span class="r">WRONG</span>                   │
+  │    If nums1[:p2+1] = nums2[:p2+1]: [1,2,3] → <span class="g">CORRECT</span>           │
+  │                                                                    │
+  │  Signature: one array is longer than the other                   │
+  └────────────────────────────────────────────────────────────────────┘
+
+  <span class="p">TEST 3 — Index Math (+1 / -1 / n+1 size)</span>
+  ┌────────────────────────────────────────────────────────────────────┐
+  │  Design: input where the answer is at the last computed index     │
+  │                                                                    │
+  │  Example (Word Break, s="ab", wordDict=["ab"]):                   │
+  │    n=2, need dp[2] — requires size 3 (n+1)                       │
+  │    If dp = [False]*n: dp[2] IndexError → <span class="r">CRASH</span>                 │
+  │    If dp = [False]*(n+1): dp[2] = True → <span class="g">CORRECT</span>               │
+  │                                                                    │
+  │  Signature: answer sits at dp[n] or slice[:p+1]                  │
+  └────────────────────────────────────────────────────────────────────┘
+
+  <span class="p">TEST 4 — Return Check (one vs both pointers)</span>
+  ┌────────────────────────────────────────────────────────────────────┐
+  │  Design: input where one pointer finishes but the other doesn't   │
+  │                                                                    │
+  │  Example (Valid Word Abbreviation, word="cat", abbr="3x"):        │
+  │    i reaches end but j still has "x" → must check BOTH           │
+  │    If return i==len(word): True (wrong — abbr has leftover)       │
+  │    If return i==len(word) and j==len(abbr): False → <span class="g">CORRECT</span>    │
+  │                                                                    │
+  │  Signature: one pointer done, other still has characters          │
+  └────────────────────────────────────────────────────────────────────┘</div>
+        </div>
+    </div>
+
+    <!-- Binary Search Tests -->
+    <div class="card">
+        <div class="card-header">
+            <div class="category-badge">BS TESTS</div>
+            <div><div class="card-title">Binary Search — Minimal Test Suite</div>
+            <div class="card-subtitle">4 tests that together cover all 4 BS boundary bugs</div></div>
+        </div>
+        <div class="card-body">
+<div class="diagram">  PROBLEM: Find first position of target in sorted array
+
+  <span class="p">Test 1 — Single element IS the target (catches < vs <=)</span>
+  Input:  nums=[5], target=5
+  Expected: 0
+  Bug exposed: while left &lt; right → skips single element → returns -1
+  Fix verify: while left &lt;= right → processes it → returns 0
+
+  <span class="p">Test 2 — Target at extreme right (catches right=mid-1 instead of right=mid)</span>
+  Input:  nums=[1,2,3,3,3], target=3
+  Expected: 2   (first occurrence)
+  Bug exposed: on match, right=mid-1 skips mid when mid is the first 3
+  Fix verify: record bound + right=mid-1 → bound=2
+
+  <span class="p">Test 3 — Target not in array (catches incorrect return)</span>
+  Input:  nums=[1,3,5], target=4
+  Expected: -1
+  Bug exposed: returning left after loop when left is not the target
+  Fix verify: only return bound if actually set during search
+
+  <span class="p">Test 4 — All same elements (catches count/feasibility off-by-one)</span>
+  Input:  nums=[3,3,3,3], target=3
+  Expected: 0   (leftmost)
+  Bug exposed: algorithm stops early → returns 1 or 2 instead of 0
+
+  ─────────────────────────────────────────────────────────────────────
+  <span class="y">ANSWER SPACE (Koko/Ship): the corresponding 4 tests</span>
+
+  Test 1 — lo==hi is the answer (catches &lt; vs &lt;=):
+    piles=[1], h=1 → speed=1 (single feasible value)
+
+  Test 2 — Boundary between feasible/infeasible:
+    piles=[3,6,7,11], h=8 → speed=4 (just barely feasible)
+
+  Test 3 — All same pile size:
+    piles=[5,5,5], h=3 → speed=5 (exact)
+
+  Test 4 — lo=1 is feasible (answer is minimum possible):
+    piles=[1,1,1], h=10 → speed=1</div>
+        </div>
+    </div>
+
+    <!-- Two Pointers Tests -->
+    <div class="card">
+        <div class="card-header">
+            <div class="category-badge">2-PTR TESTS</div>
+            <div><div class="card-title">Two Pointers — Minimal Test Suite</div>
+            <div class="card-subtitle">Tests that expose asymmetric exhaustion and dual termination bugs</div></div>
+        </div>
+        <div class="card-body">
+<div class="diagram">  PROBLEM: Merge Sorted Array (nums1 with extra space, nums2)
+
+  <span class="p">Test 1 — nums2 is empty (catches unnecessary copy)</span>
+  nums1=[1,2,3,0,0,0], m=3, nums2=[], n=0
+  Expected: [1,2,3]   (already correct)
+  Bug exposed: copying empty nums2 overwrites correct values
+
+  <span class="p">Test 2 — nums1 effective part is empty (catches which remainder to copy)</span>
+  nums1=[0,0,0], m=0, nums2=[1,2,3], n=3
+  Expected: [1,2,3]
+  Bug exposed: p1 exhausts immediately → MUST copy all of nums2
+  Trap: forgetting nums1[:p2+1] = nums2[:p2+1] after the loop
+
+  <span class="p">Test 3 — nums1's remaining elements are all smaller than nums2's (catches early exit)</span>
+  nums1=[1,2,3,0,0,0], m=3, nums2=[4,5,6], n=3
+  Expected: [1,2,3,4,5,6]
+  Bug exposed: p1 exhausts first → need to copy [4,5,6] from nums2
+  — same code path as Test 2, verifies the remainder copy
+
+  <span class="p">Test 4 — nums2's remaining element goes at position 0 (catches index math)</span>
+  nums1=[2,0], m=1, nums2=[1], n=1
+  Expected: [1,2]
+  Write pos p = 1, p1 points to 2, p2 points to 1
+  2 &gt; 1 → place 2 at pos 1, p=0, then place 1 at pos 0
+  Bug exposed: off-by-one in write pos → writes 1 at pos -1 (wrong)
+
+  ─────────────────────────────────────────────────────────────────────
+  <span class="y">VALID WORD ABBREVIATION: dual termination tests</span>
+
+  Test 1 — abbr has extra char: word="cat", abbr="3x"
+    i done, j not done → False (catches: return i==len only)
+
+  Test 2 — word has extra char: word="catx", abbr="3"
+    i not done, j done → False (catches: return j==len only)
+
+  Test 3 — both done exactly: word="cat", abbr="3"
+    i==3, j==1 → True (confirms: AND logic correct)
+
+  Test 4 — abbreviation overshoot: word="cat", abbr="4"
+    i would go past end → check i &lt;= len at each digit step</div>
+        </div>
+    </div>
+
+    <!-- Sliding Window Tests -->
+    <div class="card">
+        <div class="card-header">
+            <div class="category-badge">SW TESTS</div>
+            <div><div class="card-title">Sliding Window — Minimal Test Suite</div>
+            <div class="card-subtitle">Tests that expose while-vs-if shrink and +1 size formula bugs</div></div>
+        </div>
+        <div class="card-body">
+<div class="diagram">  PROBLEM: Max Consecutive Ones III (flip at most k zeros)
+
+  <span class="p">Test 1 — k=0, all zeros (catches: if instead of while shrink)</span>
+  nums=[0,0,0,0], k=0
+  Expected: 0   (no ones, can't flip anything)
+  Bug exposed: "if zeros&gt;k: shrink once" — every right add makes zeros=1,
+               single shrink brings left past right, then next add makes zeros=2
+               → never settles → wrong window size counted
+  Fix verify: "while zeros&gt;k: shrink" → always brings zeros to 0
+
+  <span class="p">Test 2 — single element array (catches: +1 in size formula)</span>
+  nums=[1], k=0
+  Expected: 1
+  Bug exposed: right-left instead of right-left+1 → returns 0
+  Fix verify: right-left+1 = 0-0+1 = 1 ✓
+
+  <span class="p">Test 3 — violation requires multiple shrinks (confirms while not if)</span>
+  nums=[1,0,0,0,1], k=1
+  Expected: 2   (window [1] or [1])
+  When right hits index 3 (third zero): zeros=2&gt;k=1
+  Must shrink 3 times to expel first two zeros from window
+  Bug exposed: single if → shrinks once → zeros still 2 → window records wrong size
+
+  <span class="p">Test 4 — answer is full array (catches: off-by-one in max recording)</span>
+  nums=[1,1,1], k=0
+  Expected: 3
+  right goes 0→1→2, no shrink ever needed
+  final window [0..2]: 2-0+1=3 ✓</div>
+        </div>
+    </div>
+
+    <!-- Graph Tests -->
+    <div class="card">
+        <div class="card-header">
+            <div class="category-badge">GRAPH TESTS</div>
+            <div><div class="card-title">Graph — Minimal Test Suite</div>
+            <div class="card-subtitle">Tests that expose visited-timing, 3-state order, and backtrack-undo bugs</div></div>
+        </div>
+        <div class="card-body">
+<div class="diagram">  <span class="p">BFS: Mark visited on ENQUEUE (Shortest Path in Binary Matrix)</span>
+
+  Test 1 — 1x1 grid with 0 (catches: returning before checking start):
+  grid=[[0]]
+  Expected: 1   (start is also end)
+  Bug: early return on "grid[0][0]==1" → False → returns -1 instead of 1
+
+  Test 2 — Direct path only (catches: dequeue-timing visited mark):
+  grid=[[0,0],[0,0]]
+  Expected: 3   (path 0,0 → 1,1 → wrong if visited on dequeue)
+  Bug: cell (1,1) enqueued twice by (0,1) and (1,0) → double processing
+       → wrong distance recorded (distance from second enqueue, not first)
+
+  ─────────────────────────────────────────────────────────────────────
+  <span class="p">DFS 3-STATE: Cycle Detection (Course Schedule)</span>
+
+  Test 1 — Self-loop: edges=[[0,0]], n=1
+  Expected: False (cycle)
+  state[0]=GRAY, then neighbor is 0 which is GRAY → cycle ✓
+
+  Test 2 — Diamond (no cycle): 0→1, 0→2, 1→3, 2→3, n=4
+  Expected: True (can finish)
+  Node 3 is shared — must NOT report cycle when reached from both 1 and 2
+  Bug exposed: only boolean visited → marks 3 visited from 1, then 2 tries 3 → appears "already in stack"
+  Fix: state=2 (BLACK) = "safe, done", distinguish from GRAY (in-stack)
+
+  Test 3 — Long chain with back edge: 0→1→2→3→1 (back to 1)
+  Expected: False
+  Bug exposed: setting state=2 before processing neighbors →
+               2 looks safe before its children are checked → cycle missed
+
+  ─────────────────────────────────────────────────────────────────────
+  <span class="p">BACKTRACKING: Subsets</span>
+
+  Test 1 — [1]: Expected [[],[1]]
+  Bug: missing pop() → current=[1] never resets → all subsequent results corrupt
+
+  Test 2 — [1,2,3]: Expected [[],[1],[1,2],[1,2,3],[1,3],[2],[2,3],[3]]
+  Bug: snapshot with current[:] vs current reference → all results mutate to final state</div>
+        </div>
+    </div>
+
+    <!-- DP Tests -->
+    <div class="card">
+        <div class="card-header">
+            <div class="category-badge">DP TESTS</div>
+            <div><div class="card-title">Dynamic Programming — Minimal Test Suite</div>
+            <div class="card-subtitle">Tests that expose n+1 size, base case position, and return index bugs</div></div>
+        </div>
+        <div class="card-body">
+<div class="diagram">  PROBLEM: Word Break (s, wordDict)
+
+  <span class="p">Test 1 — Single char that is in dict (catches dp size=n bug)</span>
+  s="a", wordDict=["a"]
+  Expected: True
+  n=1, need dp[1] → requires dp of size 2 (n+1)
+  Bug: dp=[False]*1 → dp[1] IndexError or always False
+
+  <span class="p">Test 2 — Empty string (catches dp[0] base case position)</span>
+  s="", wordDict=["a"]
+  Expected: True   (empty string is always segmentable)
+  Bug: dp[0]=False → all dp[i] stay False → returns False
+  Fix: dp[0]=True is the anchor
+
+  <span class="p">Test 3 — No segmentation possible (catches return dp[n] vs dp[n-1])</span>
+  s="ab", wordDict=["a","b"]
+  Expected: True   (a+b)
+  n=2, answer is dp[2]
+  Bug: return dp[1] → returns dp["a" is segmentable?] = True but wrong semantics
+  (only catches if the answer happens to differ between dp[n] and dp[n-1])
+
+  <span class="p">Test 4 — Answer at last char only (catches return dp[n-1] definitively)</span>
+  s="ab", wordDict=["ab"]
+  Expected: True   (only "ab" as whole word)
+  dp: [T, F, T]   dp[1]=False (a not a word), dp[2]=True (ab is a word)
+  Bug: return dp[1] → returns False ← definitively wrong
+  Fix: return dp[2] = dp[n] → True ✓
+
+  ─────────────────────────────────────────────────────────────────────
+  <span class="y">STOCK III 4-variable tests</span>
+
+  Test 1 — prices=[1]: Expected 0 (can't complete any transaction)
+  Test 2 — prices=[2,1]: Expected 0 (never buy high sell low, max() protects)
+  Test 3 — prices=[1,2,3]: Expected 2 (same as 1 transaction: buy 1 sell 3)
+  Test 4 — prices=[3,3,5,0,0,3,1,4]: Expected 6 (two transactions needed)</div>
+        </div>
+    </div>
+
+    <!-- Intervals Tests -->
+    <div class="card">
+        <div class="card-header">
+            <div class="category-badge">INTERVAL TESTS</div>
+            <div><div class="card-title">Intervals — Minimal Test Suite</div>
+            <div class="card-subtitle">Tests that expose touching-merge and contained-shrink bugs</div></div>
+        </div>
+        <div class="card-body">
+<div class="diagram">  PROBLEM: Merge Intervals
+
+  <span class="p">Test 1 — Touching intervals (catches: &lt; instead of &lt;= for overlap)</span>
+  intervals=[[1,2],[2,3]]
+  Expected: [[1,3]]   (touching = overlap with <=)
+  Bug: if new.start &lt; last.end → 2 &lt; 2 = False → stays [[1,2],[2,3]]
+  Fix: if new.start &lt;= last.end → 2 &lt;= 2 = True → merge to [1,3]
+
+  <span class="p">Test 2 — Contained interval (catches: assignment instead of max())</span>
+  intervals=[[1,10],[2,3]]
+  Expected: [[1,10]]   (3 stays contained)
+  Bug: last.end = new.end → last.end = 3 → shrinks [1,10] to [1,3]!
+  Fix: last.end = max(last.end, new.end) → max(10,3) = 10
+
+  <span class="p">Test 3 — No overlaps (catches: incorrectly merging all)</span>
+  intervals=[[1,2],[4,5],[7,8]]
+  Expected: [[1,2],[4,5],[7,8]]   (no change)
+  Verifies: when new.start &gt; last.end → separate, append as new
+
+  <span class="p">Test 4 — Single interval (catches: loop edge case)</span>
+  intervals=[[3,5]]
+  Expected: [[3,5]]
+  Some implementations crash on empty comparison → verify empty result init</div>
+        </div>
+    </div>
+
+    <!-- Stack Tests -->
+    <div class="card">
+        <div class="card-header">
+            <div class="category-badge">STACK TESTS</div>
+            <div><div class="card-title">Stack — Minimal Test Suite</div>
+            <div class="card-subtitle">Tests that expose the "forgot to drain stack" bug</div></div>
+        </div>
+        <div class="card-body">
+<div class="diagram">  PROBLEM: Min Remove to Make Valid Parentheses
+
+  <span class="p">Test 1 — Unmatched '(' at start (catches: not draining stack after loop)</span>
+  s="(()"
+  Expected: "()"   (remove the first '(')
+  Bug: scan loop matches inner pair, stack=[0] (index 0, unmatched '(')
+       If no drain: output "((" → WRONG
+  Fix: to_remove.update(stack) → to_remove={0} → filter → "()"
+
+  <span class="p">Test 2 — Unmatched ')' at end (catches: only handling '(' remainder)</span>
+  s="())"
+  Expected: "()"   (remove the last ')')
+  During scan: ')' at index 2, stack is empty → to_remove.add(2)
+  This IS handled in the scan loop itself (not the drain)
+  Verifies: unmatched ')' caught in scan, unmatched '(' caught in drain
+
+  <span class="p">Test 3 — Valid string (catches: removing valid chars)</span>
+  s="(hello)(world)"
+  Expected: "(hello)(world)"   (no removal)
+  Verifies: matched pairs are not flagged
+
+  <span class="p">Test 4 — All parens invalid (catches: overcounting)</span>
+  s=")))(((
+  Expected: ""   (all 6 chars removed)
+  3 ')' flagged in scan (stack empty each time)
+  3 '(' remaining in stack → drain → to_remove has 6 indices
+  Verifies: update(stack) works correctly when stack has multiple entries
+
+  ─────────────────────────────────────────────────────────────────────
+  <span class="y">CALCULATOR II: flush-last-term tests</span>
+
+  Test 1 — Single number: s="5" → Expected 5
+  Bug: loop never processes num (no next operator) → returns 0
+  Fix: sentinel "+" appended or handle after loop
+
+  Test 2 — Ends with multiply: s="2*3" → Expected 6
+  Bug: '*' seen but '3' never applied → wrong result
+  Fix: flush: pop 2, push 2*3=6 at end</div>
+        </div>
+    </div>
+
+    <!-- Heap Tests -->
+    <div class="card">
+        <div class="card-header">
+            <div class="category-badge">HEAP TESTS</div>
+            <div><div class="card-title">Heap — Minimal Test Suite</div>
+            <div class="card-subtitle">Tests that expose size invariant breaks and negate-forget bugs</div></div>
+        </div>
+        <div class="card-body">
+<div class="diagram">  PROBLEM: Find Median from Data Stream
+
+  <span class="p">Test 1 — One element (catches: returning wrong heap)</span>
+  addNum(5), findMedian()
+  Expected: 5.0
+  After insert: small=[-5], large=[]
+  median = -small[0] = 5.0
+  Bug: returning large[0] when large is empty → IndexError
+
+  <span class="p">Test 2 — Two elements (catches: size invariant + negate)</span>
+  addNum(1), addNum(2), findMedian()
+  Expected: 1.5
+  small=[-1], large=[2] → both size 1 → ((-small[0]) + large[0]) / 2 = 1.5
+  Bug: forgot negate → -small[0] computed as -(-1) = 1, returns (1+2)/2=1.5 ✓
+       negate twice bug: -(-small[0]) = -1 → wrong
+
+  <span class="p">Test 3 — Rebalance needed (catches: large overflows small)</span>
+  addNum(1), addNum(2), addNum(3), findMedian()
+  Expected: 2.0
+  After all inserts with invariant: small=[-2], large=[3], OR small=[-2,-1], large=[3]
+  len(small) must be >= len(large)
+  Bug: if len(large) > len(small) after step 2 → don't rebalance → median wrong
+
+  <span class="p">Test 4 — Descending order (catches: routing logic)</span>
+  addNum(5), addNum(4), addNum(3), findMedian()
+  Expected: 4.0
+  Each new element is smaller than all previous
+  Step 1: push to small (always)
+  Step 2: pop max from small, push to large (balances)
+  Step 3: rebalance if needed
+  Bug: if routing depends on value comparison → descending input breaks it</div>
+        </div>
+    </div>
+
+    <!-- Summary Decision Table -->
+    <div class="card">
+        <div class="card-header">
+            <div class="category-badge">DECISION</div>
+            <div><div class="card-title">Which Test to Write First — Decision Table</div>
+            <div class="card-subtitle">Given a new algorithm, pick the one test most likely to catch the boundary bug</div></div>
+        </div>
+        <div class="card-body">
+<div class="diagram">  STEP 1: What kind of loop does your algorithm use?
+
+  ┌──────────────────────────────┬───────────────────────────────────────────┐
+  │  Loop type                   │  First test to write                      │
+  ├──────────────────────────────┼───────────────────────────────────────────┤
+  │  while left &lt;= right (BS)    │  Array with ONE element = target          │
+  │  while left &lt; right (BS ans) │  lo==hi is the feasible boundary          │
+  │  while i &lt; A and j &lt; B       │  One array empty, other has all elements   │
+  │  for right + while shrink    │  Input that requires 2+ shrinks in a row   │
+  │  for node + mark visited     │  Graph with shared node (diamond shape)    │
+  │  for choice, recurse, undo   │  [1] → expected [[], [1]] (undo test)      │
+  │  dp[i] from dp[j]            │  s with length 1 that is in wordDict       │
+  │  Two heaps (median)          │  Descending sequence [3,2,1]               │
+  │  Stack scan                  │  All unmatched '(' → "(((", expected ""    │
+  │  Merge intervals             │  [[1,2],[2,3]] → touching boundary test    │
+  └──────────────────────────────┴───────────────────────────────────────────┘
+
+  STEP 2: What does "wrong answer" look like for each boundary position?
+
+  ┌──────────────────────────────┬───────────────────────────────────────────┐
+  │  Bug type                    │  Wrong answer symptom                     │
+  ├──────────────────────────────┼───────────────────────────────────────────┤
+  │  Loop entry (&lt; vs &lt;=)        │  Single-element input returns -1 or 0     │
+  │  Loop exit (leftovers)       │  Result missing last few elements         │
+  │  Index math (+1/-1)          │  IndexError, or last char ignored         │
+  │  Return check (one pointer)  │  True when should be False (extra chars)  │
+  │  Enqueue vs dequeue visited  │  Wrong shortest path distance             │
+  │  State=2 before neighbors    │  Cycle reported as no-cycle               │
+  │  Missing pop() in backtrack  │  All results contain all elements         │
+  │  Assign instead of max()     │  Merged interval smaller than input       │
+  │  Missing stack drain         │  Output still has unmatched '('           │
+  │  Missing heap rebalance      │  Median wrong after odd→even transition   │
+  └──────────────────────────────┴───────────────────────────────────────────┘
+
+  RULE: Write the test. Run it against a deliberately broken version.
+        If it PASSES the broken version, the test doesn't expose the bug.
+        A good boundary test fails against the buggy code, passes against correct code.</div>
+        </div>
+    </div>
+
+</div>
+
 </div><!-- /main -->
 
 <script>
-    function showSection(id) {
+    function showSection(id, btn) {
         document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        event.target.classList.add('active');
+        if (btn) btn.classList.add('active');
     }
 </script>
 </body>
