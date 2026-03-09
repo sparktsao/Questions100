@@ -30,18 +30,20 @@ and know which half of the search space to eliminate, we can solve in O(log n) t
 
 ---
 
-## 🔍 Critical Insight: Minimize vs Maximize - Different Code Strategies!
+## 🔍 Critical Insight: Minimize vs Maximize - One Unified Template, Two Rounding Directions
 
-### The Problem Classification
+### The Core Rule
 
-Binary search on answer space divides into TWO fundamentally different patterns:
+Both minimize and maximize use **the same loop structure** (`while left < right`). The only difference is **which branch does `= mid`**, and that determines **rounding direction**:
 
-| Type | Goal | Monotonicity | Examples | Loop Condition | Mid Update |
-|------|------|--------------|----------|----------------|------------|
-| **MINIMIZE** | Find smallest value that satisfies condition | If X works, all Y > X work | Koko (#094), Ship Capacity (#079) | `while left < right` | `right = mid` |
-| **MAXIMIZE** | Find largest value that satisfies condition | If X works, all Y < X work | Cutting Ribbons (#074) | `while left <= right` | `left = mid + 1` |
+> **The branch that does `left/right = mid` (no ±1) must round mid toward itself to avoid infinite loops.**
 
-**Why this matters:** Using the wrong template causes infinite loops or wrong answers!
+| Type | Pattern | Round | T branch | F branch | Return |
+|------|---------|-------|----------|----------|--------|
+| **MINIMIZE** | `FFTTT` → leftmost T | `// 2` (DOWN, toward left/F) | `right = mid` | `left = mid + 1` | `left` |
+| **MAXIMIZE** | `TTTFF` → rightmost T | `// 2 + 1` (UP, toward right/F) | `left = mid` | `right = mid - 1` | `left` |
+
+**Why this matters:** Rounding the wrong way causes infinite loops (e.g., `left=3, right=4`, round down, T branch `left=mid=3` → stuck forever).
 
 ---
 
@@ -52,125 +54,72 @@ Binary search on answer space divides into TWO fundamentally different patterns:
 ```python
 # ============================================
 # MINIMIZE TEMPLATE (Find SMALLEST valid value)
+# Pattern: FFTTT → find leftmost T
 # ============================================
 def binary_search_minimize(constraints):
-    """
-    Find minimum value where is_valid(value) = True
-
-    Monotonicity: If X works → all Y > X work
-    Example: Minimum speed to finish in time
-    """
-    def is_valid(candidate):
-        # Returns True if candidate satisfies constraints
-        pass
-
     left = minimum_possible_value
     right = maximum_possible_value
 
-    while left < right:  # NOTE: < not <=
-        mid = left + (right - left) // 2
+    while left < right:
+        mid = left + (right - left) // 2      # round DOWN → aggressive toward F (left side)
 
         if is_valid(mid):
-            # mid works, but search for smaller
-            right = mid  # KEEP mid as candidate
+            right = mid       # T: keep mid (right = mid, no ±1) → needs round DOWN
         else:
-            # mid doesn't work, need larger
-            left = mid + 1
+            left = mid + 1    # F: exclude mid
 
-    return left  # left == right at termination
+    return left  # leftmost T
 
 
 # ============================================
 # MAXIMIZE TEMPLATE (Find LARGEST valid value)
+# Pattern: TTTFF → find rightmost T
 # ============================================
 def binary_search_maximize(constraints):
-    """
-    Find maximum value where is_valid(value) = True
-
-    Monotonicity: If X works → all Y < X work
-    Example: Maximum length that yields k pieces
-    """
-    def is_valid(candidate):
-        # Returns True if candidate satisfies constraints
-        pass
-
     left = minimum_possible_value
     right = maximum_possible_value
-    result = 0  # Track best answer found
 
-    while left <= right:  # NOTE: <= not <
-        mid = left + (right - left) // 2
+    while left < right:
+        mid = left + (right - left + 1) // 2  # round UP → aggressive toward F (right side)
 
         if is_valid(mid):
-            # mid works, save it and search for larger
-            result = mid  # SAVE current answer
-            left = mid + 1  # EXCLUDE mid
+            left = mid        # T: keep mid (left = mid, no ±1) → needs round UP
         else:
-            # mid doesn't work, need smaller
-            right = mid - 1
+            right = mid - 1   # F: exclude mid
 
-    return result
+    return left  # rightmost T
 ```
 
 ---
 
 ### Key Differences Table
 
-| Aspect | MINIMIZE Template | MAXIMIZE Template |
+| Aspect | MINIMIZE (`FFTTT`) | MAXIMIZE (`TTTFF`) |
 |--------|-------------------|-------------------|
-| **Loop Condition** | `while left < right` | `while left <= right` |
-| **Mid Calculation** | `(left + right) // 2` | `(left + right) // 2` |
-| **When Valid** | `right = mid` | `result = mid; left = mid + 1` |
-| **When Invalid** | `left = mid + 1` | `right = mid - 1` |
-| **Return Value** | `left` (or `right`, same value) | `result` |
-| **Needs Result Variable** | ❌ No | ✅ Yes |
-| **Mid Included in Search** | ✅ Yes (`right = mid`) | ❌ No (saved in result, then excluded) |
+| **Rounding** | `(right-left) // 2` (DOWN) | `(right-left+1) // 2` (UP) |
+| **T branch** | `right = mid` | `left = mid` |
+| **F branch** | `left = mid + 1` | `right = mid - 1` |
+| **Return** | `left` | `left` |
+| **Needs result var?** | No | No |
+| **Why rounding differs** | `right=mid` branch → round toward left | `left=mid` branch → round toward right |
 
 ---
 
-### Why These Differences?
+### Why Rounding Direction Is Forced
 
-#### MINIMIZE: Keep Mid Inclusive (`right = mid`)
+```
+MINIMIZE — left=3, right=4:
+  round DOWN → mid=3
+  if T: right=3 → left==right → terminates ✓
+  if T with round UP: mid=4 → right=4 → stuck ∞
 
-```python
-# Example: Find minimum speed
-speeds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-#         ❌ ❌ ❌ ✅ ✅ ✅ ✅ ✅ ✅ ✅
-#                 ↑ Answer is 4 (first valid)
-
-# If mid = 6 works, answer could be 4, 5, or 6
-# Must keep mid=6 in search space → right = mid
-# If we used right = mid - 1, we might skip the answer!
+MAXIMIZE — left=3, right=4:
+  round UP → mid=4
+  if T: left=4 → left==right → terminates ✓
+  if T with round DOWN: mid=3 → left=3 → stuck ∞
 ```
 
-**Infinite loop prevention:** Using `right = mid` requires `while left < right`
-- When `left + 1 == right`, mid = left, then `right = mid = left` → loop terminates
-- If we used `left <= right`, infinite loop when left == right == mid
-
----
-
-#### MAXIMIZE: Exclude Mid (`left = mid + 1`)
-
-```python
-# Example: Find maximum length
-lengths = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-#          ✅ ✅ ✅ ✅ ✅ ✅ ❌ ❌ ❌ ❌
-#                         ↑ Answer is 6 (last valid)
-
-# If mid = 4 works, answer could be 4, 5, or 6
-# Save 4 as current best, then EXCLUDE it → left = mid + 1
-# Search [5, 6, ...] for potentially better answer
-```
-
-**Why save result separately?**
-- We exclude mid from search space (`left = mid + 1`)
-- But mid might be the final answer if nothing larger works
-- Must save it before moving on
-
-**Why use `left <= right`?**
-- We're excluding mid on both sides (`left = mid + 1`, `right = mid - 1`)
-- Need `<=` to check the final remaining element
-- With `<`, we'd miss the last element
+The rule: **`= mid` branch and mid must converge to the same value to terminate.**
 
 ---
 
@@ -194,12 +143,13 @@ def minEatingSpeed(piles, h):
 
     left, right = 1, max(piles)
 
-    while left < right:  # Minimize template
-        mid = (left + right) // 2
+    # FFTTT → find leftmost T, round DOWN
+    while left < right:
+        mid = left + (right - left) // 2   # round DOWN
         if can_finish(mid):
-            right = mid  # Works, try slower
+            right = mid    # T: right=mid (no ±1) → round DOWN required
         else:
-            left = mid + 1  # Too slow, need faster
+            left = mid + 1
 
     return left
 
@@ -238,12 +188,13 @@ def shipWithinDays(weights, days):
 
     left, right = max(weights), sum(weights)
 
-    while left < right:  # Minimize template
-        mid = (left + right) // 2
+    # FFTTT → find leftmost T, round DOWN
+    while left < right:
+        mid = left + (right - left) // 2   # round DOWN
         if can_ship(mid):
-            right = mid  # Works, try smaller
+            right = mid    # T: right=mid (no ±1) → round DOWN required
         else:
-            left = mid + 1  # Too small, need larger
+            left = mid + 1
 
     return left
 ```
@@ -269,106 +220,96 @@ def maxLength(ribbons, k):
         return count >= k
 
     left, right = 1, max(ribbons)
-    result = 0  # MUST track result!
 
-    while left <= right:  # Maximize template
-        mid = (left + right) // 2
+    # TTTFF → find rightmost T, round UP
+    while left < right:
+        mid = left + (right - left + 1) // 2  # round UP
         if can_cut(mid):
-            result = mid  # Save answer
-            left = mid + 1  # Try longer
+            left = mid     # T: left=mid (no ±1) → round UP required
         else:
-            right = mid - 1  # Too long, try shorter
+            right = mid - 1
 
-    return result
+    return left  # rightmost T
 
 # Trace: ribbons = [9,7,5], k = 3
 # Search space: [1, 9]
-# mid=5: can_cut(5)=True → result=5, left=6, search [6,9]
-# mid=7: can_cut(7)=True → result=7, left=8, search [8,9]
-# mid=8: can_cut(8)=False → right=7, search [8,7] (invalid)
-# Return result=7
-#
-# Wait, let me recalculate: [9,7,5] with length 5
-# 9//5=1, 7//5=1, 5//5=1 → count=3 ✓
-# With length 7: 9//7=1, 7//7=1, 5//7=0 → count=2 ✗
-# So answer should be 5, not 7
+# mid=5 (round up from [1,9]): can_cut(5)=True (9//5+7//5+5//5=1+1+1=3) → left=5, search [5,9]
+# mid=7 (round up from [5,9]): can_cut(7)=False (9//7+7//7+5//7=1+1+0=2) → right=6, search [5,6]
+# mid=6 (round up from [5,6]): can_cut(6)=False (9//6+7//6+5//6=1+1+0=2) → right=5, search [5,5]
+# left==right=5, return 5 ✓
 ```
 
 ---
 
 ## ⚠️ Common Mistakes When Mixing Templates
 
-### Mistake 1: Using MINIMIZE template for MAXIMIZE problem
+### Mistake 1: Wrong rounding direction for MAXIMIZE
 
 ```python
-# WRONG: Using minimize template for cutting ribbons
+# WRONG: round DOWN for maximize (left=mid branch)
 def maxLength(ribbons, k):
     def can_cut(length):
         return sum(r // length for r in ribbons) >= k
 
     left, right = 1, max(ribbons)
 
-    while left < right:  # ← Minimize template
-        mid = (left + right) // 2
+    while left < right:
+        mid = left + (right - left) // 2   # ← round DOWN (wrong for maximize)
         if can_cut(mid):
-            right = mid  # ← WRONG! Should try larger, not smaller
+            left = mid     # ← left=mid with round DOWN → infinite loop!
         else:
-            left = mid + 1
-
-    return left  # Returns MINIMUM valid length, not maximum!
+            right = mid - 1
 ```
 
-**Result:** Returns smallest valid length instead of largest. Correct answer: 5, Wrong answer: 1
+**Result:** Infinite loop when `left=3, right=4`: mid=3, T branch sets left=3 → no progress.
+**Fix:** Use `(right-left+1)//2` (round UP) for the maximize template.
 
 ---
 
-### Mistake 2: Using MAXIMIZE template for MINIMIZE problem
+### Mistake 2: Wrong rounding direction for MINIMIZE
 
 ```python
-# WRONG: Using maximize template for Koko
+# WRONG: round UP for minimize (right=mid branch)
 def minEatingSpeed(piles, h):
     def can_finish(speed):
         return sum((p + speed - 1) // speed for p in piles) <= h
 
     left, right = 1, max(piles)
-    result = 0
 
-    while left <= right:  # ← Maximize template
-        mid = (left + right) // 2
+    while left < right:
+        mid = left + (right - left + 1) // 2  # ← round UP (wrong for minimize)
         if can_finish(mid):
-            result = mid
-            left = mid + 1  # ← WRONG! Should try smaller, not larger
+            right = mid    # ← right=mid with round UP → infinite loop!
         else:
-            right = mid - 1
-
-    return result  # Returns MAXIMUM valid speed, not minimum!
+            left = mid + 1
 ```
 
-**Result:** Returns max(piles) when we want minimum speed. Correct: 4, Wrong: 11
+**Result:** Infinite loop when `left=3, right=4`: mid=4, T branch sets right=4 → no progress.
+**Fix:** Use `(right-left)//2` (round DOWN) for the minimize template.
 
 ---
 
-### Mistake 3: Forgetting result variable in MAXIMIZE
+### Mistake 3: Swapping T/F branch logic
 
 ```python
-# WRONG: No result variable for maximize
+# WRONG: T branch pushes in wrong direction for maximize
 def maxLength(ribbons, k):
     def can_cut(length):
         return sum(r // length for r in ribbons) >= k
 
     left, right = 1, max(ribbons)
 
-    while left <= right:
-        mid = (left + right) // 2
+    while left < right:
+        mid = left + (right - left + 1) // 2
         if can_cut(mid):
-            left = mid + 1  # mid is excluded!
+            right = mid - 1  # ← WRONG! T should try larger (left=mid), not smaller
         else:
-            right = mid - 1
+            left = mid
 
-    return left  # ← WRONG! left points past last valid value
+    return left  # Returns wrong end of search space
 ```
 
-**Result:** Returns value that's too large. Must save result when found.
+**Result:** Returns minimum valid length instead of maximum. Correct: 5, Wrong: 1.
 
 ---
 
@@ -378,26 +319,30 @@ def maxLength(ribbons, k):
 Question asks for minimum/maximum value?
 │
 ├─ MINIMIZE (smallest value where condition is true)
-│  │
+│  │  Pattern: FFTTT → find leftmost T
 │  ├─ Keywords: "minimum capacity", "minimum speed", "minimum time"
 │  ├─ Monotonicity: if X works → all Y > X work
 │  ├─ Template:
 │  │   while left < right:
-│  │       if is_valid(mid): right = mid
+│  │       mid = left + (right-left)//2      # round DOWN
+│  │       if is_valid(mid): right = mid     # right=mid → round toward left
 │  │       else: left = mid + 1
+│  │   return left
 │  └─ Examples: Koko (#094), Ship Capacity (#079)
 │
 └─ MAXIMIZE (largest value where condition is true)
-   │
+   │  Pattern: TTTFF → find rightmost T
    ├─ Keywords: "maximum length", "maximum distance", "maximum value"
    ├─ Monotonicity: if X works → all Y < X work
    ├─ Template:
-   │   result = 0
-   │   while left <= right:
-   │       if is_valid(mid): result = mid; left = mid + 1
+   │   while left < right:
+   │       mid = left + (right-left+1)//2    # round UP
+   │       if is_valid(mid): left = mid      # left=mid → round toward right
    │       else: right = mid - 1
-   │   return result
+   │   return left
    └─ Examples: Cutting Ribbons (#074)
+
+Key rule: whichever branch does `= mid` determines rounding direction.
 ```
 
 ---
@@ -860,11 +805,11 @@ Cannot eliminate half based on arr[mid] comparison.
 
 ---
 
-### Template Choice: < vs <= and When It Matters
+### Template Choice: < vs <= and Rounding Direction
 
-Two templates exist for good reasons:
+Two loop styles exist:
 
-TEMPLATE A (for exact match):
+TEMPLATE A (exact match, `while left <= right`):
 ```python
 while left <= right:
     mid = (left + right) // 2
@@ -875,22 +820,24 @@ while left <= right:
     else:
         right = mid - 1
 ```
-Use when: Looking for exact value, need to check all elements.
-Boundary update: MUST be mid ± 1 (exclusive)
+Use when: Looking for exact value. Both branches exclude mid (±1), so `<=` is safe.
 
-TEMPLATE B (for condition finding):
+TEMPLATE B (condition finding, `while left < right`):
 ```python
+# One branch must do `= mid` (no ±1) → requires while left < right
+# Rounding direction is forced by which branch does `= mid`:
+#   right = mid  →  round DOWN  (MINIMIZE / leftmost T)
+#   left  = mid  →  round UP    (MAXIMIZE / rightmost T)
 while left < right:
-    mid = (left + right) // 2
+    mid = left + (right - left [+ 1]) // 2  # +1 only for MAXIMIZE
     if condition(mid):
-        right = mid  # Keep mid as candidate
+        right = mid   # OR left = mid — depends on problem
     else:
-        left = mid + 1
+        left = mid + 1  # OR right = mid - 1
 ```
-Use when: Finding first/last position satisfying condition.
-Boundary update: Can include mid (right = mid)
+Use when: Finding leftmost or rightmost value satisfying a condition.
 
-Mixing these causes infinite loops! If using right = mid, MUST use left < right.
+Key: If `= mid` branch and rounding direction don't match, you get an infinite loop.
 
 ---
 

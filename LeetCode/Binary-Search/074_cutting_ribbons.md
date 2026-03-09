@@ -76,20 +76,22 @@ def maxLength(ribbons: List[int], k: int) -> int:
     # Binary search bounds
     left = 1
     right = max(ribbons)
-    result = 0
+    
 
-    while left <= right:
-        mid = left + (right - left) // 2
+    # Pattern: TTTFF (find rightmost T)
+    # round UP: mid = left + (right-left+1)//2  → aggressive toward right/F side
+    # T branch: left = mid   (mid does = assignment → need round-up to avoid infinite loop)
+    # F branch: right = mid-1
+    # Rule: whichever branch does `= mid` (no ±1) determines rounding direction
+    while left < right:
+        mid = left + (right - left + 1) // 2  # round UP (aggressive toward F on right)
 
         if can_cut(mid):
-            # Can achieve this length, try larger
-            result = mid
-            left = mid + 1
+            left = mid        # T: keep mid, search right for larger valid length
         else:
-            # Cannot achieve, try smaller
-            right = mid - 1
+            right = mid - 1   # F: mid too long, exclude it
 
-    return result
+    return left  # left == right == rightmost T
 ```
 
 ### Complexity Analysis
@@ -111,6 +113,13 @@ def maxLength(ribbons: List[int], k: int) -> int:
 
 **Search type:** Answer space — search over possible ribbon lengths `[1, max(ribbons)]`, NOT the array.
 **Key:** feasibility check `can_cut(length)` = `sum(r // length for r in ribbons) >= k`. Monotonic: if length L works, all L' < L also work → find rightmost valid L.
+
+**Template: TTTFF → find rightmost T**
+- Round UP: `mid = left + (right-left+1)//2` — aggressive toward F (right side)
+- T branch: `left = mid` — the branch doing `= mid` (no ±1) requires round-up to avoid infinite loop
+- F branch: `right = mid - 1`
+- Rule: whichever branch does `= mid` determines rounding direction (round toward that branch)
+- Contrast with Koko (FFTTT): round DOWN, T branch is `right = mid`
 
 **Difficulty Level:** MEDIUM
 

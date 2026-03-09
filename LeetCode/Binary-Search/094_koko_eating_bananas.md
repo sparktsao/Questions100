@@ -78,17 +78,19 @@ def minEatingSpeed(piles: List[int], h: int) -> int:
     # Minimum speed: 1, Maximum speed: max pile size
     left, right = 1, max(piles)
 
+    # Pattern: FFTTT (find leftmost T)
+    # round DOWN: mid = left + (right-left)//2  → aggressive toward left/F side
+    # T branch: right = mid   (mid does = assignment → need round down to avoid infinite loop)
+    # F branch: left = mid+1
     while left < right:
-        mid = left + (right - left) // 2
+        mid = left + (right - left) // 2  # round DOWN (aggressive toward F on left)
 
         if can_finish(mid):
-            # Can finish with mid speed, try slower
-            right = mid
+            right = mid       # T: keep mid, search left for smaller valid speed
         else:
-            # Too slow, need faster speed
-            left = mid + 1
+            left = mid + 1    # F: mid too slow, exclude it
 
-    return left
+    return left  # left == right == leftmost T
 ```
 
 ### Alternative Implementation with Math.ceil
@@ -103,20 +105,17 @@ def minEatingSpeed(piles: List[int], h: int) -> int:
     Time: O(n log m), Space: O(1)
     """
     def hours_to_eat(speed):
-        """Calculate total hours needed at given speed"""
         return sum(math.ceil(pile / speed) for pile in piles)
 
     left, right = 1, max(piles)
 
     while left < right:
-        mid = (left + right) // 2
+        mid = (left + right) // 2  # round DOWN
 
         if hours_to_eat(mid) <= h:
-            # Can finish in time, try slower speed
-            right = mid
+            right = mid        # T: try slower
         else:
-            # Too slow, need faster speed
-            left = mid + 1
+            left = mid + 1     # F: too slow
 
     return left
 ```
@@ -140,6 +139,12 @@ def minEatingSpeed(piles: List[int], h: int) -> int:
 
 **Search type:** Answer space — search over possible speeds `[1, max(piles)]`, NOT the array.
 **Key:** feasibility check `can_finish(speed)` = `sum(ceil(p/speed)) <= h`. Monotonic: if speed k works, all k' > k also work → find leftmost valid k. Same template as Ship Capacity.
+
+**Template: FFTTT → find leftmost T**
+- Round DOWN: `mid = left + (right-left)//2` — aggressive toward F (left side)
+- T branch: `right = mid` — the branch doing `= mid` (no ±1) requires round-down to avoid infinite loop
+- F branch: `left = mid + 1`
+- Rule: whichever branch does `= mid` determines rounding direction (round toward that branch)
 
 **Difficulty Level:** MEDIUM
 
