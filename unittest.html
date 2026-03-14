@@ -111,12 +111,16 @@
         /* ── Framework grid ── */
         .framework-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 16px;
             margin-bottom: 28px;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 1100px) {
+            .framework-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 700px) {
             .framework-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
@@ -178,11 +182,13 @@
         .card-boundary { --card-color: #f97316; }
         .card-condition{ --card-color: #8b5cf6; }
         .card-corner   { --card-color: #ef4444; }
+        .card-others   { --card-color: #64748b; }
 
         .card-basic .goal    { background: #dbeafe; }
         .card-boundary .goal { background: #ffedd5; }
         .card-condition .goal{ background: #ede9fe; }
         .card-corner .goal   { background: #fee2e2; }
+        .card-others .goal   { background: #f1f5f9; }
 
         /* ── Checklist box ── */
         .checklist-box {
@@ -418,6 +424,7 @@
         .pill-boundary  { background: #ffedd5; color: #c2410c; }
         .pill-condition { background: #ede9fe; color: #6d28d9; }
         .pill-corner    { background: #fee2e2; color: #b91c1c; }
+        .pill-others    { background: #f1f5f9; color: #334155; }
 
         /* ── Callout boxes inside panels ── */
         .callout {
@@ -524,10 +531,12 @@
         .qref-table th:nth-child(2) { color: #ffedd5; }
         .qref-table th:nth-child(3) { color: #ede9fe; }
         .qref-table th:nth-child(4) { color: #fee2e2; }
+        .qref-table th:nth-child(5) { color: #e2e8f0; }
 
         .qref-table td:nth-child(2) { color: #c2410c; font-weight: 500; }
         .qref-table td:nth-child(3) { color: #6d28d9; font-weight: 500; }
         .qref-table td:nth-child(4) { color: #b91c1c; font-weight: 500; }
+        .qref-table td:nth-child(5) { color: #475569; font-weight: 500; }
 
         /* ── Divider ── */
         .divider {
@@ -600,6 +609,15 @@
             <p>Surprising valid inputs: all-duplicates, negatives, already-sorted or reversed, all-same-value, overlapping extremes.</p>
             <span class="goal">Goal: catch assumptions the coder shouldn't have made</span>
         </div>
+
+        <div class="framework-card card-others">
+            <div class="card-header">
+                <div class="card-icon"><i class="fa-solid fa-ellipsis"></i></div>
+                <div class="card-label">Others</div>
+            </div>
+            <p>Cases that don't fit T1–T4: mixed signs, scale/performance, unusual but valid format, cross-type interaction.</p>
+            <span class="goal">Goal: close gaps left by the first four types</span>
+        </div>
     </div>
 
     <!-- Checklist -->
@@ -610,6 +628,7 @@
             <li><i class="fa-solid fa-circle-check"></i><span>Push every parameter to its minimum and maximum &nbsp;<span class="pill pill-boundary">Boundary</span></span></li>
             <li><i class="fa-solid fa-circle-check"></i><span>Identify every <code style="background:#f5f5f5;padding:1px 5px;border-radius:3px;font-size:12px;">if</code> / <code style="background:#f5f5f5;padding:1px 5px;border-radius:3px;font-size:12px;">while</code> condition and write one test per branch &nbsp;<span class="pill pill-condition">Condition</span></span></li>
             <li><i class="fa-solid fa-circle-check"></i><span>Ask: "What if all elements are equal?" &nbsp; "What if the input is already the answer?" &nbsp; "What if two inputs share the same position?" &nbsp;<span class="pill pill-corner">Corner</span></span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span>Add one test that doesn't fit neatly: mixed positive and negative values, very large n for performance, unusual-but-valid format, or cross-type interactions &nbsp;<span class="pill pill-others">Others</span></span></li>
         </ul>
     </div>
 
@@ -677,6 +696,7 @@
                         <tr><td><span class="pill pill-condition">Condition</span></td><td>Target not found, between elements</td><td><code>[1,3,5], target=2</code></td><td>Returns -1 correctly (not an adjacent value)</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>All elements equal, target matches</td><td><code>[3,3,3], target=3</code></td><td>Duplicates do not break the loop</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>All elements equal, target absent</td><td><code>[3,3,3], target=5</code></td><td>No infinite loop with equal elements</td></tr>
+                        <tr><td><span class="pill pill-others">Others</span></td><td>Integer range values (overflow risk)</td><td><code>[-10^9, 0, 10^9], target=0</code></td><td>1</td><td>mid = l+(r-l)//2, not (l+r)//2 — overflow on large range</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -694,11 +714,12 @@
                         <tr><th>Type</th><th>Zone</th><th>Example</th><th>Expected</th><th>Branch Targeted</th></tr>
                     </thead>
                     <tbody>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>k=1, dense array with no gaps</td><td><code>arr=[1,2,3], k=1</code></td><td>4</td><td>Smallest missing after full sequential array</td></tr>
                         <tr><td><span class="pill pill-condition">Condition</span></td><td>k is before the array starts</td><td><code>arr=[4,5,6], k=2</code></td><td>2</td><td>Case 2 — answer is simply k</td></tr>
                         <tr><td><span class="pill pill-condition">Condition</span></td><td>k is past the end of array</td><td><code>arr=[1,2,3], k=4</code></td><td>7</td><td>Case 1 — answer is arr[-1] + remaining</td></tr>
                         <tr><td><span class="pill pill-condition">Condition</span></td><td>k falls inside gaps</td><td><code>arr=[1,5,9], k=3</code></td><td>4</td><td>Case 3 — full BS branch fires</td></tr>
-                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>k=1, no elements before array</td><td><code>arr=[1,2,3], k=1</code></td><td>4</td><td>Smallest missing after full array</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>Single element array</td><td><code>arr=[1], k=1</code></td><td>2</td><td>Single element with k=1</td></tr>
+                        <tr><td><span class="pill pill-others">Others</span></td><td>Large gap at the end</td><td><code>arr=[1,2,3,4,5], k=3</code></td><td>8</td><td>End-of-array formula: arr[-1] + (k - missing_so_far)</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -741,6 +762,7 @@ B: [---]</div>
                         <tr><td><span class="pill pill-condition">Condition</span></td><td>Touching but not overlapping</td><td><code>[[1,3],[3,5]]</code></td><td><code>[[1,5]]</code></td><td>Off-by-one in overlap check (use &lt;= not &lt;)</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>All same interval</td><td><code>[[1,3],[1,3]]</code></td><td><code>[[1,3]]</code></td><td>Dedup via merge logic</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>Already sorted, no overlaps</td><td><code>[[1,2],[3,4],[5,6]]</code></td><td><code>[[1,2],[3,4],[5,6]]</code></td><td>Identity transform — must not merge when separate</td></tr>
+                        <tr><td><span class="pill pill-others">Others</span></td><td>Unsorted input</td><td><code>[[3,5],[1,4]]</code></td><td><code>[[1,5]]</code></td><td>Sort step must run before merge; tests that sort is not assumed</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -774,6 +796,7 @@ B: [---]</div>
                         <tr><td><span class="pill pill-condition">Condition</span></td><td>No valid triplet (all positive)</td><td><code>[1,2,3]</code></td><td><code>[]</code></td><td>Early exit when sum is always positive</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>Multiple valid triplets with duplicates</td><td><code>[-2,0,0,2,2]</code></td><td><code>[[-2,0,2]]</code></td><td>Skip-duplicate logic on both left and right pointers</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>Single extreme negative value</td><td><code>[-100,1,1,...,100]</code></td><td>—</td><td>Range extremes do not cause arithmetic overflow</td></tr>
+                        <tr><td><span class="pill pill-others">Others</span></td><td>Many duplicates, one valid triplet</td><td><code>[-2,-2,-2,0,4,4]</code></td><td><code>[[-2,-2,4]]</code></td><td>Skip loop robust enough when both pointers need to jump over many duplicates simultaneously</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -808,6 +831,7 @@ B: [---]</div>
                         <tr><td><span class="pill pill-condition">Condition</span></td><td>Zeros clustered at end</td><td><code>[1,1,1,0,0], k=1</code></td><td>4</td><td>Best window sits at the right side</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>All zeros</td><td><code>[0,0,0], k=2</code></td><td>2</td><td>Window smaller than full array length</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>All ones</td><td><code>[1,1,1], k=0</code></td><td>3</td><td>No shrink needed, max = full length</td></tr>
+                        <tr><td><span class="pill pill-others">Others</span></td><td>Single element</td><td><code>[0], k=1</code></td><td>1</td><td>Array of length 1 — window never needs to shrink, result is always 1</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -841,6 +865,7 @@ B: [---]</div>
                         <tr><td><span class="pill pill-condition">Condition</span></td><td>No valid segmentation</td><td><code>"catsandog", ["cats","dog","sand","cat"]</code></td><td>false</td><td>Partial match propagates false correctly</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>Word longer than string</td><td><code>"ab", ["abc"]</code></td><td>false</td><td>Slice range check — no out-of-bounds access</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>All single-char dictionary</td><td><code>"abcd", ["a","b","c","d"]</code></td><td>true</td><td>Many short transitions all firing simultaneously</td></tr>
+                        <tr><td><span class="pill pill-others">Others</span></td><td>Dictionary word equals entire string</td><td><code>"hello", ["hello"]</code></td><td>true</td><td>Single-step dp[0]→dp[5] transition — verifies full-string word match</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -880,6 +905,7 @@ B: [---]</div>
                         <tr><td><span class="pill pill-condition">Condition</span></td><td>Indirect cycle (3 nodes)</td><td><code>3, [[0,1],[1,2],[2,0]]</code></td><td>false</td><td>Cycle spanning all three nodes</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>Diamond (shared dependency, no cycle)</td><td><code>4, [[1,0],[2,0],[3,1],[3,2]]</code></td><td>true</td><td>Node 0 visited from two paths — must not be mistaken for a cycle</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>Self-loop</td><td><code>1, [[0,0]]</code></td><td>false</td><td>Node that is its own prerequisite</td></tr>
+                        <tr><td><span class="pill pill-others">Others</span></td><td>Disconnected graph, cycle in one component</td><td><code>4, [[0,1],[1,0],[2,3]]</code></td><td>false</td><td>Cycle exists in component {0,1}; component {2,3} is fine — DFS must not stop at first clean component</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -915,6 +941,7 @@ B: [---]</div>
                         <tr><td><span class="pill pill-condition">Condition</span></td><td>Diameter stays in subtree (bypasses root)</td><td><code>[1,2,null,3,4]</code></td><td>2</td><td>Global max updated inside subtree, not just at root</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>Left-linear tree</td><td><code>[1,2,null,3,null,4]</code></td><td>3</td><td>All nodes on the left — diameter is chain length</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>Right-linear tree</td><td><code>[1,null,2,null,3,null,4]</code></td><td>3</td><td>All nodes on the right — same logic, opposite side</td></tr>
+                        <tr><td><span class="pill pill-others">Others</span></td><td>Perfect binary tree (3 levels)</td><td><code>[1,2,3,4,5,6,7]</code></td><td>4</td><td>All leaves at same depth; diameter crosses root; depth(left)=depth(right)=2</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -948,6 +975,7 @@ B: [---]</div>
                         <tr><td><span class="pill pill-condition">Condition</span></td><td>Duplicates present</td><td><code>[3,3,3,3], k=2</code></td><td>3</td><td>Heap with equal keys — invariant still holds</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>All negative values</td><td><code>[-5,-3,-1,-4], k=2</code></td><td>-3</td><td>Negative comparisons do not flip the order</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>Single element</td><td><code>[7], k=1</code></td><td>7</td><td>Trivial — only one element to pop</td></tr>
+                        <tr><td><span class="pill pill-others">Others</span></td><td>Mixed positive and negative values</td><td><code>[-5,1,3,-2,4], k=3</code></td><td>1</td><td>Mixed signs — ordering must hold across positive and negative boundary</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -986,6 +1014,7 @@ B: [---]</div>
                         <tr><td><span class="pill pill-condition">Condition</span></td><td>Cross-type mismatch</td><td><code>"([)]"</code></td><td>false</td><td>Mismatch on pop — wrong bracket type on top</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>Same type deeply nested</td><td><code>"(((())))"</code></td><td>true</td><td>Deep nesting — stack grows to n/2</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>Deeply nested then mismatched</td><td><code>"((("</code></td><td>false</td><td>Stack has 3 unclosed brackets after loop ends</td></tr>
+                        <tr><td><span class="pill pill-others">Others</span></td><td>Alternating valid pairs (no nesting)</td><td><code>"()()()"</code></td><td>true</td><td>Rapid push-pop cycle — stack never grows beyond size 1</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -1021,6 +1050,7 @@ B: [---]</div>
                         <tr><td><span class="pill pill-condition">Condition</span></td><td>Single missing at end</td><td><code>[1,2], lo=1, hi=3</code></td><td><code>["3"]</code></td><td>Right boundary gap only</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>Gap of exactly 1 value</td><td><code>[1,3], lo=1, hi=3</code></td><td><code>["2"]</code></td><td>Single value — output "2" not "2-&gt;2"</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>lo == hi, value not in array</td><td><code>[], lo=5, hi=5</code></td><td><code>["5"]</code></td><td>Range of length 1</td></tr>
+                        <tr><td><span class="pill pill-others">Others</span></td><td>First element equals lo, gap at right</td><td><code>[1], lo=1, hi=5</code></td><td><code>["2-&gt;5"]</code></td><td>No left gap, right gap only — tests that left boundary is correctly skipped</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -1058,6 +1088,7 @@ B: [---]</div>
                         <tr><td><span class="pill pill-condition">Condition</span></td><td>No single deletion helps</td><td><code>"abc"</code></td><td>false</td><td>Both sub-checks (delete left, delete right) fail</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>Already palindrome, even length</td><td><code>"abba"</code></td><td>true</td><td>Even length — no deletion, both pointers traverse fully</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>One deletion needed at the outer edge</td><td><code>"xabaay"</code></td><td>false</td><td>Outer mismatch, inner substrings both also fail</td></tr>
+                        <tr><td><span class="pill pill-others">Others</span></td><td>All same character</td><td><code>"aaaa"</code></td><td>true</td><td>No mismatch ever occurs — confirms no false alarm from the skip-and-recheck path</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -1094,6 +1125,7 @@ B: [---]</div>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>x=1 (any n)</td><td><code>x=1.0, n=1000</code></td><td>1.0</td><td>Identity base — shortcut if optimized</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>x=-1, n even</td><td><code>x=-1.0, n=4</code></td><td>1.0</td><td>Negative base, even exponent yields positive</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>x=-1, n odd</td><td><code>x=-1.0, n=3</code></td><td>-1.0</td><td>Negative base, odd exponent yields negative</td></tr>
+                        <tr><td><span class="pill pill-others">Others</span></td><td>n = Integer.MIN_VALUE (-2^31)</td><td><code>x=1.0, n=-2147483648</code></td><td>1.0</td><td>Negating MIN_VALUE overflows signed 32-bit int — must cast n to long before negating</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -1128,6 +1160,7 @@ B: [---]</div>
                         <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Single node</td><td><code>[1], n=1</code></td><td><code>[]</code></td><td>Result is empty — return dummy.next which is null</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>Two nodes, remove first</td><td><code>[1,2], n=2</code></td><td><code>[2]</code></td><td>Head of a 2-node list</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>Two nodes, remove second</td><td><code>[1,2], n=1</code></td><td><code>[1]</code></td><td>Tail of a 2-node list</td></tr>
+                        <tr><td><span class="pill pill-others">Others</span></td><td>Long list, middle removal</td><td><code>[1,2,3,4,5,6], n=3</code></td><td><code>[1,2,3,5,6]</code></td><td>Gap pointer advances correctly over more than 2 positions — catches off-by-one in n-step advance</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -1160,6 +1193,7 @@ B: [---]</div>
                         <tr><td><span class="pill pill-condition">Condition</span></td><td>get updates recency</td><td><code>cap=2: put(1,1) put(2,2) get(1) put(3,3) get(2) get(1)</code></td><td>get(2)=-1, get(1)=1</td><td>get(1) promoted key 1, so it was not evicted</td></tr>
                         <tr><td><span class="pill pill-condition">Condition</span></td><td>put on existing key</td><td><code>cap=2: put(1,1) put(1,2) get(1)</code></td><td>get(1) = 2</td><td>Overwrite without increasing cache size</td></tr>
                         <tr><td><span class="pill pill-corner">Corner</span></td><td>get then put same key</td><td><code>cap=1: put(1,1) get(1) put(1,99) get(1)</code></td><td>get(1) = 99</td><td>Key updated in place — value and recency both change</td></tr>
+                        <tr><td><span class="pill pill-others">Others</span></td><td>All gets before any puts</td><td><code>cap=2: get(1) get(2)</code></td><td>both = -1</td><td>Empty cache state — no crash on get when internal map is empty</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -1178,21 +1212,22 @@ B: [---]</div>
                         <th>Critical Boundary</th>
                         <th>Critical Condition</th>
                         <th>Most Common Corner</th>
+                        <th>Notable Other (T5)</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td>Binary Search</td><td>empty array, single element</td><td>target not found (between elements)</td><td>all elements equal</td></tr>
-                    <tr><td>Two Pointers</td><td>empty / 2-element input</td><td>only one pointer ever moves</td><td>all identical elements</td></tr>
-                    <tr><td>Sliding Window</td><td>k=0, k=n</td><td>shrink never / always triggers</td><td>all same value</td></tr>
-                    <tr><td>Graph DFS / BFS</td><td>no edges, single node</td><td>cycle present</td><td>diamond (shared parent, no cycle)</td></tr>
-                    <tr><td>Dynamic Programming</td><td>empty / single element</td><td>no solution path exists</td><td>all same value</td></tr>
-                    <tr><td>Tree</td><td>null root, leaf node</td><td>left-heavy vs right-heavy</td><td>linear (all-left or all-right) tree</td></tr>
-                    <tr><td>Intervals</td><td>empty input, single interval</td><td>touching at exactly one point</td><td>one interval contains another</td></tr>
-                    <tr><td>Heap / Priority Queue</td><td>k=1, k=n</td><td>all elements equal</td><td>all negative values</td></tr>
-                    <tr><td>Stack</td><td>empty string, single element</td><td>unmatched closing bracket</td><td>deeply nested matching structure</td></tr>
-                    <tr><td>Palindrome</td><td>empty string, single char</td><td>even vs odd length</td><td>all same character</td></tr>
-                    <tr><td>Linked List</td><td>single node</td><td>remove the head node</td><td>two-node list</td></tr>
-                    <tr><td>Design (LRU)</td><td>capacity = 1</td><td>get() updates recency order</td><td>put on an existing key</td></tr>
+                    <tr><td>Binary Search</td><td>empty array, single element</td><td>target not found (between elements)</td><td>all elements equal</td><td>integer overflow in mid computation</td></tr>
+                    <tr><td>Two Pointers</td><td>empty / 2-element input</td><td>only one pointer ever moves</td><td>all identical elements</td><td>many duplicates, both pointers skip simultaneously</td></tr>
+                    <tr><td>Sliding Window</td><td>k=0, k=n</td><td>shrink never / always triggers</td><td>all same value</td><td>single-element array</td></tr>
+                    <tr><td>Graph DFS / BFS</td><td>no edges, single node</td><td>cycle present</td><td>diamond (shared parent, no cycle)</td><td>disconnected graph with cycle in one component only</td></tr>
+                    <tr><td>Dynamic Programming</td><td>empty / single element</td><td>no solution path exists</td><td>all same value</td><td>dictionary word equals entire string (single-step transition)</td></tr>
+                    <tr><td>Tree</td><td>null root, leaf node</td><td>left-heavy vs right-heavy</td><td>linear (all-left or all-right) tree</td><td>perfect binary tree (all leaves at same depth)</td></tr>
+                    <tr><td>Intervals</td><td>empty input, single interval</td><td>touching at exactly one point</td><td>one interval contains another</td><td>unsorted input (sort step not assumed)</td></tr>
+                    <tr><td>Heap / Priority Queue</td><td>k=1, k=n</td><td>all elements equal</td><td>all negative values</td><td>mixed positive and negative values</td></tr>
+                    <tr><td>Stack</td><td>empty string, single element</td><td>unmatched closing bracket</td><td>deeply nested matching structure</td><td>alternating pairs (no nesting, rapid push-pop)</td></tr>
+                    <tr><td>Palindrome</td><td>empty string, single char</td><td>even vs odd length</td><td>all same character</td><td>all same character (no false alarm on skip-recheck path)</td></tr>
+                    <tr><td>Linked List</td><td>single node</td><td>remove the head node</td><td>two-node list</td><td>long list, middle removal (n-step advance off-by-one)</td></tr>
+                    <tr><td>Design (LRU)</td><td>capacity = 1</td><td>get() updates recency order</td><td>put on an existing key</td><td>all gets before any puts (empty cache)</td></tr>
                 </tbody>
             </table>
         </div>
