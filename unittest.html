@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Case Design Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fff5f5;
+            color: #333;
+        }
+
+        /* ── Header ── */
+        .header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 12px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .back-btn {
+            padding: 7px 16px;
+            background: linear-gradient(135deg, #e74c3c 0%, #f39c12 100%);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(231,76,60,0.3);
+        }
+
+        .header-title-block {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .logo {
+            font-size: 1.25em;
+            font-weight: 800;
+            color: #e74c3c;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo i {
+            background: linear-gradient(135deg, #e74c3c, #f39c12);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: #888;
+            font-weight: 500;
+        }
+
+        /* ── Main layout ── */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 28px 20px 60px;
+        }
+
+        /* ── Section heading ── */
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.15em;
+            font-weight: 800;
+            color: #222;
+            margin-bottom: 16px;
+        }
+
+        .section-heading i {
+            color: #e74c3c;
+        }
+
+        /* ── Framework grid ── */
+        .framework-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        @media (max-width: 900px) {
+            .framework-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 540px) {
+            .framework-grid { grid-template-columns: 1fr; }
+        }
+
+        .framework-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            border-top: 4px solid var(--card-color);
+        }
+
+        .framework-card .card-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .framework-card .card-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--card-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .framework-card .card-label {
+            font-size: 1em;
+            font-weight: 800;
+            color: var(--card-color);
+        }
+
+        .framework-card p {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.55;
+            margin-bottom: 8px;
+        }
+
+        .framework-card .goal {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--card-color);
+            border-radius: 6px;
+            padding: 4px 8px;
+            display: inline-block;
+        }
+
+        .card-basic    { --card-color: #3b82f6; }
+        .card-boundary { --card-color: #f97316; }
+        .card-condition{ --card-color: #8b5cf6; }
+        .card-corner   { --card-color: #ef4444; }
+
+        .card-basic .goal    { background: #dbeafe; }
+        .card-boundary .goal { background: #ffedd5; }
+        .card-condition .goal{ background: #ede9fe; }
+        .card-corner .goal   { background: #fee2e2; }
+
+        /* ── Checklist box ── */
+        .checklist-box {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            border-left: 4px solid #e74c3c;
+            margin-bottom: 36px;
+        }
+
+        .checklist-box h3 {
+            font-size: 1em;
+            font-weight: 700;
+            color: #e74c3c;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checklist-box ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .checklist-box li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13.5px;
+            color: #444;
+            line-height: 1.5;
+        }
+
+        .checklist-box li i {
+            color: #e74c3c;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        /* ── Tab strip ── */
+        .tab-strip-wrapper {
+            background: white;
+            border-radius: 12px 12px 0 0;
+            border: 1px solid #e8e8e8;
+            border-bottom: none;
+            overflow-x: auto;
+        }
+
+        .tab-strip {
+            display: flex;
+            gap: 0;
+            padding: 0 8px;
+            min-width: max-content;
+        }
+
+        .tab-btn {
+            padding: 11px 16px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            color: #888;
+            transition: all 0.18s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tab-btn:hover {
+            color: #e74c3c;
+        }
+
+        .tab-btn.active {
+            color: #e74c3c;
+            border-bottom-color: #e74c3c;
+        }
+
+        /* ── Tab content ── */
+        .tab-content-wrapper {
+            background: white;
+            border: 1px solid #e8e8e8;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            margin-bottom: 40px;
+        }
+
+        .tab-panel {
+            display: none;
+            padding: 28px;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* ── Panel internals ── */
+        .panel-explain {
+            background: #fef9f0;
+            border-left: 4px solid #f97316;
+            border-radius: 6px;
+            padding: 14px 18px;
+            margin-bottom: 22px;
+            font-size: 13.5px;
+            color: #444;
+            line-height: 1.6;
+        }
+
+        .panel-explain strong {
+            color: #c0392b;
+        }
+
+        .panel-subtitle {
+            font-size: 0.9em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #aaa;
+            margin: 20px 0 10px;
+        }
+
+        /* ── Test axes list ── */
+        .axes-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        .axes-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .axes-list li::before {
+            content: "\2022";
+            color: #e74c3c;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* ── Code block for diagrams ── */
+        .code-block {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            border-radius: 8px;
+            padding: 16px 20px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 12.5px;
+            line-height: 1.7;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            white-space: pre;
+        }
+
+        /* ── Tables ── */
+        .test-table-wrapper {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            margin-bottom: 24px;
+        }
+
+        .test-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .test-table thead tr {
+            background: linear-gradient(135deg, #e74c3c 0%, #f39c12 100%);
+            color: white;
+        }
+
+        .test-table thead th {
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+        }
+
+        .test-table tbody tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        .test-table tbody tr:hover {
+            background: #fff5f5;
+        }
+
+        .test-table td {
+            padding: 9px 14px;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: top;
+            line-height: 1.5;
+        }
+
+        .test-table td code {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 12px;
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #c0392b;
+        }
+
+        /* ── Type pills ── */
+        .pill {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+        }
+
+        .pill-basic     { background: #dbeafe; color: #1d4ed8; }
+        .pill-boundary  { background: #ffedd5; color: #c2410c; }
+        .pill-condition { background: #ede9fe; color: #6d28d9; }
+        .pill-corner    { background: #fee2e2; color: #b91c1c; }
+
+        /* ── Callout boxes inside panels ── */
+        .callout {
+            background: #f0fdf4;
+            border-left: 4px solid #22c55e;
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin: 16px 0;
+            font-size: 13px;
+            color: #15803d;
+            line-height: 1.6;
+        }
+
+        .callout strong {
+            display: block;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 4px;
+        }
+
+        /* ── Sub-problem heading ── */
+        .problem-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #e74c3c, #f39c12);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin: 20px 0 10px;
+        }
+
+        /* ── Footer quick-ref ── */
+        .footer-section {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            border-top: 4px solid #e74c3c;
+        }
+
+        .footer-section h2 {
+            font-size: 1.1em;
+            font-weight: 800;
+            color: #e74c3c;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .qref-table-wrapper {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+        .qref-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12.5px;
+        }
+
+        .qref-table thead tr {
+            background: linear-gradient(135deg, #e74c3c 0%, #f39c12 100%);
+            color: white;
+        }
+
+        .qref-table thead th {
+            padding: 9px 14px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 11.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .qref-table tbody tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        .qref-table tbody tr:hover {
+            background: #fff5f5;
+        }
+
+        .qref-table td {
+            padding: 8px 14px;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: top;
+            line-height: 1.5;
+            color: #444;
+        }
+
+        .qref-table td:first-child {
+            font-weight: 700;
+            color: #222;
+            white-space: nowrap;
+        }
+
+        .qref-table th:nth-child(2) { color: #ffedd5; }
+        .qref-table th:nth-child(3) { color: #ede9fe; }
+        .qref-table th:nth-child(4) { color: #fee2e2; }
+
+        .qref-table td:nth-child(2) { color: #c2410c; font-weight: 500; }
+        .qref-table td:nth-child(3) { color: #6d28d9; font-weight: 500; }
+        .qref-table td:nth-child(4) { color: #b91c1c; font-weight: 500; }
+
+        /* ── Divider ── */
+        .divider {
+            height: 1px;
+            background: #f0f0f0;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="header-content">
+        <a href="index.html" class="back-btn">
+            <i class="fa fa-arrow-left"></i> Back
+        </a>
+        <div class="header-title-block">
+            <div class="logo">
+                <i class="fa-solid fa-flask"></i>
+                TEST CASE DESIGN GUIDE
+            </div>
+            <div class="subtitle">How to think about test data for every algorithm pattern</div>
+        </div>
+    </div>
+</header>
+
+<!-- MAIN -->
+<main class="main">
+
+    <!-- Framework Section -->
+    <div class="section-heading">
+        <i class="fa-solid fa-layer-group"></i>
+        Test Case Taxonomy
+    </div>
+
+    <div class="framework-grid">
+        <div class="framework-card card-basic">
+            <div class="card-header">
+                <div class="card-icon"><i class="fa-solid fa-check"></i></div>
+                <div class="card-label">Basic</div>
+            </div>
+            <p>Happy path: typical input, and the problem's own examples. These are the first tests you write.</p>
+            <span class="goal">Goal: verify the algorithm works at all</span>
+        </div>
+
+        <div class="framework-card card-boundary">
+            <div class="card-header">
+                <div class="card-icon"><i class="fa-solid fa-border-all"></i></div>
+                <div class="card-label">Boundary</div>
+            </div>
+            <p>Edge of valid input: empty arrays, n=0 or n=1, minimum and maximum values, single element.</p>
+            <span class="goal">Goal: catch off-by-one and initialization bugs</span>
+        </div>
+
+        <div class="framework-card card-condition">
+            <div class="card-header">
+                <div class="card-icon"><i class="fa-solid fa-code-branch"></i></div>
+                <div class="card-label">Condition</div>
+            </div>
+            <p>Branch coverage: inputs that exercise each <code style="background:#ede9fe;color:#6d28d9;padding:1px 5px;border-radius:4px;font-size:12px;">if</code> branch, each loop exit condition, each special formula case.</p>
+            <span class="goal">Goal: ensure all code paths are correct</span>
+        </div>
+
+        <div class="framework-card card-corner">
+            <div class="card-header">
+                <div class="card-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <div class="card-label">Corner</div>
+            </div>
+            <p>Surprising valid inputs: all-duplicates, negatives, already-sorted or reversed, all-same-value, overlapping extremes.</p>
+            <span class="goal">Goal: catch assumptions the coder shouldn't have made</span>
+        </div>
+    </div>
+
+    <!-- Checklist -->
+    <div class="checklist-box">
+        <h3><i class="fa-solid fa-list-check"></i> Test Design Checklist</h3>
+        <ul>
+            <li><i class="fa-solid fa-circle-check"></i><span>Start with the problem's own examples &nbsp;<span class="pill pill-basic">Basic</span></span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span>Push every parameter to its minimum and maximum &nbsp;<span class="pill pill-boundary">Boundary</span></span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span>Identify every <code style="background:#f5f5f5;padding:1px 5px;border-radius:3px;font-size:12px;">if</code> / <code style="background:#f5f5f5;padding:1px 5px;border-radius:3px;font-size:12px;">while</code> condition and write one test per branch &nbsp;<span class="pill pill-condition">Condition</span></span></li>
+            <li><i class="fa-solid fa-circle-check"></i><span>Ask: "What if all elements are equal?" &nbsp; "What if the input is already the answer?" &nbsp; "What if two inputs share the same position?" &nbsp;<span class="pill pill-corner">Corner</span></span></li>
+        </ul>
+    </div>
+
+    <!-- Tabbed Section -->
+    <div class="section-heading">
+        <i class="fa-solid fa-table-list"></i>
+        Test Cases by Algorithm Pattern
+    </div>
+
+    <!-- Tab strip -->
+    <div class="tab-strip-wrapper">
+        <div class="tab-strip">
+            <button class="tab-btn active" onclick="switchTab(event,'bs')"><i class="fa-solid fa-magnifying-glass"></i> Binary Search</button>
+            <button class="tab-btn" onclick="switchTab(event,'intervals')"><i class="fa-solid fa-arrows-left-right"></i> Intervals</button>
+            <button class="tab-btn" onclick="switchTab(event,'twoptr')"><i class="fa-solid fa-arrows-left-right-to-line"></i> Two Pointers</button>
+            <button class="tab-btn" onclick="switchTab(event,'sw')"><i class="fa-solid fa-window-maximize"></i> Sliding Window</button>
+            <button class="tab-btn" onclick="switchTab(event,'dp')"><i class="fa-solid fa-table-cells"></i> Dynamic Programming</button>
+            <button class="tab-btn" onclick="switchTab(event,'graph')"><i class="fa-solid fa-diagram-project"></i> Graph DFS/BFS</button>
+            <button class="tab-btn" onclick="switchTab(event,'tree')"><i class="fa-solid fa-tree"></i> Tree</button>
+            <button class="tab-btn" onclick="switchTab(event,'heap')"><i class="fa-solid fa-mountain-sun"></i> Heap / PQ</button>
+            <button class="tab-btn" onclick="switchTab(event,'stack')"><i class="fa-solid fa-layer-group"></i> Stack</button>
+            <button class="tab-btn" onclick="switchTab(event,'string')"><i class="fa-solid fa-font"></i> String</button>
+            <button class="tab-btn" onclick="switchTab(event,'palindrome')"><i class="fa-solid fa-arrows-rotate"></i> Palindrome</button>
+            <button class="tab-btn" onclick="switchTab(event,'math')"><i class="fa-solid fa-calculator"></i> Math / Compute</button>
+            <button class="tab-btn" onclick="switchTab(event,'ll')"><i class="fa-solid fa-link"></i> Linked List</button>
+            <button class="tab-btn" onclick="switchTab(event,'design')"><i class="fa-solid fa-gear"></i> Design</button>
+        </div>
+    </div>
+
+    <!-- Tab content area -->
+    <div class="tab-content-wrapper">
+
+        <!-- BINARY SEARCH -->
+        <div id="tab-bs" class="tab-panel active">
+            <div class="panel-explain">
+                Binary Search has <strong>3 failure modes</strong>: wrong mid rounding (causes infinite loop when l and r are adjacent), wrong boundary update (skips the answer), and wrong termination condition (off-by-one on the final answer). Design tests to hit each failure mode independently.
+            </div>
+
+            <div class="panel-subtitle">Test Design Axes</div>
+            <ul class="axes-list">
+                <li>Target position: leftmost / middle / rightmost / not present</li>
+                <li>Array size: empty / single element / even-length / odd-length</li>
+                <li>Value distribution: all same / strictly increasing / contains duplicates</li>
+            </ul>
+
+            <div class="panel-subtitle">Standard Binary Search Test Cases</div>
+            <div class="test-table-wrapper">
+                <table class="test-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Input Pattern</th>
+                            <th>Example</th>
+                            <th>What Bug It Catches</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="pill pill-basic">Basic</span></td><td>Target in the middle</td><td><code>[1,3,5,7,9], target=5</code></td><td>Verifies core search logic</td></tr>
+                        <tr><td><span class="pill pill-basic">Basic</span></td><td>Target at left edge</td><td><code>[1,3,5], target=1</code></td><td>Left boundary handling</td></tr>
+                        <tr><td><span class="pill pill-basic">Basic</span></td><td>Target at right edge</td><td><code>[1,3,5], target=5</code></td><td>Right boundary handling</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Empty array</td><td><code>[], target=3</code></td><td>Null / empty guard before entering loop</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Single element (match)</td><td><code>[5], target=5</code></td><td>l == r case, found</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Single element (no match)</td><td><code>[5], target=3</code></td><td>l == r case, not found</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>Even-length array</td><td><code>[1,2,3,4], target=3</code></td><td>mid = (l+r)/2 floor vs ceil matters here</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>Target not found, between elements</td><td><code>[1,3,5], target=2</code></td><td>Returns -1 correctly (not an adjacent value)</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>All elements equal, target matches</td><td><code>[3,3,3], target=3</code></td><td>Duplicates do not break the loop</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>All elements equal, target absent</td><td><code>[3,3,3], target=5</code></td><td>No infinite loop with equal elements</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="divider"></div>
+            <div class="problem-tag"><i class="fa-solid fa-puzzle-piece"></i> Problem 041: Kth Missing Positive Number — 3 Zones to Cover</div>
+
+            <div class="panel-explain">
+                Problem 041 uses a binary search over the array and has <strong>3 distinct case branches</strong> that the algorithm must route into correctly. You need at least one test per zone or the branch goes untested.
+            </div>
+
+            <div class="test-table-wrapper">
+                <table class="test-table">
+                    <thead>
+                        <tr><th>Type</th><th>Zone</th><th>Example</th><th>Expected</th><th>Branch Targeted</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>k is before the array starts</td><td><code>arr=[4,5,6], k=2</code></td><td>2</td><td>Case 2 — answer is simply k</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>k is past the end of array</td><td><code>arr=[1,2,3], k=4</code></td><td>7</td><td>Case 1 — answer is arr[-1] + remaining</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>k falls inside gaps</td><td><code>arr=[1,5,9], k=3</code></td><td>4</td><td>Case 3 — full BS branch fires</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>k=1, no elements before array</td><td><code>arr=[1,2,3], k=1</code></td><td>4</td><td>Smallest missing after full array</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>Single element array</td><td><code>arr=[1], k=1</code></td><td>2</td><td>Single element with k=1</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- INTERVALS -->
+        <div id="tab-intervals" class="tab-panel">
+            <div class="panel-explain">
+                Interval problems fail on <strong>overlap geometry</strong>. There are 5 distinct spatial relationships between two intervals, and your tests must cover all of them. Bugs hide at the boundaries between cases — especially containment vs partial overlap vs touching.
+            </div>
+
+            <div class="panel-subtitle">Test Design Axes — Overlap Geometries</div>
+            <div class="code-block">A: [--]           (no overlap, A entirely before B)
+B:       [--]
+
+A: [--------]     (A contains B)
+B:   [---]
+
+A: [-----]        (partial overlap, A before B)
+B:     [-----]
+
+A: [---]          (touching at exactly one point)
+B:      [---]
+
+A: [---]          (identical intervals)
+B: [---]</div>
+
+            <div class="panel-subtitle">Problem 016: Merge Intervals</div>
+            <div class="test-table-wrapper">
+                <table class="test-table">
+                    <thead>
+                        <tr><th>Type</th><th>Input Pattern</th><th>Example</th><th>Expected Output</th><th>What It Tests</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="pill pill-basic">Basic</span></td><td>Two intervals with gap</td><td><code>[[1,3],[5,7]]</code></td><td><code>[[1,3],[5,7]]</code></td><td>No-merge path runs correctly</td></tr>
+                        <tr><td><span class="pill pill-basic">Basic</span></td><td>Two overlapping intervals</td><td><code>[[1,4],[2,6]]</code></td><td><code>[[1,6]]</code></td><td>Merge path runs correctly</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Empty input</td><td><code>[]</code></td><td><code>[]</code></td><td>Guard against crash on empty</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Single interval</td><td><code>[[2,5]]</code></td><td><code>[[2,5]]</code></td><td>No loop iteration needed</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>One interval contains the other</td><td><code>[[1,10],[2,5]]</code></td><td><code>[[1,10]]</code></td><td>Must use max(end), not simple overwrite</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>Touching but not overlapping</td><td><code>[[1,3],[3,5]]</code></td><td><code>[[1,5]]</code></td><td>Off-by-one in overlap check (use &lt;= not &lt;)</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>All same interval</td><td><code>[[1,3],[1,3]]</code></td><td><code>[[1,3]]</code></td><td>Dedup via merge logic</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>Already sorted, no overlaps</td><td><code>[[1,2],[3,4],[5,6]]</code></td><td><code>[[1,2],[3,4],[5,6]]</code></td><td>Identity transform — must not merge when separate</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TWO POINTERS -->
+        <div id="tab-twoptr" class="tab-panel">
+            <div class="panel-explain">
+                Two-pointer bugs: <strong>forgetting to advance one pointer</strong> (infinite loop), <strong>not skipping duplicates</strong> (yields duplicate triplets in the output), and <strong>wrong termination condition</strong> (misses the last valid pair). Equal-element inputs are the most dangerous — they stress both the skip logic and the loop bounds simultaneously.
+            </div>
+
+            <div class="panel-subtitle">Test Design Axes</div>
+            <ul class="axes-list">
+                <li>Both pointers start far apart vs already adjacent</li>
+                <li>Inputs where only one pointer ever moves (all same value)</li>
+                <li>Inputs with duplicates that cause both pointers to skip</li>
+                <li>Inputs where the answer requires both pointers to meet at exactly one position</li>
+            </ul>
+
+            <div class="panel-subtitle">Problem 065: 3Sum</div>
+            <div class="test-table-wrapper">
+                <table class="test-table">
+                    <thead>
+                        <tr><th>Type</th><th>Input Pattern</th><th>Example</th><th>Expected</th><th>What It Tests</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="pill pill-basic">Basic</span></td><td>One triplet exists</td><td><code>[-1,0,1,2,-1,-4]</code></td><td><code>[[-1,-1,2],[-1,0,1]]</code></td><td>Core logic path</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Less than 3 elements</td><td><code>[0,1]</code></td><td><code>[]</code></td><td>Short-circuit before main loop</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Exactly 3 elements, sum=0</td><td><code>[-1,0,1]</code></td><td><code>[[-1,0,1]]</code></td><td>Minimum valid input</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>All zeros</td><td><code>[0,0,0]</code></td><td><code>[[0,0,0]]</code></td><td>Duplicate-handling must keep exactly one result</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>No valid triplet (all positive)</td><td><code>[1,2,3]</code></td><td><code>[]</code></td><td>Early exit when sum is always positive</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>Multiple valid triplets with duplicates</td><td><code>[-2,0,0,2,2]</code></td><td><code>[[-2,0,2]]</code></td><td>Skip-duplicate logic on both left and right pointers</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>Single extreme negative value</td><td><code>[-100,1,1,...,100]</code></td><td>—</td><td>Range extremes do not cause arithmetic overflow</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SLIDING WINDOW -->
+        <div id="tab-sw" class="tab-panel">
+            <div class="panel-explain">
+                Sliding window bugs: <strong>forgetting to shrink the window</strong> (window grows forever), <strong>shrinking too much</strong> (valid elements are evicted), <strong>not updating the maximum at the right moment</strong> (update before or after the shrink?). Test when the shrink condition triggers immediately vs never triggers at all.
+            </div>
+
+            <div class="panel-subtitle">Test Design Axes</div>
+            <ul class="axes-list">
+                <li>k=0 (degenerate — no flips allowed, window can never include an invalid element)</li>
+                <li>k=n (full array — window never needs to shrink)</li>
+                <li>Shrink condition triggers immediately on the very first element</li>
+                <li>Shrink condition never triggers (all elements qualify)</li>
+                <li>Zeros clustered at start vs clustered at end vs scattered evenly</li>
+            </ul>
+
+            <div class="panel-subtitle">Problem 040: Max Consecutive Ones III</div>
+            <div class="test-table-wrapper">
+                <table class="test-table">
+                    <thead>
+                        <tr><th>Type</th><th>Input Pattern</th><th>Example</th><th>Expected</th><th>What It Tests</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="pill pill-basic">Basic</span></td><td>Normal case with k=2</td><td><code>[1,1,0,0,1,1,1], k=2</code></td><td>7</td><td>Standard sliding window operation</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>k=0 (no flips at all)</td><td><code>[1,0,1], k=0</code></td><td>1</td><td>Window can never include a zero</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>k &gt;= count of zeros</td><td><code>[0,1,0], k=5</code></td><td>3</td><td>Window spans full array, never shrinks</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>Zeros clustered at start</td><td><code>[0,0,1,1,1], k=1</code></td><td>4</td><td>Shrink from the left side correctly</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>Zeros clustered at end</td><td><code>[1,1,1,0,0], k=1</code></td><td>4</td><td>Best window sits at the right side</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>All zeros</td><td><code>[0,0,0], k=2</code></td><td>2</td><td>Window smaller than full array length</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>All ones</td><td><code>[1,1,1], k=0</code></td><td>3</td><td>No shrink needed, max = full length</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- DYNAMIC PROGRAMMING -->
+        <div id="tab-dp" class="tab-panel">
+            <div class="panel-explain">
+                DP bugs cluster in four places: <strong>wrong base case</strong> (if dp[0] is wrong, nothing works), <strong>wrong recurrence</strong> (transition skips a valid state), <strong>wrong index offset</strong> (does dp[i] represent s[0..i-1] or s[0..i]?), and <strong>missing memoization</strong> (recomputes the same subproblem). The base case is always the first test to write.
+            </div>
+
+            <div class="panel-subtitle">Test Design Axes</div>
+            <ul class="axes-list">
+                <li>Base case: empty string / empty array / single element</li>
+                <li>Recurrence: one-step transition vs multi-step transition</li>
+                <li>No solution path exists vs exactly one solution path exists</li>
+                <li>Word reused multiple times vs used only once</li>
+            </ul>
+
+            <div class="panel-subtitle">Problem 075: Word Break</div>
+            <div class="test-table-wrapper">
+                <table class="test-table">
+                    <thead>
+                        <tr><th>Type</th><th>Input Pattern</th><th>Example</th><th>Expected</th><th>What It Tests</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="pill pill-basic">Basic</span></td><td>Standard decomposition</td><td><code>"leetcode", ["leet","code"]</code></td><td>true</td><td>Core DP transition logic</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Empty string</td><td><code>"", ["a"]</code></td><td>true</td><td>dp[0]=true base case</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Single character word</td><td><code>"a", ["a"]</code></td><td>true</td><td>dp[1] set correctly from dp[0]</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>Word reused multiple times</td><td><code>"aaa", ["a","aa"]</code></td><td>true</td><td>Reuse of dictionary words is allowed</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>No valid segmentation</td><td><code>"catsandog", ["cats","dog","sand","cat"]</code></td><td>false</td><td>Partial match propagates false correctly</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>Word longer than string</td><td><code>"ab", ["abc"]</code></td><td>false</td><td>Slice range check — no out-of-bounds access</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>All single-char dictionary</td><td><code>"abcd", ["a","b","c","d"]</code></td><td>true</td><td>Many short transitions all firing simultaneously</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout">
+                <strong>Why dp[0] = true matters</strong>
+                dp[0] represents the empty prefix — it is always true by definition ("we can segment the empty string"). Every transition dp[i] = dp[j] &amp;&amp; word_in_dict(s[j..i]) traces back to dp[0] as the root. If dp[0] is false or missing, no dp[i] ever becomes true, and the whole table stays false even for valid inputs. The empty-string test directly validates this base case.
+            </div>
+        </div>
+
+        <!-- GRAPH -->
+        <div id="tab-graph" class="tab-panel">
+            <div class="panel-explain">
+                Graph bugs: <strong>missing visited set</strong> (infinite loop when cycles exist), <strong>wrong start node</strong> (DFS misses some components), <strong>not handling disconnected graphs</strong> (only searches from node 0, ignores other components). Cycle detection requires a tri-color state machine (unvisited / in-stack / done), not just a boolean visited set — a done node visited again is not a cycle.
+            </div>
+
+            <div class="panel-subtitle">Test Design Axes</div>
+            <ul class="axes-list">
+                <li>Empty graph (0 nodes)</li>
+                <li>Single node with no edges</li>
+                <li>Cycle present vs absent</li>
+                <li>Disconnected graph (multiple components)</li>
+                <li>Diamond pattern — node reachable from two different paths, but no cycle</li>
+            </ul>
+
+            <div class="panel-subtitle">Problem 063: Course Schedule (Cycle Detection)</div>
+            <div class="test-table-wrapper">
+                <table class="test-table">
+                    <thead>
+                        <tr><th>Type</th><th>Input Pattern</th><th>Example</th><th>Expected</th><th>What It Tests</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="pill pill-basic">Basic</span></td><td>Linear prerequisite chain</td><td><code>4, [[1,0],[2,1],[3,2]]</code></td><td>true</td><td>DFS through a chain — no cycle</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>No prerequisites</td><td><code>3, []</code></td><td>true</td><td>No edges — graph is trivially acyclic</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Single course</td><td><code>1, []</code></td><td>true</td><td>Trivial — one node, no edges</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>Direct cycle (2 nodes)</td><td><code>2, [[0,1],[1,0]]</code></td><td>false</td><td>Shortest possible cycle detected</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>Indirect cycle (3 nodes)</td><td><code>3, [[0,1],[1,2],[2,0]]</code></td><td>false</td><td>Cycle spanning all three nodes</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>Diamond (shared dependency, no cycle)</td><td><code>4, [[1,0],[2,0],[3,1],[3,2]]</code></td><td>true</td><td>Node 0 visited from two paths — must not be mistaken for a cycle</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>Self-loop</td><td><code>1, [[0,0]]</code></td><td>false</td><td>Node that is its own prerequisite</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TREE -->
+        <div id="tab-tree" class="tab-panel">
+            <div class="panel-explain">
+                Tree bugs: <strong>not handling null children</strong> (NullPointerException on a leaf), <strong>confusing depth vs height</strong> (depth counts from root down; height counts from leaves up), <strong>not propagating information up correctly in post-order</strong> (returning local depth instead of updating the global max). Post-order traversal must return what the parent needs, not what looks convenient locally.
+            </div>
+
+            <div class="panel-subtitle">Test Design Axes</div>
+            <ul class="axes-list">
+                <li>Empty tree (null root)</li>
+                <li>Single node (a leaf is also a root)</li>
+                <li>Perfectly balanced tree (left and right subtrees same height)</li>
+                <li>Left-skewed tree (linear, no right children)</li>
+                <li>Right-skewed tree (linear, no left children)</li>
+                <li>Longest path crosses through the root vs stays entirely in one subtree</li>
+            </ul>
+
+            <div class="panel-subtitle">Problem 014: Diameter of Binary Tree</div>
+            <div class="test-table-wrapper">
+                <table class="test-table">
+                    <thead>
+                        <tr><th>Type</th><th>Input Pattern</th><th>Example</th><th>Expected</th><th>What It Tests</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="pill pill-basic">Basic</span></td><td>Standard balanced tree</td><td><code>[1,2,3,4,5]</code></td><td>3</td><td>Core post-order logic — path 4 to 2 to 1 to 3</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Single node</td><td><code>[1]</code></td><td>0</td><td>No edges exist — diameter is zero</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Two nodes</td><td><code>[1,2]</code></td><td>1</td><td>Single edge between root and child</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>Diameter passes through root</td><td><code>[1,2,3]</code></td><td>2</td><td>Left depth + right depth at root = 1 + 1</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>Diameter stays in subtree (bypasses root)</td><td><code>[1,2,null,3,4]</code></td><td>2</td><td>Global max updated inside subtree, not just at root</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>Left-linear tree</td><td><code>[1,2,null,3,null,4]</code></td><td>3</td><td>All nodes on the left — diameter is chain length</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>Right-linear tree</td><td><code>[1,null,2,null,3,null,4]</code></td><td>3</td><td>All nodes on the right — same logic, opposite side</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- HEAP -->
+        <div id="tab-heap" class="tab-panel">
+            <div class="panel-explain">
+                Heap bugs: <strong>wrong heap order</strong> (using max-heap when min-heap is needed, giving the wrong k-th element), <strong>k off-by-one</strong> (popping k times returns the (k+1)-th largest), <strong>not maintaining heap invariant after pop</strong> (in custom heaps). Always test k=1 and k=n as the sanity-check bookends before testing intermediate k.
+            </div>
+
+            <div class="panel-subtitle">Test Design Axes</div>
+            <ul class="axes-list">
+                <li>k=1 (return the maximum — first pop)</li>
+                <li>k=n (return the minimum — last pop)</li>
+                <li>Duplicate elements in the heap</li>
+                <li>All negative numbers (comparisons remain correct)</li>
+                <li>Stream of values (for running median variants)</li>
+            </ul>
+
+            <div class="panel-subtitle">Problem 006: Kth Largest Element in an Array</div>
+            <div class="test-table-wrapper">
+                <table class="test-table">
+                    <thead>
+                        <tr><th>Type</th><th>Input Pattern</th><th>Example</th><th>Expected</th><th>What It Tests</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="pill pill-basic">Basic</span></td><td>Normal case</td><td><code>[3,2,1,5,6,4], k=2</code></td><td>5</td><td>Standard heap operation</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>k=1 (maximum element)</td><td><code>[1,2,3,4], k=1</code></td><td>4</td><td>Single pop — first element out</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>k=n (minimum element)</td><td><code>[1,2,3,4], k=4</code></td><td>1</td><td>All elements popped — last remaining</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>Duplicates present</td><td><code>[3,3,3,3], k=2</code></td><td>3</td><td>Heap with equal keys — invariant still holds</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>All negative values</td><td><code>[-5,-3,-1,-4], k=2</code></td><td>-3</td><td>Negative comparisons do not flip the order</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>Single element</td><td><code>[7], k=1</code></td><td>7</td><td>Trivial — only one element to pop</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- STACK -->
+        <div id="tab-stack" class="tab-panel">
+            <div class="panel-explain">
+                Stack bugs: <strong>popping from an empty stack</strong> (crash on the first closing bracket when no open bracket was seen), <strong>not checking the stack is empty after the loop</strong> (unclosed brackets left at end return true instead of false), <strong>wrong match check</strong> (comparing the wrong bracket types). The post-loop check is the most frequently forgotten.
+            </div>
+
+            <div class="panel-subtitle">Test Design Axes</div>
+            <ul class="axes-list">
+                <li>Empty input (should return true — nothing is unmatched)</li>
+                <li>Single open bracket (stack not empty at end)</li>
+                <li>Single close bracket (pop from empty stack)</li>
+                <li>Perfectly matched input (all types present)</li>
+                <li>Extra opening brackets at end (loop finishes with non-empty stack)</li>
+                <li>Extra closing brackets at start (stack empty on close)</li>
+                <li>Nested structure vs flat sequence</li>
+            </ul>
+
+            <div class="panel-subtitle">Problem 020: Valid Parentheses</div>
+            <div class="test-table-wrapper">
+                <table class="test-table">
+                    <thead>
+                        <tr><th>Type</th><th>Input Pattern</th><th>Example</th><th>Expected</th><th>What It Tests</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="pill pill-basic">Basic</span></td><td>Matched pair</td><td><code>"()"</code></td><td>true</td><td>Single pair — push then pop</td></tr>
+                        <tr><td><span class="pill pill-basic">Basic</span></td><td>Mixed matched types</td><td><code>"()[]{}"</code></td><td>true</td><td>Multiple types in sequence</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Empty string</td><td><code>""</code></td><td>true</td><td>No iterations — empty stack at end</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Single open bracket</td><td><code>"("</code></td><td>false</td><td>Stack not empty after loop completes</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Single close bracket</td><td><code>")"</code></td><td>false</td><td>Pop from empty stack</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>Wrong order (close before open)</td><td><code>")("</code></td><td>false</td><td>Stack empty on close, then open left over</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>Cross-type mismatch</td><td><code>"([)]"</code></td><td>false</td><td>Mismatch on pop — wrong bracket type on top</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>Same type deeply nested</td><td><code>"(((())))"</code></td><td>true</td><td>Deep nesting — stack grows to n/2</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>Deeply nested then mismatched</td><td><code>"((("</code></td><td>false</td><td>Stack has 3 unclosed brackets after loop ends</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- STRING -->
+        <div id="tab-string" class="tab-panel">
+            <div class="panel-explain">
+                String bugs: <strong>off-by-one at string boundaries</strong> (missing the gap before the first element or after the last), <strong>not handling empty strings</strong> (loop body never runs, but a gap still exists), <strong>incorrect index arithmetic</strong> (mixing 0-based array indices with 1-based problem values). For range-gap problems, always test the gaps at both ends explicitly.
+            </div>
+
+            <div class="panel-subtitle">Test Design Axes</div>
+            <ul class="axes-list">
+                <li>Empty array (entire range is one single gap)</li>
+                <li>Array that covers the entire range perfectly (no gaps anywhere)</li>
+                <li>Gap only at the start (between lo and the first element)</li>
+                <li>Gap only at the end (between the last element and hi)</li>
+                <li>Gap of exactly 1 value (single number, not a range notation)</li>
+                <li>Multiple gaps of different sizes throughout</li>
+            </ul>
+
+            <div class="panel-subtitle">Problem 047: Missing Ranges</div>
+            <div class="test-table-wrapper">
+                <table class="test-table">
+                    <thead>
+                        <tr><th>Type</th><th>Input Pattern</th><th>Example</th><th>Expected</th><th>What It Tests</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="pill pill-basic">Basic</span></td><td>Gaps in middle</td><td><code>[0,1,3,50,75], lo=0, hi=99</code></td><td><code>["2","4-&gt;49","51-&gt;74","76-&gt;99"]</code></td><td>Normal multi-gap case</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Empty array, entire range missing</td><td><code>[], lo=1, hi=5</code></td><td><code>["1-&gt;5"]</code></td><td>No elements — loop body never runs</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Array covers entire range</td><td><code>[1,2,3], lo=1, hi=3</code></td><td><code>[]</code></td><td>No gaps — output is empty</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>Single missing at start</td><td><code>[2,3], lo=1, hi=3</code></td><td><code>["1"]</code></td><td>Left boundary gap only</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>Single missing at end</td><td><code>[1,2], lo=1, hi=3</code></td><td><code>["3"]</code></td><td>Right boundary gap only</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>Gap of exactly 1 value</td><td><code>[1,3], lo=1, hi=3</code></td><td><code>["2"]</code></td><td>Single value — output "2" not "2-&gt;2"</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>lo == hi, value not in array</td><td><code>[], lo=5, hi=5</code></td><td><code>["5"]</code></td><td>Range of length 1</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- PALINDROME -->
+        <div id="tab-palindrome" class="tab-panel">
+            <div class="panel-explain">
+                Palindrome bugs: <strong>not handling even vs odd length separately</strong> when expanding from center, <strong>not skipping non-alphanumeric characters</strong> in the valid-palindrome variant, <strong>choosing the wrong side to delete</strong> in the one-deletion variant — when a mismatch is found, you must try deleting both the left character and the right character, then take the better result.
+            </div>
+
+            <div class="panel-subtitle">Test Design Axes</div>
+            <ul class="axes-list">
+                <li>Empty string (edge case)</li>
+                <li>Single character (always a palindrome)</li>
+                <li>Even length vs odd length string</li>
+                <li>All same characters (always palindrome)</li>
+                <li>Mixed case and special characters (if filtering required)</li>
+                <li>One deletion needed on the left side vs the right side</li>
+            </ul>
+
+            <div class="panel-subtitle">Problem 004: Valid Palindrome II (One Deletion Allowed)</div>
+            <div class="test-table-wrapper">
+                <table class="test-table">
+                    <thead>
+                        <tr><th>Type</th><th>Input Pattern</th><th>Example</th><th>Expected</th><th>What It Tests</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="pill pill-basic">Basic</span></td><td>Already a palindrome</td><td><code>"aba"</code></td><td>true</td><td>No deletion needed at all</td></tr>
+                        <tr><td><span class="pill pill-basic">Basic</span></td><td>Delete one char to fix</td><td><code>"abca"</code></td><td>true</td><td>Delete 'c' — one pass finds the mismatch</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Single character</td><td><code>"a"</code></td><td>true</td><td>Trivially palindrome</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Two same chars</td><td><code>"aa"</code></td><td>true</td><td>No deletion needed</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Two different chars</td><td><code>"ab"</code></td><td>true</td><td>Delete either one — both leave a single char</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>Must delete left character to fix</td><td><code>"ebcbbbbcba"</code></td><td>true</td><td>Algorithm must try both sides when mismatch occurs</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>No single deletion helps</td><td><code>"abc"</code></td><td>false</td><td>Both sub-checks (delete left, delete right) fail</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>Already palindrome, even length</td><td><code>"abba"</code></td><td>true</td><td>Even length — no deletion, both pointers traverse fully</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>One deletion needed at the outer edge</td><td><code>"xabaay"</code></td><td>false</td><td>Outer mismatch, inner substrings both also fail</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- MATH -->
+        <div id="tab-math" class="tab-panel">
+            <div class="panel-explain">
+                Math / compute bugs: <strong>integer overflow</strong> when intermediate products exceed int range (use long or handle large exponents carefully), <strong>negative exponent</strong> (must invert x and use |n|), <strong>division by zero</strong> (when x=0 and n is negative), <strong>leading zeros in output</strong> for number-to-string conversions. Fast exponentiation must handle both even and odd n correctly at every recursion level.
+            </div>
+
+            <div class="panel-subtitle">Test Design Axes</div>
+            <ul class="axes-list">
+                <li>x=0, x=1, x=-1 (special bases)</li>
+                <li>n=0 (result is always 1.0 regardless of x)</li>
+                <li>n=1 (result equals x — single multiply)</li>
+                <li>n negative (compute 1/x^|n| instead)</li>
+                <li>Very large n (verifies fast exponentiation, not a naive loop)</li>
+                <li>Even n vs odd n with negative x (sign flips on odd exponent)</li>
+            </ul>
+
+            <div class="panel-subtitle">Problem 021: Pow(x, n)</div>
+            <div class="test-table-wrapper">
+                <table class="test-table">
+                    <thead>
+                        <tr><th>Type</th><th>Input Pattern</th><th>Example</th><th>Expected</th><th>What It Tests</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="pill pill-basic">Basic</span></td><td>Standard positive exponent</td><td><code>x=2.0, n=10</code></td><td>1024.0</td><td>Core fast-exponentiation logic</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>n=0</td><td><code>x=5.0, n=0</code></td><td>1.0</td><td>Base case — any x to the 0 is 1</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>n=1</td><td><code>x=3.0, n=1</code></td><td>3.0</td><td>Single multiplication — no recursion needed</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>n negative</td><td><code>x=2.0, n=-2</code></td><td>0.25</td><td>Flip to 1/x and use |n| — inversion path</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>x=0</td><td><code>x=0.0, n=5</code></td><td>0.0</td><td>Zero base — all multiplications stay zero</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>x=1 (any n)</td><td><code>x=1.0, n=1000</code></td><td>1.0</td><td>Identity base — shortcut if optimized</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>x=-1, n even</td><td><code>x=-1.0, n=4</code></td><td>1.0</td><td>Negative base, even exponent yields positive</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>x=-1, n odd</td><td><code>x=-1.0, n=3</code></td><td>-1.0</td><td>Negative base, odd exponent yields negative</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- LINKED LIST -->
+        <div id="tab-ll" class="tab-panel">
+            <div class="panel-explain">
+                Linked list bugs: <strong>losing the pointer before detaching a node</strong> (save next before overwriting), <strong>not handling single-node lists</strong> (prev is null when removing head), <strong>not handling removal of the head node</strong> (use a dummy node before the head so the algorithm is uniform across all positions). The dummy node pattern eliminates most head-removal edge cases.
+            </div>
+
+            <div class="panel-subtitle">Test Design Axes</div>
+            <ul class="axes-list">
+                <li>Single node in the list</li>
+                <li>Two nodes (remove first, remove second)</li>
+                <li>Remove the head node (n equals list length)</li>
+                <li>Remove the tail node (n=1)</li>
+                <li>Remove a middle node</li>
+                <li>n equals list length (always removes the head)</li>
+            </ul>
+
+            <div class="panel-subtitle">Problem 045: Remove Nth Node From End of List</div>
+            <div class="test-table-wrapper">
+                <table class="test-table">
+                    <thead>
+                        <tr><th>Type</th><th>Input Pattern</th><th>Example</th><th>Expected</th><th>What It Tests</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="pill pill-basic">Basic</span></td><td>Remove a middle node</td><td><code>[1,2,3,4,5], n=2</code></td><td><code>[1,2,3,5]</code></td><td>Standard two-pointer gap logic</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Remove head (n = list length)</td><td><code>[1,2,3], n=3</code></td><td><code>[2,3]</code></td><td>Dummy node ensures head removal is uniform</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Remove tail (n=1)</td><td><code>[1,2,3], n=1</code></td><td><code>[1,2]</code></td><td>Last node — fast pointer reaches null first</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Single node</td><td><code>[1], n=1</code></td><td><code>[]</code></td><td>Result is empty — return dummy.next which is null</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>Two nodes, remove first</td><td><code>[1,2], n=2</code></td><td><code>[2]</code></td><td>Head of a 2-node list</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>Two nodes, remove second</td><td><code>[1,2], n=1</code></td><td><code>[1]</code></td><td>Tail of a 2-node list</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- DESIGN -->
+        <div id="tab-design" class="tab-panel">
+            <div class="panel-explain">
+                Design bugs: <strong>evicting at the wrong time</strong> (evict before or after inserting the new key?), <strong>updating recency at the wrong time</strong> (a get() call must update LRU order even though it is a read), <strong>handling duplicate keys on put()</strong> (should not increase size — must overwrite in place and update recency). The most common mistake is forgetting that get() is not read-only in LRU semantics.
+            </div>
+
+            <div class="panel-subtitle">Test Design Axes</div>
+            <ul class="axes-list">
+                <li>Cache capacity = 1 (most aggressive eviction — every put evicts)</li>
+                <li>get on a nonexistent key (must return -1)</li>
+                <li>get updates LRU order so the gotten key survives the next eviction</li>
+                <li>put on an existing key (no size increase — must overwrite)</li>
+                <li>Eviction order precisely matches LRU semantics</li>
+            </ul>
+
+            <div class="panel-subtitle">Problem 039: LRU Cache</div>
+            <div class="test-table-wrapper">
+                <table class="test-table">
+                    <thead>
+                        <tr><th>Type</th><th>Input Pattern</th><th>Operation Sequence</th><th>Expected Key Result</th><th>What It Tests</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="pill pill-basic">Basic</span></td><td>Standard example</td><td><code>cap=2: put(1,1) put(2,2) get(1) put(3,3) get(2)</code></td><td>get(2) = -1</td><td>Key 2 was the LRU when key 3 was inserted</td></tr>
+                        <tr><td><span class="pill pill-boundary">Boundary</span></td><td>Capacity = 1</td><td><code>put(1,10) put(2,20) get(1)</code></td><td>get(1) = -1</td><td>Every put immediately evicts the previous key</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>get updates recency</td><td><code>cap=2: put(1,1) put(2,2) get(1) put(3,3) get(2) get(1)</code></td><td>get(2)=-1, get(1)=1</td><td>get(1) promoted key 1, so it was not evicted</td></tr>
+                        <tr><td><span class="pill pill-condition">Condition</span></td><td>put on existing key</td><td><code>cap=2: put(1,1) put(1,2) get(1)</code></td><td>get(1) = 2</td><td>Overwrite without increasing cache size</td></tr>
+                        <tr><td><span class="pill pill-corner">Corner</span></td><td>get then put same key</td><td><code>cap=1: put(1,1) get(1) put(1,99) get(1)</code></td><td>get(1) = 99</td><td>Key updated in place — value and recency both change</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div><!-- end tab-content-wrapper -->
+
+    <!-- FOOTER QUICK REFERENCE -->
+    <div class="footer-section">
+        <h2><i class="fa-solid fa-bolt"></i> Quick Reference Card</h2>
+        <div class="qref-table-wrapper">
+            <table class="qref-table">
+                <thead>
+                    <tr>
+                        <th>Algorithm Type</th>
+                        <th>Critical Boundary</th>
+                        <th>Critical Condition</th>
+                        <th>Most Common Corner</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Binary Search</td><td>empty array, single element</td><td>target not found (between elements)</td><td>all elements equal</td></tr>
+                    <tr><td>Two Pointers</td><td>empty / 2-element input</td><td>only one pointer ever moves</td><td>all identical elements</td></tr>
+                    <tr><td>Sliding Window</td><td>k=0, k=n</td><td>shrink never / always triggers</td><td>all same value</td></tr>
+                    <tr><td>Graph DFS / BFS</td><td>no edges, single node</td><td>cycle present</td><td>diamond (shared parent, no cycle)</td></tr>
+                    <tr><td>Dynamic Programming</td><td>empty / single element</td><td>no solution path exists</td><td>all same value</td></tr>
+                    <tr><td>Tree</td><td>null root, leaf node</td><td>left-heavy vs right-heavy</td><td>linear (all-left or all-right) tree</td></tr>
+                    <tr><td>Intervals</td><td>empty input, single interval</td><td>touching at exactly one point</td><td>one interval contains another</td></tr>
+                    <tr><td>Heap / Priority Queue</td><td>k=1, k=n</td><td>all elements equal</td><td>all negative values</td></tr>
+                    <tr><td>Stack</td><td>empty string, single element</td><td>unmatched closing bracket</td><td>deeply nested matching structure</td></tr>
+                    <tr><td>Palindrome</td><td>empty string, single char</td><td>even vs odd length</td><td>all same character</td></tr>
+                    <tr><td>Linked List</td><td>single node</td><td>remove the head node</td><td>two-node list</td></tr>
+                    <tr><td>Design (LRU)</td><td>capacity = 1</td><td>get() updates recency order</td><td>put on an existing key</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>
+
+<script>
+    function switchTab(event, id) {
+        document.querySelectorAll('.tab-panel').forEach(function(p) {
+            p.classList.remove('active');
+        });
+        document.querySelectorAll('.tab-btn').forEach(function(b) {
+            b.classList.remove('active');
+        });
+        document.getElementById('tab-' + id).classList.add('active');
+        event.currentTarget.classList.add('active');
+    }
+</script>
+</body>
+</html>
