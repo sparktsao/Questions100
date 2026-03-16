@@ -33,185 +33,188 @@ Return the maximum number of elements that can be removed from `queries`, such t
 ### Example 1
 **Input:** `nums = [2,0,2], queries = [[0,2],[0,2],[1,1]]`
 **Output:** `1`
-**Explanation:**
-- After removing queries[2] (which is [1,1]), we still have [[0,2],[0,2]]
-- Using query [0,2] twice, we can decrement each position by up to 2
-- This is sufficient to zero out [2,0,2]
-- Maximum removals: 1
 
 ### Example 2
 **Input:** `nums = [1,1,1,1], queries = [[1,3],[0,2],[1,3],[1,2]]`
 **Output:** `2`
-**Explanation:**
-- We can remove 2 queries and still convert nums to zero array
-- For example, removing queries[2] and queries[3] leaves [[1,3],[0,2]]
-- These remaining queries can cover all positions
 
 ### Example 3
 **Input:** `nums = [1,2,3,4], queries = [[0,3]]`
 **Output:** `-1`
-**Explanation:**
-- nums cannot be converted to zero array even using all queries
-- We need at least 4 decrements at index 3, but only have 1 query covering it
-- Return -1 since transformation is impossible
-
-### Example 4
-**Input:** `nums = [0,0,0], queries = [[0,2]]`
-**Output:** `1`
-**Explanation:**
-- nums is already a zero array
-- We can remove all queries, maximum removal is 1
 
 ---
 
-## Optimal Solution
+## Approach Progression: From Simple to Optimal
 
-### Key Insight
+### Step 1 — Feasibility Check via Prefix Sum (Problem I)
 
-At each position, we need exactly `nums[position]` queries actively covering it. We greedily **commit** queries only when forced, always picking the one with the furthest end — it stays useful for future positions longest. The total committed queries is the minimum we must keep, so:
+**Question:** Given ALL queries applied, can the array become zero?
 
+Use a **difference array**: `diff[l] += 1`, `diff[r+1] -= 1` for each query.
+Prefix-sum `diff` gives the coverage count at each position.
+If `coverage[i] >= nums[i]` everywhere → feasible.
+
+```python
+def isZeroArray(nums, queries):
+    diff = [0] * (len(nums) + 1)
+    for l, r in queries:
+        diff[l] += 1
+        diff[r + 1] -= 1
+    coverage = 0
+    for i in range(len(nums)):
+        coverage += diff[i]
+        if coverage < nums[i]:
+            return False
+    return True
 ```
-max removals = len(queries) - total_selected
+
+**Time:** O(n + q) | **Space:** O(n)
+
+This is the building block: it tells us whether a *given fixed set* of queries can zero the array.
+
+---
+
+### Step 2 — Binary Search on k (Problem II)
+
+**Problem II variant:** Each query has value `val` (decrement by val). Find the **minimum k** such that using the first `k` queries is sufficient.
+
+**Key insight:** The property is **monotonic** — if first `k` queries work, so does `k+1`.
+→ Binary search on `k` ∈ `[0, m]`, use the prefix-sum feasibility check from Step 1.
+
+```python
+def minZeroArray(nums, queries):
+    n, m = len(nums), len(queries)
+
+    def can(k):
+        diff = [0] * (n + 1)
+        for i in range(k):
+            l, r, val = queries[i]
+            diff[l] += val
+            diff[r + 1] -= val
+        cur = 0
+        for i in range(n):
+            cur += diff[i]
+            if cur < nums[i]:
+                return False
+        return True
+
+    if all(x == 0 for x in nums):
+        return 0
+    left, right, ans = 1, m, -1
+    while left <= right:
+        mid = (left + right) // 2
+        if can(mid):
+            ans = mid
+            right = mid - 1
+        else:
+            left = mid + 1
+    return ans
 ```
 
-### Two Heaps
+**Time:** O((n + q) log q) | **Space:** O(n)
 
-| Heap | Type | Stores | Meaning |
-|------|------|--------|---------|
-| `available` | max-heap (negated) | query end positions | Candidates not yet committed |
-| `active` | min-heap | query end positions | Committed queries still covering current position |
+---
 
-### Algorithm
+### Why Step 2 Fails for Problem III
 
-For each `position` in `nums`:
-1. **Enqueue** all queries whose `start == position` into `available`
-2. **Expire** committed queries from `active` whose `end < position`
-3. **Commit** greedily from `available` until `len(active) == nums[position]`
-   - If `available` is empty before coverage is met → return `-1`
-   - Skip any available query already expired (`end < position`)
-4. After all positions: return `len(queries) - total_selected`
+Problem III asks: **which** queries can be removed to **maximize** removals while still keeping the array zeroable?
 
-### Why Greedy (Pick Furthest End) is Correct
+Binary search on k only works when "use first k queries" is the right framing.
+Here, we need to **select the optimal subset** — we cannot assume the best subset is always a prefix of any sorted order.
 
-When forced to commit a new query at position `p`, picking the one with the largest `r` is optimal because:
-- All candidates in `available` share `l <= p`, so they all cover the current position equally
-- A larger `r` means the query remains in `active` longer, reducing how many new commits future positions need
-- Picking a shorter `r` wastes a slot — it expires sooner and forces an extra commit later
+- Sort by `l`? Doesn't help — two queries with same `l` but very different `r` need different treatment.
+- Sort by `r`? Doesn't help — a query with large `r` might be redundant OR critical depending on what else is selected.
+- Binary search on "how many to keep"? The subset isn't a prefix of any fixed ordering.
 
-### Implementation
+**Conclusion:** We need to decide, position by position, *which* queries to commit — and commit as few as possible.
+
+---
+
+### Step 3 — Two Heaps + Greedy (Problem III, Optimal)
+
+**Core idea:** Walk positions left-to-right. At each position, only commit a query when forced (coverage falls short). When forced, always pick the query with the **furthest end** — it stays active longest and helps future positions most.
+
+**Why furthest end is greedy-correct:**
+At position `p`, all candidates in `available` have `l ≤ p`, so they all cover `p` equally.
+A larger `r` means it stays in `active` longer → fewer forced commits later.
+Picking a smaller `r` wastes a slot and forces an extra commit sooner.
+
+| Heap | Type | Stores | Role |
+|------|------|--------|------|
+| `available` | max-heap (negated end) | not-yet-committed queries | candidates we CAN pick |
+| `active` | min-heap (end) | committed queries | currently covering this position |
+
+**Algorithm per position:**
+1. Push all queries starting here into `available`
+2. Pop expired queries from `active` (`end < position`)
+3. While `len(active) < nums[position]`: commit from `available` (furthest end first)
+4. If `available` empty before coverage met → return `-1`
 
 ```python
 import heapq
-from typing import List
 
-class Solution:
-    def maxRemoval(self, nums: List[int], queries: List[List[int]]) -> int:
+def maxRemoval(nums, queries):
+    queries.sort()          # sort by start index
+    available = []          # max-heap: -(end), candidates not yet committed
+    active = []             # min-heap: end, committed and still covering pos
+    total_selected = 0
+    q_index = 0
 
-        # Sort queries by start index
-        queries.sort()
+    for position in range(len(nums)):
 
-        n = len(nums)
+        # 1. Enqueue newly eligible queries
+        while q_index < len(queries) and queries[q_index][0] == position:
+            heapq.heappush(available, -queries[q_index][1])
+            q_index += 1
 
-        # available: max-heap (store -end)
-        # Meaning: queries we CAN choose but haven't chosen yet
-        available = []
+        # 2. Expire committed queries that no longer cover this position
+        while active and active[0] < position:
+            heapq.heappop(active)
 
-        # active: min-heap (store end)
-        # Meaning: queries we HAVE chosen and still cover current position
-        active = []
+        # 3. Commit greedily until coverage == nums[position]
+        while len(active) < nums[position]:
+            if not available:
+                return -1
+            furthest_end = -heapq.heappop(available)
+            if furthest_end < position:     # already expired, skip
+                continue
+            heapq.heappush(active, furthest_end)
+            total_selected += 1
 
-        total_selected = 0  # total number of queries we permanently select
-        q_index = 0         # pointer for queries
-
-        for position in range(n):
-
-            # --------------------------------------------------
-            # 1. Add newly available queries into candidate pool
-            # --------------------------------------------------
-            while q_index < len(queries) and queries[q_index][0] == position:
-                end = queries[q_index][1]
-                heapq.heappush(available, -end)  # max-heap via negation
-                q_index += 1
-
-            # --------------------------------------------------
-            # 2. Remove expired active queries
-            # These queries were selected before,
-            # but no longer cover this position.
-            # NOTE: removing from active does NOT unselect them —
-            # they are still counted in total_selected.
-            # --------------------------------------------------
-            while active and active[0] < position:
-                heapq.heappop(active)
-
-            # --------------------------------------------------
-            # 3. Ensure coverage is enough
-            # If current coverage < nums[position],
-            # we are FORCED to commit more queries.
-            # --------------------------------------------------
-            while len(active) < nums[position]:
-
-                # No available query left to save us
-                if not available:
-                    return -1
-
-                # Greedy: pick the query that ends furthest —
-                # it helps future positions most
-                furthest_end = -heapq.heappop(available)
-
-                # If it already expired, skip it
-                if furthest_end < position:
-                    continue
-
-                # Commit this query permanently
-                heapq.heappush(active, furthest_end)
-                total_selected += 1  # never decreased
-
-        # Maximum removable = total queries - minimum selected
-        return len(queries) - total_selected
+    return len(queries) - total_selected
 ```
 
-### Complexity Analysis
+**Time:** O(n log q + q log q) | **Space:** O(q)
 
-**Time: O(n log q + q log q)**
-- Sorting queries: O(q log q)
-- Each query pushed/popped from `available` at most once: O(q log q)
-- Each query pushed/popped from `active` at most once: O(q log q)
+---
 
-**Space: O(q)** — both heaps hold at most all queries
-
-### Walkthrough
+## Walkthrough
 
 ```
-nums = [1, 1, 1], queries = [[0,0], [1,1], [2,2]]
+nums = [2, 0, 2], queries = [[0,2],[0,2],[1,1]]  (sorted already)
 
-position=0: available=[0], active=[]
-  need 1, commit end=0 → active=[0], total_selected=1
+pos=0: available=[-2,-2], active=[]
+  need 2 → commit end=2, commit end=2
+  active=[2,2], total_selected=2
 
-position=1: available=[1], active=[] (0 expired)
-  need 1, commit end=1 → active=[1], total_selected=2
+pos=1: available=[-1], active=[2,2]
+  need 0 → nothing to do
 
-position=2: available=[2], active=[] (1 expired)
-  need 1, commit end=2 → active=[2], total_selected=3
+pos=2: available=[-1], active=[2,2]
+  need 2, len(active)=2 ✓
 
-Result: 3 - 3 = 0  ✓ (each query covers exactly one unique index)
+Answer: 3 - 2 = 1  ✓
 ```
 
-```
-nums = [2, 0, 2], queries = [[0,2], [0,2], [1,1]]
-Sorted: [[0,2], [0,2], [1,1]]
+---
 
-position=0: available=[-2,-2], active=[]
-  need 2, commit end=2 → active=[2], total_selected=1
-         commit end=2 → active=[2,2], total_selected=2
+## Summary: When to Use What
 
-position=1: available=[-1], active=[2,2]
-  need 0, no commits needed
-
-position=2: available=[-1], active=[2,2]  ([1] expired from available but never committed)
-  need 2, len(active)=2 already ✓
-
-Result: 3 - 2 = 1  ✓
-```
+| Problem | Question | Approach | Why |
+|---------|----------|----------|-----|
+| I | Can ALL queries zero the array? | Prefix sum / diff array | Just check coverage ≥ need |
+| II | Min k queries (first k) needed? | Binary search on k + prefix sum | Monotonic: more queries never hurt |
+| III | Max queries removable? | Two heaps + greedy | Must choose optimal subset; greedy by furthest-end is provably optimal |
 
 ---
 
